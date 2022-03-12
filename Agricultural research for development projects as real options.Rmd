@@ -1,0 +1,642 @@
+---
+title: Agricultural research for development projects as real options
+author:
+  - name: Benjamin Schiek
+    email: alice@example.com
+    affiliation: Some Institute of Technology
+    corresponding: alice@example.com
+  - name: Bob Security
+    email: bob@example.com
+    affiliation: 
+      - Another University
+      - Some Institute of Technology
+address:
+  - code: Some Institute of Technology
+    address: Department 1, Street, City, State, Zip
+  - code: Another University
+    address: Department 2, Street, City, State, Zip
+abstract: |
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
+  
+bibliography: mybibfile.bib
+output: rticles::plos_article
+csl: plos.csl
+---
+
+# Intro/lit review
+
+@newton2004real
+@pennings1997option, @lint1998r
+@hull9thEdition
+@trigeorgis1993real
+@d2021valuation compound research option
+@fredberg2007real
+@rozsa2015real real options as link between financial and strategic decisionmaking
+@cox1976valuation
+@merton1976option
+<!-- MacMillan and MacGrath, 2016, "Crafting R&D project portfolios" -->
+<!-- https://www.tandfonline.com/doi/abs/10.1080/08956308.2002.11671522 -->
+
+Points:
+
+* General review and description of the arguments in favor of real options, including criticism and pitfalls to look out for
+
+* Differences between financial options/corporate real options and not for profit real options
+
+* Far from market, not-for-profit entities, not traded, R&D products released as public goods in developing countries, AR4D not a risk neutral world
+
+* gbm is a matter of judicious aggregation and choice of time step.
+
+In very broad terms, such projects can be broken into three distinct phases: 1) the research and development phase, 2) deregulation and/or launch of the research product, and 3) uptake of the product.  In a conventional approach to funding decisions, the net present value (NPV) of the expected future benefits of a given project at the end of stage 3 is calculated, and if the result is negative then the project should be rejected.  It has long been recognized that this approach does not specifically account for the uncertainty that surrounds the expected future impacts of current research, and may thus favor conservative, lower impact projects over riskier projects with potentially higher impact (Hayes & Garvin, 1982).
+
+# Method
+
+# Modeling the evolution of R&D project value
+
+In order to evaluate AR4D projects as real options, it is first necessary to think carefully about how the expected impact (i.e. the value) of AR4D projects changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. A reasonable starting point in this consideration is the observation that changes in project value seem to be of two types: research related and non-research related.
+
+Research related changes in project value generally occur at discrete test points, when new information regarding the effectiveness of the new technology becomes available. [Such changes might occur 0-3 times per year.] Non-research related changes in project value occur as a result of changes in the political, socio-economic, and institutional ecosystem(s) where the new technology is to be released. [These ecosystems are often called "enabling environments" in the literature.] Such changes may include, for example, elections, abrupt changes in government policies, commodity price swings, changes in seed systems and other value chain mechanisms, changes in the security environment, the ebb and flow of public and private sector partnerships to enhance impact, and so forth.
+
+Research related changes occur perhaps 1-4 times per year, while non-research related changes occur with greater frequency, perhaps 1-4 times per quarter. Overall, then, it is reasonable to expect changes in project value to occur every quarter.
+
+This conclusion implies a subtle but fundamental decision to model changes in project value _when they occur_, as opposed to when project managers learn of their occurence. In the corporate R&D context, Pennings and Lint [] take the opposite approach, registering changes in R&D project value only when management becomes aware of the changes through internal analysis and reporting protocols. In other words, they model changes in project value as "information dam breaks", whereby new information affecting project value accumulates for a time until it is suddenly released in a report to management, which only then updates the project's value.
+
+The information dam break approach may be appropriate for R&D at publicly traded companies, where the value of company assets and activities is ultimately defined by the stock market, and hence (in theory) by publicly available information. [Information dam breaks are the bread and butter of many an investment bank. (frontrunning)] In the far-from-market AR4D context, however, ... For the purposes of evaluating the real option value of R&D projects, it is unnecessary to take such nuance into account. And doing so introduces considerable complexity into the model.  [P&L Poisson jump process approach also requires that reporting times be random, whereas reports are typically conducted on a prefigured, periodic---and hence non-random---basis]
+
+The simpler alternative is to assume that changes occur in every time step. The modeling is further simplified by assuming that percentage changes in value from one time step to another follow a . Geometric Brownian motion is a much more versatile model than portrayed in the literature.... "bitter pill" [trigergis]. criticism fat tails etc. starting with Mandelbrot []. but this has led to misconception... [Tankov]. The fact is that gbm remains a highly versatile model capable of representing a wide variety of stochastic processes by adjustments to the volatility parameters. The key question that Pennings and Lint address with their jump model may be formulated as follows: what is the size distribution of changes in project value? The Poisson jump model represents a process in which there are a few substantial changes interspersed among periods of no changes at all. While the gbm model cannot replicate periods of no change exactly, it can approximate such periods arbitrarily closely through adjustments to the volatility parameter.... And recall that it is highly unlikely that there are no changes in project value in any given time step, but rather that there may be long periods of very small changes punctuated by brief periods of large changes. This is perhaps best illustrated by looking at periodograms (Figure ...). [P&L Poisson jump model output differed from the lognormal assumption output by just x% [P&L].]
+
+[For the purposes of evaluating real option value, the question is not so much when exactly the changes occur, but rather their size distribution. In other words not the time domain but the frequency domain that is important.]
+
+# AR4D project option value
+
+straightforward integration
+
+# AR4D program option value
+
+Program level simpler...it is easier to justify the assumption of lognormal changes in every time step since the program level includes numerous projects at various stages of execution... including complementary activities...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Some thought must be given to how the value of a research project evolves over the life of the project. Not an exhaustive treatment, just pulling out some of the elements that seem most relevant to the motivating context.
+
+A general model of the percentage change in project value $\Delta x / x$ over a given time step $\Delta t$ can be written down as follows.
+
+\begin{equation}
+\Delta x / x = m \Delta t + \Delta Q_t
+\end{equation}
+
+Where $m \Delta t$ is a trend or drift term capturing our best ex-ante guess of the project's value at its completion, and $\Delta Q_t$ is the inevitable random shock to that best guess due to unforeseen incidents both under and beyond our control that influence the value positively or negatively.
+
+In the limit $\Delta t \rightarrow 0$,
+
+\begin{equation}
+d x = x m d t + x d Q_t
+\end{equation}
+
+Integrating,
+
+\begin{equation}
+x = k
+\end{equation}
+
+Geometric Brownian motion
+
+\begin{equation}
+\Delta x / x = m \Delta t + s \epsilon \sqrt{\Delta t}
+\label{eq:gbmEq}
+\end{equation}
+
+Where $\epsilon$ is random variable with a standard normal distribution. That is, $\epsilon ~ N(0, 1)$. Properties, successive values are uncorrelated. By definition, then, $\Delta x / x$ is normally distributed with mean $m \Delta t$ and variance $s^2 \Delta t$, i.e. $\Delta x / x ~ N(m \Delta t, s^2 \Delta t)$.
+
+Jump diffusion process, first proposed by Merton [],
+
+\begin{equation}
+\Delta x / x = m \Delta t + s \epsilon \sqrt{\Delta t} + v \Delta q_t(\lambda)
+\end{equation}
+
+Where $\Delta q_t(\lambda)$ is equal to zero with probability $1 - \lambda \Delta t$ or a random jump with probability $\lambda \Delta t$. This is known as a compound Poisson process. rate parameter lambda
+
+Or a Poisson process with drift, discussed by Cox and Ross [] and implemented at Phillips Corporation by Pennings and Lint [],
+
+\begin{equation}
+\Delta x / x = m \Delta t + v \Delta q_t(\lambda)
+\end{equation}
+
+Number and randomness of jumps depends partly whether or not fundamental or blue skies research is included, or whether starting from a proof of concept. If latter, the timing of jumps probably not random, just the size of the jump. The timing will be 1 jump at the end of each of the major research stages depicted in Figure... Pennings and Lint used a Weibull distribution because it gave them the liberty to weight the probability of a positive jump more heavily than a negative jump.
+
+Although not yet discussed in the real options setting, one might also consider fractional Brownian motion with drift. This differs from Brownian motion in equation \ref{eq:gbmEq} because successive values are correlated with each other. Brown/red noise in particular, Because of this, fractional Brownian motion includes sharper changes which in many cases are nearly the same as the discrete jumps in the compound Poisson process.
+
+\begin{equation}
+\Delta x / x = m \Delta t + s \Delta B_H(t)
+\label{eq:gbmEq}
+\end{equation}
+
+with covariance...The Hurst parameter...The power spectrum of such noise is proportionate to the inverse of the frequency. Fractional Brownian motion results when H = 1/2.
+
+However, fractional Brownian motion is notoriously difficult to work with. analytically intractable. SDE equations based on Brownian motion, not yet equally developed for fbm, still an active area of research, requires a considerably more advanced degree of mathematical knowledge
+
+"From  the  observation  that  the  underlying  variable 
+does  not  change  when  no  new  information  arrives,  a 
+geometric  Brownian  motion  that  captures  continuous 
+changes  in  the  value  of  the  underlying  asset  can  be 
+disregarded" [@pennings1997option].
+
+But it does change, we just aren't aware of it yet. Management can be confident in real time awareness of the developments under its direct control (CFTs, etc.), but is unlikely to be aware of every relevant development affecting the success or failure of the project in the institutional political environment, marketing, etc. demand side, enabling environment.
+
+
+Fractional Brownian motion is well approximated by cpp [@li2011approximations; @tankov2003financial] (But: "for stable processes convergence rates range from extremely bad (when there are many jumps in the neighborhood of zero) to very good.") (tankov section 6.3)
+
+gbm and CPP model taken from [@tankov2003financial] algorithm 6.2
+
+
+```{r}
+
+library(tidyverse)
+library(GUIDE)
+
+OVfun <- function(V, K, tau, s, output = "OV"){
+  
+  d1 <- log(P / pIntervene) / (s * sqrt(tau)) + s / 2 * sqrt(tau)
+  d2 <- d1 - s * sqrt(tau)
+  N1 <- pnorm(d1)
+  N2 <- pnorm(d2)
+  
+  OV <- P * N1 + K * (1 - N2)
+
+    if(output == "OV"){
+    out <- OV
+  }
+  
+  if(output == "N2"){
+    out <- N2
+  }
+  
+  if(output == "N1"){
+    out <- N1
+  }
+
+}
+
+#----------------------------------------------------------------------------
+FractDim<-function(Data,graphon=FALSE) {
+  X=Data;N=length(X);
+  jstart=10;jend=floor(10*(log10(N)-1));
+  kvec=c(1:4,floor(2^(c(jstart:jend)/4)));
+  indkend=length(kvec);
+  k=c()
+  AvgLmk=c()
+  err=c()
+  for(indk in 1:indkend)
+  {
+    k=kvec[indk]
+    Xend=c()
+    Xsum=c()
+    Lmk=c()
+    for(m in 1:k)
+    {
+      Xend=floor((N-m)/k)
+      Xsum=sum(abs(X[m+c(1:Xend)*k]-c(0, X[m+c(1:(Xend-1))*k])))
+      Lmk[m]=1/k*1/k*(N-1)/Xend*Xsum
+    }
+    AvgLmk[indk]=mean(Lmk)
+    #  err[indk]=sd(log(Lmk))
+  }
+  x<-log(kvec)
+  y<-log(AvgLmk)
+  q<-lm(y~x)
+  slope<-q$coefficients[2]
+  yintcept<-q$coefficients[1]
+  yfit<-x*slope+yintcept
+  FrDim <- -slope
+  avgRes <- mean(abs(q$residuals))
+  if(graphon==TRUE)
+  {
+    plot(x,y,main="If linear then fractal, w/Fr. Dim = (-)slope",xlab="Ln(k)",ylab="Ln(length of curve with interval k)")
+    z<-line(x,yfit);abline(coef(z),col='blue');z<-NULL
+    #z<-line(x,y);abline(coef(z),col='blue');z<-NULL
+  }
+  #z<-line(x,y);qq=coef(z)
+  #yintcept=qq[1]
+  #FrDim=-qq[2]
+  return(c(FrDim, avgRes, yintcept))
+}
+#----------------------------------------------------------------------------
+# drift <- 0.001
+# cv <- 0.5
+# m <- (1 + sqrt(1 - 2 * cv^2 * drift)) / cv^2
+# s <- m * cv
+gbmFun <- function(tau = 40, m = 0.001, s = 0.003, x0 = 1, randVec = NULL) {
+  if(is.null(randVec)){randVec <- rnorm(tau)}
+  epsilon <- randVec
+  lx <- c(); lx[1] <- log(x0)
+  drift <- (m - s * s / 2)
+  for(t in 2:tau){
+      dBt <-  s * epsilon[t]
+      lx[t] <- lx[t - 1] + drift + dBt
+  }
+  x <- exp(lx)
+  return(x)
+}
+m <- 0.001
+s <- 0.003
+tau <- 400
+x0 <- 1
+x <- gbmFun(tau, m, s, x0, randVec = NULL)
+df_plot <- data.frame(t = 1:tau, x)
+gg <- ggplot(df_plot, aes(x = t, y = x))
+gg <- gg + geom_line()
+acf(diff(log(x)))
+hist(diff(log(x)))
+shapiro.test(diff(log(x)))
+#----------------------------------------------------------------------------
+coloredNoise <- function(N, alpha = 1, scaleIt = T){
+  f <- seq(from=0, to=pi, length.out=(N/2+1))[-c(1,(N/2+1))] # Fourier frequencies
+  f_ <- 1 / f^alpha # Power law
+  RW <- sqrt(0.5*f_) * rnorm(N/2-1) # for the real part
+  IW <- sqrt(0.5*f_) * rnorm(N/2-1) # for the imaginary part
+  fR <- complex(real = c(rnorm(1), RW, rnorm(1), RW[(N/2-1):1]),
+                imaginary = c(0, IW, 0, -IW[(N/2-1):1]), length.out=N)
+  # Those complex numbers that are to be back transformed for Fourier Frequencies 0, 2pi/N, 2*2pi/N, ..., pi, ..., 2pi-1/N
+  # Choose in a way that frequencies are complex-conjugated and symmetric around pi
+  # 0 and pi do not need an imaginary part
+  reihe <- Re(fft(fR, inverse=TRUE)) # go back into time domain
+  if(scaleIt){reihe <- scale(reihe)}
+  return(reihe) # imaginary part is 0
+}
+#----------------------------------------------------------------------------
+# library(somebm)
+
+# x <- fbm(hurst = 0.5, n = 100)
+# mean(x)
+# sd(x)
+# plot(x)
+#----------------------------------------------------------------------------
+#https://stats.stackexchange.com/questions/316291/compound-poisson-process-with-weibull-jumps
+#https://stackoverflow.com/questions/42141996/simulate-compound-poisson-process-in-r
+
+# compoundPoisFunDraft <- function(tau, lambda){
+#   intervalVec <- rexp(tau * 10, rate = lambda)
+#   while(round(intervalVec[1]) == 1){
+#     intervalVec[1] <- rexp(1, rate = lambda)
+#   }
+#   # For step graph
+#   eventTvec <- cumsum(intervalVec)
+#   eventTvec <- eventTvec[eventTvec < tau]
+#   nEvents <- length(eventTvec)
+#   cumShockVec <- cumsum(rnorm(nEvents, mean = 0, sd = 1))
+#   eventTvec <- c(1, eventTvec)
+#   cumShockVec <- c(0, cumShockVec)
+#   nEvents <- length(eventTvec)
+#   if(eventTvec[nEvents] != tau){
+#     eventTvec <- c(eventTvec, tau)
+#     cumShockVec <- c(cumShockVec, cumShockVec[nEvents])
+#     nEvents <- length(eventTvec)
+#   }
+#   df_step <- data.frame(eventTvec, cumShockVec)
+#   # For explicit modeling of Nt per time step
+#   eventTvec <- round(eventTvec)
+#   ind_rm <- which(duplicated(eventTvec))
+#   if(length(ind_rm) != 0){
+#    eventTvec <- eventTvec[-ind_rm]
+#    cumShockVec <- cumShockVec[-ind_rm]
+#    nEvents <- length(eventTvec)
+#   }
+#   Nt <- c()
+#   for(Tt in 1:(nEvents - 1)){
+#     tStart <- eventTvec[Tt]
+#     tFin <- eventTvec[Tt + 1] - 1
+#     Nt[tStart:tFin] <- cumShockVec[Tt]
+#   }
+#   Nt[tau] <- Nt[tFin]
+#   df_Nt <- data.frame(t = 1:tau, Nt)
+#   list_out <- list(df_step, df_Nt)
+#   return(list_out)
+# }
+
+# Algorithm 6.2 in Tankov 2003 Financial modeling with jump processes
+compoundPoisFun <- function(tau, lambda, m_y = 0, s_y = 1, maxiter = 500){
+  N <- rpois(1, lambda * tau)
+  U <- runif(N) * tau
+  U <- round(U)
+  n_iter <- 0; flag <- 1
+  while(flag == 1){
+    n_iter <- n_iter + 1
+      U <- runif(N) * tau
+      U <- round(U)
+    if(sum(duplicated(U)) > 0 & n_iter <= maxiter){
+      flag <- 1
+    }else{
+      flag <- 0
+      if(n_iter == maxiter){
+        print("Reached maxiter without generating duplicate-free event times vec. Dropping duplicates.")
+        U <- U[-which(duplicated(U))]
+      }
+    }
+  }
+  Tt <- U[order(U)]
+  J <- exp(rnorm(N, m_y, s_y)) - 1
+  #---
+  cumJ <- cumsum(J)
+  # For explicit modeling of Yt per time step
+  Yt <- rep(0, tau)
+  Yt[Tt] <- cumJ
+  #---
+  Tt <- c(0, Tt)
+  J <- c(0, J)
+  if(Tt[length(Tt)] != tau){
+    Tt <- c(Tt, tau)
+    J <- c(J, 0)
+  }
+  cumJ <- cumsum(J)
+  df_step <- data.frame(Tt, cumJ)
+  #--------------------------
+  nEvents <- length(Tt)
+  cumYt <- c()
+  for(i in 1:(nEvents - 1)){
+    tStart <- Tt[i]
+    tFin <- Tt[i + 1] - 1
+    cumYt[tStart:tFin] <- cumJ[i]
+  }
+  cumYt[tau] <- cumYt[tFin]
+  df_Yt <- data.frame(t = 1:tau, Yt, cumYt)
+  
+  list_out <- list(df_step, df_Yt)
+  return(list_out)
+
+}
+#----------------------------------------------------------------------------
+
+gbmCPPfun <- function(tau = 40, m = 0, s = 0.1, x0 = 1, Yt = NULL, randVec = NULL) {
+  if(is.null(randVec)){randVec <- rnorm(tau)}
+  epsilon <- randVec
+  drift <- (m - s * s / 2)
+  dBt <- s * epsilon
+  lx <- c(); lx[1] <- log(x0)
+  for(t in 2:tau){
+      dBt <-  s * epsilon[t]
+      lx[t] <- lx[t - 1] + drift + dBt + Yt[t]
+  }
+  x <- exp(lx)
+
+  return(x)
+}
+
+#----------------------------------------------------------------------------
+# redNoise <- function(tau, rho){
+#   whiteNoiseVec <- rnorm(tau)
+#   redNoiseVec <- c()
+#   redNoiseVec[1] <- whiteNoiseVec[1]
+#   for(i in 2:tau){
+#       redNoiseVec[i] <- redNoiseVec[i - 1] * rho + (1 - rho^2)^(1 / 2) * whiteNoiseVec[i]
+#   }
+#   return(redNoiseVec)
+# }
+
+#----------------------------------------------------------------------------
+```
+
+
+
+
+
+```{r}
+
+
+m <- 0
+s <- 0.001
+tau <- 400
+x0 <- 1
+#randVec <- coloredNoise(N = tau, alpha = 1, scaleIt = T)
+#acf(randVec)
+x <- gbmFun(tau, m, s, x0, randVec = NULL)
+df_plot <- data.frame(t = 1:tau, x)
+gg <- ggplot(df_plot, aes(x = t, y = x))
+gg <- gg + geom_line()
+acf(diff(log(x)))
+hist(diff(log(x)))
+shapiro.test(diff(log(x)))
+FractDim(x,graphon=FALSE)
+o <- spectrum(x)
+df <- data.frame(lfreq = log(o$freq), lpwr = log(o$spec))
+df <- df[-c(1), ]
+mod <- lm(lpwr ~ lfreq, df)
+summary(mod)
+alpha <- as.numeric(coefficients(mod)[2])
+yint <- as.numeric(coefficients(mod)[1])
+gg <- ggplot(df, aes(x = lfreq, y = lpwr))
+gg <- gg + geom_line()
+gg <- gg + geom_abline(slope = alpha, intercept = yint)
+gg
+
+rn <- round(runif(1) * 1000)
+#rn <- 905
+#rn <- 517
+rn <- 340
+set.seed(rn)
+tau <- 12 * 4
+lambda <- 0.1
+list_df <- compoundPoisFun(tau, lambda, m_y = 0.05, s_y = 0.3, maxiter = 500)
+df_step <- list_df[[1]]
+gg <- ggplot(df_step, aes(Tt, cumJ))
+gg <- gg + geom_step()
+gg
+df_Yt <- list_df[[2]]
+Yt <- df_Yt$Yt
+m <- 0.01
+s <- 0.04
+x <- gbmCPPfun(tau, m, s, x0, Yt, randVec = NULL)
+df_plot <- data.frame(t = 1:tau, x, Yt)
+gg <- ggplot(df_plot, aes(x = t, y = x))
+gg <- gg + geom_line()
+
+
+
+
+
+Tt <- df_step$Tt
+Tt <- Tt[-c(1, length(Tt))]
+df_plot$x[Tt] <- NA
+df_seg <- data.frame(Tt, y0 = df_plot$x[Tt - 1], y1 = df_plot$x[Tt + 1])
+gg <- ggplot()
+gg <- gg + geom_line(data = df_plot, aes(x = t, y = x))
+gg <- gg + geom_segment(data = df_seg, aes(x = Tt, xend = Tt, y = y0, yend = y1))
+
+
+
+
+
+
+
+
+
+
+
+tau <- 1000
+lambda <- 0.7
+df_step <- compoundPoisFun(tau, lambda)
+gg <- ggplot(df_step, aes(Tt, cumJ))
+gg <- gg + geom_step()
+gg
+x <- df_step$cumJ[-1]
+hist(diff(x) / x[-length(x)], 20) # Paretian stable distribution
+shapiro.test(diff(x) / x[-length(x)])
+hist(diff(x)) # Normal (This actually proven in Privault chap. 20 "Stochastic Calculus for Jump Processes" Proposition 20.7) I think there's a parallel result for red noise?
+shapiro.test(diff(x))
+acf(x) # Lots of serial autocorrelation, more as lambda is higher
+acf(diff(x)) # No autocorrelation
+acf(diff(x) / x[-length(x)]) # No autocorrelation
+FractDim(x,graphon=FALSE)
+df_step$t <- 1:nrow(df_step)
+gg <- ggplot(df_step, aes(t, cumJ))
+gg <- gg + geom_line()
+gg
+
+
+# If intervals removed, the CPP is equivalent to red noise (1 / f^alpha noise, with alpha = 2, fractal dimension of 1.5) Well, alpha=1.88 sometimes, but fd = 1.5
+# If intrvals kept in (Nt), then CPP fractional brownian motion with alpha~1.4-1.85
+#df_Nt <- list_out[[2]]
+#o <- spectrum(df_Nt$Nt)
+o <- spectrum(x)
+df <- data.frame(lfreq = log(o$freq), lpwr = log(o$spec))
+df <- df[-c(1), ]
+mod <- lm(lpwr ~ lfreq, df)
+summary(mod)
+alpha <- as.numeric(coefficients(mod)[2])
+yint <- as.numeric(coefficients(mod)[1])
+gg <- ggplot(df, aes(x = lfreq, y = lpwr))
+gg <- gg + geom_line()
+gg <- gg + geom_abline(slope = alpha, intercept = yint)
+gg
+
+N <- lambda * tau
+x <- coloredNoise(N, alpha = 2, scaleIt = T)
+df <- data.frame(t = 1:N, x)
+gg <- ggplot(df, aes(x = t, y = x))
+gg <- gg + geom_line()
+gg
+
+hist(diff(x) / x[-length(x)], 20) # Paretian stable distribution
+shapiro.test(diff(x) / x[-length(x)])
+hist(diff(x)) # Normal
+shapiro.test(diff(x))
+acf(x) # Lots of serial autocorrelation, more as lambda is higher
+acf(diff(x)) # No autocorrelation
+acf(diff(x) / x[-length(x)]) # No autocorrelation
+FractDim(x,graphon=FALSE)
+
+o <- spectrum(x)
+df <- data.frame(lfreq = log(o$freq), lpwr = log(o$spec))
+#df <- df[-c(1), ]
+mod <- lm(lpwr ~ lfreq, df)
+summary(mod)
+alpha <- as.numeric(coefficients(mod)[2])
+yint <- as.numeric(coefficients(mod)[1])
+gg <- ggplot(df, aes(x = lfreq, y = lpwr))
+gg <- gg + geom_line()
+gg <- gg + geom_abline(slope = alpha, intercept = yint)
+gg
+
+
+
+
+# # # X is some set of Wait times between spikes, below is just an example
+# # X <- c(56, 3, 4, 119, 3, 4, 121, 3, 3, 121, 3, 4, 120, 3, 4, 4, 115)
+# acf <- acf(x,type="covariance")
+# ft <- fft(acf$acf)
+# freq <- (1:nrow(ft))*1000/nrow(ft) #In my case we sample by ms so 1000 hz
+# A <- (Re(ft)^2 + Im(ft)^2)^.5 #amplitude is magnitude
+# PSD <- data.frame(lfreq=log(freq),lA = log(A))
+# gg <- ggplot(PSD, aes(x=lfreq,y=lA)) + geom_line()
+# gg
+
+
+tau <- 40
+lambda <- 0.2
+cpp <- compoundPoisFun(lambda, tau)
+
+nNoise <- rnorm(tau)
+
+# From this post on SO: https://stackoverflow.com/questions/42141996/simulate-compound-poisson-process-in-r
+n <- 0.5 * 1e1
+n.t <- cumsum(rexp(n))
+x <- c(0,cumsum(rnorm(n)))
+#plot(stepfun(n.t, x), xlab="t", ylab="X")
+y <- c(0, stepfun(n.t, x)(n.t))
+
+
+
+tau <- 100
+#randVec <- coloredNoise(N = tau, alpha = 2)
+#plot(randVec)
+EroiTau <- 0.4
+Eroit <- EroiTau
+
+x <- gbmFun(tau, m = 0.01, s = 0.01, x0 = 1, dt = 1 / 4, randVec = NULL)
+#x <- gbm(x0 = 1, mu = 0, sigma = 1, t0 = 0, t = 1, n = tau)
+df <- data.frame(t = 1:tau, x)
+gg <- ggplot(df, aes(t, x))
+gg <- gg + geom_line()
+gg
+
+
+
+
+y0 <- c(1., 2., 4., 3.)
+sfun0  <- stepfun(1:3, y0, f = 0)
+sfun.2 <- stepfun(1:3, y0, f = 0.2)
+sfun1  <- stepfun(1:3, y0, f = 1)
+sfun1c <- stepfun(1:3, y0, right = TRUE) # hence f=1
+sfun0
+summary(sfun0)
+summary(sfun.2)
+
+## look at the internal structure:
+unclass(sfun0)
+ls(envir = environment(sfun0))
+
+x0 <- seq(0.5, 3.5, by = 0.25)
+rbind(x = x0, f.f0 = sfun0(x0), f.f02 = sfun.2(x0),
+      f.f1 = sfun1(x0), f.f1c = sfun1c(x0))
+
+
+```
+
+gbm is a matter of judicious choice of abstraction and time step. parsimony is important too. model fatigue among donors.
+
+
+# 
+
+Ito's Lemma
+
+\begin{equation}
+\Delta f = \left( \frac{\partial f}{\partial} x m x + \frac{\partial f}{\partial t} + \frac{1}{2} \frac{\partial^2 f}{\partial x^2} s^2 x^2 \right) \Delta t + \frac{\partial f}{\partial x} s x \Delta B_t
+\end{equation}
+
+Risk free formula
+
+From Ito's Lemma and geometric brownian motion (equation \ref), it follows that 
+\begin{equation}
+\frac{\partial f}{\partial x} s x - f = - \left( \frac{\partial f}{\partial t} + \frac{1}{2} \frac{\partial^2 f}{\partial x^2} s^2 x^2 \right)
+\end{equation}
+
+The value of the 
+
+
+# Discussion
+
+* Compound options
+
+# References {#references .unnumbered}
