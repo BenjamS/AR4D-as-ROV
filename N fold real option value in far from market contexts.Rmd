@@ -43,23 +43,24 @@ facetTitle_size <- 7
 
 # Introduction
 
-Agricultural research for development (AR4D) scientists are under ever increasing pressure from donors to put a defensible monetary value on their proposed projects. However, AR4D projects tend to be (a) high risk, high reward propositions with (b) long time horizons. They are also (c) far-from-market, or even unfold in the midst of market failures, such that project value and/or changes in value may not be deduced from movements in the prices of commodities or financial securities. Properties (a)-(c) make it extremely difficult to valuate AR4D projects in a way that is meaningfully different from a wild, if educated, guess.
+Agricultural research for development (AR4D) scientists are under ever increasing pressure from donors to put a defensible monetary value on their proposed projects. However, AR4D projects tend to be (a) high risk, (b) high reward propositions with (c) long time horizons. They are also (d) far-from-market, or even unfold in the midst of market failures, such that project value and/or changes in value may not be deduced or projected based on movements in the prices of commodities or financial securities.
 
-There is mounting evidence, meanwhile, that donors have grown disillusioned with the crudeness of AR4D project appraisals---even to the point of disbelief, and a commensurate global decline in AR4D funding levels [@hurley2016returns]. The frustration of scientists and donors alike is compounded by increasingly austere fiscal restrictions on donors' ability to commit to the long time horizons of agricultural research. All of this has contributed to an atmosphere of "ever growing distrust" between donors and research communities [@leeuwis2018reforming].
+Properties (a)-(d) make it extremely difficult to valuate AR4D projects in a way that is meaningfully different from a wild, if educated, guess. With good reason, then, AR4D researchers generally resent the mounting pressure to quantify promising, but distant and uncertain, impacts [@leeuwis2018reforming]. The resentment is evident across other scientific disciplines as well [@Petsko2011; @Moriarty2008]. AR4D donors, meanwhile, have grown disillusioned with the crudeness of AR4D project appraisals---even to the point of disbelief, and a commensurate global decline in AR4D funding levels [@hurley2016returns]. The frustration of scientists and donors alike is compounded by increasingly austere fiscal restrictions on donors' ability to commit to the long time horizons of agricultural research. The upshot is an atmosphere of "ever growing distrust" between donors and research communities [@leeuwis2018reforming].
 
-<!-- Researchers, with good reason, generally resent being forced to place a single value on impacts that may be 15-30+ years off in the future [@Petsko2011; @Moriarty2008; @leeuwis2018reforming]. -->
+Real options valuation [@trigeorgis1993real; @mcgrath2000assessing] presents a potential mechanism by which researchers can 1) provide meaningful, risk-adjusted project appraisals; as well as 2) provide fiscally constrained donors with the flexibility they require to justify long term commitments---by building in an option for the donor to discontinue project funding after a certain amount of time if the project is underperforming. Note that donors effectively have and exercise this option anyway, as AR4D project funding agreements are usually up for renewal/cancelation every 3-5 years. Somewhat unfairly for researchers, default methods of project appraisal fail to price in this option value.
+<!-- can 1) provide meaningful, risk-adjusted project appraisals, 2) secure long term commitments from donors, while at the same time 3) giving donors the flexibility they require to maintain solvent fiscal outlooks. -->
 
-But AR4D projects are also (d) structured in a series of stages, such that, at the end of each stage, there arises a natural opportunity to cancel the remainder of the project if progress up until that point falls below expectations. It stands to reason that fiscally constrained donors could justify long term commitments if given this prerogative. Donors effectively have and exercise this prerogative anyway, as AR4D project funding agreements are typically up for renewal/cancelation every 3-5 years. Another word for this prerogative is "option value". Somewhat unfairly for researchers, default methods of project appraisal do not price in donor option value.
+The application of real option valuation (ROV) to the AR4D context is complicated by the multi-stage structure of most AR4D projects. The ROV concept was originally created for one stage processes, at the end of which there arises a natural opportunity for the investor to withhold part of the funding if progress up until that point falls below expectations. AR4D projects, on the other hand, unfold in a series of stages, each of which may be viewed as the option to withhold funding of the subsequent stage.
+<!-- , if progress up until that point falls below expectations. -->
 
-Real options valuation presents a precise, rigorous way to price in donor prerogative to project appraisals. It also accounts for the high uncertainty (i.e. risk) surrounding expected project impacts. Real options valuation thus presents a potential mechanism by which researchers can 1) provide meaningful, risk-adjusted project appraisals, 2) secure long term commitments from donors (contingent upon successful completion of each stage of research), while at the same time 3) formalizing the flexibility donors require to maintain solvent fiscal outlooks.
-
-The vast real options value literature focuses primarily on single stage projects. Cassimon et al. [-@cassimon2004valuation] extend the method to multi-stage projects in the pharmaceutical context, building on the "compound option" model developed by Geske in the financial context [-@geske1979valuation]. Cassimons et al. coin the phrase "$n$-fold option" to refer to such models. Both Geske and Cassimon et al. derive their models from the Black-Scholes partial differentiation equation [-@black1973valuation]. Here I present an alternative derivation and formulation of the $n$-fold real option value model based on straightforward integration, which some may find more intuitive and instructive---especially if they are unfamiliar with the financial origins of Geske's model. I then apply the derived model to appraise a real $4$-stage AR4D potato project.
+In the pharmaceutical context, Cassimon et al. [-@cassimon2004valuation] extend ROV to multi-stage projects, building on the "compound option" model developed by Geske in the financial context [-@geske1979valuation]. Both Geske and Cassimon et al. derive their models from the Black-Scholes partial differentiation equation [-@black1973valuation]. Here I present an alternative derivation and formulation of the $n$-fold real option value model based on straightforward integration, which some may find more intuitive and instructive---especially if they are unfamiliar with the financial origins of Geske's model. I then apply the derived model to appraise a real $4$-stage AR4D potato project.
+<!-- Cassimons et al. coin the phrase "$n$-fold option" to refer to such models.  -->
 <!-- (where $n$ is the number of project stages) -->
 
-It is first necessary to preface this derivation with a defense of the key assumption of lognormally distributed random changes in project value, which is widely eschewed in both the financial and real options literature as unrealistic or otherwise naive. To further prepare the ground for the main derivation, it is also necessary to redress some confusion in the real options literature regarding the interpretation of an artifact inherited from financial contexts known as "risk-neutral valuation".
+It is first necessary to preface this derivation with a defense of the key assumption of lognormally distributed random changes in project value, which is widely eschewed as unrealistic or otherwise naive. To further prepare the ground for the main derivation, it is also necessary to redress some confusion in the ROV literature regarding the interpretation of an artifact inherited from financial contexts known as "risk-neutral valuation".
 <!-- More specifically, I show that, in far-from-market contexts where the Black-Scholes "no arbitrage" argument does not apply, the Black-Scholes partial differentiation equation -->
 
-Since much of the target audience is probably unfamiliar with the real options literature, I build up to these results incrementally, starting with an introduction to the basic concept. While AR4D is the motivating context for the present work, the $n$-fold model derived here is broadly applicable to any high risk, high reward, multi-stage, far-from-market real option context.
+Since much of the target audience is probably unfamiliar with the real options literature, I build up to these results incrementally, starting with an introduction to the basic concept. While AR4D is the motivating context for the present work, the $n$-fold ROV model derived here is broadly applicable to any high risk, high reward, multi-stage, far-from-market, real option context.
 <!-- * R script included -->
 
 # Literature review
@@ -177,11 +178,11 @@ ROV = e^{-r\tau} E[max(x(T) - K, 0)]\bigr|_{t = \hat{t}} = e^{(m - r) \tau} x(\h
 \label{eq:rov}
 \end{equation}
 
-In the ROV literature, $m$ is usually set equal to $r$ due to an artifact inherited from the financial context called "risk neutral valuation". Farther below, I demonstrate that there is no theoretical or empirical premise for the assumption of risk neutral valuation in far-from-market ROV contexts; and thus no logical premise for setting $m = r$ here.
+In the ROV literature, $m$ is usually set equal to $r$ due to an artifact inherited from the financial context called "risk neutral valuation". Farther below, I demonstrate that there is no theoretical or empirical premise for the assumption of risk neutral valuation in far-from-market ROV contexts, and thus no logical premise for setting $m = r$ here.
 
-## Developing real options intuition
+## Developing real options intuition in the AR4D context
 
-To build intuition, it is instructive to compare graphs of ROV (equation \ref{eq:rov}) and NPV (lefthand side of inequality \ref{eq:npvIneq2}) with respect to the NPV-to-cost ratio $x(0)/K$. In the financial context, this ratio is known as the "moneyness". The option is said to be "in the money" if the ratio is greater than one, "out of the money" if the ratio is less than one, and "at the money" if the ratio equals one. Options with a moneyness ratio well in excess of one are said to be "deep in the money". A generic example is given in the top panel of Figure \ref{fig:rovIllust}. Note that the difference between ROV and NPV shrinks as moneyness is higher. And note that deep in the money ROV does not differ significantly from NPV unless project risk, reflected in the parameter $s$, is sufficiently high.
+To build intuition, it is instructive to compare graphs of ROV (equation \ref{eq:rov}) and NPV (lefthand side of inequality \ref{eq:npvIneq2}) with respect to the NPV-to-cost ratio $x(0)/K$. In the financial context, this ratio is known as the "moneyness". The option is said to be "in the money" if the ratio is greater than one, "out of the money" if the ratio is less than one, and "at the money" if the ratio equals one. Options with a moneyness ratio well in excess of one are said to be "deep in the money". A generic example is given in the top panel of Figure \ref{fig:rovIllust}. Note that the difference between ROV and NPV shrinks as moneyness is higher. And note that deep in the money ROV does not differ significantly from NPV unless project risk, reflected in the volatility parameter $s$, is sufficiently high.
 
 It is also instructive to keep an eye on the term $\Phi(\delta)$, plotted in the lower panel of Figure \ref{fig:rovIllust}. This is the probability that the option will expire in the money, thereby triggering exercise of the option. It therefore makes perfect sense that $\Phi(\delta)$ approaches one as the moneyness is higher; but note that it approaches one slower as project risk is higher.
 
@@ -292,13 +293,13 @@ gg1 + gg2 + plot_layout(ncol = 1, heights = c(1, 1 / 4))
 
 ```
 
-The random variable $x(t)$ is commonly referred to as the "underlying". The term $\Phi(\delta + s \sqrt{\tau})$ is equal to the partial derivative $\partial ROV / \partial x$, and thus provides insight into ROV sensitivity to movements in the underlying. Although not graphed here, it is easy to see that $\Phi(\delta + s \sqrt{\tau})$ will also approach one as the moneyness is higher. This also makes perfect sense. It simply means that, as the probability of exercise grows and ROV becomes indistinguishable from NPV, so likewise do changes in ROV become indistinguishable from changes in NPV.
+The random variable $x(t)$ is commonly referred to as the "underlying". The term $\Phi(\delta + s \sqrt{\tau})$ is equal to the partial derivative $\partial ROV / \partial x$, and thus provides insight into ROV sensitivity to movements in the underlying. Although not graphed here, it is easy to see that $\Phi(\delta + s \sqrt{\tau})$ will also approach one as the moneyness is higher. This also makes perfect sense. It simply means that, as the probability of exercise grows and ROV becomes indistinguishable from NPV, so likewise do changes in ROV become indistinguishable from changes in the underlying NPV.
 
 Figure \ref{fig:rovIllust} illustrates the importance of risk and reward when deciding whether or not to take an ROV approach to project appraisal. The ROV approach is suitable in the AR4D context because AR4D projects tend to be both high reward (i.e., deep in the money) and high risk. If AR4D projects were only high reward, with little risk, then there would be no point in calculating ROV, as it would not differ significantly from NPV.
 
 ## Real options with adandonment value \label{sec:abandVal}
 
-It is easy and worthwhile to extend the ROV formula in equation \ref{eq:rov} to the slightly more general case where the project generates a positive benefit $B$ regardless of whether or not the project is successful. In the AR4D context, $B$ might correspond to the value of new or upgraded labs and testing facilities, and/or improved human capital through training. To accommodate such cases, the ROV formula can be generalized as follows.
+It is easy and worthwhile to extend the ROV formula in equation \ref{eq:rov} to the slightly more general case where the project generates a guaranteed minimum benefit regardless of whether or not the project is successful. In the AR4D context, this guaranteed minimum benefit might correspond to the value of new or upgraded labs and testing facilities, and/or improved human capital through training. Let this guaranteed minimum benefit, also known as the project's abandonment value, be denoted $B$. Then the ROV formula can be generalized to accommodate such cases as follows.
 
 \begin{equation}
 ROV = e^{-r T} E[\max(x(T) - K, B)] \:\:;\:\:\: B \geq 0
@@ -344,18 +345,15 @@ And where it is easy to see that this reduces to equation \ref{eq:rov} when $B =
 
 ## Quantifying project NPV volatility \label{sec:volEst}
 
-AR4D projects are characterized by high, potentially disruptive, expected net benefits, but also by extreme uncertainty surrounding these expected net benefits. Expected project impacts are vulnerable to a host of both research and non-research related factors (to be discussed in more detail farther below), such that they can easily double or halve over the life of the project. Project appraisals that do not price in, or at least provide some treatment of, this vast uncertainty are thus of limited use to prospective donors.
+<!-- As noted above, AR4D projects are characterized by high, potentially disruptive, expected net benefits, but also by extreme uncertainty surrounding these expected net benefits. Expected project impacts are vulnerable to a host of both research and non-research related factors (to be discussed in more detail farther below), such that they can easily double or halve over the life of the project. Project appraisals that do not price in, or at least provide some treatment of, this vast uncertainty are thus of limited use to prospective donors. -->
 <!-- given new additions to or subtractions from the list of countries targeted for release of the new technology. -->
+As noted above, one of the key advantages of ROV is that it provides a mechanism by which to factor uncertainty into project appraisals; and this is achieved through adjustments to the volatility parameter $s$. However, there remains the question of how to calculate or deduce a plausible value for $s$. In the financial context, a direct calculation is possible based on easily accessible historical price time series. In the real options context, direct calculation is generally not possible, since analogous historical project NPV time series data usually do not exist.
 
-One of the appealing advantages of the ROV approach, then, is precisely that it prices in project volatility. However, there remains the question of how to quantify vaolatility. In the financial context, a direct calculation of volatility is possible based on easily accessible historical price time series. In the real options context, direct calculation is generally not possible, since analogous historical project NPV time series data usually do not exist.
+In practice, applied ROV studies generally make an educated guess at the volatility parameter, and then conduct sensitivity analysis around the guess (as, for example, in Majd and Pindyck [-@majd1987time] or Kemna [-@kemna1993case]). While this approach is, in some sense, pragmatic, it is also problematic, because it is difficult to build intuition about what constitutes a plausible value of $s$ for a given project. Sensitivity analysis is one way of building such intuition, but it is a blunt, laborious instrument; and the intuition gained as a result generally does not transfer to other projects. In an alternative, novel approach, Pennings and Lint [-@pennings1997option] directly calculate the volatility parameter based on a painstakingly assembled project NPV time series. While clearly more rigorous than the former approach, this is less expedient and probably not possible under most AR4D time, resource, and data constraints.
 
-In practice, applied ROV studies generally make an educated guess at the volatility parameter, and then conduct sensitivity analysis around the guess (as, for example, in Majd and Pindyck [-@majd1987time] or Kemna [-@kemna1993case]). While this approach is, in some sense, pragmatic, it is also problematic, because it is difficult to build intuition about what constitutes a plausible volatility parameter value for a given project. Sensitivity analysis is one way of building such intuition, but it is a blunt, laborious instrument; and the intuition gained as a result generally does not transfer to other projects. In an alternative, novel approach, Pennings and Lint [-@pennings1997option] directly calculate the volatility parameter based on a painstakingly assembled project NPV time series. While clearly more rigorous than the former approach, this is less expedient and probably not possible under most AR4D time, resource, and data constraints.
+To find an intermediate point on the rigor-pragmatism spectrum, consider: While it is true that research managers (and/or stakeholders and/or the foresight economists conducting the project appraisal) generally do not have an intuitive grasp of the project NPV volatility parameter itself, they do generally have some idea of the uncertainty surrounding project NPV estimates, such that they can be asked to quantify minimum and maximum bounds on project NPV, in addition to the NPV estimation itself. For example, they can say that NPV is $x(\hat{t})$, but that it might be as much as $100 \%$ greater than $x(\hat{t})$ or as little as $50\%$ lower than $x(\hat{t})$. (Or they may give the same information in terms of magnitude, which is then easily transformed into percentage terms.)
 
-To find an intermediate point on the rigor-pragmatism spectrum, consider: While research managers (and/or stakeholders and/or the foresight economists conducting ex-ante impact assessments) generally do not have an intuitive grasp of the project NPV volatility parameter itself, they do generally have some idea of the uncertainty surrounding project NPV estimates, such that they can be asked to quantify minimum and maximum bounds on project NPV, in addition to the NPV estimation itself. For example, they can say that NPV is $x(\hat{t})$, but that it might be as much as $100 \%$ greater than $x(\hat{t})$ or as little as $50\%$ lower than $x(\hat{t})$. [Or they may give a magnitude, which is then easily transformed into percentage terms.]
-
-These upper and lower percentage errors may be interpreted...converted to log returns ln(R + 1)...and then interpreted as the bounds on the $95\%$ confidence interval about the mean of the log return $\mu$
-
-Interpreting these upper and lower percentage errors as the bounds on a $95\%$ confidence interval, both the NPV volatility and the mean NPV growth rate can usually be deduced from this information. If $x(t)$ is a gBm, for example, then the upper and lower percentage errors, $\overline{y}$, $\underline{y}$, may be expressed as follows.
+These upper and lower percentage errors may then be interpreted as the upper and lower bounds on the $95\%$ confidence interval about the expected percentage change in project NPV between the start and end of the project. Another phrase for "percentage change" is "arithmetic return" (call this $R$), which may then be converted to a log return ($y$) by the formula $y = \ln(R + 1)$. Assuming $x(t)$ is follows a gBm, then the upper and lower log returns, $\overline{y}$ and $\underline{y}$, may be expressed as follows.
 
 \begin{equation}
 \begin{split}
@@ -374,7 +372,7 @@ Where $z = 1.96$ is the standard score corresponding to the $95\%$ confidence in
 \end{split}
 \end{equation}
 
-This system of equations may then be solved for the project volatility parameter $s$ and mean growth rate $m$ in terms of the percentage errors, the project time horizon $T$, and the standard score $z$, as follows.
+This system of equations may then be solved for both the project volatility parameter $s$ and mean growth rate $m$ in terms of the upper and lower log returns, the project time horizon $T$, and the standard score $z$, as follows.
 
 \begin{equation}
 \begin{split}
@@ -392,43 +390,29 @@ m &= \frac{1}{2 \tau} \left( \overline{y} + \underline{y} + \frac{(\overline{y} 
 <!-- m <- (mu / tauN + s^2 / 2) -->
 <!-- m <- 1 / (2 * tauN) * (yMax + yMin + (yMax - yMin)^2 / (4 * zBound^2)) -->
 
-The coefficient of variation $s \over m \sqrt{\tau}$ is a handy, normalized measure of project NPV volatility over time. One should not be surprised to see coefficients of variation of 1 or greater in the AR4D context. Since AR4D real options are usually deep in the money, coefficients of variation less than 1 may indicate that there is little point in calculating ROV, as it will probably not differ significantly from the default approach. Note also that, in the process of deducing $s$ and $m$, the expected project NPV log return $\mu$ is calculated, and that the expected project NPV at future times may be calculated by equation \ref{eq:ExT}. These calculations may serve as further checks on the plausibility of chosen parameter values, project NPV estimates, and project NPV upper and lower bounds.
+The coefficient of variation $s \over m \sqrt{\tau}$ is a handy, normalized measure of project NPV volatility over time. One should not be surprised to see high coefficients of variation in the AR4D context. Because AR4D projects are usually deep in the money, a low coefficient of variation may indicate that ROV will not differ significantly from NPV, and that there is thus no point in calculating ROV.
 
-The standard score can of course be adjusted to match the practitioner's idea of a suitable confidence interval defined by the bounds $\overline{y}$ and $\underline{y}$. Note that the system of equations above can still be solved for $m$ and $s$ in the absence of an estimate for one of the bounds $\overline{y}$ or $\underline{y}$, if an estimate for the expected change in NPV $\mu$ can be obtained.
+Note also that, in the process of deducing $s$ and $m$, the expected project NPV log return $\mu$ is calculated, and that the expected project NPV at future times may be calculated by equation \ref{eq:ExT}. These calculations may serve as further checks on the plausibility of parameter values, project NPV estimates, and project NPV upper and lower bounds.
 
-## The $n$-fold real option value of multi-stage AR4D projects \label{sec:resStages}
+The standard score $z$ can of course be adjusted to match the practitioner's idea of a suitable confidence interval defined by the bounds $\overline{y}$ and $\underline{y}$. Note that the system of equations above can still be solved for $m$ and $s$ in the absence of an estimate for one of the bounds $\overline{y}$ or $\underline{y}$, if an estimate for the expected arithmetic return ($E[R]$) or log return $\mu$ can be obtained.
+
+## Formalizing the $n$-fold real option value of multi-stage AR4D projects \label{sec:resStages}
 
 <!-- [@mitchell1988managing] -->
-As mentioned above, AR4D projects typically unfold in a series of stages. While details vary depending on crop, technology, research institution, and project aims and constraints, project stages may be defined very broadly as follows.
+AR4D projects may be broadly divided into conventional breeding projects and transgenic projects. The precise staging of conventional breeding projects must be assessed on a project by project basis, as this varies considerably across crops, technology, and research institution. The emergence of marker assisted breeding further complicates any effort to impose a generic structure on such projects. AR4D transgenic projects, on the other hand, tend to follow the generic four stage process defined below, regardless of crop, technology, and institution. For completeness, a pre-project and post-project stage are also defined, although these typically fall outside of the donor's funding horizon.
 
-Pre-project: A discovery or "blue skies research" stage, during which new technologies are "discovered" through a careful exploration and extension of existing research---in which serendipity plays a key role---in conjunction with a careful assessment and prioritization of research demand, target populations and ecologies, and the relevant socioeconomic enabling environments (particularly seed systems, government policies, institutions, and markets).
+Pre-project: A discovery or "blue skies research" stage, during which new technologies are "discovered" through a careful exploration and extension of existing research---in which serendipity plays a key role---in conjunction with a careful prioritization of research demand. The output of this stage is a new technology proof-of-concept, usually in the form of a novel genotype expressing a set of desired traits, together with a set of recommended farm management practices.
 
-1) A basic replication or scaling up stage, whereby a technology proof-of-concept generated in the discovery stage---typically in the form of a genotype with a novel trait, together with a set of recommended farm management practices---is reproduced in greenhouse and/or confined field trials.
+1) A basic replication or scaling up stage, whereby a technology proof-of-concept generated in the discovery phase is reproduced in greenhouse and/or confined field trials, in conjunction with a more refined assessment and prioritization of research demand, especially target populations and ecologies, and the relevant socioeconomic enabling environments (particularly seed systems, government policies, institutions, and markets).
 
-2) A multi-location, multi-season testing stage, whereby successful specimens generated in the preceding stage are taken for further scaling up and testing under distinct agronomic conditions over multiple cropping seasons. [[Marc - mention marker assisted]]
+2) A multi-location, multi-season testing stage, whereby successful specimens generated in the preceding stage are taken for further confined field trials under distinct agronomic conditions over multiple cropping seasons.
 
-In the case of transgenic research, this is typically followed by:
-
-3) A regulatory dossier stage, wherein detailed agronomic, environmental, and toxicological data, mostly generated during the preceding stages, is compiled into dossier(s) for submission to the National Competent Authorities (NCAs) in the target countries.
+3) A regulatory dossier stage, wherein detailed agronomic, environmental, and toxicological data, mostly generated during the preceding stages, is compiled into dossier(s) for submission to the National Competent Authorities (NCAs) in the countries targeted for release of the new technology.
 
 4) A deregulation stage, during which the regulatory dossier(s) generated during the previous stage is/are submitted to the NCA(s), which may request further clarification and testing of certain aspects of the proposed technology.
 
-In today's increasingly holistic view of AR4D [@klerkx2010adaptive], it may also make sense to enumerate:
-
-Post-project: A release and uptake stage, during which the new technology is made available for distribution to target populations, typically some 2-3 decades after the start of stage 2. This stage depends critically on the quality of the socioeconomic enabling environment in the target countries, in conjunction with engagement from researchers to ensure correct application of the new technology at farm level.
-
-Traditionally, stages 2-5 constitute a single AR4D project. Donors generally do not engage in the discovery phase. Stage 6 involves some additional greenhouse and CFT work to adapt the new technology to the specific country of release. Details may vary widely depending on whether the new technology is released as a public good or under private contract.
-
-<!-- through separate program level arrangements, since investments there are cross-cutting, i.e. they apply across multiple prospective technologies Investments in stage 6 are also cross-cutting to the extent that they involve support of extension services, seed systems, and other value chain mechanisms. -->
-
-The duration of project stages varies depending on technology, crop, and research institution; but, as a general rule, non-transgenic AR4D projects (stages 2-3) last 15-25 years, while transgenic projects (stages 2-5) tend to last 10-15 years. (Increasingly, the longer time horizons of non-transgenic research may be shortened through marker assisted breeding.)
-<!-- Such long time horizons mean vast uncertainty surrounding any estimate of project NPV---on the order of, say, a coefficient of variation of at least $2$. Methods of project valuation that do not take account of such extreme uncertainty are effectively meaningless. As shown above, the ROV approach accommodates uncertainty through the parameter $s$. -->
-<!-- The aims and scope of AR4D projects are typically very ambitious, with disruptive implications across multiple populations if successful. However, they are also extremely risky, with time horizons spanning multiple election cycles, usually in politically volatile developing countries. This means that percentage changes in project NPV  -->
-<!--  the costs of the so-called ‘discovery phase’ are excluded from this study.  -->
-<!-- The cost assessment begins at the clearly defined milestone where the proof-of-concept is  -->
-<!-- completed  and  the  technology  is  ready  for  product  development.  In  the  case  of  LBr  -->
-<!-- potato, that means that the gene sequence, including its regulatory elements, the method  -->
-<!-- of  transformation,  the  expected  level  of  expression  in  the  target  organ,  the  stage  of  -->
+Post-project: A release and uptake stage, during which the new technology is made available for distribution in the target populations and environments. This stage depends critically on the quality of the socioeconomic enabling environment in the target countries, in conjunction with stewardship from the research institution to ensure correct provision and application of the improved germplasm at the farm level. The holistic "Agricultural Innovation System" view of AR4D considers this stage to be a critical and inseparable part of AR4D projects [@klerkx2010adaptive].
+<!-- The duration of project stages varies depending on technology, crop, and research institution; but, as a general rule, transgenic projects (stages 1-4) tend to last 9-11 years. -->
 <!-- development of the plant, and the trait assessment, are all known. Thus, none of the costs  -->
 <!-- associated with research and development of the gene constructs or of testing them in  -->
 <!-- transgenic  events  are  included  (cloning  and  testing  different  R  genes,  testing  the  -->
@@ -510,11 +494,11 @@ Farther below, I demonstrate that, if $x(t)$ is lognormally distributed, then so
 
 # Modeling the evolution of AR4D project NPV
 
-When evaluating R&D projects as real options, it becomes necessary to think carefully about how project NPV changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. A reasonable starting point in this consideration is the observation that changes in R&D project value seem to be of two types: research related and non-research related.
+When evaluating AR4D projects as real options, it becomes necessary to think carefully about how project NPV changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. A reasonable starting point in this consideration is the observation that changes in AR4D project value seem to be of two types: research related and non-research related.
 
 Research related changes in project value generally occur at discrete test points, when new information regarding the effectiveness of the new technology becomes available. Non-research related changes in project value occur as a result of changes in the political, socio-economic, and institutional enabling environments where the new technology is to be released. Such changes may include, for example, elections, abrupt changes in government policies, commodity price swings, changes in seed systems and other value chain mechanisms, changes in the security environment, the ebb and flow of public and private sector partnerships to enhance impact, and so forth.
 
-Research related changes occur perhaps 1-4 times per year, while non-research related changes occur with greater frequency, perhaps 1-4 times per quarter. Overall, then, it is reasonable to expect changes in AR4D project value to occur every quarter as in the left panel of Figure \ref{fig:NPVevol}.
+Research related changes occur perhaps 1-4 times per year, while non-research related changes occur with greater frequency, perhaps 1-4 times per quarter. Overall, then, it is reasonable to expect changes in AR4D project value to occur every quarter, as in the left panel of Figure \ref{fig:NPVevol}.
 
 ```{r Fig2, fig.show = "hold", fig.width = 6, fig.height=3, fig.align="center", fig.cap="\\label{fig:NPVevol}(Left) NPV changing every time step. (Right) NPV changing only in certain time steps.", echo = FALSE}
 
@@ -766,31 +750,32 @@ gg_gbm + gg_cpp + plot_layout(nrow = 1)
 
 ```
 
-This conclusion implies a subtle but fundamental decision to model changes in R&D project value _when they occur_, as opposed to when project managers learn of their occurrence. In the corporate R&D context, Pennings and Lint [-@pennings1997option] take the opposite approach, registering changes in R&D project value only when management becomes aware of the changes through internal analysis and reporting protocols. In other words, they model changes in project value as "information dam-breaks", whereby new information affecting project value accumulates for a time until it is suddenly released in a report to management, which only then updates the project's value. Such a model of project NPV evolution is depicted in the right panel of Fig. \ref{fig:NPVevol}.
-
-The information dam-break approach may be appropriate for corporate R&D, where the value of company assets and activities is ultimately defined by the stock market, and hence (in theory) by publicly available information. (Indeed, information dam-breaks are the premise of frontrunning, and hence the bread and butter of many an investment bank.) In the far-from-market R&D context, however, no such nuance comes into play.
+This conclusion implies a subtle but fundamental decision to model changes in R&D project value _when they occur_, as opposed to when project managers learn of their occurrence. In the corporate R&D context, Pennings and Lint [-@pennings1997option] take the opposite approach, registering changes in project NPV only when management becomes aware of the changes through internal analysis and reporting protocols. In other words, they model changes in project value as "information dam-breaks", whereby new information affecting project value accumulates for a time until it is suddenly released in a report to management, at which time the project value is updated. Such a model of project NPV evolution is depicted in the right panel of Figure \ref{fig:NPVevol}. This approach may be appropriate for corporate R&D, where the value of company assets and activities is ultimately defined by the stock market, and hence (in theory) by publicly available information.
+<!-- The information dam-break approach -->
+<!-- (Indeed, information dam-breaks are the premise of frontrunning, and hence the bread and butter of many an investment bank.) In the far-from-market R&D context, however, no such nuance comes into play. -->
 
 Whether the evolution of project NPV (or of any stochastic process) resembles the time series on the left or right of Figure \ref{fig:NPVevol} is, to a certain degree, a mere matter of the choice of time step. That is to say, the time series on the left can be transformed into to something resembling the time series on the right merely by plotting over a smaller time step. Likewise, the model on the right can be transformed into the model on the left by plotting over sufficiently large time step. The model on the right becomes unavoidable when said sufficiently large time step results in an unacceptably small number of time steps. In the AR4D context, this is generally not a problem. Projects typically last 9-25 years, such that, given a quarterly time step, the project NPV time series typically contains 36-100 steps.
 
-The time series on the left of Figure \ref{fig:NPVevol} is an example of geometric Brownian motion (gBm), while the time series on the right is a compound Poisson process (algorithm 6.2 in Cont and Tankov [-@tankov2003financial]). The compound Poisson process (cPp) assumes that changes in value occur at random time intervals. This is fine in the financial context, but may be problematic in real options contexts, where the information affecting project NPV is released through reports to management---events that are usually, at least in the AR4D context, non-random.
+The time series on the left of Figure \ref{fig:NPVevol} is an example of gBm, while the time series on the right is a compound Poisson process (algorithm 6.2 in Cont and Tankov [-@tankov2003financial]). The compound Poisson process (cPp) assumes that changes in value occur at random time intervals. This is fine in the financial context, but may be problematic in real options contexts, where the information affecting project NPV is released through reports to management---events that are usually, at least in the AR4D context, non-random.
 
 ## In defense of the gBm model of project NPV
 
 <!-- [Rejection of the gBm model in ROV contexts is partly inherited from the financial context, where gBm is generally viewed as a naive model of price movements. fat tails--debunked by Tankov, jumps--as discussed above, an artifact of the dam-break model, not a concern in ROV contexts, plus jumps can be closely approximated by gBm. en fin, gBm is much more versatile than it is generally given credit for.] -->
-Like Pennings and Lint, many real options authors reject the gBm model, preferring instead to select a model which they perceive to more accurately approximate the real time evolution of project NPV. But this comes at a substantial loss of expedience, as the closed form expression in equation \ref{eq:rov} must be replaced by considerably less tractable, less transparent, and less instructive expressions, up to and including numerical methods. Trigeorgis once characterized numerical methods as the unavoidable "bitter pill" that every serious ROV practitioner must come to grips with [-@trigeorgis1993real].
+Like Pennings and Lint, many real options authors reject the gBm model, preferring instead to select a model which they perceive to more accurately approximate the real time evolution of project NPV. But this comes at a substantial loss of expedience, as the closed form expression in equation \ref{eq:rov} must be replaced by considerably less tractable, less transparent, and less instructive expressions, up to and including numerical methods. Trigeorgis once characterized numerical methods as an unavoidable "bitter pill" that every serious ROV practitioner must come to grips with [-@trigeorgis1993real].
 
-It seems safe to say, in hindsight, that energetic proponents of ROV like Trigeorgis have overestimated the appetite for bitterness outside of academic audiences. Adoption of ROV thinking by real world decision makers has remained low [@horn2015use; @triantis2005realizing; @driouchi2012real]. ROV critics and proponents alike attribute the tepid reception to the formal complexity of ROV, much of which can be traced back to the use of numerical methods [@triantis2005realizing]. From the perspective of research donors and managers, numerical methods are effectively black boxes. Even ROV experts find themselves bamboozled at times. The much cited numerical exercise by Majd and Pindyck [-@majd1987time], for example, contains an elementary error, which was only discovered some ten years after publication [@milne2000time].
+It seems safe to say, in hindsight, that energetic ROV proponents like Trigeorgis have overestimated the appetite for bitterness outside of academic audiences. Adoption of ROV thinking by real world decision makers has remained low [@horn2015use; @triantis2005realizing; @driouchi2012real]. ROV critics and proponents alike attribute the tepid reception to the formal complexity of ROV, much of which can be traced back to the use of numerical methods [@triantis2005realizing]. From the perspective of research donors and managers, numerical methods are effectively black boxes; and even ROV experts find themselves bamboozled at times. The much cited numerical exercise by Majd and Pindyck [-@majd1987time], for example, contains an elementary error, which was only discovered some twelve years after publication [@milne2000time].
 <!-- [---enough so, at any rate, to warrant some revisiting of the matter:] -->
 <!-- The case for complex ROV approaches weakens further when considering what is gained in return for sacrificing expedience. Pennings and Lint find only a $2\%$ difference between the the output of their cPp numerical model and that of the gBm closed form model [-@pennings1997option]. To what extent is an increase in modeling realism even meaningful in a context where direct measurement of the reality one aspires to approximate---i.e., the evolution of project NPV---is highly problematic? Is the costly increase in realism even relevant to the aims of the modeling exercise? Is there an alternative, less costly way of achieving the same ends? -->
 <!-- 33.1 - 32.3 -->
 
-In any methodological decision, there is usually a tradeoff between realism and expedience. The job of the modeler is thus not merely to maximize realism, but to strike the optimal balance between realism and expedience under the particular time and resource constraints of the modeling exercise at hand, and in a way that is clearly relevant to the particular objectives of the exercise. This is especially true in real world decision making contexts, where constraints are considerably more severe than in academic contexts. [And it must be kept in mind that donor patience for long, technical explanations, must be counted among the resources in short supply.]
+In any methodological decision, there is usually a tradeoff between realism and expedience. The job of the modeler is thus not merely to maximize realism, but to strike the optimal balance between realism and expedience under the particular time and resource constraints of the modeling exercise at hand, and in a way that is clearly relevant to the particular objectives of the exercise. This is especially true in real world decision making contexts, where constraints are considerably more severe than in academic contexts. And the patience of project donors and managers for arcane technical explanations must be counted among the resources that are in short supply.
 
-Before making costly methodological decisions in the name of realism, then, one must carefully consider 1) to what extent an "increase in realism" is even meaningful, i.e., to what extent it is possible to define and measure the reality one aspires to model; 2) whether the proposed increase in realism is actually relevant to the objectives of the modeling exercise, or whether it is just realism for realism's sake; and 3) whether there is a simpler, less costly way to achieve the same increment in realism, or the same modeling objectives which the increment in realism is supposed to serve. [One must also be careful of merely replacing one unrealistic artifact with another.] 
+Before making costly methodological decisions in the name of realism, then, one must carefully consider 1) to what extent an "increase in realism" is even meaningful, i.e., to what extent it is possible to define and measure the reality one aspires to model; 2) whether the proposed increase in realism is actually relevant to the objectives of the modeling exercise, or whether it is just realism for realism's sake; and 3) whether there is a simpler, less costly way to achieve the same increment in realism, or the same modeling objectives which the increment in realism is supposed to serve.
+<!-- [One must also be careful of merely replacing one unrealistic artifact with another.]  -->
 
-In the financial context, the reality one aspires to model---i.e. some stochastic financial process, usually a price series---is well defined in the form of historical time series that can be easily downloaded, measured, analyzed, etc. In far-from-market R&D contexts, by contrast, analogous historical time series of project NPV generally do not exist. The reality one aspires to model must be perceived indirectly, based primarily on assumptions and logic, as I have just done above. So, in far-from-market real options contexts, it is not even entirely clear what one gets in return for sacrificing expedience.
+In the financial context, the reality one aspires to model---i.e. some stochastic financial process, usually a price series---is well defined in the form of historical time series that can be easily downloaded, measured, analyzed, etc. In the far-from-market AR4D context, by contrast, analogous historical time series of project NPV generally do not exist. The reality one aspires to model must be perceived indirectly, based primarily on rational assumptions and logic, as I have just done above. So, in far-from-market real options contexts, it is not even clear what one gets in return for sacrificing expedience.
 
-Then there is the question of the relevance of the increase in realism. In the financial context, the relevance of a realistic model of the time evolution of specific stochastic processes is clear. That is, it can make the difference between profit and loss. In far-from-market real options contexts, on the other hand, there is no real need for a good predictor of exactly when or in what order specific changes in project NPV occur. The overarching purpose of modeling project NPV is to calculate its real option value; and for this, the relevant question is rather one of the size distribution of changes. The cPp model might seem more realistic than the gBm model when trying to approximate a time series in which there are a few big changes interspersed by long periods of no change. However, the gBm model can approximate such a time series arbitrarily closely, so long as it is acceptable to substitute "periods of no change" with "periods of negligibly small changes". The periodograms given in Figure \ref{fig:NPVevol2}, which correspond to the time series in the previous Figure, indicate that the size distribution of changes of the two time series is similar, despite their differences in the time domain.
+Then there is the question of the relevance of the increase in realism. In the financial context, the relevance of a realistic model of the time evolution of financial securities is clear: it can make the difference between profit and loss. In far-from-market real options contexts, on the other hand, there is no real need for a good predictor of exactly when or in what order specific changes in project NPV occur. The overarching purpose of modeling project NPV is to calculate its real option value; and for this, the relevant question is rather one of the size distribution of changes. The cPp model might seem more realistic than the gBm model when trying to approximate a time series in which there are a few big changes interspersed by long periods of no change. However, the gBm model can approximate such a time series arbitrarily closely, so long as it is acceptable to substitute "periods of no change" with "periods of negligibly small changes". The periodograms given in Figure \ref{fig:NPVevol2}, which correspond to the time series in the previous Figure, indicate that the size distribution of changes of the two time series is similar, despite their differences in the time domain.
 
 ```{r Fig2, fig.show = "hold", fig.width = 6, fig.height=3, fig.align="center", fig.cap="\\label{fig:NPVevol2}(Left) Periodogram of the time series in the left panel of previous figure. (Right) Periodogram of the time series in the right panel of previous figure.", echo = FALSE}
 
@@ -798,7 +783,7 @@ gg_gbmSpec + gg_cppSpec + plot_layout(nrow = 1)
 
 ```
 
-This then answers the final question of whether or not a comparable increase in realism, or the objective which the desired increase in realism is supposed to serve, may be achieved at lower cost. In the case of cPp, the graphic above  suggests that yes, the same realism may be achieved at no cost of expedience by using the gBm model. This closeness is reflected, for example, in the results of Pennings and Lint, who find only a $2\%$ difference between ROV as calculated by their cPp-based numerical model and ROV as calculated by the gBm-based closed form model [-@pennings1997option].
+This then answers the final question of whether or not a comparable increase in realism, or the objective which the desired increase in realism is supposed to serve, may be achieved at lower cost. In the case of cPp, the graphic above  suggests that yes, the same realism may be achieved, at no cost of expedience, by using the gBm model. This closeness is reflected, for example, in the results of Pennings and Lint, who find only a $2\%$ difference between ROV as calculated by their cPp-based numerical model and ROV as calculated by the gBm-based closed form model [-@pennings1997option].
 <!-- Given all the research and non-research factors affecting project NPV, it is highly unlikely that there is not at least a small, if negligible, perturbation in NPV in every time step, in which case the gBm model is the more realistic choice (when modeling project NPV evolution as it happens, as opposed to the information dam-break approach). -->
 <!-- The question is not when changes in NPV occur, but rather how often do substantial changes to NPV occur? In more technical terms, what is the size distribution of changes? In order to answer this question, it is more instructive to look at the signal's periodogram, not its evolution in the time domain. This can be examined by looking at a periodogram. Model 1 can effectively approximate model 2 to an arbitrary degree of precision by tuning the uncertainty parameter $s$ (Figure \ref)..... A few substantial changes followed by relatively long periods of little change. [The Poisson jump model represents a process in which there are a few substantial changes interspersed among periods of no changes at all. While the gbm model cannot replicate periods of no change exactly, it can approximate such periods arbitrarily closely through adjustments to the volatility parameter.... And recall that it is highly unlikely that there are no changes in project value in any given time step, but rather that there may be long periods of very small changes punctuated by brief periods of large changes. This is perhaps best illustrated by looking at periodograms (Figure ...).] -->
 <!-- Geometric Brownian motion is a much more versatile model than portrayed in the literature.... "bitter pill" [trigergis]. criticism fat tails etc. starting with Mandelbrot []. but this has led to misconception... [Tankov]. The fact is that gbm remains a highly versatile model capable of representing a wide variety of stochastic processes by adjustments to the volatility parameters. The key question that Pennings and Lint address with their jump model may be formulated as follows: what is the size distribution of changes in project value?  [P&L Poisson jump model output differed from the lognormal assumption output by just x% [P&L].] -->
@@ -807,7 +792,6 @@ This then answers the final question of whether or not a comparable increase in 
 <!-- ## Low adoption of real options thinking due to complexity -->
 <!-- Despite a flood of academic interest in ROV following Myers' initial insight, adoption of the real options approach by real world decision makers remains low [@horn2015use; @triantis2005realizing; @driouchi2012real]. ROV critics and proponents alike attribute this tepid reception to the formal complexity of evaluating and explaining ROV as compared to the default NPV approach [@triantis2005realizing]. -->
 <!-- Much of this complexity can be traced back to two sources. Firstly, there is the frequent and puzzling assumption of risk neutral valuation in far-from-market real options contexts, just mentioned above. Secondly, many authors reject the key assumption that project NPV evolution may be modeled as a gBm, preferring instead to evaluate equation \ref{eq:rovRaw} by numerical methods that are considerably less tractable, transparent, and instructive than equation \ref{eq:rov}. Trigeorgis, for example, calls numerical methods a "bitter pill" that every serious ROV practitioner must come to grips with [-@trigeorgis1993real]. -->
-
 <!-- Before deriving the $n$-fold ROV model, it is first necessary to redress these two sources of confusion in detail. It seems safe to say, in hindsight, that energetic ROV proponents like Trigeorgis may have overestimated the appetite for bitterness outside of academic audiences. After this introductory section, I preface the derivation of the $n$-fold ROV model with a defense of the gBm model of project NPV, followed by a repudiation of risk neutral valuation in far-from-market real options contexts. -->
 <!--   present arguments in defense of gBm as a model of far-from-market project NPV. In particular, I note that the a as a much more versatile model than it is given credit for. -->
 <!-- Secondly, there is confusion regarding the interpretation, in real options contexts, of the financial artifact known as "risk-neutral valuation". -->
@@ -818,11 +802,12 @@ This then answers the final question of whether or not a comparable increase in 
 <!-- Many consider the assumption of lognormally distributed NPV unrealistic. This is to some degree rooted in the original financial context, where the assumption of lognormal security returns is widely viewed as naive... -->
 <!-- Bibby and Sorensen [@bibby1996hyperbolic] -->
 <!-- Pennings and Lint []. .  misconception [Tankov]. -->
+
 # No premise for risk-neutral valuation in far-from-market real options contexts
 
 Another major source of complexity resulting in low adoption of ROV thinking regards the confused interpretation, in real options contexts, of the financial artifact known as "risk-neutral valuation".
 
-The derivation of equation \ref{eq:rov} in the Appendix via the method of straightforward integration is atypical of the ROV literature. Most authors instead cite the Black-Scholes partial differentiation equation [-@black1973valuation] as the source of the ROV formula. The method of straightforward integration is followed here because it is considerably simpler than the Black-Scholes approach, and is stripped of financial trappings. In financial contexts, the Black-Scholes approach is advantageous because it generates a whole class of functional forms known as the "financial derivatives", of which the European call option formula (the financial analogue to equation \ref{eq:rov}) is just one.
+The derivation of equation \ref{eq:rov} in the Appendix via the method of straightforward integration is atypical of the ROV literature. Most authors instead cite the Black-Scholes partial differentiation equation [-@black1973valuation] as the source of the ROV formula. The method of straightforward integration is followed here because it is a considerably simpler method, and is stripped of financial trappings. In financial contexts, the Black-Scholes approach is advantageous because it generates a whole class of functional forms known as the "financial derivatives", of which the European call option formula (the financial analogue to equation \ref{eq:rov}) is just one.
 
 More importantly, the Black-Scholes approach reveals, as a by-product, the deep result known as the principle of risk-neutral valuation: If it is not possible to make risk-free profits above the risk-free rate of return (the "no-arbitrage" rule), then investors are risk-neutral, i.e. "investors do not increase the expected return they require from an investment in order to compensate for increased risk" [@hull9thEdition]. Mathematically, this means that the $m$ in equation \ref{eq:rov} must be set equal to $r$ (where $r$, in financial contexts, refers to the risk-free rate of return).
 
@@ -1072,12 +1057,12 @@ An R script of this algorithm is included in the Appendix.
 
 # An illustrative example of real option valuation of an AR4D project
 
-Below I apply the $n$-fold option value model derived above to valuate a real AR4D project currently in implementation. The aim of the project is to develop a transgenic potato variety with resistance to Late Blight disease (henceforth LBr potato), for release as a public good in one or more developing countries. The LBr potato project follows the 4 stage structure described in section \ref{sec:resStages}. The costs and time duration associated with each stage are summarized in Table 1, based on figures documented in Schiek et al. [-@schiek2016demys].
+Below I apply the $n$-fold option value model derived above to valuate a real AR4D project currently in implementation. The aim of the project is to develop a transgenic potato variety with resistance to Late Blight disease (henceforth LBr potato), for release as a public good in one or more developing countries. The LBr potato project follows the four stage structure described in section \ref{sec:resStages}. The costs and time duration associated with each stage are summarized in Table 1, based on figures documented by Schiek et al. [-@schiek2016demys]. All values are given in terms of current US dollars.
 
-Late Blight is the disease behind the infamous Irish Potato Famine of 1845-1849; and continues to pose a major threat to food security, especially in the developing world [@]. Successful research and development of LBr potato varieties adapted to local environments is thus a potentially very high reward, disruptive proposition. It is also a high risk proposition, facing numerous research and non-research related challenges, not least of which is a strong "anti-GM" lobby in many of the target populations.
+Late Blight is the disease behind the infamous Irish Potato Famine of 1845-1849; and continues to pose a major threat to food security, especially in the developing world [@haverkort2008societal; @fry2008phytophthora]. Successful research and development of LBr potato varieties adapted to local environments is thus a potentially very high reward, disruptive proposition. It is also a high risk proposition, facing numerous research and non-research related challenges, not least of which is a strong "anti-GM" lobby in many of the target populations.
 <!-- Costs are assessed as the sum of staff costs, direct operating costs (including lab bench costs), indirect operating costs (overhead), external contract costs, and stewardship costs. -->
 
-The donor, USAID, originally awarded the LBr potato research contract to Cornell University in 2010 (?), with planned release in India. However, stage 1 research and development at Cornell was unsuccessful. In 2015, USAID transferred the contract to Michigan State University (MSU), which proposed a different stage 1 research strategy, with planned release in Bangladesh and Indonesia instead of India. India was dropped as a target country partly because of the vigorous anti-GM lobby there, which made stage 4 success unlikely. MSU completed stage 1 successfully in 2019 (?), and USAID has recently awarded them a new contract for stage 2 research and development.
+The donor, USAID, originally awarded the LBr potato research contract to Cornell University in 2010 (?), with planned release in India. However, stage 1 research and development at Cornell was unsuccessful. In 2015, USAID transferred the contract to Michigan State University (MSU), which proposed a different stage 1 research strategy, with planned release in Bangladesh and Indonesia instead of India. India was dropped as a target country partly because of the vigorous anti-GM lobby there, which made stage 4 (deregulation) success unlikely. MSU completed stage 1 successfully in 2019 (?), and USAID has recently awarded them a new contract for stage 2 research and development.
 <!-- USAID-ABSP II program -->
 <!-- The project occurred in 4 distinct stages: 1) Late Blight resistant (LBr) event production and selection, 2) Wide area testing, 3) Compilation of the regulatory dossier, and 4) Registration and regulatory affairs. -->
 <!-- In stage 1, the lead gene construct was developed in a target potato variety, and a small number of transgenic events exhibiting high resistance to Late Blight, as well as a number of other qualities (absence of backbone vector sequences, minimum number copy number of R genes, etc.) were screened from a large number of explants. -->
@@ -1100,6 +1085,68 @@ FitFlextableToPage <- function(ft, pgwidth = 6){
   ft_out <- width(ft_out, width = these_colWidths)
   return(ft_out)
 }
+
+#============================================================================
+#============================================================================
+# End function definition
+#============================================================================
+#============================================================================
+# Project stage time durations and costs
+# (Values given in chronologically reverse order, starting with stage n.)
+# Kvec[1] is the launch cost, Tvec[1] is the launch duration.
+# Time durations given in years, multiplied by 4 to convert to quarters.
+# MSU/cornell
+# Tvec <- c(2, 3.5, 1, 2, 4) * 4
+# Kvec <- c(300000, 200000, 400000, 400000, 530000)
+Tvec <- c(2, 3, 0.85, 1.7, 3.4) * 4
+Kvec <- c(250000, 181000, 312000, 336000, 530000)
+# Kvec <- c(180541, 311974, 335530, 530250)
+# CIP
+# Kvec <- c(52000, 213000, 396000, 929000)
+# Tvec <- c(1, 0.25, 2, 4.75) * 4
+#----------------------------------------------------------------------------
+# Create table summarizing stage costs, time durations, and descriptions
+stage1desc <- "Basic replication and scaling up"
+stage2desc <- "Multi-location/season testing"
+stage3desc <- "Compilation of the regulatory dossier"
+stage4desc <- "Deregulation"
+launchDesc <- "Launch in 2 countries"
+descVec <- c(stage1desc, stage2desc, stage3desc, stage4desc, launchDesc)
+
+df_table <- data.frame(Stage = c(1:4, "Launch"),
+                       Kn = rev(Kvec),
+                       Duration = rev(Tvec),
+                       DurationCum = cumsum(rev(Tvec)),
+                       Description = descVec)
+
+colnames(df_table)[2:4] <- c("Cost (USD)", "Duration (quarters)", "Cumulative duration")
+
+df_table <- regulartable(df_table)
+df_table
+#df_table <- width(df_table, width = 0.7)
+df_table <- FitFlextableToPage(df_table)
+
+table_title <- "Table 1: Project to research and develop Late Blight resistant potato for release as a public good in 2 developing countries."
+
+```
+
+In real options language, USAID bought a 4-fold option on LBr potato when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then effectively bought a second 4-fold option on LBr potato when it transferred the contract to MSU. The first stage of the 4-fold option has expired in the money, whereupon it has become a 3-fold option.
+
+In the present exercise, I use the $n$-fold ROV model derived in the previous section to calculate the 4-fold real option value of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 (multi-location, multi-season confined field trials) once stage 1 is complete. In order to make the calculation, the model requires the research stage costs $K_1, K_2, \dots, K_4$ and time horizons $T_1, T_2, \dots, T_4$ listed in Table 1, as well as:
+
+* The post-project launch cost $K_0$
+
+* The project NPV $x(0)$
+
+* The project NPV growth rate $m$ and volatility $s$, or the upper and lower bounds on project NPV, whereby $m$ and $s$ can be deduced
+
+* Any abandonment values associated with each stage $B_1, B_2,\dots, B_4$
+
+* The discount rate $r$
+
+```{r, echo = FALSE}
+
+# Define functions
 #----------------------------------------------------------------------------
 # N-fold ROV w/abandonment value function
 rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, m, r){
@@ -1145,48 +1192,12 @@ rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, m, r){
   return(df_out)
   
 }
-
 #============================================================================
 #============================================================================
 # End function definition
 #============================================================================
 #============================================================================
-# Project stage time durations and costs
-# (Values given in chronologically reverse order, starting with stage n.)
-# Kvec[1] is the launch cost, Tvec[1] is the launch duration.
-# Time durations given in years, multiplied by 4 to convert to quarters.
-# MSU/cornell
-# Tvec <- c(2, 3.5, 1, 2, 4) * 4
-# Kvec <- c(300000, 200000, 400000, 400000, 530000)
-Tvec <- c(2, 3, 0.85, 1.7, 3.4) * 4
-Kvec <- c(250000, 181000, 312000, 336000, 530000)
-# Kvec <- c(180541, 311974, 335530, 530250)
-# CIP
-# Kvec <- c(52000, 213000, 396000, 929000)
-# Tvec <- c(1, 0.25, 2, 4.75) * 4
-#----------------------------------------------------------------------------
-# Create table summarizing stage costs, time durations, and descriptions
-stage1desc <- "Basic replication and scaling up"
-stage2desc <- "Multi-location/season testing"
-stage3desc <- "Compilation of the regulatory dossier"
-stage4desc <- "Deregulation"
-launchDesc <- "Launch in 2 countries"
-descVec <- c(stage1desc, stage2desc, stage3desc, stage4desc, launchDesc)
-
-df_table <- data.frame(Stage = c(1:4, "Launch"),
-                       Kn = rev(Kvec),
-                       Duration = rev(Tvec),
-                       DurationCum = cumsum(rev(Tvec)),
-                       Description = descVec)
-
-colnames(df_table)[2:4] <- c("Cost (USD)", "Duration (quarters)", "Cumulative duration")
-
-df_table <- regulartable(df_table)
-df_table
-#df_table <- width(df_table, width = 0.7)
-df_table <- FitFlextableToPage(df_table)
-
-table_title <- "Table 1: Project to research and develop Late Blight resistant potato for release as a public good in 2 developing countries."
+# Define parameters
 #---------------------------------------------------------------------------
 # Set abandonment value to 0 for starters
 # Separate out the stage 4 cost and total time horizon less launch time
@@ -1264,6 +1275,53 @@ etaNm10_wB <- round(df$etaNm10[n], 2)
 #NPV <- exp(-r * sum(Tvec)) * (X0 - sum(Kvec))
 conv <- exp((m - r) * Tn) * x0 - sum(exp(-r * rev(cumsum(rev(Tvec[-1])))) * (Kvec[-(n + 1)] - Bvec))
 dif_conv_wB <- conv - K1
+
+```
+
+The research stage costs and time horizons used in the calculation are based on Cornell's and MSU's real experiences with LBr potato research [@schiek2016demys]. The other parameters must be filled in with hypothetical values.
+
+USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. However, there are good reasons for using a much lower rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing]. As a compromise between the two extremes, an annual (discrete) discount rate of `r rYrly_discrete` is assumed in this exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation. Abandonment values are assumed to be zero for the time being.
+
+No ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet been published. For the pedagogical purposes of this exercise, say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating an LBr project NPV of $x(0)=\$$`r x0`, with a high degree of uncertainty ranging from $-$ `r 100 * yMin` $\%$ to $+$`r 100 * yMax`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ and quarterly growth rate $m$ are deduced following the method explained in section \ref{sec:volEst}. These work out to $m = $ `r m` (`r round(((1 + m)^4 - 1), 1)` annually) and $s = $ `r s`.
+
+As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced values for $m$ and $s$. The coefficient of variation works out to `r cv`, while the log return works out to `r mu`. This then implies an expected project NPV at the end of the project of $\$$`r ExT` USD, the present value of which is $\$$`r ExTdisc` USD.
+<!-- For public projects The annual discount rate is set equal to a social discount rate of $0.035$, following the recommendation of Moore et al. [-@moore2004just], which implies a quarterly discount rate of $r = $`r r`.-->
+<!-- (Alston and Norton acknowledged in 1995 that the treatment of risk in impact assessment models was "rudimentary and in need of further refinement" [-@Alston1995]. Unfortunately, this remains true today.) If ex-ante risk assessments are not available, then they can be elicited in the survey of domain experts. Project risk might be crowdsourced, for example, by asking survey participants to estimate the maximum, minimum, and most probable impact of each given project. With these three inputs, it is then straightforward to compute standard deviation on the basis of an assumed project impact probability density. (For example, the minimum and maximum could be interpreted as the bounds of the 95% confidence interval of a lognormal probability density, and the "most probable impact" could be interpreted as its mode. From this it is then straightforward to derive the standard deviation.) -->
+<!-- Discount rate [@caplin2004social; @moore2004just; @harrison2010valuing] -->
+<!-- In the default approach, this would look like... -->
+<!-- \begin{equation} -->
+<!-- e^{(m - r) T_2} x_0 - e^{-rT_2}K_2 - e^{-rT_1}K_1 -->
+<!-- \end{equation} -->
+<!-- Then, in general, -->
+<!-- \begin{equation} -->
+<!-- e^{(m - r) T_N} x_0 - e^{-rT_N}K_N - e^{-rT_{N - 1}}K_{N - 1} - \dots - e^{-rT_{1}}K_{1} -->
+<!-- \end{equation} -->
+
+```{r, echo=FALSE}
+
+
+df_table <- df[, c("Stage", "OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
+#df_tabwB <- df_wB[nrow(df_wB), c("OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
+colnames(df_table)[2:ncol(df_table)] <- c("ROV", "Underlying", "Elasticity", "Standard dev.", "Phi 2")
+
+df_table <- regulartable(df_table)
+#df_table <- width(df_table, width = 0.7)
+df_table <- FitFlextableToPage(df_table)
+df_table
+
+```
+
+Based on the values of $x_0$, $m$, $s$, and $r$, and the research stage costs and time horizons in Table 1, the 4-fold option value of the LBr potato project (equation \ref{eq:rovBn}) works out to $\$$`r ROV` USD, which exceeds the stage 1 implementation cost ($\$$`r Kvec[n]`) by $\$$`r dif` (Table 2). Hence the investment is justified under the parameter settings defined above.
+
+The conventional CBA approach (expression \ref{eq:npvIneqN2}), by contrast, works out to $\$$`r conv`, which falls below the stage 1 cost by $\$$`r -dif_conv`. On a conventional CBA basis, then, the LBr project would be rejected.
+
+The ROV approach provides additional output, also reported in Table 2, that may be of use in decision making. The probability of stage 1 research expiring in the money ($\Phi(\delta_4)$) is an encouraging `r Phi2`, while the elasticity of the 4-fold ROV with respect to project NPV is a moderate `r etaNm10`, meaning that a $1\%$ change in project NPV results in a `r etaNm10`$\%$ change in the underlying.
+
+Since the 4-fold option value is calculated recursively, the 3-fold, 2-fold, and 1-fold options are calculated and reported in the process, along with their respective probabilities of expiring in the money and elasticities with respect to project NPV. It may be of interest to note that the 3-fold, 2-fold, and 1-fold options are deep in the money with a probability of expiring in the money close to 1. This suggesting that funding of stages 2, 3, and 4 will be easy to justify if researchers can just manage to clear the stage 1 hurdle successfully.
+<!-- `r round(dif)` -->
+
+```{r, echo=FALSE}
+
 #--------------------------------------------------------------------------
 # Define slack function for root finding function
 slackfun <- function(x0, Kvec, Bvec, Tvec, s, m, r, thresh){
@@ -1331,59 +1389,12 @@ x0bEven <- out[[1]]
 
 ```
 
-In real options language, USAID bought a 4-fold option on LBr potato when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then effectively bought a second 4-fold option on LBr potato when it transferred the contract to MSU. The first stage of the 4-fold option has expired in the money, whereupon it has become a 3-fold option.
-
-In the present exercise, I calculate the 4-fold real option value of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund multi-location, multi-season confined field trials once stage 1 is complete.
-
-This is for purely pedagogical purposes, and should not be interpreted as a rigorous justification for impact assessment of LBr potato. The stage costs and time horizons used in the valuation are based on those of a real LBr potato project; but the project NPV and launch cost are hypothetical. Results can vary considerably depending on the chosen discount rate.
-<!-- This is for purely pedagogical purposes hypothetical etc. -->
-<!-- using the algorithm provided at the end of the previous section.  -->
-
-launch cost estimate
-
-No published ex-ante impact assessments of LBr potato release in Bangladesh and Indonesia yet exist. For the purposes of this pedagogical exercise, say that MSU and/or USAID internally conducted ex-ante impact assessments indicating a project NPV of $\$$`r x0`, with a high degree of uncertainty ranging from $-$ `r 100 * yMin` $\%$ to $+$`r 100 * ymax`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ and quarterly growth rate $m$ are deduced following the method explained in section \ref{sec:volEst}. These work out to $m = $ `r m` (`r round(((1 + m)^4 - 1), 1)` annually) and $s = $ `r s`.
-
-As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced values for $m$ and $s$. The coefficient of variation works out to `r cv`, while the log return works out to `r mu`. This then implies an expected project NPV at the end of the project of $\$$`r ExT` USD, the present value of which is $\$$`r ExTdisc` USD.
-
-The quarterly discount rate used in these calculations is `r r`, which works out to an annual discount rate of `r rYrly_discrete`. There are good reasons for using a much lower discount rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing], but this is the discount rate most commonly used by USAID, the donor in this example [@usaid2015cba].
-<!-- For public projects The annual discount rate is set equal to a social discount rate of $0.035$, following the recommendation of Moore et al. [-@moore2004just], which implies a quarterly discount rate of $r = $`r r`.-->
-<!-- (Alston and Norton acknowledged in 1995 that the treatment of risk in impact assessment models was "rudimentary and in need of further refinement" [-@Alston1995]. Unfortunately, this remains true today.) If ex-ante risk assessments are not available, then they can be elicited in the survey of domain experts. Project risk might be crowdsourced, for example, by asking survey participants to estimate the maximum, minimum, and most probable impact of each given project. With these three inputs, it is then straightforward to compute standard deviation on the basis of an assumed project impact probability density. (For example, the minimum and maximum could be interpreted as the bounds of the 95% confidence interval of a lognormal probability density, and the "most probable impact" could be interpreted as its mode. From this it is then straightforward to derive the standard deviation.) -->
-<!-- Discount rate [@caplin2004social; @moore2004just; @harrison2010valuing] -->
-<!-- In the default approach, this would look like... -->
-<!-- \begin{equation} -->
-<!-- e^{(m - r) T_2} x_0 - e^{-rT_2}K_2 - e^{-rT_1}K_1 -->
-<!-- \end{equation} -->
-<!-- Then, in general, -->
-<!-- \begin{equation} -->
-<!-- e^{(m - r) T_N} x_0 - e^{-rT_N}K_N - e^{-rT_{N - 1}}K_{N - 1} - \dots - e^{-rT_{1}}K_{1} -->
-<!-- \end{equation} -->
-
-```{r, echo=FALSE}
-
-
-df_table <- df[, c("Stage", "OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
-#df_tabwB <- df_wB[nrow(df_wB), c("OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
-colnames(df_table)[2:ncol(df_table)] <- c("ROV", "Underlying", "Elasticity", "Standard dev.", "Phi 2")
-
-df_table <- regulartable(df_table)
-#df_table <- width(df_table, width = 0.7)
-df_table <- FitFlextableToPage(df_table)
-df_table
-
-```
-Based on the values of $x_0$, $m$, $s$, and $r$, and the research stage costs and time horizons in Table 1, the 4-fold option value of the LBr potato project (equation \ref{eq:rovBn}) works out to $\$$`r ROV` USD, which exceeds the stage 1 implementation cost ($\$$`r Kvec[n]`) by $\$$`r dif` (Table 2). Hence the investment is justified under the parameter settings defined above.
-
-The conventional CBA approach (expression \ref{eq:npvIneqN2}), by contrast, works out to $\$$`r conv`, which falls below the stage 1 cost by $\$$`r -dif_conv`. On a conventional CBA basis, then, the LBr project would be rejected.
-
-The ROV approach provides additional output, also reported in Table 2, that may be of use in decision making. The probability of stage 1 research expiring in the money ($\Phi(\delta_4)$) is an encouraging `r Phi2`, while the elasticity of the 4-fold ROV with respect to project NPV is a moderate `r etaNm10`, meaning that a $1\%$ change in project NPV results in a `r etaNm10`$\%$ change in the underlying.
-
-Since the 4-fold option value is calculated recursively, the 3-fold, 2-fold, and 1-fold options are calculated and reported in the process, along with their respective probabilities of expiring in the money and elasticities with respect to project NPV. It may be of interest to note that the 3-fold, 2-fold, and 1-fold options are deep in the money with a probability of expiring in the money close to 1. This suggesting that funding of stages 2, 3, and 4 will be easy to justify if researchers can just manage to clear the stage 1 hurdle successfully.
-<!-- `r round(dif)` -->
-
 The exercise so far assumes that abandonment value is zero. Now consider the same exercise, but with a stage 1 abandonment value of $\$$`r Bvec[n]` USD, corresponding to the value of permanent upgrades to human and physical capital at the national agricultural research institutions of the target countries, such that this value will be realized whether or not stage 1 is successful. Then the 4-fold ROV works out to $\$$`r round(ROV_wB)` USD, and the probability of expiring in the money at the end of stage 1 increases to `r Phi2wB`.
 <!-- `r round(dif_npv)` -->
 
 When there is considerable uncertainty or disagreement surrounding project NPV, as in the present example, a better question to ask may be: what is the minimum project NPV required for the donor's investment to break even? That is to say, instead of calculating the $n$-fold ROV based on a dubious project NPV, it may be more useful to deduce the minimum project NPV required for the donor's investment to break even. This is achieved by solving the $n$-fold ROV model implicitly for $x_0$ such that $f_n - K_n = 0$. The audience can then draw its own conclusions about whether or not real project NPV is above or below this minimum threshold. In the present exercise, the break even project NPV works out to $\$$`r x0bEven`.
+
+This is a purely pedagogical exercise to illustrate the use of the $n$-fold ROV model derived in this article. While the exercise is based on real project costs and time horizons, the other parameter values are hypothetical. The resulting calculations should therefore not be interpreted as an authoritative valuation of LBr potato research.
 <!-- Point estimates such as this are of limited use when there is high uncertainty surrounding parameter settings. In such cases, it is better to report ROV in a map format spanning some relevant range of values of the most uncertain parameters. This allows decision makers to quickly discern ROV across a wide range of parameter values, as well as to develop a sense of how sharply ROV varies with these parameters. In other words, it combines ROV estimates and sensitivity analysis in a single reporting format. In the pedagogical example explored here, there is high uncertainty surrounding project NPV. A 3-fold ROV map spanning a range of combinations of upper and lower bounds on the 95% confidence interval is therefore provided in Figure \ref{fig:rovNmap}. -->
 <!-- # ```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:rovNmap}A map of 4-fold real option values across multiple combinations of project NPV minimum and maximum bounds.", echo = FALSE} -->
 <!-- # ROV Map -->
@@ -1498,6 +1509,8 @@ When there is considerable uncertainty or disagreement surrounding project NPV, 
 # Discussion and conclusion
 
 In this article, I have proposed a real options valuation workflow for multi-stage AR4D projects, built around a novel $n$-fold ROV model. The $n$-fold model...
+
+In the example provided above, the project is a transgenic project following a 4-stage process outlined in section \ref.... The precise breakdown of stages may vary in other projects. In some cases, for example, it may make sense to divide stage 2 into two or more stages. The method can be applied just as well to conventional breeding projects, although the particular stages have to be determined case by case. livestock too.
 
 * The proposed workflow is beneficial for researchers and donors alike. From the researchers' perspective, the proposed approach is appealing for two reasons: 1) The ROV approach can account for the wide uncertainty inherent in far-from-market research. Researchers, with good reason, generally resent being forced to place a single value on impacts that may be 15-30+ years off in the future [@Petsko2011; @Moriarty2008; @leeuwis2018reforming]. The proposed workflow allows researchers to accompany such point estimates with a wide error range. 2) The ROV approach prices in the donor's prerogative to discontinue funding of under-performing projects. Donors have long had this prerogative, de facto, but conventional methods of project appraisal omit the value it adds. 3) An accounting mechanism that generally facilitates the long term financial commitments required to fund disruptive research.
 
