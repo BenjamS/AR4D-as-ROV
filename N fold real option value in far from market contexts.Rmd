@@ -8,8 +8,7 @@ address:
   - code: CIAT
     address: Alliance of Bioversity International and CIAT, Km 17 Recta Cali-Palmira, Valle del Cauca, Colombia, CP 763537
 abstract: |
-  Agricultural research for development projects typically consist of three or four stages, each of which may be thought of as an option on the subsequent stage. level, it must be valued as a compound option. I begin with defense of gbm assumption and address the invaidity of the risk-neutral valuation assumption in the context of agricultural research.
-  
+  I adapt real options valuation to multi-stage, far-from-market, high risk, high reward projects (such as agricultural research for development projects). After a brief introduction to the basics of real options valuation, including an extension to projects with abandonment value, I proceed to derive a novel real options valuation model for far-from-market, multi-stage projects. To prepare the ground for this derivation, I first carefully adapt the key assumption of lognormally distributed returns to project net present value to the agricultural research for development context. And I argue that the entrenched assumption of risk-neutral valuation is inappropriate in far-from-market contexts, and demonstrate the mathematical implications of non-risk-neutrality for real options valuation. Based on this groundwork, I then derive the multi-stage or "$n$-fold", far-from-market real option value model. Finally, I walk through an illustrative example of how the model might be used to valuate a real, 4-stage transgenic potato project.
 journal: "Research Policy"
 date: "`r Sys.Date()`"
 bibliography: AR4Drealoptions.bib
@@ -47,6 +46,8 @@ facetTitle_size <- 7
 Agricultural research for development (AR4D) scientists are under ever increasing pressure from donors to put a defensible monetary value on their proposed projects. However, AR4D projects tend to be (a) high risk, high reward propositions with (b) long time horizons. They are also (c) far-from-market, or even unfold in the midst of market failures, such that project value and/or changes in value may not be deduced from movements in the prices of commodities or financial securities. Properties (a)-(c) make it extremely difficult to valuate AR4D projects in a way that is meaningfully different from a wild, if educated, guess.
 
 There is mounting evidence, meanwhile, that donors have grown disillusioned with the crudeness of AR4D project appraisals---even to the point of disbelief, and a commensurate global decline in AR4D funding levels [@hurley2016returns]. The frustration of scientists and donors alike is compounded by increasingly austere fiscal restrictions on donors' ability to commit to the long time horizons of agricultural research. All of this has contributed to an atmosphere of "ever growing distrust" between donors and research communities [@leeuwis2018reforming].
+
+<!-- Researchers, with good reason, generally resent being forced to place a single value on impacts that may be 15-30+ years off in the future [@Petsko2011; @Moriarty2008; @leeuwis2018reforming]. -->
 
 But AR4D projects are also (d) structured in a series of stages, such that, at the end of each stage, there arises a natural opportunity to cancel the remainder of the project if progress up until that point falls below expectations. It stands to reason that fiscally constrained donors could justify long term commitments if given this prerogative. Donors effectively have and exercise this prerogative anyway, as AR4D project funding agreements are typically up for renewal/cancelation every 3-5 years. Another word for this prerogative is "option value". Somewhat unfairly for researchers, default methods of project appraisal do not price in donor option value.
 
@@ -180,9 +181,11 @@ In the ROV literature, $m$ is usually set equal to $r$ due to an artifact inheri
 
 ## Developing real options intuition
 
-To build intuition, it is instructive to graph ROV (equation \ref{eq:rov}) against NPV (lefthand side of inequality \ref{eq:npvIneq2}). A generic example is given in Figure \ref{fig:rovIllust}. Note that ROV differs from NPV only over sufficiently large outlays $K$. Note also that, the smaller the uncertainty $s$, the smaller the range of $K$ over which there is a significant difference.
+To build intuition, it is instructive to compare graphs of ROV (equation \ref{eq:rov}) and NPV (lefthand side of inequality \ref{eq:npvIneq2}) with respect to the NPV-to-cost ratio $x(0)/K$. In the financial context, this ratio is known as the "moneyness". The option is said to be "in the money" if the ratio is greater than one, "out of the money" if the ratio is less than one, and "at the money" if the ratio equals one. Options with a moneyness ratio well in excess of one are said to be "deep in the money". A generic example is given in the top panel of Figure \ref{fig:rovIllust}. Note that the difference between ROV and NPV shrinks as moneyness is higher. And note that deep in the money ROV does not differ significantly from NPV unless project risk, reflected in the parameter $s$, is sufficiently high.
 
-```{r Fig1, fig.show = "hold", fig.width = 3, fig.height=3, fig.align="center", fig.cap="\\label{fig:rovIllust}A hypothetical project's real option value and net present value plotted together over a range of outlays $K$. The black line marks 0, while the dotted red line marks the sunk cost $S$ beneath which the project is rejected. The multiple ROV plots correspond to different levels of uncertainty (s). The higher the uncertainty, the greater the difference between ROV and NPV.", echo = FALSE}
+It is also instructive to keep an eye on the term $\Phi(\delta)$, plotted in the lower panel of Figure \ref{fig:rovIllust}. This is the probability that the option will expire in the money, thereby triggering exercise of the option. It therefore makes perfect sense that $\Phi(\delta)$ approaches one as the moneyness is higher; but note that it approaches one slower as project risk is higher.
+
+```{r Fig1, fig.show = "hold", fig.width = 3, fig.height=4, fig.align="center", fig.cap="\\label{fig:rovIllust}A hypothetical project's real option value and net present value plotted together over a range of moneyness values. The black line marks 0, while the dotted red line marks the sunk cost $S$ beneath which the project is rejected. The multiple ROV plots correspond to different levels of uncertainty (s). The higher the uncertainty, the greater the difference between ROV and NPV.", echo = FALSE}
 
 
 OVfun <- function(X0, K, tau, mm, s, r, output = "OV"){
@@ -209,65 +212,89 @@ OVfun <- function(X0, K, tau, mm, s, r, output = "OV"){
   return(out)
 }
 #===========================================================================
-mm <- 0.02
+mm <- 0.035
 r <- mm
-cv <- seq(1, 6, length.out = 3)
-s <- round(cv * mm, 2)
-X0 <- 10
 tau <- 35
-K <- seq(0.1, 3, length.out = 20) * X0
+cv <- seq(0.5, 2, length.out = 3)
+cvTxt <- c("low", "medium", "high")
+s <- round(cv * mm * sqrt(tau), 2)
+X0 <- 10
+XoK <- seq(0.2, 3, length.out = 50)
+#K <- seq(0.1, 3, length.out = 20) * X0
+K <- X0 / XoK
 NPV <- X0 - exp(-r * tau) * K
 ns <- length(cv)
 list_df <- list()
 for(i in 1:ns){
   this_s <- s[i]
   ROV <- OVfun(X0, K, tau, mm, this_s, r, output = "OV")
-  df <- data.frame(K, cv = as.character(cv[i]), ROV, NPV)
+  Phi2 <- OVfun(X0, K, tau, mm, this_s, r, output = "N2")
+  df <- data.frame(xx = X0 / K, Type = paste("ROV", cvTxt[i], "risk"), Phi2, Value = ROV)
   list_df[[i]] <- df
 }
+df_npv <- data.frame(xx = X0 / K, Type = "NPV", Phi2 = NA, Value = NPV)
+list_df[[ ns + 1]] <- df_npv
 
 df_plot <- as.data.frame(do.call(rbind, list_df))
-df_plot1 <- subset(df_plot, cv == cv[length(cv)])
-df_plot1$cv <- NULL
-df_plot1 <- df_plot1 %>% gather(type, Value, ROV:NPV)
-df_plot2 <- subset(df_plot, cv != cv[length(cv)])
+colnames(df_plot)[1] <- "x(0)/K"
+# df_plot1 <- subset(df_plot, cv == cv[ns])
+# df_plot1$cv <- NULL
+# df_plot1 <- df_plot1 %>% gather(type, Value, ROV:NPV)
+# df_plot2 <- subset(df_plot, cv != cv[ns])
 
-n <- length(unique(df_plot1$type))
+  #n <- length(unique(df_plot1$type))
+n <- ns + 1
 bag_of_colors <- randomcoloR::distinctColorPalette(k = 2 * n)
 color_vec <- sample(bag_of_colors, n)
 
-gg <- ggplot()
-gg <- gg + geom_line(data = df_plot2, aes(x = K, y = ROV,
-                                         group = cv),
-                     color = color_vec[2], lwd = 1)
-gg <- gg + geom_line(data = df_plot1, aes(x = K, y = Value,
-                                          group = type, color = type),
-                     lwd = 1)
+# gg <- ggplot()
+# gg <- gg + geom_line(data = df_plot2, aes(x = `x(0)/K`, y = ROV,
+#                                          group = cv),
+#                      color = color_vec[2], lwd = 1)
+# gg <- gg + geom_line(data = df_plot1, aes(x = `x(0)/K`, y = Value,
+#                                           group = type, color = type),
+#                      lwd = 1)
+#----------------------------------------------------------------------------
+# ROV vs. NPV plot
+gg <- ggplot(df_plot, aes(x = `x(0)/K`, y = Value,
+                          group = Type, color = Type))
+gg <- gg + geom_line(lwd = 1)
 gg <- gg + scale_color_manual(values = color_vec)
-gg <- gg + labs(y = "Value")
+#gg <- gg + labs(y = "Value")
 gg <- gg + geom_hline(yintercept = 2, color = "red", linetype = "dashed")
 gg <- gg + geom_hline(yintercept = 0)
 gg <- gg + theme_bw()
-gg <- gg + theme(axis.text = element_blank(),
+gg <- gg + theme(axis.text.y = element_blank(),
+                 axis.text.x = element_text(size = axisText_size),
                  axis.title = element_text(size = axisTitle_size),
                  legend.title = element_blank(),
                  legend.position = "top",
                  legend.text = element_text(size = legendText_size))
-gg
-
+gg1 <- gg
+#----------------------------------------------------------------------------
+# Phi2 plot
+df_plot <- subset(df_plot, Type != "NPV")
+gg <- ggplot(df_plot, aes(x = `x(0)/K`, y = Phi2,
+                           group = Type, color = Type))
+gg <- gg + geom_line(lwd = 1)
+gg <- gg + scale_color_manual(values = color_vec[-1])
+gg <- gg + labs(y = "Phi 2")
+gg <- gg + theme_bw()
+gg <- gg + theme(
+                 axis.text = element_text(size = axisText_size),
+                 axis.title = element_text(size = axisTitle_size),
+                 legend.title = element_blank(),
+                 legend.position = "none",
+                 legend.text = element_text(size = legendText_size))
+gg2 <- gg
+#----------------------------------------------------------------------------
+gg1 + gg2 + plot_layout(ncol = 1, heights = c(1, 1 / 4))
 
 ```
 
-<!-- [ROV may not be new... old wine in new wine skins []... however, the ROV approach...provides a lot of decision-critical info in its formula...] -->
-<!-- In addition to being a more realistic representation of...  the ROV approach   The terms $\Phi(d)$ and $\Phi(d + s \sqrt{\tau})$ provide additional information that can aid in decision making. -->
+The random variable $x(t)$ is commonly referred to as the "underlying". The term $\Phi(\delta + s \sqrt{\tau})$ is equal to the partial derivative $\partial ROV / \partial x$, and thus provides insight into ROV sensitivity to movements in the underlying. Although not graphed here, it is easy to see that $\Phi(\delta + s \sqrt{\tau})$ will also approach one as the moneyness is higher. This also makes perfect sense. It simply means that, as the probability of exercise grows and ROV becomes indistinguishable from NPV, so likewise do changes in ROV become indistinguishable from changes in NPV.
 
-the underlying
-
-in the money, out of the money, deep in the money, AR4D projects tend to be deep in the money but high risk. if not high risk then there would be no point in applying ROV, would be same as NPV
-
-The term $\Phi(\delta)$ is very instructive. It is the probability of expiring in the money... that $x(T) > K$---in other words, the probability of project success. The term $\Phi(\delta + s \sqrt{\tau})$ is also instructive. It is equal to the partial derivative $\partial ROV / \partial x$, and thus provides insight into the sensitivity of real option value with respect to movements in the underlying project NPV.
-
-
+Figure \ref{fig:rovIllust} illustrates the importance of risk and reward when deciding whether or not to take an ROV approach to project appraisal. The ROV approach is suitable in the AR4D context because AR4D projects tend to be both high reward (i.e., deep in the money) and high risk. If AR4D projects were only high reward, with little risk, then there would be no point in calculating ROV, as it would not differ significantly from NPV.
 
 ## Real options with adandonment value \label{sec:abandVal}
 
@@ -326,7 +353,7 @@ In practice, applied ROV studies generally make an educated guess at the volatil
 
 To find an intermediate point on the rigor-pragmatism spectrum, consider: While research managers (and/or stakeholders and/or the foresight economists conducting ex-ante impact assessments) generally do not have an intuitive grasp of the project NPV volatility parameter itself, they do generally have some idea of the uncertainty surrounding project NPV estimates, such that they can be asked to quantify minimum and maximum bounds on project NPV, in addition to the NPV estimation itself. For example, they can say that NPV is $x(\hat{t})$, but that it might be as much as $100 \%$ greater than $x(\hat{t})$ or as little as $50\%$ lower than $x(\hat{t})$. [Or they may give a magnitude, which is then easily transformed into percentage terms.]
 
-These upper and lower percentage errors may be interpreted as the bounds on the $95\%$ confidence interval about the mean of the log return $\mu$
+These upper and lower percentage errors may be interpreted...converted to log returns ln(R + 1)...and then interpreted as the bounds on the $95\%$ confidence interval about the mean of the log return $\mu$
 
 Interpreting these upper and lower percentage errors as the bounds on a $95\%$ confidence interval, both the NPV volatility and the mean NPV growth rate can usually be deduced from this information. If $x(t)$ is a gBm, for example, then the upper and lower percentage errors, $\overline{y}$, $\underline{y}$, may be expressed as follows.
 
@@ -481,7 +508,7 @@ The exercise cost of a given stage is the cost of implementing the subsequent st
 
 Farther below, I demonstrate that, if $x(t)$ is lognormally distributed, then so is $f_n(t)$. Equation \ref{eq:part1} may therefore be invoked to establish a closed form expression for $f_n(\hat{t})$, if $x(t)$ is lognormally distributed. Before getting to this main result, however, it is first necessary to defend the assumption of lognormal $x(t)$, and to extract far-from-market real options from the thicket of "risk neutral valuation".
 
-# Modeling the evolution of R&D project NPV
+# Modeling the evolution of AR4D project NPV
 
 When evaluating R&D projects as real options, it becomes necessary to think carefully about how project NPV changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. A reasonable starting point in this consideration is the observation that changes in R&D project value seem to be of two types: research related and non-research related.
 
@@ -1185,8 +1212,8 @@ r <- log(1 + rQtly_discrete)
 # Define confidence interval of interest, usually 95% (z = 1.96)
 zBound <- 1.96
 # Max and min log return (pctg error in project NPV) elicited from experts/stakeholders:
-yMax <- 2.55 #1.31
-yMin <- -0.85 #-0.88
+yMax <- log(1 + 2.55) #2.55 #1.31
+yMin <- log(1 - 0.85) #-0.85 #-0.88
 # bTerm <- -(2 * yMin + 8 / 3 * zBound^2)
 # yMax <- 1 / 2 * (-bTerm - sqrt(bTerm^2 + 4))
 # Back out s and m
@@ -1307,14 +1334,18 @@ x0bEven <- out[[1]]
 In real options language, USAID bought a 4-fold option on LBr potato when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then effectively bought a second 4-fold option on LBr potato when it transferred the contract to MSU. The first stage of the 4-fold option has expired in the money, whereupon it has become a 3-fold option.
 
 In the present exercise, I calculate the 4-fold real option value of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund multi-location, multi-season confined field trials once stage 1 is complete.
+
+This is for purely pedagogical purposes, and should not be interpreted as a rigorous justification for impact assessment of LBr potato. The stage costs and time horizons used in the valuation are based on those of a real LBr potato project; but the project NPV and launch cost are hypothetical. Results can vary considerably depending on the chosen discount rate.
 <!-- This is for purely pedagogical purposes hypothetical etc. -->
 <!-- using the algorithm provided at the end of the previous section.  -->
+
+launch cost estimate
 
 No published ex-ante impact assessments of LBr potato release in Bangladesh and Indonesia yet exist. For the purposes of this pedagogical exercise, say that MSU and/or USAID internally conducted ex-ante impact assessments indicating a project NPV of $\$$`r x0`, with a high degree of uncertainty ranging from $-$ `r 100 * yMin` $\%$ to $+$`r 100 * ymax`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ and quarterly growth rate $m$ are deduced following the method explained in section \ref{sec:volEst}. These work out to $m = $ `r m` (`r round(((1 + m)^4 - 1), 1)` annually) and $s = $ `r s`.
 
 As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced values for $m$ and $s$. The coefficient of variation works out to `r cv`, while the log return works out to `r mu`. This then implies an expected project NPV at the end of the project of $\$$`r ExT` USD, the present value of which is $\$$`r ExTdisc` USD.
 
-The quarterly discount rate used in these calculations is `r r`, which works out to an annual discount rate of `r rYrly_discrete`. There are good reasons for using a much lower discount rate when appraising these kinds of projects [-@moore2004just], but this is the discount rate most commonly used by USAID, the donor in this example [].
+The quarterly discount rate used in these calculations is `r r`, which works out to an annual discount rate of `r rYrly_discrete`. There are good reasons for using a much lower discount rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing], but this is the discount rate most commonly used by USAID, the donor in this example [@usaid2015cba].
 <!-- For public projects The annual discount rate is set equal to a social discount rate of $0.035$, following the recommendation of Moore et al. [-@moore2004just], which implies a quarterly discount rate of $r = $`r r`.-->
 <!-- (Alston and Norton acknowledged in 1995 that the treatment of risk in impact assessment models was "rudimentary and in need of further refinement" [-@Alston1995]. Unfortunately, this remains true today.) If ex-ante risk assessments are not available, then they can be elicited in the survey of domain experts. Project risk might be crowdsourced, for example, by asking survey participants to estimate the maximum, minimum, and most probable impact of each given project. With these three inputs, it is then straightforward to compute standard deviation on the basis of an assumed project impact probability density. (For example, the minimum and maximum could be interpreted as the bounds of the 95% confidence interval of a lognormal probability density, and the "most probable impact" could be interpreted as its mode. From this it is then straightforward to derive the standard deviation.) -->
 <!-- Discount rate [@caplin2004social; @moore2004just; @harrison2010valuing] -->
@@ -1353,157 +1384,152 @@ The exercise so far assumes that abandonment value is zero. Now consider the sam
 <!-- `r round(dif_npv)` -->
 
 When there is considerable uncertainty or disagreement surrounding project NPV, as in the present example, a better question to ask may be: what is the minimum project NPV required for the donor's investment to break even? That is to say, instead of calculating the $n$-fold ROV based on a dubious project NPV, it may be more useful to deduce the minimum project NPV required for the donor's investment to break even. This is achieved by solving the $n$-fold ROV model implicitly for $x_0$ such that $f_n - K_n = 0$. The audience can then draw its own conclusions about whether or not real project NPV is above or below this minimum threshold. In the present exercise, the break even project NPV works out to $\$$`r x0bEven`.
+<!-- Point estimates such as this are of limited use when there is high uncertainty surrounding parameter settings. In such cases, it is better to report ROV in a map format spanning some relevant range of values of the most uncertain parameters. This allows decision makers to quickly discern ROV across a wide range of parameter values, as well as to develop a sense of how sharply ROV varies with these parameters. In other words, it combines ROV estimates and sensitivity analysis in a single reporting format. In the pedagogical example explored here, there is high uncertainty surrounding project NPV. A 3-fold ROV map spanning a range of combinations of upper and lower bounds on the 95% confidence interval is therefore provided in Figure \ref{fig:rovNmap}. -->
+<!-- # ```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:rovNmap}A map of 4-fold real option values across multiple combinations of project NPV minimum and maximum bounds.", echo = FALSE} -->
+<!-- # ROV Map -->
+<!-- nRes <- 20 -->
+<!-- #----- -->
+<!-- this_r <- 0.04 -->
+<!-- #----- -->
+<!-- # X0vec <- seq(0.5, 1.5, length.out = nRes) -->
+<!-- # cvVec <- seq(2, 15, length.out = nRes) -->
+<!-- yMaxVec <- seq(0.1, 3.5, length.out = nRes) -->
+<!-- yMinVec <- seq(-0.9, -0.1, length.out = nRes) -->
+<!-- #---- -->
+<!-- difmat <- matrix(NA, nRes, nRes) -->
+<!-- difNPVmat <- matrix(NA, nRes, nRes) -->
+<!-- phi2mat <- matrix(NA, nRes, nRes) -->
+<!-- x0starMat <- matrix(NA, nRes, nRes) -->
+<!-- for(i in 1:nRes){ -->
+<!--     #x0 <- X0vec[i] * 10^6 -->
+<!--     yMin <- yMinVec[i] -->
+<!--   for(j in 1:nRes){ -->
+<!--     #cv <- cvVec[j] -->
+<!--     #s <- m * cv -->
+<!--     yMax <- yMaxVec[j] -->
+<!-- # Back out s and m -->
+<!-- s <- (yMax - yMin) / (2 * zBound * sqrt(Tn)) -->
+<!-- mu <- (yMax + yMin) / 2 -->
+<!-- m <- (mu / Tn + s^2 / 2) -->
+<!-- #-------------------------------------------------------------------------- -->
+<!-- # Compare to conventional appraisal -->
+<!-- #NPV <- exp(-r * sum(Tvec)) * (X0 - sum(Kvec)) -->
+<!-- conv <- exp((m - r) * Tn) * x0 - sum(exp(-r * rev(cumsum(rev(Tvec[-1])))) * (Kvec[-(n + 1)] - Bvec)) -->
+<!-- dif_conv <- conv - K1 -->
+<!-- #-------------------------------------------------------------------------- -->
+<!-- # Calculate n-fold ROV with no abandonment value -->
+<!-- df <- rovN(x0, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r) -->
+<!-- ROV <- df$OVn[nrow(df)] -->
+<!-- dif <- ROV - K1 -->
+<!-- Phi2 <- df$Phi2[n] #round(df$Phi2[n], 2) -->
+<!-- etaNm10 <- round(df$etaNm10[n], 2) -->
+<!-- #-------------------------------------------------------------------------- -->
+<!-- interval <- c(.4, 10) * 10^6 -->
+<!-- out <- uniroot(slackfun, -->
+<!--         interval, -->
+<!--         Kvec = Kvec[-n - 1], -->
+<!--         Bvec = Bvec, -->
+<!--         Tvec = Tvec[-1], -->
+<!--         s = s, -->
+<!--         m = m, -->
+<!--         r = r, -->
+<!--         thresh = K1 -->
+<!--         ) -->
+<!-- x0star <- out[[1]] -->
+<!-- #-------------------------------------------------------------------------- -->
+<!--   difmat[i, j] <- dif -->
+<!--   phi2mat[i, j] <- Phi2 -->
+<!--   difNPVmat[i, j] <- dif_conv -->
+<!--   x0starMat[i, j] <- x0star -->
+<!--     } -->
+<!-- } -->
+<!-- #-------------------------------------- -->
+<!-- colnames(difmat) <- as.character(yMaxVec) -->
+<!-- row.names(difmat) <- as.character(X0vec) -->
+<!-- df_plot <- reshape2::melt(difmat) -->
+<!-- colnames(df_plot) <- c("Project NPV at t = 0 (million USD)", "y max", "ROV net benefit\n(100 thousand USD)") -->
+<!-- colnames(phi2mat) <- as.character(yMaxVec) -->
+<!-- row.names(phi2mat) <- as.character(X0vec) -->
+<!-- df_plotPhi2 <- reshape2::melt(phi2mat) -->
+<!-- colnames(df_plotPhi2) <- c("Project NPV at t = 0 (million USD)", "y max", "Probability of success") -->
+<!-- #, "NPV net benefit", ) -->
 
-Point estimates such as this are of limited use when there is high uncertainty surrounding parameter settings. In such cases, it is better to report ROV in a map format spanning some relevant range of values of the most uncertain parameters. This allows decision makers to quickly discern ROV across a wide range of parameter values, as well as to develop a sense of how sharply ROV varies with these parameters. In other words, it combines ROV estimates and sensitivity analysis in a single reporting format. In the pedagogical example explored here, there is high uncertainty surrounding project NPV. A 3-fold ROV map spanning a range of combinations of upper and lower bounds on the 95% confidence interval is therefore provided in Figure \ref{fig:rovNmap}.
-
-```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:rovNmap}A map of 4-fold real option values across multiple combinations of project NPV minimum and maximum bounds.", echo = FALSE}
-
-# ROV Map
-nRes <- 20
-#-----
-this_r <- 0.04
-#-----
-# X0vec <- seq(0.5, 1.5, length.out = nRes)
-# cvVec <- seq(2, 15, length.out = nRes)
-yMaxVec <- seq(0.1, 3.5, length.out = nRes)
-yMinVec <- seq(-0.9, -0.1, length.out = nRes)
-#----
-difmat <- matrix(NA, nRes, nRes)
-difNPVmat <- matrix(NA, nRes, nRes)
-phi2mat <- matrix(NA, nRes, nRes)
-x0starMat <- matrix(NA, nRes, nRes)
-for(i in 1:nRes){
-    #x0 <- X0vec[i] * 10^6
-    yMin <- yMinVec[i]
-  for(j in 1:nRes){
-    #cv <- cvVec[j]
-    #s <- m * cv
-    yMax <- yMaxVec[j]
-# Back out s and m
-s <- (yMax - yMin) / (2 * zBound * sqrt(Tn))
-mu <- (yMax + yMin) / 2
-m <- (mu / Tn + s^2 / 2)
-#--------------------------------------------------------------------------
-# Compare to conventional appraisal
-#NPV <- exp(-r * sum(Tvec)) * (X0 - sum(Kvec))
-conv <- exp((m - r) * Tn) * x0 - sum(exp(-r * rev(cumsum(rev(Tvec[-1])))) * (Kvec[-(n + 1)] - Bvec))
-dif_conv <- conv - K1
-#--------------------------------------------------------------------------
-# Calculate n-fold ROV with no abandonment value
-df <- rovN(x0, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r)
-ROV <- df$OVn[nrow(df)]
-dif <- ROV - K1
-Phi2 <- df$Phi2[n] #round(df$Phi2[n], 2)
-etaNm10 <- round(df$etaNm10[n], 2)
-#--------------------------------------------------------------------------
-interval <- c(.4, 10) * 10^6
-out <- uniroot(slackfun,
-        interval,
-        Kvec = Kvec[-n - 1],
-        Bvec = Bvec,
-        Tvec = Tvec[-1],
-        s = s,
-        m = m,
-        r = r,
-        thresh = K1
-        )
-x0star <- out[[1]]
-#--------------------------------------------------------------------------
-  difmat[i, j] <- dif
-  phi2mat[i, j] <- Phi2
-  difNPVmat[i, j] <- dif_conv
-  x0starMat[i, j] <- x0star
-
-    }
-}
-
-#--------------------------------------
-
-colnames(difmat) <- as.character(yMaxVec)
-row.names(difmat) <- as.character(X0vec)
-df_plot <- reshape2::melt(difmat)
-colnames(df_plot) <- c("Project NPV at t = 0 (million USD)", "y max", "ROV net benefit\n(100 thousand USD)")
-colnames(phi2mat) <- as.character(yMaxVec)
-row.names(phi2mat) <- as.character(X0vec)
-df_plotPhi2 <- reshape2::melt(phi2mat)
-colnames(df_plotPhi2) <- c("Project NPV at t = 0 (million USD)", "y max", "Probability of success")
-#, "NPV net benefit", )
-
-#---
-gg <- ggplot(df_plot, aes(x = `y max`,
-                          y = `Project NPV at t = 0 (million USD)`,
-                          fill = `ROV net benefit\n(100 thousand USD)`))
-                          #fill = `Probability of success`))
-gg <- gg + geom_tile()
-gg <- gg + scale_fill_gradient2(high = "green",
-                                mid = "yellow",
-                                low = "red",
-                                midpoint = 0)
-gg <- gg + theme_bw()
-gg <- gg + theme(legend.position = "top",
-                 axis.title.y = element_text(size = axisTitle_size),
-                 axis.text.y = element_text(size = axisText_size),
-                 axis.title.x = element_text(size = axisTitle_size),
-                 axis.text.x = element_text(size = axisText_size),
-                 legend.text = element_text(size = legendText_size),
-                 legend.title = element_text(size = axisTitle_size))
-gg_rovMap <- gg
-#---------------------------------------------------------------------------
-gg <- ggplot(df_plotPhi2, aes(x = `y max`,
-                          y = `Project NPV at t = 0 (million USD)`,
-                          fill = `Probability of success`))
-gg <- gg + geom_tile()
-gg <- gg + scale_fill_gradient(high = "green",
-                                #mid = "yellow",
-                                low = "red")#,
-                                #midpoint = 0.5)
-gg <- gg + theme_bw()
-gg <- gg + theme(legend.position = "top",
-                 axis.title.y = element_blank(),
-                 axis.text.y = element_blank(),
-                 axis.title.x = element_text(size = axisTitle_size),
-                 axis.text.x = element_text(size = axisText_size),
-                 legend.text = element_text(size = legendText_size),
-                 legend.title = element_text(size = axisTitle_size))
-gg_probMap <- gg
-#---------------------------------------------------------------------------
-
-gg_rovMap + gg_probMap + plot_layout(ncol = 2)
-
-
-```
+<!-- #--- -->
+<!-- gg <- ggplot(df_plot, aes(x = `y max`, -->
+<!--                           y = `Project NPV at t = 0 (million USD)`, -->
+<!--                           fill = `ROV net benefit\n(100 thousand USD)`)) -->
+<!--                           #fill = `Probability of success`)) -->
+<!-- gg <- gg + geom_tile() -->
+<!-- gg <- gg + scale_fill_gradient2(high = "green", -->
+<!--                                 mid = "yellow", -->
+<!--                                 low = "red", -->
+<!--                                 midpoint = 0) -->
+<!-- gg <- gg + theme_bw() -->
+<!-- gg <- gg + theme(legend.position = "top", -->
+<!--                  axis.title.y = element_text(size = axisTitle_size), -->
+<!--                  axis.text.y = element_text(size = axisText_size), -->
+<!--                  axis.title.x = element_text(size = axisTitle_size), -->
+<!--                  axis.text.x = element_text(size = axisText_size), -->
+<!--                  legend.text = element_text(size = legendText_size), -->
+<!--                  legend.title = element_text(size = axisTitle_size)) -->
+<!-- gg_rovMap <- gg -->
+<!-- #--------------------------------------------------------------------------- -->
+<!-- gg <- ggplot(df_plotPhi2, aes(x = `y max`, -->
+<!--                           y = `Project NPV at t = 0 (million USD)`, -->
+<!--                           fill = `Probability of success`)) -->
+<!-- gg <- gg + geom_tile() -->
+<!-- gg <- gg + scale_fill_gradient(high = "green", -->
+<!--                                 #mid = "yellow", -->
+<!--                                 low = "red")#, -->
+<!--                                 #midpoint = 0.5) -->
+<!-- gg <- gg + theme_bw() -->
+<!-- gg <- gg + theme(legend.position = "top", -->
+<!--                  axis.title.y = element_blank(), -->
+<!--                  axis.text.y = element_blank(), -->
+<!--                  axis.title.x = element_text(size = axisTitle_size), -->
+<!--                  axis.text.x = element_text(size = axisText_size), -->
+<!--                  legend.text = element_text(size = legendText_size), -->
+<!--                  legend.title = element_text(size = axisTitle_size)) -->
+<!-- gg_probMap <- gg -->
+<!-- #--------------------------------------------------------------------------- -->
+<!-- gg_rovMap + gg_probMap + plot_layout(ncol = 2) -->
+<!-- ``` -->
 
 # Discussion and conclusion
 
-New tools are urgently required to account for uncertainty and "price in" the donor's prerogative to discontinue funding of under-performing projects.
-It stands to reason.. account for risk and price in donors' option to .Confidence in can be restored. Real options valuation offers a promising method to 
+In this article, I have proposed a real options valuation workflow for multi-stage AR4D projects, built around a novel $n$-fold ROV model. The $n$-fold model...
+
+* The proposed workflow is beneficial for researchers and donors alike. From the researchers' perspective, the proposed approach is appealing for two reasons: 1) The ROV approach can account for the wide uncertainty inherent in far-from-market research. Researchers, with good reason, generally resent being forced to place a single value on impacts that may be 15-30+ years off in the future [@Petsko2011; @Moriarty2008; @leeuwis2018reforming]. The proposed workflow allows researchers to accompany such point estimates with a wide error range. 2) The ROV approach prices in the donor's prerogative to discontinue funding of under-performing projects. Donors have long had this prerogative, de facto, but conventional methods of project appraisal omit the value it adds. 3) An accounting mechanism that generally facilitates the long term financial commitments required to fund disruptive research.
+
+* From the donors' perspective, the proposed approach is appealing because it provides a way to rigorously justify commitments to long time horizon projects while at the same time preserving the flexibility necessary... in increasingly austere fiscal constraints.
+
+* The exposition here focuses on transgenic research because the staging of such projects tends to follow the generic structure described in section \ref{sec:}, regardless of the crop or technology being researched. The proposed workflow applies equally well to conventional breeding projects, which are also multi-staged, but the staging may vary considerably from one crop and technology to another. Details of the staging and cost assessment may also vary depending upon whether the technology is to be released as a public good, as in the case of LBr potato, or under private contract. The method applies to livestock projects as well.    ... Not limited to AR4D, but applies to any high risk, high reward, far-from-market, multi-stage real option context. The model may also be applied in near-market settings, but in that case the expected instantaneous project return $m$ should be set equal to $r$, to reflect risk-neutral valuation. For projects with a high expected reward, and little risk, there is probably no point in using the ROV approach, as the output will not differ significantly from the output of a conventional CBA approach. [The higher the ratio of benefits to costs, the higher must be the uncertainty for there to be a meaningful difference between ROV and NPV.]
+
+* In some settings, it may make sense to apply the proposed $n$-fold ROV workflow at a more aggregate level of accounting. For example, the proposed method may be used to valuate an entire program, consisting of numerous projects and complementary activities at various stages of execution, over the next 20 years, broken up into four 5 year funding stages. 
+
+
+
+* when m < r
+
+* For probabilities close to 1, the ROV will differ little from the default NPV approach.  If high reward projects are not also high risk, there is no point in assessing ROV, as the result will not differ significantly from NPV.
+
+
+Defense of assumption that project NPV follows a gBm
+
+I argued that the assumption of risk-neutral valuation is inappropriate in far-from-market contexts like AR4D, and shown that this results   which I derived from   a based on the assumption that project NPV follows a gBm. I have argued that it is inappropriate to assume risk neutral valuation in the AR4D context, and that 
+
+
+
+
 
 While AR4D is the motivating context for the present work, the results apply to any far-from-market real options context.
 
 watch out for abuse
 
-program level valuation - easier to justify the assumption of lognormal changes in every time step since the program level includes numerous projects at various stages of execution... including complementary activities..
 
 
-applies to livestock projects as well
+For projects with high expected net payoff, the probability of project success $\Phi(\delta_N)$ will effectively be $1$---and hence ROV will not differ meaningfully from NPV---unless there is also high uncertainty surrounding the expected payoff.    In the example above [refer to decision map figure], the ratio is so high that project ROV is virtually the same as NPV for a coefficient of variation less than $5$. 
 
-when m < r
-
-<!-- Given the not-for-profit...some donors may be willing to fund projects even if the ROV falls somewhat below the stage 1 cost. -->
-
-For probabilities close to 1, the ROV will differ little from the default NPV approach.
-
-This is not a LBr ex-ante impact assessment paper.
-
-Researchers resent being forced to place a value on impacts that may be 15-30+ years off [Moriarity paper, etc.]. The ROV approach offers them a way to accommodate this vast uncertainty (and their frustration at being forced to essentially take a shot in the dark) through the parameter $s$. Oftentimes, ROV differs meaningfully from NPV only when $s$ is many times greater than $m$. In the example presented here, $s$ is set to `r cv` times $m$.
-
-For projects with high expected net payoff, the probability of project success $\Phi(\delta_N)$ will effectively be $1$---and hence ROV will not differ meaningfully from NPV---unless there is also high uncertainty surrounding the expected payoff.    In the example above [refer to decision map figure], the ratio is so high that project ROV is virtually the same as NPV for a coefficient of variation less than $5$. [The higher the ratio of benefits to costs, the higher must be the uncertainty for there to be a meaningful difference between ROV and NPV.]
-
-It may thus make more sense to extend to the discovery or blue skies research phase, where the exact applications and target populations and environments of the technology may not be known at the start of the research, more chance of serendipity, i.e. of applications falling outside of this range of expectations. [The high iron bean story.]
-
-If high reward projects are not also high risk, there is no point in assessing ROV, as the result will not differ significantly from NPV.
-
-<!-- Likely that the project NPV $x(0)$ much greater than assumed here, in which case the probability of continuing with stage 2 would be close to $100%$, and hence ROV would essentially be the same as NPV. And would exceed the barrier cost by a wide margin. -->
 
 # References {-}
 
@@ -1632,6 +1658,9 @@ Substituting this for $\nu$ in the definition gives
 \begin{equation}
 E[max(q - C, 0)] = E[q] \Phi \left(\frac{\ln(E[q] / C) + \omega^2 / 2}{\omega} \right) - C \Phi \left(-\frac{\ln(E[q] / C) - \omega^2 / 2}{\omega} \right)
 \end{equation}
+
+$\blacksquare$
+
 <!-- \label{eq:part1} -->
 
 <!-- _Part 2_ -->
@@ -1645,10 +1674,10 @@ E[max(q - C, 0)] = E[q] \Phi \left(\frac{\ln(E[q] / C) + \omega^2 / 2}{\omega} \
 <!-- \begin{equation} -->
 <!-- Var[\ln(v(T))] \bigr|_{t = \hat{t}} = \beta^2 \tau -->
 <!-- \end{equation} -->
-<!-- <!-- Where $\alpha = 1 / \tau \: E[\Delta v / v]$, and $\beta^2 = 1 / \tau \:Var[\Delta v / v]$. --> -->
+<!-- <!-- Where $\alpha = 1 / \tau \: E[\Delta v / v]$, and $\beta^2 = 1 / \tau \:Var[\Delta v / v]$. -->
 
 <!-- (See Hull [-@hull9thEdition] for details.) -->
-<!-- <!-- Substituting $v(T)$ for $q$, $E[v(T)]\bigr|_{t = \hat{t}}$ for $E[q]$, and $Var[\ln(v(T))] \bigr|_{t = \hat{t}}$ for $\omega$, --> -->
+<!-- <!-- Substituting $v(T)$ for $q$, $E[v(T)]\bigr|_{t = \hat{t}}$ for $E[q]$, and $Var[\ln(v(T))] \bigr|_{t = \hat{t}}$ for $\omega$, -->
 
 <!-- Then equation \ref{eq:part1} can be rewritten as follows. -->
 
@@ -1672,7 +1701,7 @@ E[max(q - C, 0)] = E[q] \Phi \left(\frac{\ln(E[q] / C) + \omega^2 / 2}{\omega} \
 <!-- \begin{equation} -->
 <!-- e^{-r \tau} E[max(v(T) - C, 0)]\bigr|_{t = \hat{t}} = v(\hat{t}) e^{(\alpha - r) \tau} \Phi(\delta + \beta \sqrt{\tau}) - e^{-r \tau} C \Phi(\delta) -->
 <!-- \end{equation} -->
-$\blacksquare$
+
 <!-- This is the ROV formula in equation \ref{eq:rov}. -->
 
 
