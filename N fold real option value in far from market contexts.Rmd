@@ -8,7 +8,7 @@ address:
   - code: CIAT
     address: Alliance of Bioversity International and CIAT, Km 17 Recta Cali-Palmira, Valle del Cauca, Colombia, CP 763537
 abstract: |
-  I adapt real options valuation to multi-stage, far-from-market, high risk, high reward projects (such as agricultural research for development projects). After a brief introduction to the basics of real options valuation, including an extension to projects with abandonment value, I proceed to derive a novel real options valuation model for far-from-market, multi-stage projects. To prepare the ground for this derivation, I first carefully adapt the key assumption of lognormally distributed returns to project net present value to the agricultural research for development context. And I argue that the entrenched assumption of risk-neutral valuation is inappropriate in far-from-market contexts, and demonstrate the mathematical implications of non-risk-neutrality for real options valuation. Based on this groundwork, I then derive the multi-stage or "$n$-fold", far-from-market real option value model. Finally, I walk through an illustrative example of how the model might be used to valuate a real, 4-stage transgenic potato project.
+  Agricultural research for development scientists are increasingly required to valuate the impacts of their research projects. This is made difficult by the long time horizons and multi-stage, high risk, high reward, far-from-market nature of such projects. Research donors and scientists alike have expressed exasperation with the crudeness of the conventional cost-benefit analysis approach to such tasks, contributing to growing toxicity in donor-researcher relations. To alleviate the tension, here I adapt real options valuation to multi-stage, far-from-market, high risk, high reward projects (such as agricultural research for development projects). After a brief introduction to the basics of real options valuation, including an extension to projects with abandonment value, I proceed to derive a novel real options valuation model for far-from-market, multi-stage projects. To prepare the ground for this derivation, first I carefully adapt the key assumption of lognormally distributed returns to project net present value to the agricultural research for development context. Second, I argue that the assumption of risk-neutral valuation is inappropriate in far-from-market contexts; and demonstrate the mathematical implications of non-risk-neutrality for real options valuation. Based on this groundwork, I then derive the multi-stage or "$n$-fold", far-from-market real option value model. Finally, as an illustrative example, I use the derived model to valuate a real, 4-stage potato research project.
 journal: "Research Policy"
 date: "`r Sys.Date()`"
 bibliography: AR4Drealoptions.bib
@@ -186,7 +186,7 @@ To build intuition, it is instructive to compare graphs of ROV (equation \ref{eq
 
 It is also instructive to keep an eye on the term $\Phi(\delta)$, plotted in the lower panel of Figure \ref{fig:rovIllust}. This is the probability that the option will expire in the money, thereby triggering exercise of the option. It therefore makes perfect sense that $\Phi(\delta)$ approaches one as the moneyness is higher; but note that it approaches one slower as project risk is higher.
 
-```{r Fig1, fig.show = "hold", fig.width = 3, fig.height=4, fig.align="center", fig.cap="\\label{fig:rovIllust}A hypothetical project's real option value and net present value plotted together over a range of moneyness values. The black line marks 0, while the dotted red line marks the sunk cost $S$ beneath which the project is rejected. The multiple ROV plots correspond to different levels of uncertainty (s). The higher the uncertainty, the greater the difference between ROV and NPV.", echo = FALSE}
+```{r Fig1, fig.show = "hold", fig.width = 4, fig.height=4, fig.align="center", fig.cap="\\label{fig:rovIllust}A hypothetical project's real option value and net present value plotted together over a range of moneyness values. The black line marks 0, while the dotted red line marks the sunk cost $S$ beneath which the project is rejected. The multiple ROV plots correspond to different levels of uncertainty (s). The higher the uncertainty, the greater the difference between ROV and NPV.", echo = FALSE}
 
 
 OVfun <- function(X0, K, tau, mm, s, r, output = "OV"){
@@ -293,7 +293,7 @@ gg1 + gg2 + plot_layout(ncol = 1, heights = c(1, 1 / 4))
 
 ```
 
-The random variable $x(t)$ is commonly referred to as the "underlying". The term $\Phi(\delta + s \sqrt{\tau})$ is equal to the partial derivative $\partial ROV / \partial x$, and thus provides insight into ROV sensitivity to movements in the underlying. Although not graphed here, it is easy to see that $\Phi(\delta + s \sqrt{\tau})$ will also approach one as the moneyness is higher. This also makes perfect sense. It simply means that, as the probability of exercise grows and ROV becomes indistinguishable from NPV, so likewise do changes in ROV become indistinguishable from changes in the underlying NPV.
+The cost $K$ is commonly referred to as the "exercise cost", because it is incurred only in the event that the investor decides to exercise the option. The random variable $x(t)$ is commonly referred to as the "underlying". The term $\Phi(\delta + s \sqrt{\tau})$ is equal to the partial derivative $\partial ROV / \partial x$, and thus provides insight into ROV sensitivity to movements in the underlying. Although not graphed here, it is easy to see that $\Phi(\delta + s \sqrt{\tau})$ will also approach one as the moneyness is higher. This also makes perfect sense. It simply means that, as the probability of exercise grows and ROV becomes indistinguishable from NPV, so likewise do changes in ROV become indistinguishable from changes in the underlying NPV.
 
 Figure \ref{fig:rovIllust} illustrates the importance of risk and reward when deciding whether or not to take an ROV approach to project appraisal. The ROV approach is suitable in the AR4D context because AR4D projects tend to be both high reward (i.e., deep in the money) and high risk. If AR4D projects were only high reward, with little risk, then there would be no point in calculating ROV, as it would not differ significantly from NPV.
 
@@ -456,7 +456,7 @@ As explained above, this is the value of the option, but not the obligation, to 
 f_2(\hat{t}) = e^{- r \tau_2} E[\max(f_1(T_2) - K_1, B_1)] \bigr|_{t = \hat{t}}
 \end{equation}
 
-This is the value of the option, but not the obligation, to disburse the funds $K_2$ required to implement the second stage of the 2-stage project, once the first stage is finished. Note that $K_1$ corresponds to the stage $n$ sunk cost $S$ in equation \ref{eq:rovBrawCond}. The time horizon $T_2$ refers to the duration of stage 1, and $B_1$ is the abandonment value, if any, generated during stage 1.
+This is the value of the option, but not the obligation, to disburse the funds $K_1$ required to implement the second stage of the 2-stage project, once the first stage is finished. Note that $K_1$ corresponds to the stage $n$ sunk cost $S$ in equation \ref{eq:rovBrawCond}. The time horizon $T_2$ refers to the duration of stage 1, and $B_1$ is the abandonment value, if any, generated during stage 1.
 
 Likewise, for a 3-stage project,
 
@@ -464,7 +464,7 @@ Likewise, for a 3-stage project,
 f_3(\hat{t}) = e^{- r \tau_3} E[\max(f_2(T_3) - K_2, B_2)] \bigr|_{t = \hat{t}}
 \end{equation}
 
-Where $T_3$ is the duration of the first stage, $B_3$ is any abandonment value associated with this stage, and $K_3$ the cost of implementing the second stage, of the 3-stage project.
+Where $T_3$ is the duration of the first stage, $B_3$ is any abandonment value associated with this stage, and $K_2$ the cost of implementing the second stage, of the 3-stage project.
 
 And so on, for any $n$-stage project, the $n$-fold option value $f_n(\hat{t})$ may be defined
 
@@ -473,9 +473,11 @@ f_n(\hat{t}) = e^{- r \tau_n} E[\max(f_{n - 1}(T_n) - K_{n - 1}, B_{n - 1})] \bi
 \label{eq:rovNraw}
 \end{equation}
 
-In other words, $n$-fold option value is the present value of the option to continue with stage 2 of the project, the value of which is itself the present value of the option to continue with stage 3 of the project, and so forth, up until the present value of the option to continue with stage $n$ of the project, which is itself the present value of the option to implement the new technology, which is itself the project NPV $x(t)$.
+In other words, $n$-fold option value is the present value of the option to continue with stage 2 of the project, the value of which is itself the present value of the option to continue with stage 3 of the project, and so forth, up until the present value of the option to continue with stage $n$ of the project, which is itself the present value of the option to implement the new technology---which is itself the project NPV $x(t)$.
 
-The 1-stage ROV funding decision criterion (inequality \ref{eq:rovBrawCond}) may thus be generalized to $n$-stage projects as follows.
+The ROV of each stage has as its underlying the ROV of the subsequent stage, which has as its underlying the ROV of the subsequent stage, and so forth, up until the stage 1 ROV, which has as its underlying the project NPV itself. The exercise cost of a given stage is the cost of implementing the subsequent stage.
+
+The formal 1-stage ROV funding decision criterion (inequality \ref{eq:rovBrawCond}) may thus be generalized to $n$-stage projects as follows.
 
 \begin{equation}
 e^{-rT_n} E[max(f_{n - 1}(T_n) - K_{n - 1}, B_{n - 1})] < K_n \:\: \rightarrow \:\: \text{reject project}
@@ -487,8 +489,6 @@ Or, more compactly,
 f_n < K_n \:\: \rightarrow \:\: \text{reject project}
 \label{eq:rovNcond}
 \end{equation}
-
-The exercise cost of a given stage is the cost of implementing the subsequent stage.
 
 Farther below, I demonstrate that, if $x(t)$ is lognormally distributed, then so is $f_n(t)$. Equation \ref{eq:part1} may therefore be invoked to establish a closed form expression for $f_n(\hat{t})$, if $x(t)$ is lognormally distributed. Before getting to this main result, however, it is first necessary to defend the assumption of lognormal $x(t)$, and to extract far-from-market real options from the thicket of "risk neutral valuation".
 
@@ -727,7 +727,8 @@ gg <- gg + geom_step()
 #gg <- gg + facet_wrap(~s, ncol = 1)
 gg <- gg + theme_bw()
 gg <- gg + theme(axis.text = element_blank(),
-                 axis.title = element_blank())
+                 axis.title.y = element_blank(),
+                 axis.title.x = element_text(size = axisTitle_size))
 gg_cpp <- gg
 #---
 df_plot <- as.data.frame(do.call(rbind, list_spec))
@@ -741,7 +742,8 @@ gg <- gg + geom_line()
 #                       labeller = labeller(s = facet_labels))
 gg <- gg + theme_bw()
 gg <- gg + theme(axis.text = element_blank(),
-                 axis.title = element_blank())
+                 axis.title.y = element_blank(),
+                 axis.title.x = element_text(size = axisTitle_size))
 gg_cppSpec <- gg
 #===========================================================================
 
@@ -1062,7 +1064,7 @@ Below I apply the $n$-fold option value model derived above to valuate a real AR
 Late Blight is the disease behind the infamous Irish Potato Famine of 1845-1849; and continues to pose a major threat to food security, especially in the developing world [@haverkort2008societal; @fry2008phytophthora]. Successful research and development of LBr potato varieties adapted to local environments is thus a potentially very high reward, disruptive proposition. It is also a high risk proposition, facing numerous research and non-research related challenges, not least of which is a strong "anti-GM" lobby in many of the target populations.
 <!-- Costs are assessed as the sum of staff costs, direct operating costs (including lab bench costs), indirect operating costs (overhead), external contract costs, and stewardship costs. -->
 
-The donor, USAID, originally awarded the LBr potato research contract to Cornell University in 2010 (?), with planned release in India. However, stage 1 research and development at Cornell was unsuccessful. In 2015, USAID transferred the contract to Michigan State University (MSU), which proposed a different stage 1 research strategy, with planned release in Bangladesh and Indonesia instead of India. India was dropped as a target country partly because of the vigorous anti-GM lobby there, which made stage 4 (deregulation) success unlikely. MSU completed stage 1 successfully in 2019 (?), and USAID has recently awarded them a new contract for stage 2 research and development.
+The donor, USAID, originally awarded the LBr potato research contract to Cornell University in 2010 (?), with planned release in India. However, stage 1 research and development at Cornell was unsuccessful. In 2015, USAID transferred the contract to Michigan State University (MSU), which proposed a different stage 1 research strategy, with planned release in Bangladesh and Indonesia instead of India. India was dropped as a target country partly because of the vigorous anti-GM lobby there, which made stage 4 success unlikely. MSU completed stage 1 successfully in 2019 (?), and USAID has recently awarded them a new contract for stage 2 research and development.
 <!-- USAID-ABSP II program -->
 <!-- The project occurred in 4 distinct stages: 1) Late Blight resistant (LBr) event production and selection, 2) Wide area testing, 3) Compilation of the regulatory dossier, and 4) Registration and regulatory affairs. -->
 <!-- In stage 1, the lead gene construct was developed in a target potato variety, and a small number of transgenic events exhibiting high resistance to Late Blight, as well as a number of other qualities (absence of backbone vector sequences, minimum number copy number of R genes, etc.) were screened from a large number of explants. -->
@@ -1122,11 +1124,16 @@ df_table <- data.frame(Stage = c(1:4, "Launch"),
 colnames(df_table)[2:4] <- c("Cost (USD)", "Duration (quarters)", "Cumulative duration")
 
 df_table <- regulartable(df_table)
-df_table
+#df_table
 #df_table <- width(df_table, width = 0.7)
-df_table <- FitFlextableToPage(df_table)
-
 table_title <- "Table 1: Project to research and develop Late Blight resistant potato for release as a public good in 2 developing countries."
+table_caption <- "Note: Stage 1-4 costs and durations based on figures reported by Schiek et al. (2016). The launch cost and duration is hypothetical."
+
+df_table <- FitFlextableToPage(df_table)
+df_table <- add_header_lines(df_table, table_title)
+df_table <- add_footer_lines(df_table, table_caption)
+
+df_table
 
 ```
 
@@ -1172,22 +1179,22 @@ rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, m, r){
     Phi2 <- pnorm(dn)
     fn <- exp((m - r) * Tn) * fNm1 * Phi1 - exp(-r * Tn) * Kn * Phi2 + exp(-r * Tn) * Bn * (1 + Phi2)
     fnVec[i] <- fn
-    etaVec[i] <- etaNm10
     sNm1vec[i] <- s * etaNm10
     Phi2vec[i] <- Phi2
     Phi1vec[i] <- Phi1
-    if(i != N){
+    #if(i != N){
       phi1 <- dnorm(dn + s * etaNm10 * sqrt(Tn))
       dfndfNm1 <- exp((m - r) * Tn) * (Phi1 + phi1 * (1 - etaNm10) * s * sqrt(Tn))
       etaNnM1 <- fNm1 / fn * dfndfNm1
       etaNm10 <- etaNnM1 * etaNm10
       fNm1 <- fn
-    }
+      etaVec[i] <- etaNm10
+    #}
   }
   underVec <- c(X0, fnVec[-N])
   df_out <- data.frame(Stage = rev(1:N),
                        OVn = fnVec, fnM10 = underVec,
-                       KnM1 = Kvec, etaNm10 = etaVec,
+                       KnM1 = Kvec, etaN0 = etaVec,
                        sNm1 = sNm1vec, Phi2 = Phi2vec, Phi1 = Phi1vec)
   return(df_out)
   
@@ -1207,14 +1214,14 @@ K1 <- Kvec[n + 1]
 Tn <- sum(Tvec[-1])
 #---------------------------------------------------------------------------
 # Crude project NPV estimate loosely based on expected adoption rates, time horizons, etc.
-rYrly_discrete <- 0.12 #0.035
+rYrly_discrete <- 0.08 #0.035
 rQtly_discrete <- (1 + rYrly_discrete)^(1 / 4) - 1
 Tadopt <- 20 * 4
 Timpact <- 10 * 4
 yrlyBen <- 1 * 10^6 # (Assuming very low adoption)
 x0 <- sum(yrlyBen / (1 + rQtly_discrete)^(Tn + Tadopt + 1:Timpact))
 # (Override)
-x0 <- 1 * 10^6
+x0 <- 1.225 * 10^6
 #---------------------------------------------------------------------------
 # Convert discrete discount rate to continuous discount rate
 r <- log(1 + rQtly_discrete)
@@ -1222,9 +1229,14 @@ r <- log(1 + rQtly_discrete)
 # Derive s and m
 # Define confidence interval of interest, usually 95% (z = 1.96)
 zBound <- 1.96
-# Max and min log return (pctg error in project NPV) elicited from experts/stakeholders:
-yMax <- log(1 + 2.55) #2.55 #1.31
-yMin <- log(1 - 0.85) #-0.85 #-0.88
+# Max and min log return elicited from experts/stakeholders
+# 1) Elicit upper and lower pctg error in project NPV
+# 2) Interpret as upper and lower bounds on 95% conf interval of arithmetic return
+# 3) Convert arithmetic return to log return by formula log ret = log(1 + arith ret)
+yMaxA <- 7.15#1.85
+yMinA <- -0.8#-0.45
+yMax <- log(1 + yMaxA)
+yMin <- log(1 + yMinA)
 # bTerm <- -(2 * yMin + 8 / 3 * zBound^2)
 # yMax <- 1 / 2 * (-bTerm - sqrt(bTerm^2 + 4))
 # Back out s and m
@@ -1249,27 +1261,28 @@ ExT <- exp(m * Tn) * x0
 ExTdisc <- exp(-r * Tn) * ExT
 # Expected log return
 mu <- round((yMax + yMin) / 2, 2)
+mu
 #m <- (mu / Tn + s^2 / 2)
 #--------------------------------------------------------------------------
 # Compare to conventional appraisal
 #NPV <- exp(-r * sum(Tvec)) * (X0 - sum(Kvec))
 conv <- exp((m - r) * Tn) * x0 - sum(exp(-r * rev(cumsum(rev(Tvec[-1])))) * (Kvec[-(n + 1)] - Bvec))
-dif_conv <- conv - K1
+dif_conv <- round(conv - K1)
 #--------------------------------------------------------------------------
 # Calculate n-fold ROV, at first with no abandonment value
 df <- rovN(x0, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r)
 ROV <- df$OVn[nrow(df)]
-dif <- ROV - K1
+dif <- round(ROV - K1)
 Phi2 <- round(df$Phi2[n], 2)
-etaNm10 <- round(df$etaNm10[n], 2)
+etaN0 <- round(df$etaN0[n], 2)
 #--------------------------------------------------------------------------
 # Calculate n-fold ROV, now with abandonment value
-Bvec <- c(0, 0, 0, 100000)
+Bvec <- c(0, 0, 0, 10000)
 df <- rovN(x0, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r)
 ROV_wB <- df$OVn[nrow(df)]
-dif_wB <- ROV_wB - K1
+dif_wB <- round(ROV_wB - K1)
 Phi2wB <- round(df$Phi2[n], 2)
-etaNm10_wB <- round(df$etaNm10[n], 2)
+etaN0_wB <- round(df$etaN0[n], 2)
 #--------------------------------------------------------------------------
 # Compare to conventional appraisal with abandonment value
 #NPV <- exp(-r * sum(Tvec)) * (X0 - sum(Kvec))
@@ -1278,7 +1291,7 @@ dif_conv_wB <- conv - K1
 
 ```
 
-The research stage costs and time horizons used in the calculation are based on Cornell's and MSU's real experiences with LBr potato research [@schiek2016demys]. The other parameters must be filled in with hypothetical values.
+It should be kept in mind that this is a purely pedagogical exercise to illustrate the use of the $n$-fold ROV model derived in the previous sections. While the exercise is based on real project stage costs and time horizons, the other parameter values are hypothetical. The resulting calculations should therefore not be interpreted as an authoritative valuation of LBr potato research.
 
 USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. However, there are good reasons for using a much lower rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing]. As a compromise between the two extremes, an annual (discrete) discount rate of `r rYrly_discrete` is assumed in this exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation. Abandonment values are assumed to be zero for the time being.
 
@@ -1287,22 +1300,13 @@ No ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet
 As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced values for $m$ and $s$. The coefficient of variation works out to `r cv`, while the log return works out to `r mu`. This then implies an expected project NPV at the end of the project of $\$$`r ExT` USD, the present value of which is $\$$`r ExTdisc` USD.
 <!-- For public projects The annual discount rate is set equal to a social discount rate of $0.035$, following the recommendation of Moore et al. [-@moore2004just], which implies a quarterly discount rate of $r = $`r r`.-->
 <!-- (Alston and Norton acknowledged in 1995 that the treatment of risk in impact assessment models was "rudimentary and in need of further refinement" [-@Alston1995]. Unfortunately, this remains true today.) If ex-ante risk assessments are not available, then they can be elicited in the survey of domain experts. Project risk might be crowdsourced, for example, by asking survey participants to estimate the maximum, minimum, and most probable impact of each given project. With these three inputs, it is then straightforward to compute standard deviation on the basis of an assumed project impact probability density. (For example, the minimum and maximum could be interpreted as the bounds of the 95% confidence interval of a lognormal probability density, and the "most probable impact" could be interpreted as its mode. From this it is then straightforward to derive the standard deviation.) -->
-<!-- Discount rate [@caplin2004social; @moore2004just; @harrison2010valuing] -->
-<!-- In the default approach, this would look like... -->
-<!-- \begin{equation} -->
-<!-- e^{(m - r) T_2} x_0 - e^{-rT_2}K_2 - e^{-rT_1}K_1 -->
-<!-- \end{equation} -->
-<!-- Then, in general, -->
-<!-- \begin{equation} -->
-<!-- e^{(m - r) T_N} x_0 - e^{-rT_N}K_N - e^{-rT_{N - 1}}K_{N - 1} - \dots - e^{-rT_{1}}K_{1} -->
-<!-- \end{equation} -->
 
 ```{r, echo=FALSE}
 
 
 df_table <- df[, c("Stage", "OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
 #df_tabwB <- df_wB[nrow(df_wB), c("OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
-colnames(df_table)[2:ncol(df_table)] <- c("ROV", "Underlying", "Elasticity", "Standard dev.", "Phi 2")
+colnames(df_table)[2:ncol(df_table)] <- c("ROV", "Value of\nunderlying", "Elasticity\nw.r.t. project NPV", "Standard dev.", "Phi 2")
 
 df_table <- regulartable(df_table)
 #df_table <- width(df_table, width = 0.7)
@@ -1311,13 +1315,12 @@ df_table
 
 ```
 
-Based on the values of $x_0$, $m$, $s$, and $r$, and the research stage costs and time horizons in Table 1, the 4-fold option value of the LBr potato project (equation \ref{eq:rovBn}) works out to $\$$`r ROV` USD, which exceeds the stage 1 implementation cost ($\$$`r Kvec[n]`) by $\$$`r dif` (Table 2). Hence the investment is justified under the parameter settings defined above.
+Based on these parameter values, the 4-fold option value of the LBr potato project works out to $\$$`r ROV` USD, which exceeds the stage 1 implementation cost ($\$$`r Kvec[n]`) by $\$$`r dif`. Hence the investment is justified under the parameter settings defined above. The default approach (expression \ref{eq:npvIneqN2}), by contrast, works out to $\$$`r conv`, which falls below the stage 1 cost by $\$$`r -dif_conv`. On the default basis, then, the LBr project would be rejected.
+<!-- (equation \ref{eq:rovBn}) -->
 
-The conventional CBA approach (expression \ref{eq:npvIneqN2}), by contrast, works out to $\$$`r conv`, which falls below the stage 1 cost by $\$$`r -dif_conv`. On a conventional CBA basis, then, the LBr project would be rejected.
+The ROV approach provides additional output that may be of use in decision making. The probability of stage 1 research expiring in the money ($\Phi(\delta_4)$) is an encouraging `r Phi2`, while the elasticity of the 4-fold ROV with respect to project NPV is a moderate `r etaN0`, meaning that a $1\%$ change in project NPV results in a `r etaN0`$\%$ change in the underlying. This indicates considerable sensitivity to changes in project NPV.
 
-The ROV approach provides additional output, also reported in Table 2, that may be of use in decision making. The probability of stage 1 research expiring in the money ($\Phi(\delta_4)$) is an encouraging `r Phi2`, while the elasticity of the 4-fold ROV with respect to project NPV is a moderate `r etaNm10`, meaning that a $1\%$ change in project NPV results in a `r etaNm10`$\%$ change in the underlying.
-
-Since the 4-fold option value is calculated recursively, the 3-fold, 2-fold, and 1-fold options are calculated and reported in the process, along with their respective probabilities of expiring in the money and elasticities with respect to project NPV. It may be of interest to note that the 3-fold, 2-fold, and 1-fold options are deep in the money with a probability of expiring in the money close to 1. This suggesting that funding of stages 2, 3, and 4 will be easy to justify if researchers can just manage to clear the stage 1 hurdle successfully.
+Since the 4-fold ROV is calculated recursively, the 3-fold, 2-fold, and 1-fold ROVs are also calculated in the process, along with their respective probabilities of expiring in the money and elasticities with respect to project NPV. These are reported together with the 4-fold ROV in Table 2. It may be of interest to note that the 3-fold, 2-fold, and 1-fold options are deep in the money with a successively increasing probabilities of expiring in the money. This suggests that justification of the funding of each subsequent stage becomes easier if researchers can just manage to clear the stage 1 hurdle.
 <!-- `r round(dif)` -->
 
 ```{r, echo=FALSE}
@@ -1389,12 +1392,10 @@ x0bEven <- out[[1]]
 
 ```
 
-The exercise so far assumes that abandonment value is zero. Now consider the same exercise, but with a stage 1 abandonment value of $\$$`r Bvec[n]` USD, corresponding to the value of permanent upgrades to human and physical capital at the national agricultural research institutions of the target countries, such that this value will be realized whether or not stage 1 is successful. Then the 4-fold ROV works out to $\$$`r round(ROV_wB)` USD, and the probability of expiring in the money at the end of stage 1 increases to `r Phi2wB`.
+The exercise so far assumes that abandonment value is zero. Now consider a stage 1 abandonment value of $\$$`r Bvec[n]`, corresponding to the value of permanent upgrades to human and fixed capital at the national agricultural research institutions of the target countries. Then the 4-fold ROV works out to $\$$`r ROV_wB` USD, and the probability of expiring in the money at the end of stage 1 increases to `r Phi2wB`.
 <!-- `r round(dif_npv)` -->
 
-When there is considerable uncertainty or disagreement surrounding project NPV, as in the present example, a better question to ask may be: what is the minimum project NPV required for the donor's investment to break even? That is to say, instead of calculating the $n$-fold ROV based on a dubious project NPV, it may be more useful to deduce the minimum project NPV required for the donor's investment to break even. This is achieved by solving the $n$-fold ROV model implicitly for $x_0$ such that $f_n - K_n = 0$. The audience can then draw its own conclusions about whether or not real project NPV is above or below this minimum threshold. In the present exercise, the break even project NPV works out to $\$$`r x0bEven`.
-
-This is a purely pedagogical exercise to illustrate the use of the $n$-fold ROV model derived in this article. While the exercise is based on real project costs and time horizons, the other parameter values are hypothetical. The resulting calculations should therefore not be interpreted as an authoritative valuation of LBr potato research.
+When there is considerable uncertainty or disagreement surrounding project NPV, as in the present example, a better question to ask may be: what is the minimum project NPV required to justify stage 1 funding? That is to say, instead of calculating the 4-fold ROV based on a dubious project NPV, it may be more useful to deduce the minimum project NPV required for the donor's investment to break even. This is achieved by solving the $n$-fold ROV model implicitly for $x_0$ such that $f_n - K_n = 0$. The audience can then draw its own conclusions about whether or not real project NPV is above or below this minimum threshold. In the present exercise, the break even project NPV works out to $\$$`r x0bEven`.
 <!-- Point estimates such as this are of limited use when there is high uncertainty surrounding parameter settings. In such cases, it is better to report ROV in a map format spanning some relevant range of values of the most uncertain parameters. This allows decision makers to quickly discern ROV across a wide range of parameter values, as well as to develop a sense of how sharply ROV varies with these parameters. In other words, it combines ROV estimates and sensitivity analysis in a single reporting format. In the pedagogical example explored here, there is high uncertainty surrounding project NPV. A 3-fold ROV map spanning a range of combinations of upper and lower bounds on the 95% confidence interval is therefore provided in Figure \ref{fig:rovNmap}. -->
 <!-- # ```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:rovNmap}A map of 4-fold real option values across multiple combinations of project NPV minimum and maximum bounds.", echo = FALSE} -->
 <!-- # ROV Map -->
@@ -1508,41 +1509,19 @@ This is a purely pedagogical exercise to illustrate the use of the $n$-fold ROV 
 
 # Discussion and conclusion
 
-In this article, I have proposed a real options valuation workflow for multi-stage AR4D projects, built around a novel $n$-fold ROV model. The $n$-fold model...
+The far-from-market $n$-fold ROV model derived above is, of course, not limited to the valuation of transgenic crop projects. It may be equally useful in the valuation of conventional breeding projects, including livestock projects, which also tend to unfold in a series of stages. Nor is the model limited to the AR4D context, but applies generally to the valuation of any far-from-market, multi-stage project. It can also be used in near-market, multi-stage contexts, in which case the expected project growth rate $m$ is set equal to $r$ to reflect risk-neutral valuation.
 
-In the example provided above, the project is a transgenic project following a 4-stage process outlined in section \ref.... The precise breakdown of stages may vary in other projects. In some cases, for example, it may make sense to divide stage 2 into two or more stages. The method can be applied just as well to conventional breeding projects, although the particular stages have to be determined case by case. livestock too.
+The appearance of $m$ in the far-from-market model introduces additional nuance into the ROV workflow. From a "social planner" perspective, many would say that projects with $m$ less than $r$ should not be undertaken [@moore2004just; @caplin2004social]. This makes high discount rates, such as the $0.12$ annual rate used by USAID, problematic, as it is difficult to conceive of a long term project with an NPV that grows at a rate in excess of such high benchmarks. Moreover, project ROV comes out less than project NPV when $m < r$, which does not favor the researcher. High discount rates thus create an incentive for researchers to switch to cruder, default valuation methods, or to "game" the ROV parameter setting process so as to ensure that $m > r$. This underscores the importance of the plausibility check described in the example above, as well as the importance of a reasonable discount rate.
 
-* The proposed workflow is beneficial for researchers and donors alike. From the researchers' perspective, the proposed approach is appealing for two reasons: 1) The ROV approach can account for the wide uncertainty inherent in far-from-market research. Researchers, with good reason, generally resent being forced to place a single value on impacts that may be 15-30+ years off in the future [@Petsko2011; @Moriarty2008; @leeuwis2018reforming]. The proposed workflow allows researchers to accompany such point estimates with a wide error range. 2) The ROV approach prices in the donor's prerogative to discontinue funding of under-performing projects. Donors have long had this prerogative, de facto, but conventional methods of project appraisal omit the value it adds. 3) An accounting mechanism that generally facilitates the long term financial commitments required to fund disruptive research.
+In some settings, it may make sense to apply the proposed $n$-fold ROV workflow at a more aggregate level of accounting. For example, the proposed method may be used to valuate an entire program, consisting of numerous projects and complementary activities at various stages of execution, over the next 20 years, broken up into four 5 year funding stages.
 
-* From the donors' perspective, the proposed approach is appealing because it provides a way to rigorously justify commitments to long time horizon projects while at the same time preserving the flexibility necessary... in increasingly austere fiscal constraints.
+For projects with a high expected reward (i.e. deep in the money), but low risk, there is probably no point in using the ROV approach, as the output will not differ significantly from that of conventional cost benefit analysis. The higher a project's moneyness, the higher must be its volatility for there to be a meaningful difference between the two approaches.
 
-* The exposition here focuses on transgenic research because the staging of such projects tends to follow the generic structure described in section \ref{sec:}, regardless of the crop or technology being researched. The proposed workflow applies equally well to conventional breeding projects, which are also multi-staged, but the staging may vary considerably from one crop and technology to another. Details of the staging and cost assessment may also vary depending upon whether the technology is to be released as a public good, as in the case of LBr potato, or under private contract. The method applies to livestock projects as well.    ... Not limited to AR4D, but applies to any high risk, high reward, far-from-market, multi-stage real option context. The model may also be applied in near-market settings, but in that case the expected instantaneous project return $m$ should be set equal to $r$, to reflect risk-neutral valuation. For projects with a high expected reward, and little risk, there is probably no point in using the ROV approach, as the output will not differ significantly from the output of a conventional CBA approach. [The higher the ratio of benefits to costs, the higher must be the uncertainty for there to be a meaningful difference between ROV and NPV.]
+<!-- # Conclusion -->
 
-* In some settings, it may make sense to apply the proposed $n$-fold ROV workflow at a more aggregate level of accounting. For example, the proposed method may be used to valuate an entire program, consisting of numerous projects and complementary activities at various stages of execution, over the next 20 years, broken up into four 5 year funding stages. 
+<!-- by removing, in some measure, the methodological basis for the toxicity. -->
 
-
-
-* when m < r
-
-* For probabilities close to 1, the ROV will differ little from the default NPV approach.  If high reward projects are not also high risk, there is no point in assessing ROV, as the result will not differ significantly from NPV.
-
-
-Defense of assumption that project NPV follows a gBm
-
-I argued that the assumption of risk-neutral valuation is inappropriate in far-from-market contexts like AR4D, and shown that this results   which I derived from   a based on the assumption that project NPV follows a gBm. I have argued that it is inappropriate to assume risk neutral valuation in the AR4D context, and that 
-
-
-
-
-
-While AR4D is the motivating context for the present work, the results apply to any far-from-market real options context.
-
-watch out for abuse
-
-
-
-For projects with high expected net payoff, the probability of project success $\Phi(\delta_N)$ will effectively be $1$---and hence ROV will not differ meaningfully from NPV---unless there is also high uncertainty surrounding the expected payoff.    In the example above [refer to decision map figure], the ratio is so high that project ROV is virtually the same as NPV for a coefficient of variation less than $5$. 
-
+<!-- can 1) provide meaningful, risk-adjusted project appraisals, 2) secure long term commitments from donors, while at the same time 3) giving donors the flexibility they require to maintain solvent fiscal outlooks. -->
 
 # References {-}
 
