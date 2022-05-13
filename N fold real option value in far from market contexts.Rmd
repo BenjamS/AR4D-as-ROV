@@ -53,7 +53,7 @@ Real options valuation [@trigeorgis1993real; @mcgrath2000assessing] presents a p
 The application of real option valuation (ROV) to the AR4D context is complicated by the multi-stage structure of most AR4D projects. The ROV concept was originally created for one stage processes, at the end of which there arises a natural opportunity for the investor to withhold part of the funding if progress up until that point falls below expectations. AR4D projects, on the other hand, unfold in a series of stages, each of which may be viewed as the option to withhold funding of the subsequent stage.
 <!-- , if progress up until that point falls below expectations. -->
 
-In the pharmaceutical context, Cassimon et al. [@cassimon2004valuation] extend ROV to multi-stage projects, building on the "compound option" model developed by Geske in the financial context [@geske1979valuation]. Both Geske and Cassimon et al. derive their models from the Black-Scholes partial differentiation equation [@black1973valuation]. Here I present an alternative derivation and formulation of the $n$-fold real option value model based on straightforward integration, which some may find more intuitive and instructive---especially if they are unfamiliar with the financial origins of Geske's model. I then apply the derived model to appraise a real 4-stage AR4D potato project.
+In the pharmaceutical context, Cassimon et al. [@cassimon2004valuation] extend ROV to multi-stage projects, building on the "compound option" model developed by Geske in the financial context [@geske1979valuation]. Both Geske and Cassimon et al. derive their models from the Black-Scholes partial differentiation equation [@black1973valuation]. Here I present an alternative derivation and formulation of the $n$-fold real option value model based on straightforward integration, which some may find more intuitive and instructive---especially if they are unfamiliar with the financial origins of Geske's model. I then apply the derived model to appraise a real 4-stage AR4D potato project. An R script of the model is included in the Appendix.
 <!-- Cassimons et al. coin the phrase "$n$-fold option" to refer to such models.  -->
 <!-- (where $n$ is the number of project stages) -->
 
@@ -754,7 +754,7 @@ gg_cppSpec <- gg
 
 ```
 
-```{r Fig2, fig.show = "hold", fig.width = 4, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol}(Left)An example of NPV changing randomly in every time step. (Right)An example of NPV changing randomly at random time steps, and otherwise remaining constant.", echo = FALSE}
+```{r Fig2, fig.show = "hold", fig.width = 5, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol}(Left)An example of NPV changing randomly in every time step. (Right)An example of NPV changing randomly at random time steps, and otherwise remaining constant.", echo = FALSE}
 
 gg_gbm + gg_cpp + plot_layout(nrow = 1)
 
@@ -788,7 +788,7 @@ In the financial context, the reality one aspires to model---i.e. some stochasti
 
 Then there is the question of the relevance of the increase in realism. In the financial context, the relevance of a realistic model of the time evolution of financial securities is clear: it can make the difference between profit and loss. In far-from-market real options contexts, on the other hand, there is no real need for a good predictor of exactly when or in what order specific changes in project NPV occur. The overarching purpose of modeling project NPV is to calculate its real option value; and for this, the relevant question is rather one of the size distribution of changes. The cPp model might seem more realistic than the gBm model when trying to approximate a time series in which there are a few big changes interspersed by long periods of no change. However, the gBm model can approximate such a time series arbitrarily closely, so long as it is acceptable to substitute "periods of no change" with "periods of negligibly small changes". The periodograms given in Figure \ref{fig:NPVevol2}, which correspond to the time series in the previous Figure, indicate that the size distribution of changes of the two time series is similar, despite their differences in the time domain.
 
-```{r Fig3, fig.show = "hold", fig.width = 4, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol2}(Left) Periodogram of the time series in the left panel of previous figure. (Right) Periodogram of the time series in the right panel of previous figure.", echo = FALSE}
+```{r Fig3, fig.show = "hold", fig.width = 5, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol2}(Left) Periodogram of the time series in the left panel of previous figure. (Right) Periodogram of the time series in the right panel of previous figure.", echo = FALSE}
 
 gg_gbmSpec + gg_cppSpec + plot_layout(nrow = 1)
 
@@ -946,7 +946,7 @@ Equation \ref{eq:itoLemf1} can thus be rewritten
 \label{eq:gbmf1}
 \end{equation}
 
-By which it follows that $\Delta f_1 / f_1$ is normally distributed with mean $m \Delta t$ and variance $s^2 \eta_{1, 0}^2 \Delta t$. From this, it follows that $f_1$ is a geometric Brownian movement, such that $\ln(f_1)$ is normally distributed with mean $\ln(f_1(\hat{t})) + \left(m - \frac{s^2 \eta_{1, 0}^2}{2} \right) \tau_1$ and variance $s^2 \eta_{1, 0}^2 \tau_1$.
+By which it follows that $\Delta f_1 / f_1$ is normally distributed with mean $m \Delta t$ and variance $s^2 \eta_{1, 0}^2 \Delta t$. From this, it follows that $f_1$ is a geometric Brownian movement, such that $\ln(f_1)$ is normally distributed with mean $\ln(f_1(\hat{t})) + \left(m - s^2 \eta_{1, 0}^2 / 2 \right) \tau_1$ and variance $s^2 \eta_{1, 0}^2 \tau_1$.
 
 It follows that a 2-fold real option value function $f_2(f_1, t)$ also has a far-from-market Black-Scholes PDE.
 
@@ -957,7 +957,7 @@ It follows that a 2-fold real option value function $f_2(f_1, t)$ also has a far
 With corresponding Ito's lemma
 
 \begin{equation}
-\Delta f_2 = \left( \frac{\partial f_2}{\partial f_1} m f_1 + \frac{\partial f_2{\partial t} + \frac{1}{2} \frac{\partial^2 f_2}{\partial f_1^2} s^2 f_1^2 \right) \Delta t + \frac{\partial f_2}{\partial f_1} f_1 s \epsilon \sqrt{\Delta t}
+\Delta f_2 = \left( \frac{\partial f_2}{\partial f_1} m f_1 + \frac{\partial f_2}{\partial t} + \frac{1}{2} \frac{\partial^2 f_2}{\partial f_1^2} s^2 f_1^2 \right) \Delta t + \frac{\partial f_2}{\partial f_1} f_1 s \epsilon \sqrt{\Delta t}
 \end{equation}
 
 Such that
