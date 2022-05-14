@@ -14,6 +14,8 @@ date: "`r Sys.Date()`"
 bibliography: AR4Drealoptions.bib
 header-includes:
   - \numberwithin{equation}{section}
+  - \usepackage{etoolbox}
+  - \appto\appendix{\counterwithin{equation}{section}}
 #linenumbers: true
 numbersections: true
 csl: elsevier-harvard.csl
@@ -146,10 +148,7 @@ See Appendix for proof.
 If $x(t)$ is the gBm described above, then it is lognormally distributed. More specifically, $\ln(x(t))$ is normally distributed with mean $\ln(x(\hat{t})) + (m - s^2 / 2 ) \tau$ and variance $s^2 \tau$, where $\hat{t}$ is the time at which the evaluation is made and $\tau = T - \hat{t}$. Hence, by equation \ref{eq:part1},
 
 \begin{equation}
-\begin{split}
-E[\max(x(T) - K, 0)]\bigr|_{t = \hat{t}} &= \\
-\:\:\: e^{m \tau} x(\hat{t}) \Phi \left(\frac{\ln \left(\frac{x(\hat{t})}{K} \right) + \left(m + \frac{s^2}{2} \right) \tau}{s \sqrt{\tau}} \right) - K \Phi \left(\frac{\ln \left( \frac{x(\hat{t})}{K} \right) + \left(m - \frac{s^2}{2} \right) \tau}{s \sqrt{\tau}} \right)
-\end{split}
+E[\max(x(T) - K, 0)]\bigr|_{t = \hat{t}} = e^{m \tau} x(\hat{t}) \Phi \left(\frac{\ln \left(\frac{x(\hat{t})}{K} \right) + \left(m + \frac{s^2}{2} \right) \tau}{s \sqrt{\tau}} \right) - K \Phi \left(\frac{\ln \left( \frac{x(\hat{t})}{K} \right) + \left(m - \frac{s^2}{2} \right) \tau}{s \sqrt{\tau}} \right)
 \end{equation}
 
 Or, more compactly,
@@ -511,8 +510,12 @@ Research related changes occur perhaps 1-4 times per year, while non-research re
 # library(tidyverse)
 # library(patchwork)
 #----------------------------------------------------------------------------
-gbmFun <- function(tau = 40, m = 0.001, s = 0.003, x0 = 1, randVec = NULL) {
-  if(is.null(randVec)){randVec <- rnorm(tau)}
+gbmFun <- function(tau = 40, m = 0.001, s = 0.003, x0 = 1,
+                   randVec = NULL, seed = NULL) {
+  if(is.null(randVec)){
+      if(!is.null(seed)){set.seed(seed)}
+    randVec <- rnorm(tau)
+    }
   epsilon <- randVec
   lx <- c(); lx[1] <- log(x0)
   drift <- (m - s * s / 2)
@@ -536,7 +539,9 @@ gbmFun <- function(tau = 40, m = 0.001, s = 0.003, x0 = 1, randVec = NULL) {
 # shapiro.test(diff(log(x)))
 #---------------------------------------------------------------------------
 # Algorithm 6.2 in Tankov 2003 Financial modeling with jump processes
-compoundPoisFun <- function(tau, lambda, m_y = 0, s_y = 1, maxiter = 500){
+compoundPoisFun <- function(tau, lambda, m_y = 0, s_y = 1,
+                            seed = NULL, maxiter = 500){
+  if(!is.null(seed)){set.seed(seed)}
   N <- rpois(1, lambda * tau)
   U <- runif(N) * tau
   U <- round(U)
@@ -629,7 +634,7 @@ FractDim<-function(Data,graphon=FALSE) {
   #FrDim=-qq[2]
   return(c(FrDim, avgRes, yintcept))
 }
-#---------------------------------------------------------------------------
+#===========================================================================
 m <- 0.005
 s <- m * seq(5.5, 50, length.out = 3)
 tau <- 48
@@ -644,13 +649,17 @@ lambda <- 0.1
 
 
 #----------------------------------------------------------------------------
+# Generate and plot geometric Brownian movement example
+gBm_seed <- 10^4 * round(runif(1), 4)
+#gBm_seed <- 2482
+#gBm_seed <- 7781
 #randVec <- coloredNoise(N = tau, alpha = 1, scaleIt = T)
 #acf(randVec)
 list_df <- list()
 list_spec <- list()
 facet_labels <- c()
 for(i in 1:length(s)){
-  x <- gbmFun(tau, m, s[i], x0, randVec = NULL)
+  x <- gbmFun(tau, m, s[i], x0, randVec = NULL, seed = gBm_seed)
   df_x <- data.frame(t = 1:tau, x, s = as.character(s[i]))
   list_df[[i]] <- df_x
   o <- spectrum(x)
@@ -695,12 +704,20 @@ gg <- gg + theme(axis.text = element_blank(),
                  axis.title = element_text(size = axisTitle_size))
 gg_gbmSpec <- gg
 #----------------------------------------------------------------------------
+# Generate and plot compound Poisson process example
+#cPp_seed <- 10^4 * round(runif(1), 4)
+#cPp_seed <- 6819
+#cPp_seed <- 4880
+#cPp_seed <- 7656
+cPp_seed <- 2558
 list_df <- list()
 list_spec <- list()
 facet_labels <- c()
 for(i in 1:length(s)){
   #s_y = 0.3
-  list_out <- compoundPoisFun(tau, lambda, m_y = m, s_y = s[i], maxiter = 500)
+  list_out <- compoundPoisFun(tau, lambda, m_y = m,
+                              s_y = s[i], seed = cPp_seed,
+                              maxiter = 500)
   df_x <- list_out[[1]]
   df_x$s <- as.character(s[i])
   list_df[[i]] <- df_x
@@ -1128,33 +1145,64 @@ df_table <- data.frame(Stage = c(1:4, "Launch"),
                        DurationCum = cumsum(rev(Tvec)),
                        Description = descVec)
 
-colnames(df_table)[2:4] <- c("Cost (USD)", "Duration (quarters)", "Cumulative duration")
+colnames(df_table)[2:4] <- c("Cost\n(USD)", "Duration\n(quarters)", "Cumulative\nduration")
 
-df_table <- regulartable(df_table)
+#df_table <- regulartable(df_table)
 #df_table
 #df_table <- width(df_table, width = 0.7)
-table_title <- "Table 1: Project to research and develop Late Blight resistant potato for release as a public good in 2 developing countries."
-table_caption <- "Note: Stage 1-4 costs and durations based on figures reported by Schiek et al. (2016). The launch cost and duration is hypothetical."
+table_title <- "Project to research and develop Late Blight resistant potato for release as a public good in 2 developing countries."
+table_caption <- "Stage 1-4 costs and durations based on figures reported by Schiek et al. (2016). The launch cost and duration is hypothetical."
 
-df_table <- FitFlextableToPage(df_table)
-df_table <- add_header_lines(df_table, table_title)
-df_table <- add_footer_lines(df_table, table_caption)
+#df_table <- FitFlextableToPage(df_table)
+# df_table <- add_header_lines(df_table, table_title)
+# df_table <- add_footer_lines(df_table, table_caption)
 
-df_table
+df_table %>%
+  knitr::kable(
+    format = "latex",
+    caption = table_title,
+    align = "l",
+    booktabs = T,
+    #longtable = T,
+    linesep = " "
+    ) %>%
+  kableExtra::kable_styling(
+    position = "left",
+    latex_options = c("scale_down", "striped", "repeat"),
+    full_width = F,
+    stripe_color = "gray!15"
+  ) %>%
+  kableExtra::footnote(
+    general = table_caption)
+       # number = c("Footnote 1; ", "Footnote 2; "),
+       # alphabet = c("Footnote A; ", "Footnote B; "),
+       # symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2"))
+
+# print_this_table <- function(df_table){
+# df_table <- regulartable(df_table)
+# df_table <- width(df_table, width = 5.5)
+# # df_table <- FitFlextableToPage(df_table)
+# 
+# df_table %>% #regulartable() %>% autofit() %>%
+#   valign(valign = "top", part = "all") %>%
+#   align(align = "left", part = "all") %>%
+#   fontsize(i = NULL, j = NULL, size = 9, part = "body") %>%
+#   fontsize(i = NULL, j = NULL, size = 10, part = "header")
+#   
+# }
+
 
 ```
 
 In real options language, USAID bought a 4-fold option on LBr potato when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then effectively bought a second 4-fold option on LBr potato when it transferred the contract to MSU. The first stage of the 4-fold option has expired in the money, whereupon it has become a 3-fold option.
 
-In the present exercise, I use the $n$-fold ROV model derived in the previous section to calculate the 4-fold real option value of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 (multi-location, multi-season confined field trials) once stage 1 is complete. In order to make the calculation, the model requires the research stage costs $K_1, K_2, \dots, K_4$ and time horizons $T_1, T_2, \dots, T_4$ listed in Table 1, as well as:
-
-* The post-project launch cost $K_0$
+In the present exercise, I use the $n$-fold ROV model derived in the previous section to calculate the 4-fold real option value of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 (multi-location, multi-season confined field trials) once stage 1 is complete. In order to make the calculation, the model requires the research stage and launch costs $K_0, K_1, \dots, K_4$ and time horizons $T_1, T_2, \dots, T_4$ listed in Table 1, as well as:
 
 * The project NPV $x(0)$
 
 * The project NPV growth rate $m$ and volatility $s$, or the upper and lower bounds on project NPV, whereby $m$ and $s$ can be deduced
 
-* Any abandonment values associated with each stage $B_1, B_2,\dots, B_4$
+* Any abandonment values associated with each stage $B_0, B_1,\dots, B_4$
 
 * The discount rate $r$
 
@@ -1228,10 +1276,10 @@ Timpact <- 10 * 4
 yrlyBen <- 1 * 10^6 # (Assuming very low adoption)
 x0 <- sum(yrlyBen / (1 + rQtly_discrete)^(Tn + Tadopt + 1:Timpact))
 # (Override)
-x0 <- 1.225 * 10^6
+x0 <- 1.23 * 10^6
 #---------------------------------------------------------------------------
 # Convert discrete discount rate to continuous discount rate
-r <- log(1 + rQtly_discrete)
+r <- round(log(1 + rQtly_discrete), 3)
 #----------------------------------------------------------------------------
 # Derive s and m
 # Define confidence interval of interest, usually 95% (z = 1.96)
@@ -1249,13 +1297,15 @@ yMin <- log(1 + yMinA)
 # Back out s and m
 s <- (yMax - yMin) / (2 * zBound * sqrt(Tn))
 m <- 1 / (2 * Tn) * (yMax + yMin + (yMax - yMin)^2 / (4 * zBound^2))
-m - r
+s <- round(s, 3)
+m <- round(m, 3)
+#m - r
 # Make sure m > r
 #----------------------------------------------------------------------------
 # Plausibility check:
 # Coefficient of variation
 cv <- round(s / (m * sqrt(Tn)), 2)
-cv
+#cv
 # CV graph
 # yMaxVec <- seq(0.1, 2.5, length.out = 35)
 # sVec <- (yMaxVec - yMin) / (2 * zBound * sqrt(Tn))
@@ -1264,21 +1314,22 @@ cv
 # plot(yMaxVec, cvVec)
 # cvVec <- 1 / (4 * zBound * Tn^2) * (yMaxVec^2 - yMin^2 + (yMaxVec - yMin)^3 / (4 * zBound^2))
 # E[x(T)]|t=0
-ExT <- exp(m * Tn) * x0
-ExTdisc <- exp(-r * Tn) * ExT
+ExT <- round(exp(m * Tn) * x0 * 10^-6, 3) # millions
+ExTdisc <- round(exp(-r * Tn) * ExT, 3) # millions
 # Expected log return
 mu <- round((yMax + yMin) / 2, 2)
-mu
+#mu
 #m <- (mu / Tn + s^2 / 2)
 #--------------------------------------------------------------------------
 # Compare to conventional appraisal
 #NPV <- exp(-r * sum(Tvec)) * (X0 - sum(Kvec))
 conv <- exp((m - r) * Tn) * x0 - sum(exp(-r * rev(cumsum(rev(Tvec[-1])))) * (Kvec[-(n + 1)] - Bvec))
+conv <- round(conv)
 dif_conv <- round(conv - K1)
 #--------------------------------------------------------------------------
 # Calculate n-fold ROV, at first with no abandonment value
 df <- rovN(x0, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r)
-ROV <- df$OVn[nrow(df)]
+ROV <- round(df$OVn[nrow(df)])
 dif <- round(ROV - K1)
 Phi2 <- round(df$Phi2[n], 2)
 etaN0 <- round(df$etaN0[n], 2)
@@ -1286,15 +1337,16 @@ etaN0 <- round(df$etaN0[n], 2)
 # Calculate n-fold ROV, now with abandonment value
 Bvec <- c(0, 0, 0, 10000)
 df <- rovN(x0, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r)
-ROV_wB <- df$OVn[nrow(df)]
+ROV_wB <- round(df$OVn[nrow(df)])
 dif_wB <- round(ROV_wB - K1)
 Phi2wB <- round(df$Phi2[n], 2)
 etaN0_wB <- round(df$etaN0[n], 2)
 #--------------------------------------------------------------------------
 # Compare to conventional appraisal with abandonment value
 #NPV <- exp(-r * sum(Tvec)) * (X0 - sum(Kvec))
-conv <- exp((m - r) * Tn) * x0 - sum(exp(-r * rev(cumsum(rev(Tvec[-1])))) * (Kvec[-(n + 1)] - Bvec))
-dif_conv_wB <- conv - K1
+conv_wB <- exp((m - r) * Tn) * x0 - sum(exp(-r * rev(cumsum(rev(Tvec[-1])))) * (Kvec[-(n + 1)] - Bvec))
+conv_wB <- round(conv_wB)
+dif_conv_wB <- conv_wB - K1
 
 ```
 
@@ -1302,30 +1354,60 @@ It should be kept in mind that this is a purely pedagogical exercise to illustra
 
 USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. However, there are good reasons for using a much lower rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing]. As a compromise between the two extremes, an annual (discrete) discount rate of `r rYrly_discrete` is assumed in this exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation. Abandonment values are assumed to be zero for the time being.
 
-No ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet been published. For the pedagogical purposes of this exercise, say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating an LBr project NPV of $x(0)=\$$`r x0`, with a high degree of uncertainty ranging from $-$ `r 100 * yMin` $\%$ to $+$`r 100 * yMax`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ and quarterly growth rate $m$ are deduced following the method explained in section \ref{sec:volEst}. These work out to $m = $ `r m` (`r round(((1 + m)^4 - 1), 1)` annually) and $s = $ `r s`.
+No ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet been published. For the pedagogical purposes of this exercise, say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating an LBr project NPV of $x(0)=\$`r x0 * 10^-6`$ million, with a high degree of uncertainty ranging from `r 100 * yMinA` $\%$ to `r 100 * yMaxA`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ and quarterly growth rate $m$ are deduced following the method explained in section \ref{sec:volEst}. These work out to $m = `r m`$ (or `r round(((1 + m)^4 - 1), 1)` annually) and $s = `r s`$.
 
-As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced values for $m$ and $s$. The coefficient of variation works out to `r cv`, while the log return works out to `r mu`. This then implies an expected project NPV at the end of the project of $\$$`r ExT` USD, the present value of which is $\$$`r ExTdisc` USD.
+As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced values for $m$ and $s$. The coefficient of variation works out to `r cv`, while the log return works out to `r mu`. This then implies an expected project NPV at the end of the project of $\$`r ExT`$ million, the present value of which is $\$`r ExTdisc`$ million.
 <!-- For public projects The annual discount rate is set equal to a social discount rate of $0.035$, following the recommendation of Moore et al. [@moore2004just], which implies a quarterly discount rate of $r = $`r r`.-->
 <!-- (Alston and Norton acknowledged in 1995 that the treatment of risk in impact assessment models was "rudimentary and in need of further refinement" [@Alston1995]. Unfortunately, this remains true today.) If ex-ante risk assessments are not available, then they can be elicited in the survey of domain experts. Project risk might be crowdsourced, for example, by asking survey participants to estimate the maximum, minimum, and most probable impact of each given project. With these three inputs, it is then straightforward to compute standard deviation on the basis of an assumed project impact probability density. (For example, the minimum and maximum could be interpreted as the bounds of the 95% confidence interval of a lognormal probability density, and the "most probable impact" could be interpreted as its mode. From this it is then straightforward to derive the standard deviation.) -->
 
 ```{r, echo=FALSE}
 
 
-df_table <- df[, c("Stage", "OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
+df_table <- df[, c("Stage", "OVn", "fnM10", "etaN0", "sNm1", "Phi2")]
 #df_tabwB <- df_wB[nrow(df_wB), c("OVn", "fnM10", "etaNm10", "sNm1", "Phi2")]
 colnames(df_table)[2:ncol(df_table)] <- c("ROV", "Value of\nunderlying", "Elasticity\nw.r.t. project NPV", "Standard dev.", "Phi 2")
+df_table$ROV <- round(df_table$ROV)
+df_table$`Value of\nunderlying` <- round(df_table$`Value of\nunderlying`)
+these_cols <- c("Elasticity\nw.r.t. project NPV", "Standard dev.", "Phi 2")
+df_table[, these_cols] <- round(df_table[, these_cols], 2)
 
-df_table <- regulartable(df_table)
-#df_table <- width(df_table, width = 0.7)
-df_table <- FitFlextableToPage(df_table)
-df_table
+# df_table <- regulartable(df_table)
+# #df_table <- width(df_table, width = 0.7)
+# df_table <- FitFlextableToPage(df_table)
+# df_table
+
+table_title <- "LBr potato project stage 1-4 ROVs"
+
+df_table %>%
+  knitr::kable(
+    format = "latex",
+    caption = table_title,
+    align = "l",
+    booktabs = T,
+    #longtable = T,
+    linesep = " ",
+    col.names = c(colnames(df_table)[-ncol(df_table)], "$\\Phi(\\delta_i)$"),
+    escape = F
+    ) %>%
+  kableExtra::kable_styling(
+    position = "left",
+    latex_options = c("scale_down", "striped", "repeat"),
+    full_width = F,
+    stripe_color = "gray!15"
+  )
+
+# %>%
+#   kableExtra::footnote(
+#     general = table_caption)
+
+
 
 ```
 
-Based on these parameter values, the 4-fold option value of the LBr potato project works out to $\$$`r ROV` USD, which exceeds the stage 1 implementation cost ($\$$`r Kvec[n]`) by $\$$`r dif`. Hence the investment is justified under the parameter settings defined above. The default approach (expression \ref{eq:npvIneqN2}), by contrast, works out to $\$$`r conv`, which falls below the stage 1 cost by $\$$`r -dif_conv`. On the default basis, then, the LBr project would be rejected.
+Based on these parameter values, the 4-fold option value of the LBr potato project works out to $\$`r as.integer(ROV)`$, which exceeds the stage 1 implementation cost ($\$`r as.integer(Kvec[n])`$) by $\$`r as.integer(dif)`$. Hence the investment is justified under the parameter settings defined above. The conventional cost-benefit analysis approach (expression \ref{eq:npvIneqN2}), by contrast, works out to $\$`r as.integer(conv)`$ million, which falls below the stage 1 cost by $\$$`r -as.integer(dif_conv)`. On the conventional basis, then, the LBr project would be rejected.
 <!-- (equation \ref{eq:rovBn}) -->
 
-The ROV approach provides additional output that may be of use in decision making. The probability of stage 1 research expiring in the money ($\Phi(\delta_4)$) is an encouraging `r Phi2`, while the elasticity of the 4-fold ROV with respect to project NPV is a moderate `r etaN0`, meaning that a $1\%$ change in project NPV results in a `r etaN0`$\%$ change in the underlying. This indicates considerable sensitivity to changes in project NPV.
+The ROV approach provides additional output that may be of use in decision making. The probability of stage 1 research expiring in the money ($\Phi(\delta_4)$) is an encouraging `r Phi2`, while the elasticity of the 4-fold ROV with respect to project NPV is `r etaN0`, meaning that a $1\%$ change in project NPV results in a `r etaN0`$\%$ change in the 4-fold ROV. This indicates considerable sensitivity to changes in project NPV.
 
 Since the 4-fold ROV is calculated recursively, the 3-fold, 2-fold, and 1-fold ROVs are also calculated in the process, along with their respective probabilities of expiring in the money and elasticities with respect to project NPV. These are reported together with the 4-fold ROV in Table 2. It may be of interest to note that the 3-fold, 2-fold, and 1-fold options are deep in the money with a successively increasing probabilities of expiring in the money. This suggests that justification of the funding of each subsequent stage becomes easier if researchers can just manage to clear the stage 1 hurdle.
 <!-- `r round(dif)` -->
@@ -1365,7 +1447,7 @@ slackfun <- function(x0, Kvec, Bvec, Tvec, s, m, r, thresh){
 #                                    thresh = thresh)
 
 #--------------------------------------------------------------------------
-interval <- c(1.04, 1.08) * 10^6
+interval <- c(1, 2) * 10^6
 out <- uniroot(slackfun,
         interval,
         Kvec = Kvec[-n - 1],
@@ -1376,7 +1458,7 @@ out <- uniroot(slackfun,
         r = r,
         thresh = K1
         )
-x0bEven <- out[[1]]
+x0bEven <- round(out[[1]] * 10^-6, 3) # millions
 # x0guess <- 1.06 * 10^6 #x0
 # slackfun(x0guess, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r, thresh = K1)
 # minInt <- min(interval)
@@ -1399,10 +1481,9 @@ x0bEven <- out[[1]]
 
 ```
 
-The exercise so far assumes that abandonment value is zero. Now consider a stage 1 abandonment value of $\$$`r Bvec[n]`, corresponding to the value of permanent upgrades to human and fixed capital at the national agricultural research institutions of the target countries. Then the 4-fold ROV works out to $\$$`r ROV_wB` USD, and the probability of expiring in the money at the end of stage 1 increases to `r Phi2wB`.
-<!-- `r round(dif_npv)` -->
+The exercise so far assumes that abandonment value is zero. Now consider a stage 1 abandonment value of $\$`r as.integer(Bvec[n])`$, corresponding to the value of permanent upgrades to human and fixed capital at the national agricultural research institutions of the target countries. Then the 4-fold ROV works out to $\$`r as.integer(ROV_wB)`$ USD, and the probability of expiring in the money at the end of stage 1 increases to `r Phi2wB`.
 
-When there is considerable uncertainty or disagreement surrounding project NPV, as in the present example, a better question to ask may be: what is the minimum project NPV required to justify stage 1 funding? That is to say, instead of calculating the 4-fold ROV based on a dubious project NPV, it may be more useful to deduce the minimum project NPV required for the donor's investment to break even. This is achieved by solving the $n$-fold ROV model implicitly for $x_0$ such that $f_n - K_n = 0$. The audience can then draw its own conclusions about whether or not real project NPV is above or below this minimum threshold. In the present exercise, the break even project NPV works out to $\$$`r x0bEven`.
+When there is considerable uncertainty or disagreement surrounding project NPV, as in the present example, a better question to ask may be: what is the minimum project NPV required to justify stage 1 funding? That is to say, instead of calculating the 4-fold ROV based on a dubious project NPV, it may be more useful to deduce the minimum project NPV required for the donor's investment to break even. This is achieved by solving the $n$-fold ROV model implicitly for $x_0$ such that $f_n - K_n = 0$. The audience can then draw its own conclusions about whether or not real project NPV is above or below this minimum threshold. In the present exercise, the break even project NPV works out to $\$`r x0bEven `$ million.
 <!-- Point estimates such as this are of limited use when there is high uncertainty surrounding parameter settings. In such cases, it is better to report ROV in a map format spanning some relevant range of values of the most uncertain parameters. This allows decision makers to quickly discern ROV across a wide range of parameter values, as well as to develop a sense of how sharply ROV varies with these parameters. In other words, it combines ROV estimates and sensitivity analysis in a single reporting format. In the pedagogical example explored here, there is high uncertainty surrounding project NPV. A 3-fold ROV map spanning a range of combinations of upper and lower bounds on the 95% confidence interval is therefore provided in Figure \ref{fig:rovNmap}. -->
 <!-- # ```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:rovNmap}A map of 4-fold real option values across multiple combinations of project NPV minimum and maximum bounds.", echo = FALSE} -->
 <!-- # ROV Map -->
@@ -1525,19 +1606,27 @@ In some settings, it may make sense to apply the proposed $n$-fold ROV workflow 
 For projects with a high expected reward (i.e. deep in the money), but low risk, there is probably no point in using the ROV approach, as the output will not differ significantly from that of conventional cost benefit analysis. The higher a project's moneyness, the higher must be its volatility for there to be a meaningful difference between the two approaches.
 
 <!-- # Conclusion -->
-
 <!-- by removing, in some measure, the methodological basis for the toxicity. -->
-
 <!-- can 1) provide meaningful, risk-adjusted project appraisals, 2) secure long term commitments from donors, while at the same time 3) giving donors the flexibility they require to maintain solvent fiscal outlooks. -->
-
-# References {-}
-
-
-<div id="refs"></div>
+<!-- https://stackoverflow.com/questions/58187514/r-markdown-place-an-appendix-after-the-references-section -->
+<!-- # References {-} -->
+<!-- <div id="refs"></div> -->
+<!-- <div id="refs"></div> -->
+<!-- \printbibliography[heading=none] -->
+<!-- \def\printbibliography{} -->
 
 \pagebreak
+<!-- https://tex.stackexchange.com/questions/520480/how-make-appendix-of-paper-number-equations-in-there -->
+<!-- In YAML: -->
+<!-- \usepackage{etoolbox} -->
+<!-- \appto\appendix{\counterwithin{equation}{section}} -->
 
-# Appendix: Proof of equation \ref{eq:part1} through straightforward integration
+\appendix
+\renewcommand{\thesection}{A}
+
+# Appendix {-}
+
+## Proof of equation \ref{eq:part1} through straightforward integration {-}
 
 <!-- Lemma: -->
 
@@ -1585,7 +1674,7 @@ For projects with a high expected reward (i.e. deep in the money), but low risk,
 By definition, for a random variable $q$ and a constant $C$,
 
 \begin{equation}
-E[max(q - C, 0)] = \int_{C}^{\infty} (v - K) p(v) \: dv
+E[\max(q - C, 0)] = \int_{C}^{\infty} (v - K) p(v) \: dv
 \label{eq:def}
 \end{equation}
 
@@ -1620,7 +1709,7 @@ The definition in equation \ref{eq:def} can be rewritten as follows.
 
 \begin{equation}
 \begin{split}
-E[max(q - C, 0)] &= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} (e^{u \omega + \nu} - C) \phi(u) \: du \\
+E[\max(q - C, 0)] &= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} (e^{u \omega + \nu} - C) \phi(u) \: du \\
 &= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du - C \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u) \: du \\
 &= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du - C \Phi \left(-\frac{\ln(C) - \nu}{\omega} \right)
 \end{split}
@@ -1642,7 +1731,7 @@ The remaining integral on the right-hand side of the definition resolves as foll
 The definition may now be rewritten as follows.
 
 \begin{equation}
-E[max(q - C, 0)] = E[q] \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right) - C \Phi \left(-\frac{\ln(C) - \nu}{\omega} \right)
+E[\max(q - C, 0)] = E[q] \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right) - C \Phi \left(-\frac{\ln(C) - \nu}{\omega} \right)
 \end{equation}
 
 Note that \ref{eq:muXT} can be rearranged into an expression for $\nu$.
@@ -1655,7 +1744,7 @@ Note that \ref{eq:muXT} can be rearranged into an expression for $\nu$.
 Substituting this for $\nu$ in the definition gives
 
 \begin{equation}
-E[max(q - C, 0)] = E[q] \Phi \left(\frac{\ln(E[q] / C) + \omega^2 / 2}{\omega} \right) - C \Phi \left(-\frac{\ln(E[q] / C) - \omega^2 / 2}{\omega} \right)
+E[\max(q - C, 0)] = E[q] \Phi \left(\frac{\ln(E[q] / C) + \omega^2 / 2}{\omega} \right) - C \Phi \left(-\frac{\ln(E[q] / C) - \omega^2 / 2}{\omega} \right)
 \end{equation}
 
 $\blacksquare$
@@ -1703,28 +1792,55 @@ $\blacksquare$
 
 <!-- This is the ROV formula in equation \ref{eq:rov}. -->
 
+## R script of the $n$-fold real option value model, with abandonment value {-}
 
+This R script is written for clarity, not for efficiency.
 
+````markdown
 
+rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, m, r){
+  N <- length(Kvec)
+  if(is.null(Bvec)){Bvec <- rep(0, N)}
+  fNm1 <- X0
+  etaNm10 <- 1
+  etaVec <- c()
+  fnVec <- c()
+  sNm1vec <- c()
+  Phi2vec <- c()
+  Phi1vec <- c()
+  for(i in 1:N){
+    Kn <- Kvec[i]
+    Bn <- Bvec[i]
+    Tn <- rev(cumsum(rev(Tvec)))[i]
+    dn <- (log(fNm1 / (Kn - Bn)) + (m - s^2 * etaNm10^2 / 2) *
+    Tn) / (s * etaNm10 * sqrt(Tn))
+    Phi1 <- pnorm(dn + s * etaNm10 * sqrt(Tn))
+    Phi2 <- pnorm(dn)
+    fn <- exp((m - r) * Tn) * fNm1 * Phi1 - exp(-r * Tn) *
+    Kn * Phi2 + exp(-r * Tn) * Bn * (1 + Phi2)
+    fnVec[i] <- fn
+    sNm1vec[i] <- s * etaNm10
+    Phi2vec[i] <- Phi2
+    Phi1vec[i] <- Phi1
+    phi1 <- dnorm(dn + s * etaNm10 * sqrt(Tn))
+    dfndfNm1 <- exp((m - r) * Tn) * (Phi1 + phi1 * 
+    (1 - etaNm10) * s * sqrt(Tn))
+    etaNnM1 <- fNm1 / fn * dfndfNm1
+    etaNm10 <- etaNnM1 * etaNm10
+    fNm1 <- fn
+    etaVec[i] <- etaNm10
+  }
+  underVec <- c(X0, fnVec[-N])
+  df_out <- data.frame(Stage = rev(1:N),
+                       OVn = fnVec, fnM10 = underVec,
+                       KnM1 = Kvec, etaN0 = etaVec,
+                       sNm1 = sNm1vec, Phi2 = Phi2vec,
+                       Phi1 = Phi1vec)
+  return(df_out)
+  
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+````
 <!-- >"[The proven LB resistance] technology is applied to the target [potato] variety in order to obtain a reduced number of candidate...transgenic events. Once the lead gene construct has been developed, a relatively large number of explants is screened by successive procedures in order to identify transgenic events from among the explants, remove the transgenic events with backbone vector sequences, select the transgenic events exhibiting high resistance to LB in confined field trials [CFTs], and select the transgenic events with the minimum copy number of R genes. The output of this process is a small number of candidate pre-commercial transgenic events selected for wide area testing, as well as molecular characterisation data to be used in the compilation of the regulatory dossier later on" []. -->
 
 <!-- Stage 2: Wide area testing -->
