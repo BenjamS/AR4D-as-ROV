@@ -39,7 +39,9 @@ Agricultural research for development scientists are increasingly required to va
 \keyFont{ \section{Keywords:} Real option value, Agricultural research for development, Risk neutral valuation, Abandonment value, Far-from-market }
 
 \end{abstract}
-
+<!-- Manuscript contribution to the field -->
+<!-- (In 200 words, describe the contribution of your manuscript to the research field. You should frame the research question(s) addressed in your work in the context of current knowledge, highlighting how the findings contribute to progress in your research discipline.) -->
+<!-- Funding for agricultural research for development (AR4D) projects is set up in stages, such that the funding of any single stage can only move forward upon successful completion of the prior stages. When the project donor agrees to fund a research stage, then, they effectively buy the option, but not the obligation, to fund the subsequent stage. The donor’s investment therefore has option value, which can be considerable if there is high uncertainty (risk) surrounding the expected impact of the research. Conventional methods of AR4D project appraisal fail to account for option value, effectively underestimating the value of risky projects. Real option valuation (ROV) is a potential mechanism by which to price in option value, but adaptation of ROV to the AR4D context is complicated by the multi-stage, far-from-market-nature of AR4D projects. Here I address these challenges to develop a closed form, multi-stage ROV model. (I also introduce an elementary extension to account for abandonment value.) By explicitly accounting for risk and the option to abandon, the proposed model offers a more complete picture of AR4D project value as compared to conventional appraisal methods--potentially facilitating donor commitment to the long time horizons of agricultural research. -->
 
 
 ```{r setup, include=FALSE}
@@ -1199,7 +1201,7 @@ table_caption <- "Stage 1-4 costs and durations based on figures reported by Sch
 #df_table <- FitFlextableToPage(df_table)
 # df_table <- add_header_lines(df_table, table_title)
 # df_table <- add_footer_lines(df_table, table_caption)
-#modifiedColnames <- colnames(df_table)
+# modifiedColnames <- colnames(df_table)
 # modifiedColnames[3] <- "Duration\n(annual quarters)"
 df_table %>%
   knitr::kable(
@@ -1209,7 +1211,6 @@ df_table %>%
     booktabs = T,
     #longtable = T,
     linesep = " ",
-    #   col.names = modifiedColnames,
     escape = F
   ) %>%
   kableExtra::kable_styling(
@@ -1218,7 +1219,7 @@ df_table %>%
     full_width = F,
     stripe_color = "gray!15"
   ) %>%
-  # kableExtra::column_spec(column = 2:4, width = "1.25in"
+  # kableExtra::column_spec(column = 3:4, width = "1.5in"
   # ) %>%
   kableExtra::footnote(
     general = table_caption)
