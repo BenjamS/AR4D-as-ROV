@@ -1,34 +1,44 @@
 ---
-title: The real option value of multi-stage, far-from-market agricultural research
+title: "The real option value of multi-stage, far-from-market agricultural research"
+runtitle: "Multi-stage research projects as real options"
+documentclass: frontiersSCNS  # or frontiersHLTH, or frontiersFPHY
 author:
   - name: Benjamin Schiek
-    email: b.schiek@cgiar.org
-    affiliation: CIAT
-address:
-  - code: CIAT
-    address: Alliance of Bioversity International and CIAT, Km 17 Recta Cali-Palmira, Valle del Cauca, Colombia, CP 763537
-abstract: |
-  Agricultural research for development scientists are increasingly required to valuate the promising, but uncertain and distant, impacts of their research. Existing approaches to this task are ill-suited to the multi-stage, high risk, far-from-market nature of such research. The resulting frustration has contributed to growing tension in funder-researcher relations. To alleviate the tension, here I adapt real options valuation to multi-stage, far-from-market projects. To prepare the ground, first I adapt the key assumption of lognormally distributed project returns to the agricultural research for development context. Second, I argue that the commonplace assumption of risk-neutral valuation is inappropriate in far-from-market real options contexts; but demonstrate how the same ends are achieved by assuming instead that project NPV is accurately estimated. Based on this groundwork, I then derive a multi-stage, far-from-market real option value model. For the reader's convenience, these main results are prefaced by an introduction to the basics of real options valuation, including an extension to projects with abandonment value. Finally, as an illustrative example, I apply the derived model to valuate a real, 4-stage potato research project.
-keywords: 
-  - Real option value
-  - Far-from-market
-  - Agricultural research for development
-  - Risk neutral valuation
-journal: "European Journal of Operations Research"
-date: "`r Sys.Date()`"
-classoption: preprint, 3p, authoryear
+    affiliation: '1'  
+    etal: Schiek # First author's last name. 
+    email: b.schiek@cgiar.org # Indicates corresponding Author
+    institution: Performance, Innovation, and Strategic Analysis (PISA) For Impact, Alliance of Bioversity International and CIAT
+    street: Km 17 Recta Cali-Palmira
+    city: Palmira
+    zip: 763537
+    country: Colombia
+affiliation:
+  - id: '1'
+    department: Performance, Innovation, and Strategic Analysis (PISA) For Impact
+    institution: Alliance of Bioversity International and CIAT
+    city: Palmira
+    country: Colombia
+output: rticles::frontiers_article
+csl: frontiers.csl
 bibliography: AR4Drealoptions.bib
 header-includes:
   - \numberwithin{equation}{section}
   - \usepackage{float}
+  #- \usepackage[nomarkers,tablesonly]{endfloat}
+  #- \usepackage[printfigures]{figcaps}
   - \floatplacement{figure}{H}
-  # - \usepackage{etoolbox}
-  # - \appto\appendix{\counterwithin{equation}{section}}
-#linenumbers: true
-numbersections: true
-csl: elsevier-harvard.csl
-output: rticles::elsevier_article
+  - \usepackage[nolists]{endfloat}
+  - \usepackage{caption}
 ---
+
+\begin{abstract}
+
+Agricultural research for development scientists are increasingly required to valuate the promising, but uncertain and distant, impacts of their research. Existing approaches to this task are ill-suited to the multi-stage, high risk, far-from-market nature of such research. The resulting frustration has contributed to growing tension in funder-researcher relations. To alleviate the tension, here I adapt real options valuation to multi-stage, far-from-market projects. To prepare the ground, first I adapt the key assumption of lognormally distributed project returns to the agricultural research for development context. Second, I argue that the commonplace assumption of risk-neutral valuation is inappropriate in far-from-market real options contexts; but demonstrate how the same ends are achieved by assuming instead that project NPV is accurately estimated. Based on this groundwork, I then derive a multi-stage, far-from-market real option value model. For the reader's convenience, these main results are prefaced by an introduction to the basics of real options valuation, including an extension to projects with abandonment value. Finally, as an illustrative example, I apply the derived model to valuate a real, 4-stage potato research project.
+
+\tiny
+ \keyFont{ \section{Keywords:} Real option value, Agricultural research for development, Risk neutral valuation, Abandonment value, Far-from-market }
+
+\end{abstract}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
@@ -72,6 +82,8 @@ It is first necessary to preface this derivation with a defense of the key assum
 
 Since much of the target audience is probably unfamiliar with the real options literature, I build up to these results incrementally, starting with an introduction to the basic concept and elementary extension to projects with abandonment value. While AR4D is the motivating context for the present work, the $n$-fold ROV model derived here is broadly applicable to any multi-stage, far-from-market, real option context.
 <!-- * R script included -->
+
+# Method
 
 ## Real option value basics
 
@@ -387,7 +399,7 @@ In practice, applied ROV studies generally make an educated guess at the volatil
 
 To find an intermediate point on the rigor-pragmatism spectrum, consider: While it is true that research managers (and/or stakeholders and/or the foresight economists conducting the project appraisal) generally do not have an intuitive grasp of the project NPV volatility parameter $s$ itself, they do generally have some idea of the uncertainty surrounding project NPV estimates, such that they can be asked to quantify minimum and maximum bounds on project NPV, in addition to the NPV estimation itself. For example, they can say that NPV is $x(\hat{t})$, but that it might be six times that amount, or half that amount. (Or they may give the same information in terms of magnitude, which is then easily transformed into percentage terms.)
 
-These upper and lower percentage errors may then be interpreted as the upper and lower bounds on the $95\%$ confidence interval about the expected percentage change in project NPV between the start and end of the project. Another phrase for "percentage change" is "arithmetic return" (call this $\mathscr{R}$), which may then be converted to a log return ($\ell = \ln(x(T) / x(\hat{t}))$) by the formula $\ell = \ln(\mathscr{R} + 1)$. Now, recall that since $x(t)$ follows a gBm with $m = r$, then $\ell$ is normally distributed with mean $\mu$ and variance $\sigma^2$ given by
+These upper and lower percentage errors may then be interpreted as the upper and lower bounds on the $95\%$ confidence interval about the expected percentage change in project NPV between the start and end of the project. Another phrase for "percentage change" is "arithmetic return" (call this $\mathcal{R}$), which may then be converted to a log return ($\ell = \ln(x(T) / x(\hat{t}))$) by the formula $\ell = \ln(\mathcal{R} + 1)$. Now, recall that since $x(t)$ follows a gBm with $m = r$, then $\ell$ is normally distributed with mean $\mu$ and variance $\sigma^2$ given by
 
 \begin{equation}
 \begin{split}
@@ -431,8 +443,6 @@ s = \frac{1}{2 \sqrt{\tau} z} (\bar{\ell} - \underline{\ell})
 Once $s$ is deduced, the growth rate coefficient of variation $\frac{s}{r \sqrt{\tau}}$ can be calculated, which serves as a plausibility check on the parameter values, project NPV estimates, and project NPV upper and lower bounds. The growth rate coefficient of variation is a handy, normalized measure of project NPV volatility over time. One should not be surprised to see high coefficients of variation in the AR4D context. A low coefficient of variation may indicate that ROV will not differ significantly from NPV, and that there is thus no point in calculating ROV. Note that expected project NPV log return $\mu$ can also be calculated using the deduced value for $s$, which may serve as an additional plausibility check.
 <!-- and that the expected project NPV at future times may be calculated by equation \ref{eq:ExT}. These calculations -->
 <!-- Note that the system of equations above can still be solved for $m$ and $s$ in the absence of an estimate for one of the bounds $\bar{\ell}$ or $\underline{\ell}$, if an estimate for the expected log return $\mu$ can be obtained. -->
-
-# Method
 
 ## Formalizing the $n$-fold real option value of multi-stage AR4D projects \label{sec:resStages}
 
@@ -922,7 +932,7 @@ Nonetheless, a straightforward reason exists for setting $m = r$ in far-from-mar
 If $x(t)$ is a gBm, then, by Ito's lemma, the evolution of a function $f(x, t)$ is described as follows.
 
 \begin{equation}
-\Delta f = \left( \frac{\partial f}{\partial x} x m + \frac{\partial f}{\partial t} + \frac{1}{2} \frac{\partial^2 f}{\partial x^2} x^2 s^2 \right) \Delta t + \frac{\partial f}{\partial x} x s \epsilon \sqrt{\Delta t}
+\Delta f = \left( x m \frac{\partial f}{\partial x} + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t + \frac{\partial f}{\partial x} x s \epsilon \sqrt{\Delta t}
 \label{eq:itoLem}
 \end{equation}
 
@@ -931,7 +941,7 @@ If $x(t)$ is a gBm, then, by Ito's lemma, the evolution of a function $f(x, t)$ 
 Black and Scholes [-@black1973valuation] famously noted that equations \ref{eq:gbmEq} and \ref{eq:itoLem} could be combined so as to eliminate the random term as follows.
 
 \begin{equation}
-\Delta f - \frac{\partial f}{\partial x} \Delta x = \left(\frac{\partial f}{\partial t} + \frac{1}{2} \frac{\partial^2 f}{\partial x^2} x^2 s^2 \right) \Delta t
+\Delta f - \frac{\partial f}{\partial x} \Delta x = \left(\frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t
 \label{eq:bsInsight1}
 \end{equation}
 
@@ -946,7 +956,7 @@ In the AR4D context, the risk free rate and no-arbitrage argument are replaced b
 Equating the right-hand side of this equation with the right-hand side of the previous equation, the $\Delta t$'s cancel, resulting in the Black-Scholes partial differentiation equation (PDE).
 
 \begin{equation}
-\left( f - \frac{\partial f}{\partial x} x \right) r = \frac{\partial f}{\partial t} + \frac{1}{2} \frac{\partial^2 f}{\partial x^2} x^2 s^2
+\left( f - \frac{\partial f}{\partial x} x \right) r = \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2}
 \end{equation}
 
 (Black and Scholes went on to solve this PDE under the boundary condition $f(T) = \max(x(T) - K, 0)$, resulting in an expression for $f$ identical to the one derived in equation \ref{eq:EmaxTK}, with the exception that $m$ is replaced with $r$.)
@@ -954,13 +964,13 @@ Equating the right-hand side of this equation with the right-hand side of the pr
 Now, letting $f = f_1$ and rearranging the Black-Scholes PDE as an expression for $r f_1$,
 
 \begin{equation}
-r f_1 = \frac{\partial f_1}{\partial x} x r + \frac{\partial f_1}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f_1}{\partial x^2}
+r f_1 = r x \frac{\partial f_1}{\partial x} + \frac{\partial f_1}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f_1}{\partial x^2}
 \end{equation}
 
 And considering Ito's lemma for $f_1$.
 
 \begin{equation}
-\Delta f_1 = \left( \frac{\partial f_1}{\partial x} r x + \frac{\partial f_1}{\partial t} + \frac{x^2 s^2}{2} \frac{\partial^2 f_1}{\partial x^2} \right) \Delta t + \frac{\partial f_1}{\partial x} x s \epsilon \sqrt{\Delta t}
+\Delta f_1 = \left( \frac{\partial f_1}{\partial x} r x + \frac{\partial f_1}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f_1}{\partial x^2} \right) \Delta t + \frac{\partial f_1}{\partial x} x s \epsilon \sqrt{\Delta t}
 \end{equation}
 
 Note that the right-hand side of the previous expression is equal to the first term in parentheses on the right-hand side of Ito's lemma. Ito's lemma for $f_1$ may thus be rewritten as follows.
@@ -997,13 +1007,13 @@ By which it follows that $\Delta f_1 / f_1$ is normally distributed with mean $r
 It follows, moreover, that a 2-fold real option value function $f_2(f_1, t)$ also has a Black-Scholes PDE.
 
 \begin{equation}
-\left( f_2 - \frac{\partial f_2}{\partial f_1} f_1 \right) r = \frac{\partial f_2}{\partial t} + \frac{1}{2} \frac{\partial^2 f_2}{\partial f_1^2} s^2 f_1^2
+\left( f_2 - \frac{\partial f_2}{\partial f_1} f_1 \right) r = \frac{\partial f_2}{\partial t} + \frac{s^2 f_1^2}{2} \frac{\partial^2 f_2}{\partial f_1^2}
 \end{equation}
 
 With corresponding Ito's lemma
 
 \begin{equation}
-\Delta f_2 = \left( \frac{\partial f_2}{\partial f_1} r f_1 + \frac{\partial f_2}{\partial t} + \frac{1}{2} \frac{\partial^2 f_2}{\partial f_1^2} s^2 f_1^2 \right) \Delta t + \frac{\partial f_2}{\partial f_1} f_1 s \epsilon \sqrt{\Delta t}
+\Delta f_2 = \left( r f_1 \frac{\partial f_2}{\partial f_1} + \frac{\partial f_2}{\partial t} + \frac{s^2 f_1^2}{2} \frac{\partial^2 f_2}{\partial f_1^2} \right) \Delta t + \frac{\partial f_2}{\partial f_1} f_1 s \epsilon \sqrt{\Delta t}
 \end{equation}
 
 Such that
@@ -1021,7 +1031,7 @@ By which it follows that $\Delta f_2 / f_2$ is normally distributed with mean $m
 And so on for $f_3$, $f_4$, $\dots$, $f_n$, there exists a Black-Scholes PDE
 
 \begin{equation}
-\left( f_i - \frac{\partial f_i}{\partial f_{i - 1}} f_{i - 1} \right) r = \frac{\partial f_i}{\partial t} + \frac{1}{2} \frac{\partial^2 f_i}{\partial f_{i - 1}^2} s^2 f_{i - 1}^2 \; & i \in (1, n)
+\left( f_i - \frac{\partial f_i}{\partial f_{i - 1}} f_{i - 1} \right) r = \frac{\partial f_i}{\partial t} + \frac{s^2 f_{i - 1}^2}{2} \frac{\partial^2 f_i}{\partial f_{i - 1}^2} \;\;;\;\;\; i \in (1, n)
 \end{equation}
 
 Which, when combined with the corresponding Ito's lemma, results in an expression for $\Delta f_i$ as a gBm.
@@ -1107,7 +1117,7 @@ An R script of this algorithm is included in the Appendix.
 <!-- \end{equation} -->
 <!-- note that by equation \ref{eq:bsPDEn},  -->
 
-# Results: An illustrative example of real option valuation of an AR4D project
+# An illustrative example of real option valuation of an AR4D project
 
 Below I apply the $n$-fold option value model derived above to valuate a real AR4D project currently in implementation. The aim of the project is to develop a transgenic potato variety with resistance to Late Blight disease (henceforth LBr potato), for release as a public good in two developing countries. The LBr potato project follows the four stage structure described in section \ref{sec:resStages}. The costs and time duration associated with each stage are summarized in Table 1, based on figures documented by Schiek et al. [-@schiek2016demys]. All values are given in terms of current US dollars.
 
@@ -1392,7 +1402,6 @@ No ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet
 <!-- $m = `r m`$ (or `r round(((1 + m)^4 - 1), 2)` annually) and -->
 
 As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced value for $s$. The coefficient of variation works out to `r cv`. This might be considered high, but well within reason given the ambitious scope of the project, and given the wide range of research and non-research factors affecting its progress and eventual diffusion in the target populations and environments. The expected log return, meanwhile, works out to `r mu`, which works out to an expected arithmetic return of `r round(exp(mu) - 1, 2)`. This may or may not be plausible depending upon the details of the hypothetical NPV calculation. A high expected percentage change in NPV by the end of the project (i.e., a high arithmetic return) may make sense if there is reason to expect major improvements in potato value chain infrastructure within the target countries.
-<!-- And the expected project NPV at the end of the project works out to $\$`r ExT`$ million. -->
 <!-- For public projects The annual discount rate is set equal to a social discount rate of $0.035$, following the recommendation of Moore et al. [@moore2004just], which implies a quarterly discount rate of $r = $`r r`.-->
 <!-- (Alston and Norton acknowledged in 1995 that the treatment of risk in impact assessment models was "rudimentary and in need of further refinement" [@Alston1995]. Unfortunately, this remains true today.) If ex-ante risk assessments are not available, then they can be elicited in the survey of domain experts. Project risk might be crowdsourced, for example, by asking survey participants to estimate the maximum, minimum, and most probable impact of each given project. With these three inputs, it is then straightforward to compute standard deviation on the basis of an assumed project impact probability density. (For example, the minimum and maximum could be interpreted as the bounds of the 95% confidence interval of a lognormal probability density, and the "most probable impact" could be interpreted as its mode. From this it is then straightforward to derive the standard deviation.) -->
 
@@ -1452,9 +1461,9 @@ Since the 4-fold ROV is calculated recursively, the 3-fold, 2-fold, and 1-fold R
 
 #--------------------------------------------------------------------------
 # Define slack function for root finding function
-slackfun <- function(x0, Kvec, Bvec, Tvec, s, m, r, thresh){
+slackfun <- function(x0, Kvec, Bvec, Tvec, s, r, thresh){
   
-  df <- rovN(x0, Kvec, Bvec, Tvec, s, m, r)
+  df <- rovN(x0, Kvec, Bvec, Tvec, s, r)
   ROV <- df$OVn[nrow(df)]
   slack <- ROV - thresh
   return(slack)
@@ -1490,7 +1499,6 @@ out <- uniroot(slackfun,
         Bvec = Bvec,
         Tvec = Tvec[-1],
         s = s,
-        m = m,
         r = r,
         thresh = K1
         )
@@ -1646,11 +1654,7 @@ x(0) = \tilde{x}(0) \left(\frac{K_n}{\bar{K}_n}\right)^{\alpha}
 Where the parameter $\bar{K}_n$ is a reference value---perhaps the minimum or maximum possible scale up investment, for example---$\tilde{x}(0)$ is the project NPV if scaling up funding equals the reference value, and the exponent $\alpha$ is restricted to fall between 0 and 1, reflecting decreasing returns to scale. It may then be interesting to analyze ROV response to successively higher scale up investments $K_n$, corresponding to successively broader geographical scopes of impact.
 
 For purposes of exposition, I have focused here on the valuation of transgenic projects; but the $n$-fold ROV model derived in this article is of course not limited to such ventures. It applies just as well to the valuation of conventional crop and livestock breeding projects, as well as to multi-stage AR4D projects not necessarily built around the objective of genetic gain. This includes, for example, projects involving digital agriculture, value chain integration, social capital formation, agricultural biodiversity, environmental services, climate smart agriculture, agroecology, etc., and combinations thereof. The proposed model can also be applied at more aggregate levels of accounting---to valuate, for example, a multi-stage program consisting of several projects in various stages of implementation. While AR4D is the motivating context of the present work, the model presented here is generally applicable to the valuation of any far-from-market, multi-stage venture.
-<!-- It can also be used in near-market, multi-stage contexts, in which case the expected project growth rate $m$ is set equal to $r$ to reflect risk-neutral valuation. -->
-<!-- The appearance of $m$ in the far-from-market model introduces additional nuance into the ROV workflow. From a "social planner" perspective, many would say that projects with $m$ less than $r$ should not be undertaken [@moore2004just; @caplin2004social]. This makes high discount rates, such as the $0.12$ annual rate used by USAID, problematic, as it is difficult to conceive of a long term project with an NPV that grows at a rate in excess of such high benchmarks. Moreover, project ROV comes out less than project NPV when $m < r$, which does not favor the researcher. High discount rates thus create an incentive for researchers to switch to cruder, default valuation methods, or to "game" the ROV parameter setting process so as to ensure that $m > r$. This underscores the importance of a reasonable discount rate, as well as the importance of the plausibility check described in the example above. -->
-<!-- # Conclusion -->
-<!-- by removing, in some measure, the methodological basis for the toxicity. -->
-<!-- can 1) provide meaningful, risk-adjusted project appraisals, 2) secure long term commitments from donors, while at the same time 3) giving donors the flexibility they require to maintain solvent fiscal outlooks. -->
+
 <!-- https://stackoverflow.com/questions/58187514/r-markdown-place-an-appendix-after-the-references-section -->
 <!-- # References {-} -->
 <!-- <div id="refs"></div> -->
@@ -1658,14 +1662,14 @@ For purposes of exposition, I have focused here on the valuation of transgenic p
 <!-- \printbibliography[heading=none] -->
 <!-- \def\printbibliography{} -->
 
-\pagebreak
+<!-- \pagebreak -->
 <!-- https://tex.stackexchange.com/questions/520480/how-make-appendix-of-paper-number-equations-in-there -->
 <!-- In YAML: -->
 <!-- \usepackage{etoolbox} -->
 <!-- \appto\appendix{\counterwithin{equation}{section}} -->
 
-\appendix
-\renewcommand{\thesection}{A}
+<!-- \appendix -->
+<!-- \renewcommand{\thesection}{A} -->
 
 # Appendix {-}
 
@@ -1891,6 +1895,7 @@ rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, r){
 
 
 ````
+
 <!-- >"[The proven LB resistance] technology is applied to the target [potato] variety in order to obtain a reduced number of candidate...transgenic events. Once the lead gene construct has been developed, a relatively large number of explants is screened by successive procedures in order to identify transgenic events from among the explants, remove the transgenic events with backbone vector sequences, select the transgenic events exhibiting high resistance to LB in confined field trials [CFTs], and select the transgenic events with the minimum copy number of R genes. The output of this process is a small number of candidate pre-commercial transgenic events selected for wide area testing, as well as molecular characterisation data to be used in the compilation of the regulatory dossier later on" []. -->
 
 <!-- Stage 2: Wide area testing -->
@@ -2112,3 +2117,43 @@ rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, r){
 <!-- \ln \left(\frac{f}{f\bigr|_{t = 0}}  \right) ~ \phi \left(\left(m - \frac{s^2 \eta_{f, x}^2}{2} \right) T, s^2 \eta_{f, x}^2 T \right) -->
 <!-- \end{equation} -->
 <!-- The function $f$ of the geometric Brownian motion $x$ is thus itself a geometric Brownian motion. That is to say, the log returns of $f$ are normally distributed with mean $\left(m - \frac{s^2 \eta_{f, x}^2}{2} \right) T$ and variance $s^2 \eta_{f, x}^2 T$. -->
+
+# Disclosure/Conflict-of-Interest Statement {-}
+
+The author declares that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+
+# Author Contributions {-}
+
+Benjamin Schiek is the sole author of this article, responsible for all aspects of its conception, content, drafting, and revision.
+<!--When determining authorship the following criteria should be observed:
+ - Substantial contributions to the conception or design of the work; or the
+   acquisition, analysis, or interpretation of data for the work; AND
+ - Drafting the work or revising it critically for important intellectual
+   content; AND
+ - Final approval of the version to be published ; AND
+ - Agreement to be accountable for all aspects of the work in ensuring that
+   questions related to the accuracy or integrity of any part of the work are
+   appropriately investigated and resolved.
+Contributors who meet fewer than all 4 of the above criteria for authorship
+should not be listed as authors, but they should be acknowledged.
+(http://www.icmje.org/roles_a.html)-->
+<!-- The statement about the authors and contributors can be up to several sentences -->
+<!-- long, describing the tasks of individual authors referred to by their initials -->
+<!-- and should be included at the end of the manuscript before the References -->
+<!-- section. -->
+
+# Acknowledgments {-}
+
+Funding: The Foresight and Metrics Initiative
+
+# References
+
+::: {#refs}
+:::
+
+# Figures {-}
+
+```{r, Figure-1, ref.label = "graph", results = "hide", echo = FALSE, message = FALSE, fig.height=4, fig.width=4, fig.align='center', fig.cap='Figure caption', out.width = "85mm", out.height = "85mm"}
+# You can also refer to code chunks from above to place figures at the bottom.
+```
+
