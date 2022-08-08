@@ -36,7 +36,7 @@ header-includes:
 Agricultural research for development scientists are increasingly required to valuate the promising, but uncertain and distant, impacts of their research. Existing approaches to this task are ill-suited to the multi-stage, high risk, far-from-market nature of such research. The resulting frustration has contributed to growing tension in funder-researcher relations. To alleviate the tension, here I adapt real options valuation to multi-stage, far-from-market projects. To prepare the ground, first I adapt the key assumption of lognormally distributed project returns to the agricultural research for development context. Second, I argue that the commonplace assumption of risk-neutral valuation is inappropriate in far-from-market real options contexts; but demonstrate how the same ends are achieved by assuming instead that project NPV is accurately estimated. Based on this groundwork, I then derive a multi-stage, far-from-market real option value model. For the reader's convenience, these main results are prefaced by an introduction to the basics of real options valuation, including an extension to projects with abandonment value. Finally, as an illustrative example, I apply the derived model to valuate a real, 4-stage potato research project.
 
 \tiny
- \keyFont{ \section{Keywords:} Real option value, Agricultural research for development, Risk neutral valuation, Abandonment value, Far-from-market }
+\keyFont{ \section{Keywords:} Real option value, Agricultural research for development, Risk neutral valuation, Abandonment value, Far-from-market }
 
 \end{abstract}
 
@@ -237,8 +237,8 @@ OVfun <- function(X0, K, tau, mm, s, r, output = "OV"){
   N2 <- pnorm(d2)
   
   OV <- exp((mm - r) * tau) * X0 * N1 - exp(-r * tau) * K * N2
-
-    if(output == "OV"){
+  
+  if(output == "OV"){
     out <- OV
   }
   
@@ -249,7 +249,7 @@ OVfun <- function(X0, K, tau, mm, s, r, output = "OV"){
   if(output == "N1"){
     out <- N1
   }
-
+  
   return(out)
 }
 #===========================================================================
@@ -283,7 +283,7 @@ colnames(df_plot)[1] <- "x(0)/K"
 # df_plot1 <- df_plot1 %>% gather(type, Value, ROV:NPV)
 # df_plot2 <- subset(df_plot, cv != cv[ns])
 
-  #n <- length(unique(df_plot1$type))
+#n <- length(unique(df_plot1$type))
 n <- ns + 1
 bag_of_colors <- randomcoloR::distinctColorPalette(k = 2 * n)
 color_vec <- sample(bag_of_colors, n)
@@ -317,17 +317,17 @@ gg1 <- gg
 # Phi2 plot
 df_plot <- subset(df_plot, Type != "NPV")
 gg <- ggplot(df_plot, aes(x = `x(0)/K`, y = Phi2,
-                           group = Type, color = Type))
+                          group = Type, color = Type))
 gg <- gg + geom_line(lwd = 1)
 gg <- gg + scale_color_manual(values = color_vec[-1])
 gg <- gg + labs(y = "Phi 2")
 gg <- gg + theme_bw()
 gg <- gg + theme(
-                 axis.text = element_text(size = axisText_size),
-                 axis.title = element_text(size = axisTitle_size),
-                 legend.title = element_blank(),
-                 legend.position = "none",
-                 legend.text = element_text(size = legendText_size))
+  axis.text = element_text(size = axisText_size),
+  axis.title = element_text(size = axisTitle_size),
+  legend.title = element_blank(),
+  legend.position = "none",
+  legend.text = element_text(size = legendText_size))
 gg2 <- gg
 #----------------------------------------------------------------------------
 gg1 + gg2 + plot_layout(ncol = 1, heights = c(1, 1 / 2))
@@ -556,15 +556,15 @@ Research related changes occur perhaps 1-4 times per year, while non-research re
 gbmFun <- function(tau = 40, m = 0.001, s = 0.003, x0 = 1,
                    randVec = NULL, seed = NULL) {
   if(is.null(randVec)){
-      if(!is.null(seed)){set.seed(seed)}
+    if(!is.null(seed)){set.seed(seed)}
     randVec <- rnorm(tau)
-    }
+  }
   epsilon <- randVec
   lx <- c(); lx[1] <- log(x0)
   drift <- (m - s * s / 2)
   for(t in 2:tau){
-      dBt <-  s * epsilon[t]
-      lx[t] <- lx[t - 1] + drift + dBt
+    dBt <-  s * epsilon[t]
+    lx[t] <- lx[t - 1] + drift + dBt
   }
   x <- exp(lx)
   return(x)
@@ -591,8 +591,8 @@ compoundPoisFun <- function(tau, lambda, m_y = 0, s_y = 1,
   n_iter <- 0; flag <- 1
   while(flag == 1){
     n_iter <- n_iter + 1
-      U <- runif(N) * tau
-      U <- round(U)
+    U <- runif(N) * tau
+    U <- round(U)
     if(sum(duplicated(U)) > 0 & n_iter <= maxiter){
       flag <- 1
     }else{
@@ -632,7 +632,7 @@ compoundPoisFun <- function(tau, lambda, m_y = 0, s_y = 1,
   
   list_out <- list(df_step, df_Yt)
   return(list_out)
-
+  
 }
 #----------------------------------------------------------------------------
 FractDim<-function(Data,graphon=FALSE) {
@@ -783,7 +783,7 @@ for(i in 1:length(s)){
   # N <- df.residual(mod)
   this_facet_label <- paste0("Slope = ", alpha, " fd = ", round(FractDim(df_Yt$cumYt)[1], 2))
   facet_labels[i] <- this_facet_label
-
+  
 }
 #---
 df_plot <- as.data.frame(do.call(rbind, list_df))
@@ -1199,7 +1199,7 @@ table_caption <- "Stage 1-4 costs and durations based on figures reported by Sch
 #df_table <- FitFlextableToPage(df_table)
 # df_table <- add_header_lines(df_table, table_title)
 # df_table <- add_footer_lines(df_table, table_caption)
-# modifiedColnames <- colnames(df_table)
+#modifiedColnames <- colnames(df_table)
 # modifiedColnames[3] <- "Duration\n(annual quarters)"
 df_table %>%
   knitr::kable(
@@ -1208,10 +1208,10 @@ df_table %>%
     align = "l",
     booktabs = T,
     #longtable = T,
-    linesep = "\n",
-    # col.names = modifiedColnames,
+    linesep = " ",
+    #   col.names = modifiedColnames,
     escape = F
-    ) %>%
+  ) %>%
   kableExtra::kable_styling(
     position = "left",
     latex_options = c("scale_down", "striped", "repeat"),
@@ -1222,9 +1222,9 @@ df_table %>%
   # ) %>%
   kableExtra::footnote(
     general = table_caption)
-       # number = c("Footnote 1; ", "Footnote 2; "),
-       # alphabet = c("Footnote A; ", "Footnote B; "),
-       # symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2"))
+# number = c("Footnote 1; ", "Footnote 2; "),
+# alphabet = c("Footnote A; ", "Footnote B; "),
+# symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2"))
 
 # print_this_table <- function(df_table){
 # df_table <- regulartable(df_table)
@@ -1296,10 +1296,10 @@ rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, r){
                        KnM1 = Kvec, etaN0 = etaVec,
                        sNm1 = sNm1vec, Phi2 = Phi2vec)
   colnames(df_out)[-1] <- c("Fold (i)",
-    "i-fold ROV", "Value of underlying",
-    "Exercise cost", "Elasticity w.r.t. project NPV",
-    "Standard dev. of underlying",
-    "Probability of exercise")
+                            "i-fold ROV", "Value of underlying",
+                            "Exercise cost", "Elasticity w.r.t. project NPV",
+                            "Standard dev. of underlying",
+                            "Probability of exercise")
   return(df_out)
   
 }
@@ -1452,7 +1452,7 @@ df_table %>%
     linesep = " ",
     col.names = modifiedColnames,
     escape = F
-    ) %>%
+  ) %>%
   kableExtra::kable_styling(
     position = "left",
     latex_options = c("scale_down", "striped", "repeat"),
@@ -1516,14 +1516,14 @@ slackfun <- function(x0, Kvec, Bvec, Tvec, s, r, thresh){
 #--------------------------------------------------------------------------
 interval <- c(1, 2) * 10^6
 out <- uniroot(slackfun,
-        interval,
-        Kvec = Kvec[-n - 1],
-        Bvec = Bvec,
-        Tvec = Tvec[-1],
-        s = s,
-        r = r,
-        thresh = K1
-        )
+               interval,
+               Kvec = Kvec[-n - 1],
+               Bvec = Bvec,
+               Tvec = Tvec[-1],
+               s = s,
+               r = r,
+               thresh = K1
+)
 x0bEven <- round(out[[1]] * 10^-6, 3) # millions
 # x0guess <- 1.06 * 10^6 #x0
 # slackfun(x0guess, Kvec[-n - 1], Bvec, Tvec[-1], s, m, r, thresh = K1)
@@ -1869,46 +1869,46 @@ This R script is written for clarity, not for efficiency.
 ````markdown
 
 rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, r){
-  N <- length(Kvec)
-  if(is.null(Bvec)){Bvec <- rep(0, N)}
-  fNm1 <- X0
-  etaNm10 <- 1
-  etaVec <- c()
-  fnVec <- c()
-  sNm1vec <- c()
-  Phi2vec <- c()
-  Phi1vec <- c()
-  for(i in 1:N){
-    Kn <- Kvec[i]
-    Bn <- Bvec[i]
-    Tn <- rev(cumsum(rev(Tvec)))[i]
-    dn <- (log(fNm1 / (Kn - Bn)) + (r - s^2 * etaNm10^2 / 2) * Tn) / (s * etaNm10 * sqrt(Tn))
-    Phi1 <- pnorm(dn + s * etaNm10 * sqrt(Tn))
-    Phi2 <- pnorm(dn)
-    fn <- fNm1 * Phi1 - exp(-r * Tn) * Kn * Phi2 + exp(-r * Tn) * Bn * (1 + Phi2)
-    fnVec[i] <- fn
-    sNm1vec[i] <- s * etaNm10
-    Phi2vec[i] <- Phi2
-    Phi1vec[i] <- Phi1
-    phi1 <- dnorm(dn + s * etaNm10 * sqrt(Tn))
-    dfndfNm1 <- (Phi1 + phi1 * (1 - etaNm10) * s * sqrt(Tn))
-    etaNnM1 <- fNm1 / fn * dfndfNm1
-    etaNm10 <- etaNnM1 * etaNm10
-    fNm1 <- fn
-    etaVec[i] <- etaNm10
-  }
-  underVec <- c(X0, fnVec[-N])
-  df_out <- data.frame(Stage = rev(1:N), Fold = 1:N,
-                       OVn = fnVec, fnM10 = underVec,
-                       KnM1 = Kvec, etaN0 = etaVec,
-                       sNm1 = sNm1vec, Phi2 = Phi2vec)
-  colnames(df_out)[-1] <- c("Fold (i)",
-    "i-fold ROV", "Value of underlying",
-    "Exercise cost", "Elasticity w.r.t. project NPV",
-    "Standard dev. of underlying",
-    "Probability of exercise")
-  return(df_out)
-  
+N <- length(Kvec)
+if(is.null(Bvec)){Bvec <- rep(0, N)}
+fNm1 <- X0
+etaNm10 <- 1
+etaVec <- c()
+fnVec <- c()
+sNm1vec <- c()
+Phi2vec <- c()
+Phi1vec <- c()
+for(i in 1:N){
+Kn <- Kvec[i]
+Bn <- Bvec[i]
+Tn <- rev(cumsum(rev(Tvec)))[i]
+dn <- (log(fNm1 / (Kn - Bn)) + (r - s^2 * etaNm10^2 / 2) * Tn) / (s * etaNm10 * sqrt(Tn))
+Phi1 <- pnorm(dn + s * etaNm10 * sqrt(Tn))
+Phi2 <- pnorm(dn)
+fn <- fNm1 * Phi1 - exp(-r * Tn) * Kn * Phi2 + exp(-r * Tn) * Bn * (1 + Phi2)
+fnVec[i] <- fn
+sNm1vec[i] <- s * etaNm10
+Phi2vec[i] <- Phi2
+Phi1vec[i] <- Phi1
+phi1 <- dnorm(dn + s * etaNm10 * sqrt(Tn))
+dfndfNm1 <- (Phi1 + phi1 * (1 - etaNm10) * s * sqrt(Tn))
+etaNnM1 <- fNm1 / fn * dfndfNm1
+etaNm10 <- etaNnM1 * etaNm10
+fNm1 <- fn
+etaVec[i] <- etaNm10
+}
+underVec <- c(X0, fnVec[-N])
+df_out <- data.frame(Stage = rev(1:N), Fold = 1:N,
+OVn = fnVec, fnM10 = underVec,
+KnM1 = Kvec, etaN0 = etaVec,
+sNm1 = sNm1vec, Phi2 = Phi2vec)
+colnames(df_out)[-1] <- c("Fold (i)",
+"i-fold ROV", "Value of underlying",
+"Exercise cost", "Elasticity w.r.t. project NPV",
+"Standard dev. of underlying",
+"Probability of exercise")
+return(df_out)
+
 }
 
 ````
@@ -2143,14 +2143,14 @@ The author declares that the research was conducted in the absence of any commer
 
 Benjamin Schiek is the sole author of this article, responsible for all aspects of its conception, content, drafting, and revision.
 <!--When determining authorship the following criteria should be observed:
- - Substantial contributions to the conception or design of the work; or the
-   acquisition, analysis, or interpretation of data for the work; AND
- - Drafting the work or revising it critically for important intellectual
-   content; AND
- - Final approval of the version to be published ; AND
- - Agreement to be accountable for all aspects of the work in ensuring that
-   questions related to the accuracy or integrity of any part of the work are
-   appropriately investigated and resolved.
+- Substantial contributions to the conception or design of the work; or the
+acquisition, analysis, or interpretation of data for the work; AND
+- Drafting the work or revising it critically for important intellectual
+content; AND
+- Final approval of the version to be published ; AND
+- Agreement to be accountable for all aspects of the work in ensuring that
+questions related to the accuracy or integrity of any part of the work are
+appropriately investigated and resolved.
 Contributors who meet fewer than all 4 of the above criteria for authorship
 should not be listed as authors, but they should be acknowledged.
 (http://www.icmje.org/roles_a.html)-->
