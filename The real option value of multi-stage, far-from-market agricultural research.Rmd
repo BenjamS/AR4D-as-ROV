@@ -1842,7 +1842,7 @@ This R script is written for clarity, not for efficiency.
 
 ````markdown
 
-rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, m, r){
+rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, r){
   N <- length(Kvec)
   if(is.null(Bvec)){Bvec <- rep(0, N)}
   fNm1 <- X0
@@ -1855,24 +1855,29 @@ rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, m, r){
   for(i in 1:N){
     Kn <- Kvec[i]
     Bn <- Bvec[i]
+    #Tn <- Tvec[i]
     Tn <- rev(cumsum(rev(Tvec)))[i]
-    dn <- (log(fNm1 / (Kn - Bn)) + (m - s^2 * etaNm10^2 / 2) *
-    Tn) / (s * etaNm10 * sqrt(Tn))
+    dn <- (log(fNm1 / (Kn - Bn)) + (r - s^2 * etaNm10^2 / 2)
+    * Tn) / (s * etaNm10 * sqrt(Tn))
+    #print(dn)
+    # print(log(fNm1 / Kn))
+    # print((s * etaNm10 * sqrt(Tn)))
     Phi1 <- pnorm(dn + s * etaNm10 * sqrt(Tn))
     Phi2 <- pnorm(dn)
-    fn <- exp((m - r) * Tn) * fNm1 * Phi1 - exp(-r * Tn) *
-    Kn * Phi2 + exp(-r * Tn) * Bn * (1 + Phi2)
+    fn <- fNm1 * Phi1 - exp(-r * Tn) * Kn * Phi2 +
+    exp(-r * Tn) * Bn * (1 + Phi2)
     fnVec[i] <- fn
     sNm1vec[i] <- s * etaNm10
     Phi2vec[i] <- Phi2
     Phi1vec[i] <- Phi1
-    phi1 <- dnorm(dn + s * etaNm10 * sqrt(Tn))
-    dfndfNm1 <- exp((m - r) * Tn) * (Phi1 + phi1 * 
-    (1 - etaNm10) * s * sqrt(Tn))
-    etaNnM1 <- fNm1 / fn * dfndfNm1
-    etaNm10 <- etaNnM1 * etaNm10
-    fNm1 <- fn
-    etaVec[i] <- etaNm10
+    #if(i != N){
+      phi1 <- dnorm(dn + s * etaNm10 * sqrt(Tn))
+      dfndfNm1 <- (Phi1 + phi1 * (1 - etaNm10) * s * sqrt(Tn))
+      etaNnM1 <- fNm1 / fn * dfndfNm1
+      etaNm10 <- etaNnM1 * etaNm10
+      fNm1 <- fn
+      etaVec[i] <- etaNm10
+    #}
   }
   underVec <- c(X0, fnVec[-N])
   df_out <- data.frame(Stage = rev(1:N),
@@ -1883,6 +1888,7 @@ rovN <- function(X0, Kvec, Bvec = NULL, Tvec, s, m, r){
   return(df_out)
   
 }
+
 
 ````
 <!-- >"[The proven LB resistance] technology is applied to the target [potato] variety in order to obtain a reduced number of candidate...transgenic events. Once the lead gene construct has been developed, a relatively large number of explants is screened by successive procedures in order to identify transgenic events from among the explants, remove the transgenic events with backbone vector sequences, select the transgenic events exhibiting high resistance to LB in confined field trials [CFTs], and select the transgenic events with the minimum copy number of R genes. The output of this process is a small number of candidate pre-commercial transgenic events selected for wide area testing, as well as molecular characterisation data to be used in the compilation of the regulatory dossier later on" []. -->
