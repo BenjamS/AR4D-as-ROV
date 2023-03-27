@@ -225,7 +225,7 @@ Where
 
 To build intuition, it is instructive to compare graphs of ROV (equation \ref{eq:rov}) and NPV (left-hand side of inequality \ref{eq:npvIneq2}) with respect to the NPV-to-cost ratio $x(0)/K$. In the financial context, this ratio is known as the "moneyness". The option is said to be "in the money" if the ratio is greater than one, "out of the money" if the ratio is less than one, and "at the money" if the ratio equals one. Options with a moneyness ratio well in excess of one are said to be "deep in the money". A generic example is given in the top panel of Figure \ref{fig:rovIllust}. Note that the difference between ROV and NPV shrinks as moneyness is higher. And note that deep in the money ROV does not differ significantly from NPV unless project risk, reflected in the volatility parameter $s$, is sufficiently high.
 
-It is also instructive to keep an eye on the term $\Phi(\delta)$, plotted in the lower panel of Figure \ref{fig:rovIllust}. This is the probability that the option will expire in the money, thereby triggering exercise of the option. It therefore makes perfect sense that $\Phi(\delta)$ approaches one as the moneyness is higher; but note that it approaches one more slowly as project risk is higher.
+It is also instructive to keep an eye on the term $\Phi(\delta)$, plotted in the lower panel of Figure \ref{fig:rovIllust}. This is the probability that an out of the money option will expire in the money, thereby triggering exercise of the option. It therefore makes perfect sense that $\Phi(\delta)$ approaches one as the moneyness is higher; but note that it approaches one more slowly as project risk is higher.
 
 ```{r Fig1, fig.show = "hold", fig.width = 4, fig.height=4, fig.align="center", fig.cap="\\label{fig:rovIllust}A hypothetical project's real option value and net present value plotted together over a range of moneyness values. The black line marks 0, while the dotted red line marks the sunk cost $S$ beneath which the project is rejected. The multiple ROV plots correspond to different levels of project volatilitty ($s$). The higher the volatility, the greater the difference between ROV and NPV.", echo = FALSE}
 
@@ -1737,7 +1737,7 @@ For purposes of exposition, I have focused here on the valuation of transgenic p
 
 <!-- Proof: -->
 
-(The proof below closely follows that of Hull in the appendix to chapter 15 of his book [-@hull9thEdition]. It is presented here solely for the reader's convenience, with no claim to originality.)
+(The proof below closely follows that of Hull in the appendix to chapter 13 of his book [-@hull9thEdition]. It is presented here solely for the reader's convenience, with no claim to originality.)
 <!-- _Part 1_ -->
 
 By definition, for a random variable $q$ and a constant $C$,
@@ -1795,7 +1795,9 @@ The remaining integral on the right-hand side of the definition resolves as foll
 &= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2} + \nu + \frac{\omega^2}{2}} \: du \\
 &= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} e^{\nu + \frac{\omega^2}{2}} \: du \\
 &= e^{\nu + \frac{\omega^2}{2}} \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
-&= \frac{E[x(T)]}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du
+&= \frac{E[q]}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
+&= \frac{E[q]} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u - \omega) \: du \\
+&= \frac{E[q]} \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right)
 \end{split}
 \end{equation}
 
