@@ -1,0 +1,271 @@
+---
+title: "Draft of WSR outbreak spatial distribution model"
+author: "Benjamin Schiek"
+date: "`r Sys.Date()`"
+#bibliography: WSR IMPACT references.bib
+numbersections: true
+output:
+  pdf_document:
+    toc: false
+header-includes:
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+library(tidyverse)
+
+```
+
+## Dynamic modeling of the spatial distribution of outbreaks
+
+Global, dynamic assessment of WSR impacts requires careful thought about when and where outbreaks occur. The experts consulted for this study indicated the likely outbreak frequency for a given country or region, but the spatial distribution of outbreaks at a given time remains to be determined. The spatial distribution of outbreaks at a given time is important because, as mentioned in the introduction, international market mechanisms can, to some extent, offset the food security impacts of outbreaks occurring in some regions but not in others. And, by the same token, this mitigating mechanism is rendered less effective as the number of regions where outbreaks occur at a given time increases. A scenario in which outbreaks occur everywhere at the same time may largely nullify the effectiveness of any offsetting market mechanisms.
+
+The null hypothesis---that the spatial distribution of outbreaks at any given time is random---may be rejected on the basis of the airborne spore dispersal studies cited in the literature review, which demonstrate a clear spatial correlation between outbreak regions with high connectivity. In other words, the incidence of outbreaks in a given region is influenced by the incidence of outbreaks in surrounding regions.
+
+To model the spatial distribution of outbreaks over time, we introduce an index $x_i(t)$ representing the $i^{th}$ region's wheat area vulnerable to WSR at time $t$, and consider the relation between $x_i(t)$ and the rate of vulnerability $d x_i / dt$ over time. We reason that the rate of vulnerability must slow as vulnerability increases, since increasing vulnerability calls forth the conditions that ultimately arrest and reverse the rate of vulnerability---for e.g., a dwindling host plant population (due to extermination via infection or to farms switching to alternative crops to avoid infection), and/or NAR plant pathologist response together with increased farm level awareness and protective countermeasures (spraying, planting of resistant varieties). Mathematically, this reasoning can be expressed
+
+\begin{equation}
+\frac{d^2 x_i}{dt^2} = - k_{ii} x_i(t)
+\end{equation}
+
+That is to say, in words, the slowing of the rate of vulnerability is proportionate to the level of vulnerability. Dimensional analysis reveals that the proportionality constant $k_{ii}$ has units of $\text{time}^{-2}$, and may be interpreted as a normalized measure of how quickly vulnerability translates into an outbreak within region $i$---and thus a measure of how quickly the conditions for arrest and reversal of vulnerability are reached.
+<!-- The higher the value of $k_{ii}$, the lower the threshold at which vulnerable area becomes infected area with yield loss. -->
+
+As documented in the spore dispersal studies, the vulnerability in neighboring regions must also be taken into account. We model the influence of vulnerability in a neighboring region $j \neq i$ on region $i$'s rate of vulnerability by adding the difference $x_j(t) - x_i(t)$ times $-k_{ij}$, where $k_{ij}$ is a constant quantifying the ease of airborne spore transmission between the two regions.
+
+\begin{equation}
+\frac{d^2 x_i}{dt^2} = - (k_{ii} x_i(t) + \sum_{j \neq i} k_{ij} (x_j(t) - x_i(t)))
+\label{eq:assump}
+\end{equation}
+
+Regions $i$ and $j$ are defined as neighbors if $k_{ij} \neq 0$. The modified equation says that if neighboring region $j$'s vulnerability is greater than region $i$'s vulnerability ($x_j(t) > x_i(t)$), then region $j$'s vulnerability aggravates region $i$'s vulnerability, which adds an additional brake on its rate of vulnerability. Conversely, if $x_j(t) < x_i(t)$, then neighboring region $j$'s vulnerability alleviates region $i$'s vulnerability, thereby offsetting the brake on $dx_i/dt$. In matrix form, 
+
+\begin{equation}
+\frac{d^2 \mathbf{x}}{dt^2} + K \mathbf{x}(t) = \mathbf{0}
+\label{eq:hOsc0}
+\end{equation}
+
+Where the off-diagonal elements of $K$ are $k_{ij}$, the diagonal elements are $\sum_j k_{ij}$, and $\mathbf{0}$ is a vector of zeros. Now, note that the vector $\mathbf{x}(t)$ may be expressed as a linear combination of orthonormal basis vectors,
+
+\begin{equation}
+\mathbf{x}(t) = U \mathbf{c}(t)
+\label{eq:xtOrth}
+\end{equation}
+
+Such that the previous equation can be rewritten
+
+\begin{equation}
+U \frac{d^2 \mathbf{c}}{dt^2} + K U \mathbf{c}(t) = \mathbf{0}
+\end{equation}
+
+And the coordinates $\mathbf{c}(t)$ can then be found by premultiplying through by the transpose of $U$.
+
+\begin{equation}
+\begin{split}
+U' U \frac{d^2 \mathbf{c}}{dt^2} + U' K U \mathbf{c}(t) &= \mathbf{0} \\
+\frac{d^2 \mathbf{c}}{dt^2} + U' K U \mathbf{c}(t) &= \mathbf{0}
+\end{split}
+\end{equation}
+
+The basis $U$ may be any set of orthonormal vectors. To solve for $\mathbf{c}(t)$, it is expedient to focus on the case where $U$ equals the normalized eigenvectors of $K$, such that this equation further reduces to
+
+\begin{equation}
+\frac{d^2 \mathbf{c}}{dt^2} + \Lambda \mathbf{c}(t) = \mathbf{0}
+\end{equation}
+
+Where $\Lambda$ is the diagonal matrix of eigenvalues of $K$. This is well known in physics and engineering contexts as the harmonic oscillator equation, with unique solution
+
+\begin{equation}
+c_i(t) = c_i(0) \cos(\omega_i t) + \frac{1}{\omega_i} \frac{d c_i}{dt} \Bigr|_{t = 0} \sin(\omega_i t)
+\label{eq:hOsc1}
+\end{equation}
+
+Where the frequencies $\omega_i$ equal the square root of the eigenvalues of $K$ (denoted $\lambda_i$).
+
+\begin{equation}
+\omega_i = \sqrt{\lambda_i}
+\end{equation}
+
+See Meirovitch [-@meirovitch2001fundVibs] for details. The correspondence between $\omega_i$ and $\lambda_i$ is perhaps easier to discern if Equation \ref{eq:hOsc1} is substituted into Equation \ref{eq:hOsc0}, giving
+
+\begin{equation}
+\begin{split}
+-\Omega^2 U \mathbf{c}(t) + K U \mathbf{c}(t) &= \mathbf{0} \\
+\Rightarrow \: (K - \Omega^2) U \mathbf{c}(t) &= \mathbf{0}
+\end{split}
+\end{equation}
+
+(Where $\Omega$ is the diagonal matrix of frequencies $\omega_i$ and $\mathbf{0}$ is a vector of zeros.)
+
+The spatial distribution of regional vulnerabilities at any given time ($\mathbf{x}(t)$) may thus be calculated by substituting Equation \ref{eq:hOsc1} into Equation \ref{eq:xtOrth}. Note that, given the functional form derived in Equation \ref{eq:hOsc1}, the $x_i(t)$ periodically take negative values. Negative WSR vulnerability may be interpreted as WSR resistance.
+<!-- and is subject to the same assumption formalized in Equation \ref{eq:assump}. -->
+
+For the present purpose of modeling a plausible spatial distribution of outbreaks over time, the precise value of a given $x_i(t)$ is unimportant. We assume an outbreak occurs in a given region when $x_i(t)$ reaches a maximum. The regional spore transmission network is displayed in Figure \ref{fig:RegNet}, together with the transmission coefficient values and citations of the supporting literature. The own transmission coefficients ($k_{ii}$) are assigned values such that the anticipated outbreak frequencies in Table 1 are preserved.
+
+Assigning values for the transmission coefficients between regions (the $k_{ij}$ where $i \neq j$) is a considerably less straightforward task. We aim for order of magnitude accuracy based on qualitative assessments gathered from the literature. At a more disaggregate level, the work by Radici et al. [-@radici2022early] classifies transmission routes as "common", "occasional", and "rare" in the northern hemisphere. Taking this as a rough guide, we assign values of 0.01 and 0.001, corresponding to "occasional" and "rare", respectively (no instances of "common" occur at the more aggregate network considered here). The transmission route connecting Africa South of the Sahara with West Asia & North Africa is assigned a value of 0.01 based on the assessment by Meyer et al. [-@meyer2017quantifying]. In the southern hemisphere, the literature generally characterizes successful transoceanic spore transport as infrequent [@nagarajan1990long; @visser2019microsatellite; @prank2019climate]; and so we assign 0.001 to these routes. Coefficients $k_{ij}$ not displayed in Figure \ref{fig:RegNet} are set to zero.
+
+```{r, fig.show='hold', fig.width=7, fig.height=6, fig.align='center', ft.align = "center", fig.cap="\\label{fig:RegNet}Outbreak network.", echo=FALSE}
+
+knitr::include_graphics("spore pathways 800x600.png")
+
+```
+South Asia is excluded from the spore transmission network based on the expert consultation summarized in the previous section, which indicates high confidence in the region's resilience to WSR outbreaks for the foreseeable future. We note that this assessment is corroborated by Meyer et al. [-@meyer2017quantifying], who find "rare to infrequent" direct spore transmission from West Asia (Iran) to South Asia, as well as "infrequent" direct transmission from Eastern Yemen across the Arabian Sea, and "frequent to very frequent" indirect transmission via Central Asia (Afghanistan)---but with a very small infection time window due to differences in cropping seasons.
+
+The dynamic outbreak model developed here also requires initial values for $\mathbf{c}(0)$ and $d \mathbf{c}(0) / dt$. Since our aim here is not to predict, but rather generate a plausible evolution of, the spatial distribution of outbreaks over time, these initial values are randomly designated.
+
+Based on this parameterization of $K$, the region WSR vulnerabilities are calculated over a 25 year time horizon corresponding to the years 2025 to 2050, and presented in Figure \ref{fig:spatDist}.
+
+```{r, fig.show='hold', fig.width=6, fig.height=5, fig.align='center', ft.align = "center", fig.cap="\\label{fig:spatDist}Spatial distribution of wheat stem rust outbreaks over time. Outbreaks are assumed to occur at the peaks of vulnerability.", echo=FALSE}
+
+# randIntgr <- sample(100:999, 1)
+# set.seed(randIntgr)
+
+# Own
+kSSA <- 1 # * mSSA
+kSAm <- 0.1 # * mSAm
+kAUS <- 0.01 # * mAUS
+kWANA <- 0.1 # * mWANA
+kRCA <- 0.01 # * mRCA
+kEUR <- 0.01 # * mEUR
+kNAM <- 0.01 # * mNAM
+kEA <- 0.01 # * mEA
+# Cross
+kSSAsam <- 0.001 # * sqrt(mSSA * mSAm)
+kSSAaus <- 0.001 # * sqrt(mSSA * mAUS)
+kSSAwana <- 0.01 # * sqrt(mSSA * mWANA)
+kWANArca <- 0.01 # * sqrt(mWANA * mRCA)
+kWANAeur <- 0.01 # * sqrt(mWANA * mEUR)
+kRCAeur <- 0.01 # * sqrt(mRCA * mEUR)
+kRCAea <- 0.01 # * sqrt(mRCA * mEA)
+kEURnam <- 0.001 # * sqrt(mEUR * mNAM)
+# Put own and cross influence into rows for each region
+Krow1_ssa <- c(kSSA, kSSAsam, kSSAaus, kSSAwana, 0, 0, 0, 0)
+Krow2_sam <- c(kSSAsam, kSAm, 0, 0, 0, 0, 0, 0)
+Krow3_aus <- c(kSSAaus, 0, kAUS, 0, 0, 0, 0, 0)
+Krow4_wan <- c(kSSAwana, 0, 0, kWANA, kWANArca, kWANAeur, 0, 0)
+Krow5_rca <- c(0, 0, 0, kWANArca, kRCA, kRCAeur, kRCAea, 0)
+Krow6_eur <- c(0, 0, 0, kWANAeur, kRCAeur, kEUR, 0, kEURnam)
+Krow7_eas <- c(0, 0, 0, 0, kRCAea, 0, kEA, 0)
+Krow8_nam <- c(0, 0, 0, 0, 0, kEURnam, 0, kNAM)
+listRows <- list(Krow1_ssa, Krow2_sam, Krow3_aus, Krow4_wan,
+                 Krow5_rca, Krow6_eur, Krow7_eas, Krow8_nam)
+K <- do.call(rbind, listRows)
+Kmod <- K
+diag(Kmod) <- rowSums(K)
+#M <- diag(rep(1, n))
+regOrder <- c("Africa South of the Sahara", "South America", "Australia", "West Asia & North Africa", "Russia & Central Asia", "Europe", "East Asia", "North America")
+#eigOut <- eigen(solve(M) %*% Kmod)
+#eigOut <- eigen(Gmod)
+eigOut <- eigen(Kmod)
+eigVals <- eigOut$values
+eigVecs <- eigOut$vectors
+resFreqs <- sqrt(eigVals)
+#----------------------------------------------------------------
+# Note eigVecs are not orthogonal but are Kmod and M orthogonal
+# t(eigVecs) %*% Kmod %*% eigVecs
+# t(eigVecs) %*% M %*% eigVecs
+#---------------------------------------------------------------
+U <- eigVecs
+#------------------
+# # Initial values
+# dLnfdt0 <- 1/2
+# f0 <- 1/2
+# #------------------
+# Derive max amplitude and phase shift parameters based on initial values
+# Cvec <- f0 * sqrt(1 + 1 / resFreqs^2 * dLnfdt0^2)
+# phiVec <- -atan(-1 / resFreqs * dLnfdt0)
+# n <- length(resFreqs)
+# c0 <- t(U) %*% rnorm(n)
+# cDot0 <- t(U) %*% rnorm(n)
+c0 <- c(1.6574469, -0.6223231, 0.4870719, -0.6398373, -0.4606594, 0.4334534, -0.7370816, -0.5185418)
+# cDot0 <- rep(0, n)
+cDot0 <- c(-0.18966722, 0.93685226, 1.47569166, -1.17947652, 0.85290798, 1.05887843, 0.06238909, -0.19244532)
+#------------------
+lenT <- 300
+th <- 25 #time horizon in years, 1 year = 2 pi
+tVec <- seq(0, th * 2 * pi, length.out = lenT)
+list_qVec <- list()
+for(t in 1:lenT){
+  #fVec <- Cvec * cos(resFreqs * tVec[t] - phiVec)
+  fVec <- c0 * cos(resFreqs * tVec[t]) + cDot0 * sin(resFreqs * tVec[t])
+  qVec <- U %*% fVec
+  list_qVec[[t]] <- t(qVec)
+}
+
+df <- as.data.frame(do.call(rbind, list_qVec))
+#colnames(df) <- c("EAfr", "CWANA", "EUR", "NAM")
+#regionVec <- c("SSA", "WANA", "EUR", "RCA", "NAM", "EAP")
+colnames(df) <- regOrder
+gatherCols <- colnames(df)
+# spec <- spec.ar(df$SSA)
+# periodEAfr <- 1 / spec$freq[which.max(spec$spec)]
+# matPeaks <- pracma::findpeaks(df$SSA)
+# indLows <- matPeaks[, 4]
+# #mean(diff(indLows))
+# tPerVec <- tVec[indLows[-1]] - tVec[indLows[-length(indLows)]]
+# tPerVec <- tPerVec[-length(tPerVec)]
+# fctr <- max(tPerVec)
+# yrVec <- tVec * fctr / pi
+yrVec <- tVec / (2 * pi)
+#-----------------------------------------------------------------------
+# For csv file
+outMat <- matrix(NA, length(regOrder), th)
+for(i in 1:ncol(df)){
+  v <- df[, i]
+  outPeaks <- pracma::findpeaks(v)
+  indPeaks <- as.vector(outPeaks[, 2])
+  indPeaks <- round(yrVec[indPeaks])
+  outMat[i, indPeaks] <- 1
+}
+outMat[is.na(outMat)] <- 0
+dfCSV <- data.frame(outMat)
+colnames(dfCSV) <- 2025:2049
+dfCSV$Region <- regOrder
+dfCSV <- dfCSV[, c(colnames(dfCSV)[ncol(dfCSV)], colnames(dfCSV)[-ncol(dfCSV)])]
+thisFolder <- "D:/OneDrive - CGIAR/Documents 1/CIAT 2/FnM Initiative/WSR 2Blades/"
+thisFileName <- "outbreakSpatDist.csv"
+thisFilePath <- paste0(thisFolder, thisFileName)
+#dfCSV <- rbind(colnames(dfCSV), dfCSV)
+write.csv(dfCSV, thisFilePath)
+#-----------------------------------------------------------------------
+# For graphic
+df$Year <- 2025 + yrVec
+df <- df %>% gather_("Region", "Vulnerability", gatherCols)
+# gg <- ggplot(df, aes(x = Year, y = `Outbreak amplitude`, group = Region, color = Region))
+# #gg <- gg + geom_hline(yintercept = 0)
+# gg <- gg + geom_vline(xintercept = 0)
+# gg <- gg + geom_line()
+# gg <- gg + coord_cartesian(xlim = c(2024, 2050))
+# gg <- gg + theme_bw()
+# gg <- gg + theme(legend.position = "top",
+#                  axis.text.y = element_blank(),
+#                  axis.ticks.y = element_blank())
+# gg
+
+#df$Year <- as.Date(as.character(df$Year), "%Y")
+gg <- ggplot(df, aes(x = Year, y = Vulnerability))
+gg <- gg + geom_line()
+#gg <- gg + geom_hline(yintercept = 0)
+#gg <- gg + scale_x_continuous(breaks = 5)
+# gg <- gg + scale_x_date(date_breaks = "1 year", date_labels = "%Y")
+# gg <- gg + scale_x_date(breaks = scales::breaks_pretty(n = 8), labels = scales::date_format("%Y"))
+gg <- gg + facet_wrap(~Region)
+gg <- gg + coord_cartesian(xlim = c(2024, 2050))
+gg <- gg + theme_bw()
+gg <- gg + theme(axis.text.y = element_blank(),
+                 axis.ticks.y = element_blank())
+gg
+
+#------------------------------------------------------------------
+
+# dfCSV <- df
+# for(i in 1:n)
+# v <- subset(df, Region == "Australia")$Vulnerability
+# pracma::findpeaks(v)
+# plot(v)
+
+```
