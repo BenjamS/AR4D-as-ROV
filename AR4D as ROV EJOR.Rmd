@@ -67,24 +67,36 @@ facetTitle_size <- 7
 # Introduction
 
 <!-- Agricultural research for development (AR4D) scientists are under ever increasing pressure from donors to put a defensible monetary value on their proposed projects. However,  -->
-Agricultural research for development (AR4D) projects tend to be high reward, but also high risk, propositions with long time horizons. Donors are attracted by the high potential payoff of such projects, but face increasingly austere fiscal outlooks that restrict their ability to engage in such long term, risky commitments. Real options valuation, a method adapted from financial analysis, presents a mechanism providing fiscally constrained donors with the flexibility they require to justify long term commitments by which researchers can secure long term funding.
+Disruptive agricultural research for development (AR4D) projects tend to be high reward, but also high risk, propositions with long time horizons. Donors are attracted by the high potential payoff of such projects, but face increasingly austere fiscal outlooks that restrict their ability to engage in such long term, risky commitments. For researchers, the resulting uncertainty in the long term funding outlook incentivizes work in the direction of low risk, modest objectives that are achievable in the near term. Such research has its place; but the Sustainable Development Goals clearly call for higher impact, longer term, riskier research as well. Real options valuation, a method of project appraisal adapted from financial analysis, presents a potential enabling mechanism by which to secure long term funding for disruptive research while also guaranteeing donors the fiscal flexibility they require to justify such commitments.
 <!-- , such that project net present value is likely to fluctuate considerably over the life of the project -->
-
 <!-- They are also (d) far-from-market, or even unfold in the midst of market failures, such that project value and/or changes in value may not be deduced or projected based on movements in the prices of commodities or financial securities. -->
 <!-- Properties (a)-(d) make it extremely difficult to valuate AR4D projects in a way that is meaningfully different from a wild, if educated, guess. With good reason, then, AR4D researchers generally resent the mounting pressure to quantify promising, but distant and uncertain, impacts [@leeuwis2018reforming]. The resentment is evident across other scientific disciplines as well [@Petsko2011; @Moriarty2008]. AR4D donors, meanwhile, have grown disillusioned with the crudeness of research project appraisals---even to the point of disbelief, and a commensurate global decline in AR4D funding levels [@hurley2016returns; @hurley2014re; @pardey2018shifting]. The frustration of scientists and donors alike is compounded by increasingly austere fiscal restrictions on donors' ability to commit to the long time horizons of agricultural research. The upshot is an atmosphere of "ever growing distrust" between donors and research communities [@leeuwis2018reforming]. -->
+
 The notion of a real option is born of the analogous concept of a European call option in financial contexts. The holder of a European call option on an underlying security (a stock, for example) has the right, but not the obligation, to purchase the security for a predetermined price (called the "strike" or "exercise" price) at the end of a certain time period.
 <!-- [If the security price is higher than the strike price at the end of the time period, then it is profitable for the investor to exercise their right to purchase the security at the strike price. Otherwise, the ...] -->
 
 Analogously, donors who "buy a real option" commit to funding a real project for a certain time period, at the end of which they have the right, but not the obligation, to continue funding the subsequent stage of the project. The project's net present value (NPV) is analogous to the price of the underlying security in the financial context, while the cost of the subsequent stage is analogous to the exercise price. (The cost of the subsequent stage must be known up front for the analogy to hold.) For a detailed introduction to real option value, see Trigeorgis [-@trigeorgis1993real] and McGrath [-@mcgrath2000assessing].
 
-The methodological details of estimating the value of a real option can vary considerably from one use case to another. But, generally speaking, project real option value (ROV) is often higher than project NPV, especially for projects with high risk, high reward projects, such that a risky project that would normally be rejected due to low or negative NPV might pass muster on an ROV basis.
+The methodological details of estimating the value of a real option can vary considerably from one applied context to another. But, generally speaking, project real option value (ROV) is often higher than project NPV, especially for projects with high risk, high reward projects, such that a risky project that would normally be rejected due to low or negative NPV might pass muster on an ROV basis.
 <!-- [Incidentally, this is an additional benefit of ROV---it explicitly takes account of risk.] -->
 
 In the AR4D context, real option contracts are, in principle, mutually beneficial for both donors and researchers alike. From the donor's perspective, a real option contract is a way to tentatively lay claim to promising, but distant and uncertain, research results, while at the same time guaranteeing an escape route in the eventuality that the project underperforms. The resulting fiscal agility then translates into longer term funding commitments, which is music to the ears of the research community.
 
 It is worth noting, moreover, that donors already acquire option value in their research investments---even if they do not explicitly name it as such---since they effectively reserve and exercise the right to discontinue funding at specific time intervals. (Typical AR4D funding arrangements nowadays last for no more than 1-5 years, at the end of which the contract is up for review and renewal/cancellation.) In this sense, ROV merely formalizes an already existing practice, and more accurately quantifies the real value acquired by the donor in exchange for their investment. By the same token, default methods of project appraisal that neglect to price in the donor's option value (cost-benefit analysis, for example) effectively understate the real value acquired by the donor.
 
-ROV has been applied and discussed in private sector research contexts [@mitchell1990alternative; @pennings1997option; @cassimon2004valuation; @doctor2001managing; @newton2004real]. In the present article, we extend this treatment to the AR4D context.
+ROV has been applied and discussed in private sector research contexts [@mitchell1990alternative; @pennings1997option; @cassimon2004valuation; @doctor2001managing; @newton2004real]. Here we extend this treatment to the AR4D context. 
+The ROV context differs from the financial context in two key respects, which complicate adaptation of financial option valuation tools to the real options context. First of all, 
+
+Adaptation of financial option evaluation to the real options context is complicated by a number of key respects  lack of data by which to calculate project NPV volatility, 
+
+2) the lack of rationale by which to apply risk-neutral valuation, 3) abandoment value, 4) project NPV scales with investment, and 5) the multi-stage nature of agricultural research projects.
+
+
+In the AR4D context, adaptation is further complicated by the multi-stage nature of most AR4D projects.
+
+...the R&D ROV literature has so far focused on private sector research. Here the focus is on public sector research...although much is applicable to the private sector setting.
+
+In the present article, we extend this treatment to the AR4D context.
 
 Here we modify... abandonment value, scale with launch cost, alternative to the no-arbitrage argument...most importantly, multi-stage
 
@@ -103,7 +115,6 @@ abandonment value
 NPV scales with exercise price
 extension of ROV to AR4D is especially complicated by multi-stage nature of most AR4D projects.
 
-Real options valuation has been applied to numerous research and non-research private sector project contexts; and details vary  (For a taxonomy, see Trigeorgis [-@].)]  ... [], for example, evaluate the real option value of a project to develop a new consumer electronics product at a private sector tech firm. The exercise price, in this case, is the cost of establishing the plant capacity required to manufacture the new product at scale, plus advertising, distribution, and any other marketing costs. 
 
 
 
