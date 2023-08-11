@@ -80,8 +80,25 @@ In principle, then, real option contracts are mutually beneficial for both donor
 
 It is worth noting, moreover, that many donors already acquire an unacknowledged option value in their conventional research funding arrangements. That is to say, nowadays, most AR4D contracts are signed for no more than 1-5 years, at the end of which the contract comes up for renewal or cancellation, pending progress up to that point. By reserving the right to discontinue funding at specific time intervals, the donor effectively acquires option value. The introduction of ROV would thus merely formalize an already existing practice, and more accurately quantifies the real value acquired by the donor in exchange for their investment. By the same token, default methods of cost benefit analysis neglect to price in the donor's option value, and thus understate the real value acquired by the donor.
 
-Up until now, ROV methods have developed in the context of corporate projects. The many sharp differences between the corporate and AR4D contexts complicate the mere extension or adaptation of these existing methods to the valuation of AR4D projects. In particular, corporate project NPV is near enough to market---i.e. correlated enough with firm price, and/or a linear combination of other relevant prices---that it may, in principle, be modeled as a function of prices [@brennan1985evaluating; @koller2010valuation; @amram1998real]. [ROV proponents base this on a sophisticated technical argument called "replicating portfolios". This is called the   Or so say the ROV proponents.] AR4D projects, on the other hand, typically occur far from market, or even in the midst of market failures, such that project NPV must be estimated using non-market valuation techniques. The time and effort required for such estimation   [Even in the corporate context, the replicating portfolios argument has been severely criticized [@borison2005real]. In the AR4D context it is completely broke.]
+Up until now, ROV methods have developed in the context of corporate projects. Extension of these methods to the AR4D context is complicated by the sharp differences between the corporate and AR4D contexts. In particular, corporate project NPV is near enough to market---i.e. correlated enough with firm price, and/or a linear combination of other relevant prices---that it may, in principle, be modeled as a linear function of prices [@brennan1985evaluating; @koller2010valuation; @amram1998real]. Even in the corporate context, this argument faces skepticism [@borison2005real], known as the "replicating portfolio" argument, is strained even in the corporate context. [ROV proponents base this on a sophisticated technical argument called "replicating portfolios". This is called the   Or so say the ROV proponents.] AR4D projects, on the other hand, typically occur far from market, or even in the midst of market failures, such that project NPV must be estimated using non-market valuation techniques. ...Also not clear how the BS eq can be derived without the no-arbitrage argument [also risk-neutral valuation].
 
+Moreover, there is a strong consensus against gBm at great methodological cost... corp people be dissin the gBm bitter pill -- this will have to be tackled first, leads naturally then to derivation of (1-stage) ROV formula by straightforward integration based only on assumption of lognormal changes.
+[may this the place to mention the low uptake]
+
+Finally, ROV has focused on single stage projects. AR4D projects are typically multi-stage... Casimmon et al. ...geske... but this is still very tied to near market...
+
+Here we show how can derive the BS equation from an alternative premise only lognormally distributed changes; and we mount a defense of the gBm; and we extend the framework to multi-stage projects.
+
+[Trivially,] we also extend the model to include abandonment value, and project NPVs that scale with the exercise investment. this is an easy modification that can also be applied in existing ROV methods.
+
+
+
+
+
+
+
+
+[The time and effort required for such estimation ...impractical]  [Even in the corporate context, the replicating portfolios argument has been severely criticized . In the AR4D context it is completely broke.]
 AR4D project NPV is measured not in terms of cash flow, but rather smallholder incomes, public health and nutrition, environmental services, and other "social-economic-ecological" welfare impacts. With the possible exception of emissions reducing , such impacts are not traded on any market; and so AR4D project NPV cannot be modeled as a function of observable prices.  The non-market valuation of AR4D project NPV typically involves a considerable investment of time, energy, and expertise, such that subsequent updates of project NPV are unfeasible.  The non-market character of AR4D projects is particularly problematic.  This is known as the "replicating portfolio" argument [],  in turn, validates another critical assumption known as the "no-arbitrage rule", which 
 
 ...bitter pill...gbm...
