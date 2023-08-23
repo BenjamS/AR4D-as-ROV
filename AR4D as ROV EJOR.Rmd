@@ -82,32 +82,31 @@ It is worth noting, moreover, that many donors already acquire an unacknowledged
 
 Up until now, ROV methods have developed in the context of corporate projects. Extension of these methods to the AR4D context is complicated by the many key respects in which the two contexts differ. First and foremost, corporate projects occur in market or near market settings, where a financial argument known as "replicating portfolios" may be invoked [@brennan1985evaluating; @koller2010valuation; @amram1998real]. Methodologically, the replicating portfolios argument means that corporate project NPV is well approximated ("replicated") by a linear combination of relevant prices. This greatly facilitates the estimation of project NPV and risk---both of which are required for ROV---as they may be calculated at any time from publicly available price information.
 
-AR4D projects, on the other hand, are born of market failures, where no such argument may be invoked. Some might retort that the recent emergence of carbon and green bond markets [@tolliver2019green; @bhutta2022green] paves the way for a replicating portfolios analogue in the AR4D context. However, in addition to green outcomes, AR4D projects typically focus on health, nutrition, and socioeconomic outcomes for marginalized populations, the respective values of which, almost by definition, are not reflected in any market. And, even if they were---even if there were an "SDG bond" mapped to every AR4D impact area---this might be useful in the evaluation of project NPV, but of very little use in the assessment of project risk, as the main source of AR4D risk is not "price risk" (tragically, there is very little risk of the bottom falling out of the SDG "market" in our lifetimes), but rather technical risk, i.e. the risk that the proposed technology will not function or scale as expected, due either to technical difficulties encountered in the research itself, or to unforeseen adversity in the enabling environment (e.g., government policy shifts, deregulation issues, etc.).
-[AR4D project NPV and risk must therefore be calculated the "hard way", by ex-ante impact assessment.]
+AR4D projects, on the other hand, are born of market failures, where no such argument may be invoked; and so AR4D project NPV and risk must be calculated the "hard way", by ex-ante impact assessment. Some might contend that the recent emergence of carbon and green bond markets [@tolliver2019green; @bhutta2022green] paves the way for a replicating portfolios analogue in the AR4D context. However, in addition to green outcomes, AR4D projects typically focus on health, nutrition, and socioeconomic outcomes for marginalized populations, the respective values of which, almost by definition, are not reflected in any market. And, even if they were---even if there were an "SDG bond" mapped to every AR4D impact area---this might be useful in the evaluation of project NPV, but of very little use in the assessment of project risk, since the main source of AR4D risk is not "price risk" (tragically, there is very little risk of the bottom falling out of the SDG "market" in our lifetimes), but rather technical risk, i.e. the risk that the proposed technology will not function or scale as expected, due either to technical difficulties encountered in the research itself, or to unforeseen adversity in the enabling environment (e.g., government policy shifts, deregulation issues, etc.).
 
-The replicating portfolios argument leads to the no arbitrage rule which leads to risk-neutral valuation
+Even in the corporate ROV context, the replicating portfolios argument is met with considerable skepticism [@borison2005real]; and proponents of the argument acknowledge that its validity is limited to a narrow range of project types---which generally does not include R&D projects [@schwartz2013real]. There is nonetheless strong methodological pressure to invoke the argument because the fundamental equation governing financial option (and all derivative) valuation---i.e., the Black-Scholes partial differential equation (PDE)---which one wishes to adapt to real project settings, is formally derived from an assumption in financial markets known as the "no-arbitrage rule", which requires that the underlying project NPV be replicable as a traded good in an efficient market [@hull9thEdition]. In cases where the replicating portfolios argument may not be invoked, i.e. where project NPV may not be replicable as a traded good, some corporate ROV practitioners invoke the "complete markets" assumption as a second-best alternative [majd; pennings]. Under the complete markets assumption, project NPV cannot be modeled as a linear function of prices, but the Black-Scholes PDE is nonetheless preserved because "all risks can be hedged by trading securities" [pennings].
+
+As mentioned in the previous paragraph, the main source of AR4D project risk is technical risk associated with non-market factors. It follows that AR4D risk cannot be hedged by trading securities; and thus there are no grounds on which to assume complete markets in the AR4D context.
+
+...leads to risk-neutral valuation...Risk-neutral valuation implies that If it is not possible to make risk-free profits above the risk-free rate of return (the “no-arbitrage” rule), then investors are risk-neutral, i.e. "investors do not increase the expected return they require from an investment in order to compensate for increased risk" [@hull9thEdition]. Clearly, AR4D donors are not risk neutral. They are willing to bet on a high risk project only if there is a sufficiently high expected return.
+
+[...gbm issue...]
+<!-- [...the complexity of stochastic processes encountered in financial and corporate contexts leads them down the dark path of numerical methods at great methodological cost...Pennings & Lint cPp... Here argue that gBm is a good enough and great methodoligcal benefits, periods of no change (cPp can be modeled arbitrarily closely as periods of negligible change (gBm). -->
+<!-- ...there is a strong consensus against gBm at great methodological cost... corp people be dissin the gBm bitter pill -- this will have to be tackled first, leads naturally then to derivation of (1-stage) ROV formula by straightforward integration based only on assumption of lognormal changes.] -->
+
+...We present an unoriginal, but little discussed, derivation of the option value equation identical to the one derived by Black and Scholes, but which does not depend upon the Black-Scholes PDE, nor any of the underlying assumptions that are problematic in the AR4D context. And we demonstrate that this independently derived equation is nonetheless consistent with [a certain interpretation of] the Black-Scholes PDE by presenting an alternative derivation of the Black-Scholes PDE that does not depend upon the no-arbitrage rule, nor complete markets, and does not imply risk-neutral valuation, and is thus consistent with the AR4D context.
+
+...multi-stage...
+...scale...
+...abandonment value...
+[Trivially,] we also extend the model to include abandonment value, and project NPVs that scale with the exercise investment. this is an easy modification that can also be applied in existing ROV methods.
 
 
-
-Even in the corporate ROV context, the replicating portfolios argument is met with considerable skepticism [@borison2005real]; and proponents of the argument acknowledge that its validity is limited to a narrow range of project types---which generally does not include R&D projects [@schwartz2013real].   nonetheless, a certain methodological pressure to invoke the argument because it forms the premise of another argument known as the "no arbitrage rule", which in turn forms the premise of the Black-Scholes partial differential equation governing option pricing theory [@hull9thEdition]. 
-
-
-
-The replicating portfolios argument also figures critically in the formal derivation of the Black-Scholes partial differential equation (PDE), which governs all option pricing formulae, not to mention all financial derivatives more broadly [@hull9thEdition]. However, in the process, it also leads to a celebrated corollary known as "risk-neutral valuation", which is problematic in the AR4D context. Risk-neutral valuation implies that If it is not possible to make risk-free profits above the risk-free rate of return (the “no-arbitrage” rule), then investors are risk-neutral, i.e. "investors do not increase the expected return they require from an investment in order to compensate for increased risk" [@hull9thEdition]. Clearly, AR4D donors are not risk neutral. They are willing to bet on a high risk project only if there is a sufficiently high expected return.
 <!-- [as  Moreover, since price information is automatically updated on a second-by-second basis, a project NPV time series is generated by which to estimate project risk (i.e. the standard deviation of the project NPV fractional change per time step), and to otherwise empirically inspect the stochastic character of the time evolution of project NPV.] -->
 
 <!-- If it is not possible to make risk-free profits above the risk-free rate of return (the “no-arbitrage” rule), then investors are risk-neutral, i.e. “investors do not increase the expected return -->
 <!-- they require from an investment in order to compensate for increased risk” (Hull, 2015) -->
 
- In settings where the , some ROV practitioners invoke an alternative argument known as "complete markets" [@pennings1997option]. There is methodological pressure to adopt either of these arguments because they figure centrally in the formal derivation of the fundamental theory of options valuation
-
-[Even in corporate context...complete markets..."all risks can be hedged" through the purchase/shorting of securities...Clearly, AR4D technical risks cannot be hedged in this manner.]
-
-[Also, the issue of price risk vs. research risk, the latter being the important one in AR4D, and not reflected in markets and thus not captured in the default theoretical set up/default interpretation of the B-S PDE....  AR4D NPV must be estimated the "hard way"]
-
-Adaptation of option pricing theory to the AR4D context must somehow be derived on a different basis, whereby project NPV is non-traded, and in a way that does not imply risk-neutral valuation. and that considers technical risk as opposed to market risk.
-
-gbm, multi-stage
 
 
 
@@ -122,50 +121,21 @@ gbm, multi-stage
 
 
 
-Since the replicating portfolios argument effectively specifies project NPV as a linear function of prices, then project NPV may be easily calculated at any time from publicly available price information. Moreover, since price information is automatically updated on a second-by-second basis, a project NPV time series is generated by which to estimate project risk (i.e. the standard deviation of the project NPV fractional change per time step), and to otherwise empirically inspect the stochastic character of the time evolution of project NPV.
 
----whereas, in the AR4D context, project NPV must be estimated the "hard way", by ex-ante impact assessment.
 
+<!-- Since the replicating portfolios argument effectively specifies project NPV as a linear function of prices, then project NPV may be easily calculated at any time from publicly available price information. Moreover, since price information is automatically updated on a second-by-second basis, a project NPV time series is generated by which to estimate project risk (i.e. the standard deviation of the project NPV fractional change per time step), and to otherwise empirically inspect the stochastic character of the time evolution of project NPV. -->
 <!-- as it would merely indicate the value of the project objective (of which everyone is already convinced), and not of the particular technology, expertise, strategy, and enabling environment that distinguish the project from other projects pursuing similar objectives. -->
-
-
 <!-- AR4D donors are already convinced of the value of the SDGs without waiting to see what the "markets say about it"; and, tragically, there is little or no risk of the "bottom falling out" of such markets, at least not in our lifetimes. -->
-
 <!-- This bears emphasis, as it underscores a fundamental difference between the AR4D and corporate ROV contexts: Generally speaking, in corporate ROV contexts, project NPV hinges primarily upon the market value of the project objective (e.g., a natural resource), which may fluctuate considerably over the life of the project; and only secondarily upon technical progress toward the proposed project objective. In the AR4D context, it is the other way around: project NPV hinges critically upon technical progress towards the project objective (e.g., a disease resistant cultivar), which may fluctuate considerably over the life of the project, while the value of the objective itself is effectively taken for granted. In the former case, price risk is the key source of uncertainty; in the latter case, it is technical risk, i.e. the risk that the proposed technology will not function or scale as expected, due either to technical difficulties encountered in the research itself, or to unforeseen adversity in the enabling environment (e.g., government policy shifts, deregulation issues, etc.). -->
 <!-- In other words, the main source of AR4D project risk---i.e. of significant, unforeseeable fluctuations in project NPV---is not variability in the value of the end objective, but rather the technical risk associated with the research itself, and/or the research enabling environment (e.g., government policy shifts, deregulation issues, etc.). -->
 <!-- Unlike corporate project NPV, , AR4D project NPV is primarily a function of the technical feasibility of the research and/or the political and institutional enabling environment. -->
-
-Even in the corporate ROV context, the replicating portfolios argument faces considerable skepticism [@borison2005real]; and proponents of the argument acknowledge that its validity is limited to a narrow range of project types---which does not include R&D projects [@schwartz2013real]. Corporate R&D...complete markets [@pennings1997option]. There is methodological pressure to adopt either of these arguments because they figure centrally in the formal derivation of the fundamental theory of options valuation (i.e. the Black-Scholes partial differential equation).
-[More problematically still, the replicating portfolios argument leads to a corollary known as "risk-neutral valuation", i.e. "investors do not increase the expected return they require from an investment in order to compensate for increased risk" [@hull9thEdition]. Clearly, AR4D donors are not risk neutral. They are willing to bet on a high risk project only if there is a sufficiently high expected return. ROV practitioners feel compelled to ].... Here we present an alternative derivation of the Black-Scholes PDE based only the assumption of normally distributed log returns, and that the present value of future impacts appreciates at the discount rate.
+<!-- Here we present an alternative derivation of the Black-Scholes PDE based only the assumption of normally distributed log returns, and that the present value of future impacts appreciates at the discount rate. -->
 <!-- which makes perfect sense to financial analysts, but is problematic in the AR4D setting. Risk-neutral valuation means that, if it is not possible to make risk-free profits above the risk-free rate of return (the "no-arbitrage" rule), then investors are risk-neutral, -->
-...the complexity of stochastic processes encountered in financial and corporate contexts leads them down the dark path of numerical methods at great methodological cost...Pennings & Lint cPp... Here argue that gBm is a good enough and great methodoligcal benefits, periods of no change (cPp can be modeled arbitrarily closely as periods of negligible change (gBm).
-...there is a strong consensus against gBm at great methodological cost... corp people be dissin the gBm bitter pill -- this will have to be tackled first, leads naturally then to derivation of (1-stage) ROV formula by straightforward integration based only on assumption of lognormal changes.
-
-
-Such assessments typically require a considerable investment of time, effort, and expertise, making frequent updates of project NPV unfeasible. As a result, we are left without a project NPV time series by which to estimate project risk or otherwise empirically inspect the stochastic character of project NPV.
+<!-- Such assessments typically require a considerable investment of time, effort, and expertise, making frequent updates of project NPV unfeasible. As a result, we are left without a project NPV time series by which to estimate project risk or otherwise empirically inspect the stochastic character of project NPV. -->
 <!-- Finally, and most importantly from a theoretical standpoint, the replicating portfolios argument means that project NPV may be treated as a traded good in an efficient market. This figures critically in the formal derivation of the financial option formula one wishes to adapt to real options (i.e. the Black-Scholes partial differential equation) via an argument known as the "no-arbitrage rule" [@hull9thEdition]. It also implies a  -->
 <!-- Mathematically, this means that $m = r$ (where $r$, in financial contexts, refers to the risk-free rate of return). -->
-
-
 <!-- @mathews2007practical -->
-In the AR4D context, project NPV must be evaluated the "hard way", by ex-ante impact assessment. These assessments typically require a considerable investment of time, effort, and expertise, making frequent updates of project NPV unfeasible. As a result, we are left without a project NPV time series by which to estimate project risk or otherwise empirically inspect the stochastic character of project NPV. We must therefore devise some other way of estimating project risk...../ In the AR4D context, neither  NPV is not a traded good, nor may complete markets be invoked, then there is no theoretical premise for the B-S PDE.
-
-
-[may this the place to mention the low uptake ---see Borison , known as the "replicating portfolio" argument, is strained even in the corporate context. [ROV proponents base this on a sophisticated technical argument called "replicating portfolios". This is called the   Or so say the ROV proponents.]]
-
-Finally, ROV has focused on single stage projects. AR4D projects are typically multi-stage... Casimmon et al. ...geske... but this is still very tied to near market...
-
-and we extend the framework to multi-stage projects.
-
-[Trivially,] we also extend the model to include abandonment value, and project NPVs that scale with the exercise investment. this is an easy modification that can also be applied in existing ROV methods.
-
-
-
-
-
-
-
-
+<!-- In the AR4D context, project NPV must be evaluated the "hard way", by ex-ante impact assessment. These assessments typically require a considerable investment of time, effort, and expertise, making frequent updates of project NPV unfeasible. As a result, we are left without a project NPV time series by which to estimate project risk or otherwise empirically inspect the stochastic character of project NPV. We must therefore devise some other way of estimating project risk...../ In the AR4D context, neither  NPV is not a traded good, nor may complete markets be invoked, then there is no theoretical premise for the B-S PDE. -->
 [The time and effort required for such estimation ...impractical]  [Even in the corporate context, the replicating portfolios argument has been severely criticized . In the AR4D context it is completely broke.]
 AR4D project NPV is measured  With the possible exception of emissions reducing , such impacts are not traded on any market; and so AR4D project NPV cannot be modeled as a function of observable prices.  The non-market valuation of AR4D project NPV typically involves a considerable investment of time, energy, and expertise, such that subsequent updates of project NPV are unfeasible.  The non-market character of AR4D projects is particularly problematic.  This is known as the "replicating portfolio" argument [],  in turn, validates another critical assumption known as the "no-arbitrage rule", which 
 
