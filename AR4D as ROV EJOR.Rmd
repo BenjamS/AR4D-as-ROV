@@ -103,74 +103,26 @@ ROV methods have so far developed primarily in the context of corporate projects
 
 Extension of existing ROV methods to the AR4D context is also complicated by the multistage nature of most AR4D projects. For example, many AR4D plant breeding projects involve a preliminary greenhouse and/or field trial(s) stage, followed by more advanced, multi-location field trials [@covarrubias2022breeding]. In transgenic projects, additional toxicological testing is required, followed by the compilation of a regulatory dossier and application for deregulation before the national competent authority in the target countries where the new technology is to be released [@Schiek]. Finally, there is the release, distribution, and outscaling stage, which involves careful orchestration of complex networks of stakeholders and public-private partnerships.
 
-Donors invest in each of these stages one at a time, consecutively, with investment in the subsequent stage contingent upon successful completion of the current stage. The donor's investment in stage one of a three stage project, then, is analogous to purchasing an option on stage two---i.e., the right but not the obligation to invest in stage two---which is turn an option on stage three. Existing real option methods, meanwhile, focus primarily on single stage projects. The one exception is a multistage model proposed by Cassimon et al. [-@cassimon2004valuation] for the evaluation of pharmaceutical trials, building upon the two stage or "compound option" model originally developed by Geske in the financial context [-@geske1979valuation]. Again, such work is not readily extensible to AR4D due to its corporate and financial theoretical underpinnings.
+Donors invest in each of these stages one at a time, consecutively, with investment in the subsequent stage contingent upon successful completion of the current stage. The donor's investment in stage one of a three stage project, then, is analogous to purchasing an option on stage two---i.e., the right but not the obligation to invest in stage two---which is turn an option on stage three. Existing real option methods, meanwhile, focus primarily on single stage projects. The one exception is a multistage model proposed by Cassimon et al. [-@cassimon2004valuation] for the evaluation of pharmaceutical trials, building upon the two stage or "compound option" model originally developed by Geske [-@geske1979valuation] in the financial context. Again, such work is not readily extensible to AR4D due to its corporate and financial theoretical underpinnings.
 
-In this article, we derive a multistage ROV model for the AR4D project context. Rather than build upon existing corporate ROV methods, we demonstrate why the financial theoretical underpinnings of such models are inapplicable in the AR4D context, and develop suitable foundations in their place. Our critique of corporate ROV is found in the literature review, immediately below. This includes treatment of the choice of stochastic model to represent the time evolution of project NPV. Whereas corporate ROV methods generally follow the financial trend of specifying highly realistic, but also methodologically costly, jump diffusion models of project NPV, here we argue that the much simpler geometric Brownian motion (gBm) model strikes the right balance between realism and tractability for the AR4D context.
-<!-- The first step in this work is a studious avoidance of the theoretical underpinnings of corporate ROV methods, and the development of suitable foundations in their place. -->
+In this article, we derive a multistage ROV model for the AR4D project context. Rather than build upon the existing ROV groundwork developed in the financial and corporate contexts, we demonstrate why that groundwork is incompatible with the AR4D context, and develop a suitable foundation in its place. More specifically, in place of strained arguments to construe project NPV as a traded good in an efficient market, we show how an ROV model for non-traded goods follows from the definition of NPV itself, and from the choice of stochastic model to represent the time evolution of project NPV. The derivation begins with a defense of the geometric Brownian motion (gBm) stochastic model of project NPV as striking the right balance between realism and methodological tractability in the AR4D context. In place of risk-neutral valuation, then, we show that risk-adjusted discounting follows as a corollary. After deriving the ROV model for single stage AR4D projects, the extension to multistage projects turns out to be remarkably simple compared to the aforementioned efforts of Cassimon et al. [-@cassimon2004valuation].
+<!-- In fact, we show that, in the AR4D context, the multistage ROV equation is essentially no different from the single stage equation. -->
 
-Remarkably, the foundations for AR4D project ROV developed to replace the critiqued financial foundations require no set of substitute assumptions, but rather follow simply from the definition of project NPV. Specifically, they follow from the fact that NPV, by definition, appreciates at the discount rate. From this, we show, it follows that AR4D donors are not risk neutral, but rather discount future values proportional to their risk. It also follows that ...multistage remarkably simple and tractable compared to the model developed by Cassimon et al. [-@cassimon2004valuation].
-
-In the discussion, we briefly demonstrate some useful extensions and modifications to the ROV model. In particular, we show how the model can be modified to 1) include "abandonment value", i.e., the value often generated by AR4D projects in the form of human and physical capital upgrades, regardless of the success or failure of the main research activities; 2) account for the scaling relation between investment and impact.
+Following the main derivation, we describe a hypothetical use case wherein the derived model is applied to evaluate the ROV of a real four stage AR4D project to develop a potato variety with resistance to Late Blight disease for release as a public good in developing countries. The article concludes with a discussion of two minor, but useful modifications. First we show how the model can be extended to include "abandonment value", i.e., the value often generated by AR4D projects in the form of human and physical capital upgrades, regardless of the success or failure of the main research activities. And we demonstrate how the model might be modified to account for the scaling relation that typically exists between AR4D project investment and impact.
+<!-- But first, all of this is prefaced by a studious avoidance of the theoretical underpinnings of corporate ROV methods, which follows immediately below in the literature review. -->
 
 From the outset it is important to distinguish the notion of ROV pursued here (Equation \ref{eq:basic}) and originally developed by Meyer [], from a so-called "real option approach" already followed in numerous agricultural R&D appraisal studies []. The purpose of the ROV approach developed here is to appraise, from the donor's perspective, AR4D projects with known time horizons in a way that prices in option value. The other "real option approach" currently implemented in the agricultural R&D literature is, more accurately, an "optimal delay approach", in the sense that it is primarily concerned with determining the optimal delay, from a social planner's perspective, of the release and outscaling of a finished agricultural R&D product with uncertain environmental impact []. That is to say, it is not primarily concerned with the valuation of the R&D product itself, which is what we pursue here.
-
-
-<!-- Steps one and two constitute the main work of this article. In due course, two elementary, but no less novel and important, adjustments are introduced in order to accommodate other key features of the AR4D context not captured by existing ROV methods. Firstly, we introduce a minor adjustment allowing us to account for project abandonment value. Secondly, an adjustment is made to capture the relation between project impact and the final outscaling investment. -->
-
-<!-- As for the relation between project NPV and the outscaling investment, we refer to the marginally diminishing relationship that typically exists between AR4D project NPV and the size of the investment in the outscaling of the finished technology. That is to say, beyond a certain minimum level of investment required to release and support the diffusion and uptake of the project's research product on a pilot level, further increments in the outscaling investment have the effect of broadening the scope of impact---i.e. the size and number of target populations and environments where the research product is released and has an impact. Existing ROV methods tacitly assume that project NPV and the outscaling investment are independent, or that only one outscaling investment scenario is of interest. The adjustment introduced here facilitates examination of all outscaling investment scenarios, and even makes it possible to solve for the ROV-maximizing outscaling investment. -->
-
-Since much of the intended audience may be unfamiliar with ROV, these main results are prefaced by an incremental mathematical explanation of the basic concept and intuition. This preface begins with a basic clarification of what is meant by "project NPV", plus an introduction to (and defense of) geometric Brownian movement (gBm) as a model of the stochastic evolution of project NPV. The closed form ROV equation for 1-stage projects known as the Black-Scholes model is then derived solely on the assumption that project NPV follows a gBm, without recourse to any of the usual assumptions applied in financial and corporate contexts. This is followed by brief remarks on building intuition. This is followed by the elementary adjustments to account for abandonment value
--This is followed by an explanation of the implications in B-S PDE land, completing the replacement of financial/corporate assumptions with suitable AR4D assumptions. How it does not imply risk-neutrality etc. (All of the assumptions listed above should receive clear treatment) This is where any remarks on Dixit and Pindyck would go. Possibly solve the Dixit-Pindyck PDE under the new AR4D boundary conditions?
--Here the adjustment to accommodate the impact scaling relation between the outscaling investment and project NPV; including showing how to solve for the ROV-maximizing outscaling investment.
--This is followed by an extension to the multistage setting.
--Finally, we apply the derived model to appraise a real 4-stage AR4D potato project.
-
-Where does discussion of B-S PDE and Dixit & Pindyck etc. go?
-<!-- The relevant literature is engaged throughout the article as needed. While AR4D is the motivating context for the present work, the $n$-fold ROV model derived here is broadly applicable to any multistage, far-from-market, real option context. -->
-
-
-
-
-
-
-
-
-The application of real option valuation (ROV) to the AR4D context is complicated by the multistage structure of most AR4D projects. 
-<!-- An R script of the model is included in the Appendix. -->
-<!-- Cassimons et al. coin the phrase "$n$-fold option" to refer to such models.  -->
-<!-- (where $n$ is the number of project stages) -->
-
-It is first necessary to preface this derivation with a defense of the key assumption of lognormally distributed random changes in project value, which is sometimes eschewed as unrealistic or otherwise naive. To further prepare the ground for the main derivation, it is also necessary to redress some confusion in the ROV literature regarding the interpretation of an artifact inherited from financial contexts known as "risk-neutral valuation".
-<!-- More specifically, I show that, in far-from-market contexts where the Black-Scholes "no arbitrage" argument does not apply, the Black-Scholes partial differentiation equation -->
-
-
-<!-- The first part of the Method section, introducing the basic concept, is effectively also a literature review... although the literature review is also distributive...the relevant literature is engaged with as needed throughout. -->
-
-
-
-
-Finally, a strong consensus exists in the corporate ROV literature, adopted from the financial literature, that the log returns of a project NPV time series are not normally distributed []. In the more technical speech that we will delve into below, they eschew geometric Brownian motion (gBm) as a naive model of project NPV, preferring instead more complicated stochastic jump models, such as a compound Poisson process (CPp), that can more realistically reflect abrupt jumps in the time evolution of NPV []. There are good reasons for applying stochastic jump models in the financial and (some) corporate settings, but it comes at a high methodological cost, as it adds a thick layer of complexity onto an already complex modeling workflow, and requires numerical methods for ROV solution.   ...bitter pill. The assumption of gBm greatly simplifies...a questionable gain in realism at great methodological cost.
-
-...multistage...
-
-Developing ROV in the AR4D context is therefore not a matter of extending or modifying the existing foundations developed in the corporate context, but of developing altogether new foundations. Here we present the results of such an effort. 
-[...gbm issue...]
+<!-- Since much of the intended audience may be unfamiliar with ROV, these main results are prefaced by an incremental mathematical explanation of the basic concept and intuition. This preface begins with a basic clarification of what is meant by "project NPV", plus an introduction to (and defense of) geometric Brownian movement (gBm) as a model of the stochastic evolution of project NPV. The closed form ROV equation for 1-stage projects known as the Black-Scholes model is then derived solely on the assumption that project NPV follows a gBm, without recourse to any of the usual assumptions applied in financial and corporate contexts. This is followed by brief remarks on building intuition. This is followed by the elementary adjustments to account for abandonment value -->
+<!-- -This is followed by an explanation of the implications in B-S PDE land, completing the replacement of financial/corporate assumptions with suitable AR4D assumptions. How it does not imply risk-neutrality etc. (All of the assumptions listed above should receive clear treatment) This is where any remarks on Dixit and Pindyck would go. Possibly solve the Dixit-Pindyck PDE under the new AR4D boundary conditions? -->
+<!-- -Here the adjustment to accommodate the impact scaling relation between the outscaling investment and project NPV; including showing how to solve for the ROV-maximizing outscaling investment. -->
+<!-- -Finally, we apply the derived model to appraise a real 4-stage AR4D potato project. -->
+<!-- Where does discussion of B-S PDE and Dixit & Pindyck etc. go? -->
 <!-- [...the complexity of stochastic processes encountered in financial and corporate contexts leads them down the dark path of numerical methods at great methodological cost...Pennings & Lint cPp... Here argue that gBm is a good enough and great methodoligcal benefits, periods of no change (cPp can be modeled arbitrarily closely as periods of negligible change (gBm). -->
 <!-- ...there is a strong consensus against gBm at great methodological cost... corp people be dissin the gBm bitter pill -- this will have to be tackled first, leads naturally then to derivation of (1-stage) ROV formula by straightforward integration based only on assumption of lognormal changes.] -->
-
-...We present an unoriginal, but little discussed, derivation of the option value equation identical to the one derived by Black and Scholes, but which does not depend upon the Black-Scholes PDE, nor any of the underlying assumptions that are problematic in the AR4D context. And we demonstrate that this independently derived equation is nonetheless consistent with [a certain interpretation of] the Black-Scholes PDE by presenting an alternative derivation of the Black-Scholes PDE that does not depend upon the no-arbitrage rule, nor complete markets, and does not imply risk-neutral valuation, and is thus consistent with the AR4D context.
-
-...multistage...
-...scale...
-...abandonment value...
-[Trivially,] we also extend the model to include abandonment value, and project NPVs that scale with the exercise investment. this is an easy modification that can also be applied in existing ROV methods.
-
-
+<!-- ...We present an unoriginal, but little discussed, derivation of the option value equation identical to the one derived by Black and Scholes, but which does not depend upon the Black-Scholes PDE, nor any of the underlying assumptions that are problematic in the AR4D context. And we demonstrate that this independently derived equation is nonetheless consistent with [a certain interpretation of] the Black-Scholes PDE by presenting an alternative derivation of the Black-Scholes PDE that does not depend upon the no-arbitrage rule, nor complete markets, and does not imply risk-neutral valuation, and is thus consistent with the AR4D context. -->
 <!-- [as  Moreover, since price information is automatically updated on a second-by-second basis, a project NPV time series is generated by which to estimate project risk (i.e. the standard deviation of the project NPV fractional change per time step), and to otherwise empirically inspect the stochastic character of the time evolution of project NPV.] -->
-
 <!-- If it is not possible to make risk-free profits above the risk-free rate of return (the “no-arbitrage” rule), then investors are risk-neutral, i.e. “investors do not increase the expected return -->
 <!-- they require from an investment in order to compensate for increased risk” (Hull, 2015) -->
-
 <!-- Since the replicating portfolios argument effectively specifies project NPV as a linear function of prices, then project NPV may be easily calculated at any time from publicly available price information. Moreover, since price information is automatically updated on a second-by-second basis, a project NPV time series is generated by which to estimate project risk (i.e. the standard deviation of the project NPV fractional change per time step), and to otherwise empirically inspect the stochastic character of the time evolution of project NPV. -->
 <!-- as it would merely indicate the value of the project objective (of which everyone is already convinced), and not of the particular technology, expertise, strategy, and enabling environment that distinguish the project from other projects pursuing similar objectives. -->
 <!-- AR4D donors are already convinced of the value of the SDGs without waiting to see what the "markets say about it"; and, tragically, there is little or no risk of the "bottom falling out" of such markets, at least not in our lifetimes. -->
@@ -184,20 +136,7 @@ Developing ROV in the AR4D context is therefore not a matter of extending or mod
 <!-- Mathematically, this means that $m = r$ (where $r$, in financial contexts, refers to the risk-free rate of return). -->
 <!-- @mathews2007practical -->
 <!-- In the AR4D context, project NPV must be evaluated the "hard way", by ex-ante impact assessment. These assessments typically require a considerable investment of time, effort, and expertise, making frequent updates of project NPV unfeasible. As a result, we are left without a project NPV time series by which to estimate project risk or otherwise empirically inspect the stochastic character of project NPV. We must therefore devise some other way of estimating project risk...../ In the AR4D context, neither  NPV is not a traded good, nor may complete markets be invoked, then there is no theoretical premise for the B-S PDE. -->
-
 <!-- Pennings and Lint [-@pennings1997option], for example, cite the case of the Merck pharmaceutical company, which has estimated R&D project risk based on the company's stock price volatility. -->
-
-Secondly, the mathematical option value formula we wish to adapt to real options settings (i.e., the Black-Scholes equation) is fundamentally derived from the assumption that the underlying good is traded in an efficient market---known in finance as the "no-arbitrage rule" [@hull9thEdition]. More problematically still, the no-arbitrage rule then leads to a corollary known as "risk-neutral valuation", which implies that the donor is willing to take on any level of risk for a given expected reward [@hull9thEdition]. Again, in some private sector R&D settings, it may be that project NPV is highly correlated with company price, and/or a linear combination of other relevant prices, effectively validating such assumptions. In the AR4D context, however, it can be said without controversy that neither the no-arbitrage rule nor risk-neutral valuation are valid assumptions.
-
-Here we present a much simpler derivation leading to the same result
-
-and this has surely contributed to the complexity resulting in low adoption of ROV in real world decision making. It is not uncommon for ROV studies and surveys to assume risk-neutral valuation without any justification (see, for example, Trigeorgis [-@trigeorgis1993real], Majd and Pindyck [-@majd1987time], or Kemna [-@kemna1993case]). Some studies acknowledge the invalidity of the no-arbitrage argument in ROV contexts, but instead invoke "complete markets" to justify risk-neutral valuation (see, for example, Pennings and Lint [-@pennings1997option]). However, the complete markets assumption implies that 1) project NPV can be simulated by a portfolio of traded securities, and hence project risk can be hedged away by buying and/or selling these traded securities; and 2) project managers actually engage in the buying and selling of securities necessary to achieve this hedge. One may say without controversy that neither (1) nor (2) are common features of AR4D project management landscapes.
-
-[what we do about it: derive from the assumption of normally distributed log returns
-we show that the same result is obtained by merely assuming that all future values appreciate at the discount rate
-]
-In the real options context, there is often an abandonment value that is realized even if the project fails. In the AR4D context, this might be, for example, the value of intermediate scientific results and/or institutional strengthening (the strengthening of national agricultural research systems, producer organizations, and other project stakeholders).
-
 <!-- relatively recent critique and synthesis of real options theory by one of its founders [@trigeorgis2017real] -->
 <!-- surveys repeatedly indicate low uptake of rov [@ryan2002capital; @block2007real; @horn2015use] -->
 <!-- Triantis gives the best survey of methodological critiques or rov [@triantis2005realizing] -->
@@ -214,9 +153,13 @@ In the real options context, there is often an abandonment value that is realize
 
 # Literature review
 
-## A studious avoidance of financial/corporate ROV theoretical foundations
+<!-- a strong consensus exists in the corporate ROV literature, adopted from the financial literature, that the log returns of a project NPV time series are not normally distributed []. In the more technical speech that we will delve into below, they eschew geometric Brownian motion (gBm) as a naive model of project NPV, preferring instead more complicated stochastic jump models, such as a compound Poisson process (CPp), that can more realistically reflect abrupt jumps in the time evolution of NPV []. There are good reasons for applying stochastic jump models in the financial and (some) corporate settings, but it comes at a high methodological cost, as it adds a thick layer of complexity onto an already complex modeling workflow, and requires numerical methods for ROV solution.   ...bitter pill. The assumption of gBm greatly simplifies...a questionable gain in realism at great methodological cost. -->
 
-Extension of these methods to the AR4D context is complicated by the many key respects in which the two contexts differ. First and foremost, corporate projects occur in market or near market settings, where a financial argument known as "replicating portfolios" may be invoked [@brennan1985evaluating; @koller2010valuation; @amram1998real]. Methodologically, the replicating portfolios argument means that corporate project NPV is well approximated ("replicated") by a linear combination of relevant prices. This greatly facilitates the estimation of project NPV and risk---both of which are required for ROV---as they may be calculated at any time from publicly available price information.
+<!-- Secondly, the mathematical option value formula we wish to adapt to real options settings (i.e., the Black-Scholes equation) is fundamentally derived from the assumption that the underlying good is traded in an efficient market---known in finance as the "no-arbitrage rule" [@hull9thEdition]. More problematically still, the no-arbitrage rule then leads to a corollary known as "risk-neutral valuation", which implies that the donor is willing to take on any level of risk for a given expected reward [@hull9thEdition]. Again, in some private sector R&D settings, it may be that project NPV is highly correlated with company price, and/or a linear combination of other relevant prices, effectively validating such assumptions. In the AR4D context, however, it can be said without controversy that neither the no-arbitrage rule nor risk-neutral valuation are valid assumptions. -->
+
+<!-- and this has surely contributed to the complexity resulting in low adoption of ROV in real world decision making. It is not uncommon for ROV studies and surveys to assume risk-neutral valuation without any justification (see, for example, Trigeorgis [-@trigeorgis1993real], Majd and Pindyck [-@majd1987time], or Kemna [-@kemna1993case]). Some studies acknowledge the invalidity of the no-arbitrage argument in ROV contexts, but instead invoke "complete markets" to justify risk-neutral valuation (see, for example, Pennings and Lint [-@pennings1997option]). However, the complete markets assumption implies that 1) project NPV can be simulated by a portfolio of traded securities, and hence project risk can be hedged away by buying and/or selling these traded securities; and 2) project managers actually engage in the buying and selling of securities necessary to achieve this hedge. One may say without controversy that neither (1) nor (2) are common features of AR4D project management landscapes. -->
+
+Existing project ROV methods were developed in the corporate context, with strong roots in the financial context, both of which differ from the AR4D context in many key respects. First and foremost, corporate projects occur in market or near market settings, where a financial argument known as "replicating portfolios" may be invoked [@brennan1985evaluating; @koller2010valuation; @amram1998real]. Methodologically, the replicating portfolios argument means that corporate project NPV is well approximated ("replicated") by a linear combination of relevant prices. This greatly facilitates the estimation of project NPV and risk---both of which are required for ROV---as they may be calculated at any time from publicly available price information.
 
 AR4D projects, on the other hand, are born of market failures, where no such argument may be invoked; and so AR4D project NPV and risk must be calculated the "hard way", by ex-ante impact assessment. Some might contend that the recent emergence of carbon and green bond markets [@tolliver2019green; @bhutta2022green] paves the way for a replicating portfolios analogue in the AR4D context. However, in addition to green outcomes, AR4D projects typically focus on health, nutrition, and socioeconomic outcomes for marginalized populations, the respective values of which, almost by definition, are not reflected in any market. And, even if they were---even if there were an "SDG bond" mapped to every AR4D impact area---this might be useful in the evaluation of project NPV, but of very little use in the assessment of project risk, since the main source of AR4D risk is not "price risk" (tragically, there is little risk of the bottom falling out of the SDG "market" in our lifetimes), but rather technical risk, i.e. the risk that the proposed technology will not function or scale as expected, due either to technical difficulties encountered in the research itself, or to unforeseen adversity in the enabling environment (e.g., government policy shifts, deregulation issues, etc.).
 
@@ -228,17 +171,370 @@ More problematically still, the formal derivation of the Black-Scholes PDE from 
 
 ## In defense of geometric Brownian motion model of project NPV evolution
 
-Yet another difference between the corporate and AR4D contexts requiring careful attention concerns the modeling of the stochastic time evolution of project NPV. Many in the intended audience may be unfamiliar with stochastic models, but well versed in statistics. For purposes of exposition, the choice of stochastic model of NPV time evolution may be thought of as the choice of size distribution of percentage changes in NPV per small time increment. Lognormally distributed changes in NPV correspond to a popular stochastic model known as geometric Brownian motion (gBm), for example. (See Hull [-@hull9thEdition] for a detailed introduction to the subject.)
+Yet another difference between the corporate and AR4D contexts requiring careful attention concerns the modeling of the stochastic time evolution of project NPV. Many in the intended audience may be unfamiliar with stochastic models, but well versed in statistics. For purposes of exposition, the choice of stochastic model of NPV time evolution may be thought of as the choice of size distribution of percentage changes in NPV per small time increment. Lognormally distributed changes in NPV correspond to the popular stochastic model known as gBm, for example, displayed in the left panel of Figure \ref{fig:NPVevol}. (See Hull [-@hull9thEdition] for a detailed introduction to gBm.)
 
-There is a tradeoff between realism and methodological expedience when choosing a suitable stochastic model of NPV evolution. The gBm model is methodologically attractive because it results in a relatively simple, closed form expression for option value, i.e., the Black-Scholes option value equation. However, in the financial context, the gBm model is eschewed as unrealistic because it does not reflect the abrupt jumps empirically observed in many price series, which are inconsistent with a lognormal size distribution. Instead, a number of "jump" and "jump-diffusion" models are applied, which more accurately characterize the observed price data [merton, tankov]. This then comes at the high methodological cost of a complicated numerical model which is exceedingly difficult to explain to non-specialists. The same consensus against gBm, at the same high methodological cost, is adopted in the corporate ROV context. Trigeorgis once characterized numerical methods as the unavoidable "bitter pill" that all serious ROV practitioners must come to grips with [-@trigeorgis1993real].
+```{r, include=FALSE}
 
-The grounds for swallowing this bitter pill are arguably quite narrow in cases where project NPV cannot be modeled as a function of prices (i.e., where replicating portfolios may not be invoked), and where, consequently, there is no time series data by which to empirically inspect the stochastic character of project NPV. Pennings and Lint painstakingly construct a...jump process (cPp)....Only a 2% difference [].... by adjusting parameters the gBm can approximate a jump process...Tankov notes this []...
+# library(tidyverse)
+# library(patchwork)
+#----------------------------------------------------------------------------
+gbmFun <- function(tau = 40, m = 0.001, s = 0.003, x0 = 1,
+                   randVec = NULL, seed = NULL) {
+  if(is.null(randVec)){
+    if(!is.null(seed)){set.seed(seed)}
+    randVec <- rnorm(tau)
+  }
+  epsilon <- randVec
+  lx <- c(); lx[1] <- log(x0)
+  drift <- (m - s * s / 2)
+  for(t in 2:tau){
+    dBt <-  s * epsilon[t]
+    lx[t] <- lx[t - 1] + drift + dBt
+  }
+  x <- exp(lx)
+  return(x)
+}
+# m <- 0.001
+# s <- 0.003
+# tau <- 400
+# x0 <- 1
+# x <- gbmFun(tau, m, s, x0, randVec = NULL)
+# df_plot <- data.frame(t = 1:tau, x)
+# gg <- ggplot(df_plot, aes(x = t, y = x))
+# gg <- gg + geom_line()
+# acf(diff(log(x)))
+# hist(diff(log(x)))
+# shapiro.test(diff(log(x)))
+#---------------------------------------------------------------------------
+# Algorithm 6.2 in Tankov 2003 Financial modeling with jump processes
+compoundPoisFun <- function(tau, lambda, m_y = 0, s_y = 1,
+                            seed = NULL, maxiter = 500){
+  if(!is.null(seed)){set.seed(seed)}
+  N <- rpois(1, lambda * tau)
+  U <- runif(N) * tau
+  U <- round(U)
+  n_iter <- 0; flag <- 1
+  while(flag == 1){
+    n_iter <- n_iter + 1
+    U <- runif(N) * tau
+    U <- round(U)
+    if(sum(duplicated(U)) > 0 & n_iter <= maxiter){
+      flag <- 1
+    }else{
+      flag <- 0
+      if(n_iter == maxiter){
+        print("Reached maxiter without generating duplicate-free event times vec. Dropping duplicates.")
+        U <- U[-which(duplicated(U))]
+      }
+    }
+  }
+  Tt <- U[order(U)]
+  J <- exp(rnorm(N, m_y, s_y)) - 1
+  #---
+  cumJ <- cumsum(J)
+  # For explicit modeling of Yt per time step
+  Yt <- rep(0, tau)
+  Yt[Tt] <- cumJ
+  #---
+  Tt <- c(0, Tt)
+  J <- c(0, J)
+  if(Tt[length(Tt)] != tau){
+    Tt <- c(Tt, tau)
+    J <- c(J, 0)
+  }
+  cumJ <- cumsum(J)
+  df_step <- data.frame(Tt, cumJ)
+  #--------------------------
+  nEvents <- length(Tt)
+  cumYt <- c()
+  for(i in 1:(nEvents - 1)){
+    tStart <- Tt[i]
+    tFin <- Tt[i + 1] - 1
+    cumYt[tStart:tFin] <- cumJ[i]
+  }
+  cumYt[tau] <- cumYt[tFin]
+  df_Yt <- data.frame(t = 1:tau, Yt, cumYt)
+  
+  list_out <- list(df_step, df_Yt)
+  return(list_out)
+  
+}
+#----------------------------------------------------------------------------
+FractDim<-function(Data,graphon=FALSE) {
+  X=Data;N=length(X);
+  jstart=10;jend=floor(10*(log10(N)-1));
+  kvec=c(1:4,floor(2^(c(jstart:jend)/4)));
+  indkend=length(kvec);
+  k=c()
+  AvgLmk=c()
+  err=c()
+  for(indk in 1:indkend)
+  {
+    k=kvec[indk]
+    Xend=c()
+    Xsum=c()
+    Lmk=c()
+    for(m in 1:k)
+    {
+      Xend=floor((N-m)/k)
+      Xsum=sum(abs(X[m+c(1:Xend)*k]-c(0, X[m+c(1:(Xend-1))*k])))
+      Lmk[m]=1/k*1/k*(N-1)/Xend*Xsum
+    }
+    AvgLmk[indk]=mean(Lmk)
+    #  err[indk]=sd(log(Lmk))
+  }
+  x<-log(kvec)
+  y<-log(AvgLmk)
+  q<-lm(y~x)
+  slope<-q$coefficients[2]
+  yintcept<-q$coefficients[1]
+  yfit<-x*slope+yintcept
+  FrDim <- -slope
+  avgRes <- mean(abs(q$residuals))
+  if(graphon==TRUE)
+  {
+    plot(x,y,main="If linear then fractal, w/Fr. Dim = (-)slope",xlab="Ln(k)",ylab="Ln(length of curve with interval k)")
+    z<-line(x,yfit);abline(coef(z),col='blue');z<-NULL
+    #z<-line(x,y);abline(coef(z),col='blue');z<-NULL
+  }
+  #z<-line(x,y);qq=coef(z)
+  #yintcept=qq[1]
+  #FrDim=-qq[2]
+  return(c(FrDim, avgRes, yintcept))
+}
+#===========================================================================
+m <- 0.005
+s <- m * seq(5.5, 50, length.out = 3)
+tau <- 48
+x0 <- 1
+#rn <- round(runif(1) * 1000)
+#rn <- 905
+#rn <- 517
+# rn <- 340
+# set.seed(rn)
+# tau <- 12 * 4
+lambda <- 0.1
+
+
+#----------------------------------------------------------------------------
+# Generate and plot geometric Brownian movement example
+#gBm_seed <- 10^4 * round(runif(1), 4)
+#gBm_seed <- 2482
+#gBm_seed <- 7781
+gBm_seed <- 1029
+#randVec <- coloredNoise(N = tau, alpha = 1, scaleIt = T)
+#acf(randVec)
+list_df <- list()
+list_spec <- list()
+facet_labels <- c()
+for(i in 1:length(s)){
+  x <- gbmFun(tau, m, s[i], x0, randVec = NULL, seed = gBm_seed)
+  df_x <- data.frame(t = 1:tau, x, s = as.character(s[i]))
+  list_df[[i]] <- df_x
+  o <- spectrum(x)
+  df_gbmSpec <- data.frame(lfreq = log(o$freq), lpwr = log(o$spec))
+  df_gbmSpec <- df_gbmSpec[-1, ]
+  df_gbmSpec$s <- as.character(s[i])
+  list_spec[[i]] <- df_gbmSpec
+  
+  mod <- lm(lpwr ~ lfreq, df_gbmSpec)
+  # summary(mod)
+  alpha <- round(as.numeric(coefficients(mod)[2]), 2)
+  # yint <- as.numeric(coefficients(mod)[1])
+  # df_out <- as.data.frame(broom::glance(mod))
+  # adjR2 <- round(df_out$adj.r.squared, 2)
+  # N <- df.residual(mod)
+  this_facet_label <- paste0("Slope = ", alpha, " fd = ", round(FractDim(x)[1], 2))
+  facet_labels[i] <- this_facet_label
+}
+#---
+df_plot <- as.data.frame(do.call(rbind, list_df))
+colnames(df_plot)[1:2] <- c("Time", "Project NPV")
+df_plot <- subset(df_plot, s == s[2])
+gg <- ggplot(df_plot, aes(x = Time, y = `Project NPV`))
+gg <- gg + geom_line()
+#gg <- gg + facet_wrap(~s, scales = "free_y", ncol = 1)
+gg <- gg + theme_bw()
+gg <- gg + theme(axis.text = element_blank(),
+                 axis.title = element_text(size = axisTitle_size))
+gg_gbm <- gg
+#---
+df_plot <- as.data.frame(do.call(rbind, list_spec))
+colnames(df_plot)[1:2] <- c("Logged frequency", "Logged power spectral density")
+df_plot <- subset(df_plot, s == s[2])
+#names(facet_labels) <- s
+gg <- ggplot(df_plot, aes(x = `Logged frequency`, y = `Logged power spectral density`))
+gg <- gg + geom_smooth(method = lm, se = F)
+gg <- gg + geom_line()
+# gg <- gg + facet_wrap(~s, ncol = 1,
+#                       labeller = labeller(s = facet_labels))
+gg <- gg + theme_bw()
+gg <- gg + theme(axis.text = element_blank(),
+                 axis.title = element_text(size = axisTitle_size))
+gg_gbmSpec <- gg
+gg
+#----------------------------------------------------------------------------
+# Generate and plot compound Poisson process example
+#cPp_seed <- 10^4 * round(runif(1), 4)
+#cPp_seed <- 6819
+#cPp_seed <- 4880
+#cPp_seed <- 7656
+cPp_seed <- 2558
+list_df <- list()
+list_spec <- list()
+facet_labels <- c()
+for(i in 1:length(s)){
+  #s_y = 0.3
+  list_out <- compoundPoisFun(tau, lambda, m_y = m,
+                              s_y = s[i], seed = cPp_seed,
+                              maxiter = 500)
+  df_x <- list_out[[1]]
+  df_x$s <- as.character(s[i])
+  list_df[[i]] <- df_x
+  
+  df_Yt <- list_out[[2]]
+  o <- spectrum(df_Yt$cumYt)
+  df_spec <- data.frame(lfreq = log(o$freq), lpwr = log(o$spec))
+  df_spec <- df_spec[-1, ]
+  df_spec$s <- as.character(s[i])
+  list_spec[[i]] <- df_spec
+  
+  mod <- lm(lpwr ~ lfreq, df_spec)
+  # summary(mod)
+  alpha <- round(as.numeric(coefficients(mod)[2]), 2)
+  # yint <- as.numeric(coefficients(mod)[1])
+  # df_out <- as.data.frame(broom::glance(mod))
+  # adjR2 <- round(df_out$adj.r.squared, 2)
+  # N <- df.residual(mod)
+  this_facet_label <- paste0("Slope = ", alpha, " fd = ", round(FractDim(df_Yt$cumYt)[1], 2))
+  facet_labels[i] <- this_facet_label
+  
+}
+#---
+df_plot <- as.data.frame(do.call(rbind, list_df))
+colnames(df_plot)[1:2] <- c("Time", "Project NPV")
+df_plot <- subset(df_plot, s == s[2])
+gg <- ggplot(df_plot, aes(Time, `Project NPV`))
+#gg <- ggplot(df_cpp, aes(t, cumYt))
+gg <- gg + geom_step()
+#gg <- gg + facet_wrap(~s, ncol = 1)
+gg <- gg + theme_bw()
+gg <- gg + theme(axis.text = element_blank(),
+                 axis.title.y = element_blank(),
+                 axis.title.x = element_text(size = axisTitle_size))
+gg_cpp <- gg
+#---
+df_plot <- as.data.frame(do.call(rbind, list_spec))
+colnames(df_plot)[1:2] <- c("Logged frequency", "Logged power spectral density")
+df_plot <- subset(df_plot, s == s[2])
+#names(facet_labels) <- s
+gg <- ggplot(df_plot, aes(x = `Logged frequency`, y = `Logged power spectral density`))
+gg <- gg + geom_smooth(method = lm, se = F)
+gg <- gg + geom_line()
+# gg <- gg + facet_wrap(~s, ncol = 1,
+#                       labeller = labeller(s = facet_labels))
+gg <- gg + theme_bw()
+gg <- gg + theme(axis.text = element_blank(),
+                 axis.title.y = element_blank(),
+                 axis.title.x = element_text(size = axisTitle_size))
+gg_cppSpec <- gg
+
+```
+
+```{r Fig2, fig.show = "hold", fig.width = 5, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol}(Left)An example of NPV changing randomly in every time step. (Right)An example of NPV changing randomly at random time steps, and otherwise remaining constant.", echo = FALSE}
+
+gg_gbm + gg_cpp + plot_layout(nrow = 1)
+
+
+```
+
+There is a tradeoff between realism and methodological expedience when choosing a suitable stochastic model of project NPV evolution. The gBm model is methodologically attractive because it results in a relatively simple, closed form expression for option value, i.e., the Black-Scholes option value equation. However, in the financial context, the gBm model is eschewed as unrealistic because it does not reflect the abrupt jumps empirically observed in many price series, which are inconsistent with a lognormal size distribution. Instead, a number of "jump" and "jump-diffusion" models are applied, which more accurately characterize the observed price data [merton, tankov]. An example of a jump process, known as the compound Poisson process (cPp), is displayed in the right panel of Figure \ref{fig:NPVevol}. This then comes at the high methodological cost of a complicated numerical model which is exceedingly difficult to explain to non-specialists. The same consensus against gBm, at the same high methodological cost, is adopted in the corporate ROV context. Trigeorgis once characterized numerical methods as the unavoidable "bitter pill" that all serious ROV practitioners must come to grips with [-@trigeorgis1993real].
+
+In hindsight, the appetite for bitterness outside of academic audiences---that is to say, adoption of ROV thinking by real world decision makers---has remained low [@horn2015use; @triantis2005realizing; @driouchi2012real]. Both critics and proponents alike attribute this tepid reception to the formal complexity of ROV, much of which can be traced back to the use of numerical methods [@triantis2005realizing]. From the perspective of research donors and managers, numerical methods are effectively black boxes; and even ROV experts find themselves bamboozled at times. A much cited numerical exercise by Majd and Pindyck [-@majd1987time], for example, contains an elementary error, which was only discovered some twelve years after publication [@milne2000time].
+<!-- [---enough so, at any rate, to warrant some revisiting of the matter:] -->
+<!-- The case for complex ROV approaches weakens further when considering what is gained in return for sacrificing expedience. Pennings and Lint find only a $2\%$ difference between the the output of their cPp numerical model and that of the gBm closed form model [@pennings1997option]. To what extent is an increase in modeling realism even meaningful in a context where direct measurement of the reality one aspires to approximate---i.e., the evolution of project NPV---is highly problematic? Is the costly increase in realism even relevant to the aims of the modeling exercise? Is there an alternative, less costly way of achieving the same ends? -->
+<!-- 33.1 - 32.3 -->
+
+In the AR4D context, the grounds for swallowing the bitter pill of numerical methods are especially narrow. Firstly, it is not even clear what a realistic time evolution of project NPV looks like. The time and expense involved in a typical AR4D ex-ante impact assessment make frequent, regular updates of project NPV impractical, which in turn means that direct empirical inspection of the stochastic character of project NPV over a series of small, regularly spaced time steps is not possible---i.e., not in the way that is possible for a price series. ROV practitioners face the same problem in the corporate context; but then generally invoke replicating portfolios or complete markets to justify treating project NPV as though it were a stock price. We have just shown that such incantations are not allowed in the AR4D context. How, then, to justify one stochastic model as more realistic than another?
+
+P&L [] propose the extraordinary alternative of painstakingly building a dataset from scratch by documenting the NPV time series of several past projects; and then specifying and estimating a stochastic model for current project NPV on this basis. While it may be possible to introduce an AR4D reporting protocol by which project NPV is periodically revisited and updated based on research progress and changes in relevant external factors (e.g. government policy shifts), and thus to generate an historical record of such time series, it is doubtful whether such an approach offers any insight into the stochastic character of any current AR4D project NPV. Sampling error and controlling for changes over time. Even if achieved, extrapolation to the present is further complicated by small sample size issues.    Series guaranteed to look like a cPp, but this may be merely due to the sampling rate, not to the stochastic character of project NPV. , cPp is valid only if the interval size between changes is random. The non-random, periodic character of internal reporting       Their project NPV time series resemble the cPp series in the right panel of Figure. The problems that arise in its stead are arguably greater than the one that is eluded. sampling error in the selection of past project NPV, not controling for changes in basic circumstances (funding, strategic objecties, instututional change, etc.), even if achieved...low data ..impractical/not scalable in terms of time and cost, and ...Less obviously,  Assuming that a sufficient number of ex-ante impact assessments are conducted, the observed stochastic character is due to the sampling rate, not necessarily of project NPV. Moreover 
+
+Deductive reasoning. For purposes of project appraisal, time explicit analysis not necessary, not trying to predict NPV in the next period. By definition, we always expect NPV to be the same in the next period as it is in the present period. it is the size distribution of changes in NPV that matter, not the exact order in which changes to NPV occur. lots of small changes interspersed by a few large changes
+
+the difference between gBm and the methodoligically much more complex cPp is a matter of sampling rate, i.e. time step size. Tankov shows how cPp can be arbitrarily approximated by parameterization of gBm. ...so long as no change can be substituted by negligibly small change.
+
+
+
+Efforts to do so generate effectively replace one problem with another. Pennings and Lint, for example, did empirically inspect, but this generated selection bias... Instead, the stochastic character of project NPV must be inferred via deductive reasoning.
+
+
+ 
+
+As mentioned above, in the AR4D context (and, we suspect, many corporate contexts), project NPV may not be modeled as a function of prices, but rather by ex-ante impact assessment.  changes in project NPV occur as a result of research and non-research related events, and it is reasonable to assume that, generally speaking, the time evolution of project NPV is characterized by relatively few large shifts---occurring, e.g., at the critical test points in the project timeline and/or major events in the enabling environment, such as elections---interspersed with relatively many small shifts in NPV due to non-research related fluctuations in the enabling environment. Based on this rationale, the lognormal distribution is a reasonable choice as model of the size distribution of changes in project NPV.   ...the gBm parameters may be adjusted so as to approach a stochastic jump diffusion process arbitrarily closely.
+
+
+The grounds for swallowing this bitter pill are arguably quite narrow in the AR4D context, where direct, empirical observation of the time evolution of project NPV is generally impossible, and thus direct inspection of its stochastic character is likewise impossible. cannot be indirectly observed via replicating portfolios.   project NPV cannot be modeled as a function of prices (i.e., where replicating portfolios may not be invoked), and where, consequently, there is no time series data by which to empirically inspect the stochastic character of project NPV. Pennings and Lint painstakingly construct a...jump process (cPp)....Only a 2% difference [].... by adjusting parameters the gBm can approximate a jump process...Tankov notes this []...
 
 In hindsight, it is safe to say that energetic proponents of ROV like Trigeorgis have overestimated the appetite for bitterness outside of academic audiences. The adoption of ROV methods in real world decision making settings remains low; and the main reason given for the low adoption is the methodological complexity of ROV compared to conventional cost-benefit analysis methods [@ryan2002capital; @block2007real; @horn2015use; @triantis2005realizing; @driouchi2012real].
 
-In cases where 
 
-As mentioned above, in the AR4D context (and, we suspect, many corporate contexts), project NPV may not be modeled as a function of prices, but rather by ex-ante impact assessment. The time, effort, and expertise typically involved in such efforts make frequent subsequent NPV updates  impractical, meaning that we are left without a time series by which to empirically inspect the stochastic character of the time evolution of project NPV. Instead, the stochastic character of AR4D project NPV must be inferred via deductive reasoning. changes in project NPV occur as a result of research and non-research related events, and it is reasonable to assume that, generally speaking, the time evolution of project NPV is characterized by relatively few large shifts---occurring, e.g., at the critical test points in the project timeline and/or major events in the enabling environment, such as elections---interspersed with relatively many small shifts in NPV due to non-research related fluctuations in the enabling environment. Based on this rationale, the lognormal distribution is a reasonable choice as model of the size distribution of changes in project NPV.   ...the gBm parameters may be adjusted so as to approach a stochastic jump diffusion process arbitrarily closely.
+In any methodological decision, there is usually a tradeoff between realism and expedience. The job of the modeler is thus not merely to maximize realism, but to strike the optimal balance between realism and expedience under the particular time and resource constraints of the modeling exercise at hand, and in a way that is clearly relevant to the particular objectives of the exercise. This is especially true in real world decision making contexts, where constraints are considerably more severe than in academic contexts. And the patience of project donors and managers for arcane technical explanations must be counted among the resources that are in short supply.
+
+Before making costly methodological decisions in the name of realism, then, one must carefully consider 1) to what extent an "increase in realism" is even meaningful, i.e., to what extent it is possible to empirically observe and quantify the reality one aspires to model; 2) whether the proposed increase in realism is actually relevant to the objectives of the modeling exercise, or whether it is just realism for realism's sake; and 3) whether there is a simpler, less costly way to achieve the same increment in realism, or the same modeling objectives which the increment in realism is supposed to serve.
+<!-- [One must also be careful of merely replacing one unrealistic artifact with another.]  -->
+
+In the financial context, the reality one aspires to model---i.e. some stochastic financial process, usually a price series---is quantitatively well defined in the form of historical time series that can be easily downloaded, measured, analyzed, etc. In the far-from-market AR4D context, by contrast, analogous historical time series of project NPV generally do not exist. The reality one aspires to model must be perceived indirectly, based primarily on rational assumptions and logic, as I have just done above. So, in far-from-market real options contexts, it is not even clear what one gets in return for sacrificing expedience.
+
+Then there is the question of the relevance of the increase in realism. In the financial context, the relevance of a realistic model of the time evolution of financial securities is clear: it can make the difference between profit and loss. In far-from-market real options contexts, on the other hand, there is no real need for a good predictor of exactly when or in what order specific changes in project NPV occur. The need, rather, is to simulate a time series with a certain size distribution of changes in value. If the model can do this accurately, then it is a good model, regardless of what it looks like in the time domain.
+
+```{r Fig3, fig.show = "hold", fig.width = 5, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol2}(Left) Periodogram of the time series in the left panel of previous figure. (Right) Periodogram of the time series in the right panel of previous figure.", echo = FALSE}
+
+gg_gbmSpec + gg_cppSpec + plot_layout(nrow = 1)
+
+```
+
+This then answers the final question of whether or not a comparable increase in realism, or the objective which the desired increase in realism is supposed to serve, may be achieved at lower cost of expedience. The cPp model might seem like a good choice when trying to approximate a time series in which there are a few big changes interspersed by long periods of no change. However, the periodograms given in Figure \ref{fig:NPVevol2} indicate that the far more expedient gBm model can approximate such a size distribution arbitrarily closely, so long as it is acceptable to substitute "periods of no change" with "periods of negligibly small changes". In their corporate ROV study, Pennings and Lint find only a $2\%$ difference between ROV as calculated by their cPp-based numerical model and ROV as calculated by the gBm-based closed form model [-@pennings1997option].
+
+<!-- ## Modeling the evolution of AR4D project NPV -->
+When evaluating AR4D projects as real options, it becomes necessary to think carefully about how project NPV changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. A reasonable starting point in this consideration is the observation that changes in AR4D project value seem to be of two types: research related and non-research related.
+
+Research related changes in project value generally occur at discrete test points, when new information regarding the effectiveness of the new technology becomes available. Non-research related changes in project value occur as a result of changes in the political, socio-economic, and institutional enabling environments where the new technology is to be released. Such changes may include, for example, elections, abrupt changes in government policies, commodity price swings, changes in seed systems and other value chain mechanisms, changes in the security environment, the ebb and flow of public and private sector partnerships to enhance impact, and so forth.
+
+Research related changes occur perhaps 1-4 times per year, while non-research related changes occur with greater frequency, perhaps 1-4 times per quarter. Overall, then, it is reasonable to expect changes in AR4D project value to occur every quarter. If the time step is defined as a quarter, then, changes can be expected to occur in every time step, as in the left panel of Figure \ref{fig:NPVevol}.
+
+
+This conclusion implies a subtle but fundamental decision to model changes in R&D project value _when they occur_, as opposed to when project managers learn of their occurrence. In the corporate R&D context, Pennings and Lint [-@pennings1997option] take the opposite approach, registering changes in project NPV only when management becomes aware of the changes through internal analysis and reporting protocols. In other words, they model changes in project value as "information dam-breaks" (our phrase), whereby new information affecting project value accumulates for a time until it is suddenly released in a report to management, at which time the project value is updated. Such a model of project NPV evolution is depicted in the right panel of Figure \ref{fig:NPVevol}. This approach may be appropriate for corporate R&D, where the value of company assets and activities is ultimately defined by the stock market, and hence (in principle) by publicly available information.
+<!-- The information dam-break approach -->
+<!-- (Indeed, information dam-breaks are the premise of frontrunning, and hence the bread and butter of many an investment bank.) In the far-from-market R&D context, however, no such nuance comes into play. -->
+
+Whether the evolution of project NPV (or of any stochastic process) resembles the time series on the left or right of Figure \ref{fig:NPVevol} is, to a certain degree, a mere matter of the choice of time step. That is to say, the time series on the left can be transformed into to something resembling the time series on the right merely by plotting over a smaller time step. Likewise, the model on the right can be transformed into the model on the left by plotting over sufficiently larger time step. The model on the right becomes unavoidable when said sufficiently larger time step results in an unacceptably small number of time steps. In the AR4D context, this is generally not a problem. Projects typically last 9-25 years, such that, given a quarterly time step, the project NPV time series typically contains 36-100 steps.
+
+The time series on the left of Figure \ref{fig:NPVevol} is an example of gBm, while the time series on the right is a compound Poisson process (algorithm 6.2 in Cont and Tankov [-@tankov2003financial]). The compound Poisson process (cPp) assumes that changes in value occur at random time intervals. This is fine in the financial context, but may be problematic in real options contexts, where the information affecting project NPV is released through reports to management---events that are usually, at least in the AR4D context, non-random.
+
+### In defense of the gBm model of project NPV
+
+<!-- [Rejection of the gBm model in ROV contexts is partly inherited from the financial context, where gBm is generally viewed as a naive model of price movements. fat tails--debunked by Tankov, jumps--as discussed above, an artifact of the dam-break model, not a concern in ROV contexts, plus jumps can be closely approximated by gBm. en fin, gBm is much more versatile than it is generally given credit for.] -->
+Like Pennings and Lint, many real options authors reject the gBm model, preferring instead to select a model which they perceive to more accurately approximate the real time evolution of project NPV. But this comes at a substantial loss of expedience, as the closed form expression in equation \ref{eq:rov} must be replaced by considerably less tractable and less intelligible expressions, up to and including numerical methods. Trigeorgis once characterized numerical methods as an unavoidable "bitter pill" that every serious ROV practitioner must come to grips with [-@trigeorgis1993real].
+
+
+<!-- Given all the research and non-research factors affecting project NPV, it is highly unlikely that there is not at least a small, if negligible, perturbation in NPV in every time step, in which case the gBm model is the more realistic choice (when modeling project NPV evolution as it happens, as opposed to the information dam-break approach). -->
+<!-- The question is not when changes in NPV occur, but rather how often do substantial changes to NPV occur? In more technical terms, what is the size distribution of changes? In order to answer this question, it is more instructive to look at the signal's periodogram, not its evolution in the time domain. This can be examined by looking at a periodogram. Model 1 can effectively approximate model 2 to an arbitrary degree of precision by tuning the uncertainty parameter $s$ (Figure \ref)..... A few substantial changes followed by relatively long periods of little change. [The Poisson jump model represents a process in which there are a few substantial changes interspersed among periods of no changes at all. While the gbm model cannot replicate periods of no change exactly, it can approximate such periods arbitrarily closely through adjustments to the volatility parameter.... And recall that it is highly unlikely that there are no changes in project value in any given time step, but rather that there may be long periods of very small changes punctuated by brief periods of large changes. This is perhaps best illustrated by looking at periodograms (Figure ...).] -->
+<!-- Geometric Brownian motion is a much more versatile model than portrayed in the literature.... "bitter pill" [trigergis]. criticism fat tails etc. starting with Mandelbrot []. but this has led to misconception... [Tankov]. The fact is that gbm remains a highly versatile model capable of representing a wide variety of stochastic processes by adjustments to the volatility parameters. The key question that Pennings and Lint address with their jump model may be formulated as follows: what is the size distribution of changes in project value?  [P&L Poisson jump model output differed from the lognormal assumption output by just x% [P&L].] -->
+<!-- [For the purposes of evaluating real option value, the question is not so much when exactly the changes occur, but rather their size distribution. In other words not the time domain but the frequency domain that is important.] -->
+<!-- as compared to the default NPV approach -->
+<!-- ## Low adoption of real options thinking due to complexity -->
+<!-- Despite a flood of academic interest in ROV following Myers' initial insight, adoption of the real options approach by real world decision makers remains low [@horn2015use; @triantis2005realizing; @driouchi2012real]. ROV critics and proponents alike attribute this tepid reception to the formal complexity of evaluating and explaining ROV as compared to the default NPV approach [@triantis2005realizing]. -->
+<!-- Much of this complexity can be traced back to two sources. Firstly, there is the frequent and puzzling assumption of risk neutral valuation in far-from-market real options contexts, just mentioned above. Secondly, many authors reject the key assumption that project NPV evolution may be modeled as a gBm, preferring instead to evaluate equation \ref{eq:rovRaw} by numerical methods that are considerably less tractable, transparent, and instructive than equation \ref{eq:rov}. Trigeorgis, for example, calls numerical methods a "bitter pill" that every serious ROV practitioner must come to grips with [@trigeorgis1993real]. -->
+<!-- Before deriving the $n$-fold ROV model, it is first necessary to redress these two sources of confusion in detail. It seems safe to say, in hindsight, that energetic ROV proponents like Trigeorgis may have overestimated the appetite for bitterness outside of academic audiences. After this introductory section, I preface the derivation of the $n$-fold ROV model with a defense of the gBm model of project NPV, followed by a repudiation of risk neutral valuation in far-from-market real options contexts. -->
+<!--   present arguments in defense of gBm as a model of far-from-market project NPV. In particular, I note that the a as a much more versatile model than it is given credit for. -->
+<!-- Secondly, there is confusion regarding the interpretation, in real options contexts, of the financial artifact known as "risk-neutral valuation". -->
+<!-- (see, for example, Hayes and Garvin [@hayes1982managing], McGrath and MacMillan [@mcgrath2000assessing], Doctor, Newton, and Pearson [@doctor2001managing], and Newton, Paxson, and Widdicks [@newton2004real]), -->
+<!-- [However, the question of where ... must be assessed on a case by case basis. is a matter of preference. In academic contexts, there is a premium on rigor and realism. Most real options settings, on the other hand, time, resources, patience, and attention-span are in relatively short supply ... there is a premium on transparency, expediency. Pennings and Lint use equation \ref{eq:rov} and find that the numerical method output differs by just x%. That is a lot of extra work for a negligible difference. Whether or not changes occur in every time step is a matter of judicious choice of time step. In most real options settings, changes might not occur every day or every week or even every month, but probably do occur at least once every quarter. Moreover, such meticulous realism quickly lands the practitioner in other problems. In most real options settings, the research, analysis, and reporting protocols by which new information affecting project NPV becomes available occur at predetermined, non-random intervals, whereas the CP model is only valid for events occurring at random intervals. The order of changes in NPV is irrelevant. It is the size distribution of changes that matters, not when they occur. The frequency domain is what matters, not the time evolution.] -->
+<!-- # It's ok to be lognormal -->
+<!-- When taking a real options approach to project evaluation, it becomes necessary to think carefully about the evolution of project NPV over the life of the project. -->
+<!-- Many consider the assumption of lognormally distributed NPV unrealistic. This is to some degree rooted in the original financial context, where the assumption of lognormal security returns is widely viewed as naive... -->
+<!-- Bibby and Sorensen [@bibby1996hyperbolic] -->
+<!-- Pennings and Lint []. .  misconception [Tankov]. -->
 
 
 
@@ -519,341 +815,7 @@ These differences are formally demonstrated in the development of the ROV method
 <!-- <!-- So, what does the present article focus on?...As mentioned in the Introduction, ...1-stage. and no focus on AR4D -->
 <!-- <!-- # Method --> 
 
-## Modeling the evolution of AR4D project NPV
 
-When evaluating AR4D projects as real options, it becomes necessary to think carefully about how project NPV changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. A reasonable starting point in this consideration is the observation that changes in AR4D project value seem to be of two types: research related and non-research related.
-
-Research related changes in project value generally occur at discrete test points, when new information regarding the effectiveness of the new technology becomes available. Non-research related changes in project value occur as a result of changes in the political, socio-economic, and institutional enabling environments where the new technology is to be released. Such changes may include, for example, elections, abrupt changes in government policies, commodity price swings, changes in seed systems and other value chain mechanisms, changes in the security environment, the ebb and flow of public and private sector partnerships to enhance impact, and so forth.
-
-Research related changes occur perhaps 1-4 times per year, while non-research related changes occur with greater frequency, perhaps 1-4 times per quarter. Overall, then, it is reasonable to expect changes in AR4D project value to occur every quarter. If the time step is defined as a quarter, then, changes can be expected to occur in every time step, as in the left panel of Figure \ref{fig:NPVevol}.
-
-```{r, include=FALSE}
-
-# library(tidyverse)
-# library(patchwork)
-#----------------------------------------------------------------------------
-gbmFun <- function(tau = 40, m = 0.001, s = 0.003, x0 = 1,
-                   randVec = NULL, seed = NULL) {
-  if(is.null(randVec)){
-    if(!is.null(seed)){set.seed(seed)}
-    randVec <- rnorm(tau)
-  }
-  epsilon <- randVec
-  lx <- c(); lx[1] <- log(x0)
-  drift <- (m - s * s / 2)
-  for(t in 2:tau){
-    dBt <-  s * epsilon[t]
-    lx[t] <- lx[t - 1] + drift + dBt
-  }
-  x <- exp(lx)
-  return(x)
-}
-# m <- 0.001
-# s <- 0.003
-# tau <- 400
-# x0 <- 1
-# x <- gbmFun(tau, m, s, x0, randVec = NULL)
-# df_plot <- data.frame(t = 1:tau, x)
-# gg <- ggplot(df_plot, aes(x = t, y = x))
-# gg <- gg + geom_line()
-# acf(diff(log(x)))
-# hist(diff(log(x)))
-# shapiro.test(diff(log(x)))
-#---------------------------------------------------------------------------
-# Algorithm 6.2 in Tankov 2003 Financial modeling with jump processes
-compoundPoisFun <- function(tau, lambda, m_y = 0, s_y = 1,
-                            seed = NULL, maxiter = 500){
-  if(!is.null(seed)){set.seed(seed)}
-  N <- rpois(1, lambda * tau)
-  U <- runif(N) * tau
-  U <- round(U)
-  n_iter <- 0; flag <- 1
-  while(flag == 1){
-    n_iter <- n_iter + 1
-    U <- runif(N) * tau
-    U <- round(U)
-    if(sum(duplicated(U)) > 0 & n_iter <= maxiter){
-      flag <- 1
-    }else{
-      flag <- 0
-      if(n_iter == maxiter){
-        print("Reached maxiter without generating duplicate-free event times vec. Dropping duplicates.")
-        U <- U[-which(duplicated(U))]
-      }
-    }
-  }
-  Tt <- U[order(U)]
-  J <- exp(rnorm(N, m_y, s_y)) - 1
-  #---
-  cumJ <- cumsum(J)
-  # For explicit modeling of Yt per time step
-  Yt <- rep(0, tau)
-  Yt[Tt] <- cumJ
-  #---
-  Tt <- c(0, Tt)
-  J <- c(0, J)
-  if(Tt[length(Tt)] != tau){
-    Tt <- c(Tt, tau)
-    J <- c(J, 0)
-  }
-  cumJ <- cumsum(J)
-  df_step <- data.frame(Tt, cumJ)
-  #--------------------------
-  nEvents <- length(Tt)
-  cumYt <- c()
-  for(i in 1:(nEvents - 1)){
-    tStart <- Tt[i]
-    tFin <- Tt[i + 1] - 1
-    cumYt[tStart:tFin] <- cumJ[i]
-  }
-  cumYt[tau] <- cumYt[tFin]
-  df_Yt <- data.frame(t = 1:tau, Yt, cumYt)
-  
-  list_out <- list(df_step, df_Yt)
-  return(list_out)
-  
-}
-#----------------------------------------------------------------------------
-FractDim<-function(Data,graphon=FALSE) {
-  X=Data;N=length(X);
-  jstart=10;jend=floor(10*(log10(N)-1));
-  kvec=c(1:4,floor(2^(c(jstart:jend)/4)));
-  indkend=length(kvec);
-  k=c()
-  AvgLmk=c()
-  err=c()
-  for(indk in 1:indkend)
-  {
-    k=kvec[indk]
-    Xend=c()
-    Xsum=c()
-    Lmk=c()
-    for(m in 1:k)
-    {
-      Xend=floor((N-m)/k)
-      Xsum=sum(abs(X[m+c(1:Xend)*k]-c(0, X[m+c(1:(Xend-1))*k])))
-      Lmk[m]=1/k*1/k*(N-1)/Xend*Xsum
-    }
-    AvgLmk[indk]=mean(Lmk)
-    #  err[indk]=sd(log(Lmk))
-  }
-  x<-log(kvec)
-  y<-log(AvgLmk)
-  q<-lm(y~x)
-  slope<-q$coefficients[2]
-  yintcept<-q$coefficients[1]
-  yfit<-x*slope+yintcept
-  FrDim <- -slope
-  avgRes <- mean(abs(q$residuals))
-  if(graphon==TRUE)
-  {
-    plot(x,y,main="If linear then fractal, w/Fr. Dim = (-)slope",xlab="Ln(k)",ylab="Ln(length of curve with interval k)")
-    z<-line(x,yfit);abline(coef(z),col='blue');z<-NULL
-    #z<-line(x,y);abline(coef(z),col='blue');z<-NULL
-  }
-  #z<-line(x,y);qq=coef(z)
-  #yintcept=qq[1]
-  #FrDim=-qq[2]
-  return(c(FrDim, avgRes, yintcept))
-}
-#===========================================================================
-m <- 0.005
-s <- m * seq(5.5, 50, length.out = 3)
-tau <- 48
-x0 <- 1
-#rn <- round(runif(1) * 1000)
-#rn <- 905
-#rn <- 517
-# rn <- 340
-# set.seed(rn)
-# tau <- 12 * 4
-lambda <- 0.1
-
-
-#----------------------------------------------------------------------------
-# Generate and plot geometric Brownian movement example
-#gBm_seed <- 10^4 * round(runif(1), 4)
-#gBm_seed <- 2482
-#gBm_seed <- 7781
-gBm_seed <- 1029
-#randVec <- coloredNoise(N = tau, alpha = 1, scaleIt = T)
-#acf(randVec)
-list_df <- list()
-list_spec <- list()
-facet_labels <- c()
-for(i in 1:length(s)){
-  x <- gbmFun(tau, m, s[i], x0, randVec = NULL, seed = gBm_seed)
-  df_x <- data.frame(t = 1:tau, x, s = as.character(s[i]))
-  list_df[[i]] <- df_x
-  o <- spectrum(x)
-  df_gbmSpec <- data.frame(lfreq = log(o$freq), lpwr = log(o$spec))
-  df_gbmSpec <- df_gbmSpec[-1, ]
-  df_gbmSpec$s <- as.character(s[i])
-  list_spec[[i]] <- df_gbmSpec
-  
-  mod <- lm(lpwr ~ lfreq, df_gbmSpec)
-  # summary(mod)
-  alpha <- round(as.numeric(coefficients(mod)[2]), 2)
-  # yint <- as.numeric(coefficients(mod)[1])
-  # df_out <- as.data.frame(broom::glance(mod))
-  # adjR2 <- round(df_out$adj.r.squared, 2)
-  # N <- df.residual(mod)
-  this_facet_label <- paste0("Slope = ", alpha, " fd = ", round(FractDim(x)[1], 2))
-  facet_labels[i] <- this_facet_label
-}
-#---
-df_plot <- as.data.frame(do.call(rbind, list_df))
-colnames(df_plot)[1:2] <- c("Time", "Project NPV")
-df_plot <- subset(df_plot, s == s[2])
-gg <- ggplot(df_plot, aes(x = Time, y = `Project NPV`))
-gg <- gg + geom_line()
-#gg <- gg + facet_wrap(~s, scales = "free_y", ncol = 1)
-gg <- gg + theme_bw()
-gg <- gg + theme(axis.text = element_blank(),
-                 axis.title = element_text(size = axisTitle_size))
-gg_gbm <- gg
-#---
-df_plot <- as.data.frame(do.call(rbind, list_spec))
-colnames(df_plot)[1:2] <- c("Logged frequency", "Logged power spectral density")
-df_plot <- subset(df_plot, s == s[2])
-#names(facet_labels) <- s
-gg <- ggplot(df_plot, aes(x = `Logged frequency`, y = `Logged power spectral density`))
-gg <- gg + geom_smooth(method = lm, se = F)
-gg <- gg + geom_line()
-# gg <- gg + facet_wrap(~s, ncol = 1,
-#                       labeller = labeller(s = facet_labels))
-gg <- gg + theme_bw()
-gg <- gg + theme(axis.text = element_blank(),
-                 axis.title = element_text(size = axisTitle_size))
-gg_gbmSpec <- gg
-gg
-#----------------------------------------------------------------------------
-# Generate and plot compound Poisson process example
-#cPp_seed <- 10^4 * round(runif(1), 4)
-#cPp_seed <- 6819
-#cPp_seed <- 4880
-#cPp_seed <- 7656
-cPp_seed <- 2558
-list_df <- list()
-list_spec <- list()
-facet_labels <- c()
-for(i in 1:length(s)){
-  #s_y = 0.3
-  list_out <- compoundPoisFun(tau, lambda, m_y = m,
-                              s_y = s[i], seed = cPp_seed,
-                              maxiter = 500)
-  df_x <- list_out[[1]]
-  df_x$s <- as.character(s[i])
-  list_df[[i]] <- df_x
-  
-  df_Yt <- list_out[[2]]
-  o <- spectrum(df_Yt$cumYt)
-  df_spec <- data.frame(lfreq = log(o$freq), lpwr = log(o$spec))
-  df_spec <- df_spec[-1, ]
-  df_spec$s <- as.character(s[i])
-  list_spec[[i]] <- df_spec
-  
-  mod <- lm(lpwr ~ lfreq, df_spec)
-  # summary(mod)
-  alpha <- round(as.numeric(coefficients(mod)[2]), 2)
-  # yint <- as.numeric(coefficients(mod)[1])
-  # df_out <- as.data.frame(broom::glance(mod))
-  # adjR2 <- round(df_out$adj.r.squared, 2)
-  # N <- df.residual(mod)
-  this_facet_label <- paste0("Slope = ", alpha, " fd = ", round(FractDim(df_Yt$cumYt)[1], 2))
-  facet_labels[i] <- this_facet_label
-  
-}
-#---
-df_plot <- as.data.frame(do.call(rbind, list_df))
-colnames(df_plot)[1:2] <- c("Time", "Project NPV")
-df_plot <- subset(df_plot, s == s[2])
-gg <- ggplot(df_plot, aes(Time, `Project NPV`))
-#gg <- ggplot(df_cpp, aes(t, cumYt))
-gg <- gg + geom_step()
-#gg <- gg + facet_wrap(~s, ncol = 1)
-gg <- gg + theme_bw()
-gg <- gg + theme(axis.text = element_blank(),
-                 axis.title.y = element_blank(),
-                 axis.title.x = element_text(size = axisTitle_size))
-gg_cpp <- gg
-#---
-df_plot <- as.data.frame(do.call(rbind, list_spec))
-colnames(df_plot)[1:2] <- c("Logged frequency", "Logged power spectral density")
-df_plot <- subset(df_plot, s == s[2])
-#names(facet_labels) <- s
-gg <- ggplot(df_plot, aes(x = `Logged frequency`, y = `Logged power spectral density`))
-gg <- gg + geom_smooth(method = lm, se = F)
-gg <- gg + geom_line()
-# gg <- gg + facet_wrap(~s, ncol = 1,
-#                       labeller = labeller(s = facet_labels))
-gg <- gg + theme_bw()
-gg <- gg + theme(axis.text = element_blank(),
-                 axis.title.y = element_blank(),
-                 axis.title.x = element_text(size = axisTitle_size))
-gg_cppSpec <- gg
-
-```
-
-```{r Fig2, fig.show = "hold", fig.width = 5, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol}(Left)An example of NPV changing randomly in every time step. (Right)An example of NPV changing randomly at random time steps, and otherwise remaining constant.", echo = FALSE}
-
-gg_gbm + gg_cpp + plot_layout(nrow = 1)
-
-
-```
-
-This conclusion implies a subtle but fundamental decision to model changes in R&D project value _when they occur_, as opposed to when project managers learn of their occurrence. In the corporate R&D context, Pennings and Lint [-@pennings1997option] take the opposite approach, registering changes in project NPV only when management becomes aware of the changes through internal analysis and reporting protocols. In other words, they model changes in project value as "information dam-breaks" (our phrase), whereby new information affecting project value accumulates for a time until it is suddenly released in a report to management, at which time the project value is updated. Such a model of project NPV evolution is depicted in the right panel of Figure \ref{fig:NPVevol}. This approach may be appropriate for corporate R&D, where the value of company assets and activities is ultimately defined by the stock market, and hence (in principle) by publicly available information.
-<!-- The information dam-break approach -->
-<!-- (Indeed, information dam-breaks are the premise of frontrunning, and hence the bread and butter of many an investment bank.) In the far-from-market R&D context, however, no such nuance comes into play. -->
-
-Whether the evolution of project NPV (or of any stochastic process) resembles the time series on the left or right of Figure \ref{fig:NPVevol} is, to a certain degree, a mere matter of the choice of time step. That is to say, the time series on the left can be transformed into to something resembling the time series on the right merely by plotting over a smaller time step. Likewise, the model on the right can be transformed into the model on the left by plotting over sufficiently larger time step. The model on the right becomes unavoidable when said sufficiently larger time step results in an unacceptably small number of time steps. In the AR4D context, this is generally not a problem. Projects typically last 9-25 years, such that, given a quarterly time step, the project NPV time series typically contains 36-100 steps.
-
-The time series on the left of Figure \ref{fig:NPVevol} is an example of gBm, while the time series on the right is a compound Poisson process (algorithm 6.2 in Cont and Tankov [-@tankov2003financial]). The compound Poisson process (cPp) assumes that changes in value occur at random time intervals. This is fine in the financial context, but may be problematic in real options contexts, where the information affecting project NPV is released through reports to management---events that are usually, at least in the AR4D context, non-random.
-
-### In defense of the gBm model of project NPV
-
-<!-- [Rejection of the gBm model in ROV contexts is partly inherited from the financial context, where gBm is generally viewed as a naive model of price movements. fat tails--debunked by Tankov, jumps--as discussed above, an artifact of the dam-break model, not a concern in ROV contexts, plus jumps can be closely approximated by gBm. en fin, gBm is much more versatile than it is generally given credit for.] -->
-Like Pennings and Lint, many real options authors reject the gBm model, preferring instead to select a model which they perceive to more accurately approximate the real time evolution of project NPV. But this comes at a substantial loss of expedience, as the closed form expression in equation \ref{eq:rov} must be replaced by considerably less tractable and less intelligible expressions, up to and including numerical methods. Trigeorgis once characterized numerical methods as an unavoidable "bitter pill" that every serious ROV practitioner must come to grips with [-@trigeorgis1993real].
-
-In hindsight, it seems safe to say that energetic ROV proponents like Trigeorgis have overestimated the appetite for bitterness outside of academic audiences. Adoption of ROV thinking by real world decision makers has remained low [@horn2015use; @triantis2005realizing; @driouchi2012real]. ROV critics and proponents alike attribute the tepid reception to the formal complexity of ROV, much of which can be traced back to the use of numerical methods [@triantis2005realizing]. From the perspective of research donors and managers, numerical methods are effectively black boxes; and even ROV experts find themselves bamboozled at times. The much cited numerical exercise by Majd and Pindyck [-@majd1987time], for example, contains an elementary error, which was only discovered some twelve years after publication [@milne2000time].
-<!-- [---enough so, at any rate, to warrant some revisiting of the matter:] -->
-<!-- The case for complex ROV approaches weakens further when considering what is gained in return for sacrificing expedience. Pennings and Lint find only a $2\%$ difference between the the output of their cPp numerical model and that of the gBm closed form model [@pennings1997option]. To what extent is an increase in modeling realism even meaningful in a context where direct measurement of the reality one aspires to approximate---i.e., the evolution of project NPV---is highly problematic? Is the costly increase in realism even relevant to the aims of the modeling exercise? Is there an alternative, less costly way of achieving the same ends? -->
-<!-- 33.1 - 32.3 -->
-
-In any methodological decision, there is usually a tradeoff between realism and expedience. The job of the modeler is thus not merely to maximize realism, but to strike the optimal balance between realism and expedience under the particular time and resource constraints of the modeling exercise at hand, and in a way that is clearly relevant to the particular objectives of the exercise. This is especially true in real world decision making contexts, where constraints are considerably more severe than in academic contexts. And the patience of project donors and managers for arcane technical explanations must be counted among the resources that are in short supply.
-
-Before making costly methodological decisions in the name of realism, then, one must carefully consider 1) to what extent an "increase in realism" is even meaningful, i.e., to what extent it is possible to quantitatively define and measure the reality one aspires to model; 2) whether the proposed increase in realism is actually relevant to the objectives of the modeling exercise, or whether it is just realism for realism's sake; and 3) whether there is a simpler, less costly way to achieve the same increment in realism, or the same modeling objectives which the increment in realism is supposed to serve.
-<!-- [One must also be careful of merely replacing one unrealistic artifact with another.]  -->
-
-In the financial context, the reality one aspires to model---i.e. some stochastic financial process, usually a price series---is quantitatively well defined in the form of historical time series that can be easily downloaded, measured, analyzed, etc. In the far-from-market AR4D context, by contrast, analogous historical time series of project NPV generally do not exist. The reality one aspires to model must be perceived indirectly, based primarily on rational assumptions and logic, as I have just done above. So, in far-from-market real options contexts, it is not even clear what one gets in return for sacrificing expedience.
-
-Then there is the question of the relevance of the increase in realism. In the financial context, the relevance of a realistic model of the time evolution of financial securities is clear: it can make the difference between profit and loss. In far-from-market real options contexts, on the other hand, there is no real need for a good predictor of exactly when or in what order specific changes in project NPV occur. The need, rather, is to simulate a time series with a certain size distribution of changes in value. If the model can do this accurately, then it is a good model, regardless of what it looks like in the time domain.
-
-```{r Fig3, fig.show = "hold", fig.width = 5, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol2}(Left) Periodogram of the time series in the left panel of previous figure. (Right) Periodogram of the time series in the right panel of previous figure.", echo = FALSE}
-
-gg_gbmSpec + gg_cppSpec + plot_layout(nrow = 1)
-
-```
-
-This then answers the final question of whether or not a comparable increase in realism, or the objective which the desired increase in realism is supposed to serve, may be achieved at lower cost of expedience. The cPp model might seem like a good choice when trying to approximate a time series in which there are a few big changes interspersed by long periods of no change. However, the periodograms given in Figure \ref{fig:NPVevol2} indicate that the far more expedient gBm model can approximate such a size distribution arbitrarily closely, so long as it is acceptable to substitute "periods of no change" with "periods of negligibly small changes". In their corporate ROV study, Pennings and Lint find only a $2\%$ difference between ROV as calculated by their cPp-based numerical model and ROV as calculated by the gBm-based closed form model [-@pennings1997option].
-<!-- Given all the research and non-research factors affecting project NPV, it is highly unlikely that there is not at least a small, if negligible, perturbation in NPV in every time step, in which case the gBm model is the more realistic choice (when modeling project NPV evolution as it happens, as opposed to the information dam-break approach). -->
-<!-- The question is not when changes in NPV occur, but rather how often do substantial changes to NPV occur? In more technical terms, what is the size distribution of changes? In order to answer this question, it is more instructive to look at the signal's periodogram, not its evolution in the time domain. This can be examined by looking at a periodogram. Model 1 can effectively approximate model 2 to an arbitrary degree of precision by tuning the uncertainty parameter $s$ (Figure \ref)..... A few substantial changes followed by relatively long periods of little change. [The Poisson jump model represents a process in which there are a few substantial changes interspersed among periods of no changes at all. While the gbm model cannot replicate periods of no change exactly, it can approximate such periods arbitrarily closely through adjustments to the volatility parameter.... And recall that it is highly unlikely that there are no changes in project value in any given time step, but rather that there may be long periods of very small changes punctuated by brief periods of large changes. This is perhaps best illustrated by looking at periodograms (Figure ...).] -->
-<!-- Geometric Brownian motion is a much more versatile model than portrayed in the literature.... "bitter pill" [trigergis]. criticism fat tails etc. starting with Mandelbrot []. but this has led to misconception... [Tankov]. The fact is that gbm remains a highly versatile model capable of representing a wide variety of stochastic processes by adjustments to the volatility parameters. The key question that Pennings and Lint address with their jump model may be formulated as follows: what is the size distribution of changes in project value?  [P&L Poisson jump model output differed from the lognormal assumption output by just x% [P&L].] -->
-<!-- [For the purposes of evaluating real option value, the question is not so much when exactly the changes occur, but rather their size distribution. In other words not the time domain but the frequency domain that is important.] -->
-<!-- as compared to the default NPV approach -->
-<!-- ## Low adoption of real options thinking due to complexity -->
-<!-- Despite a flood of academic interest in ROV following Myers' initial insight, adoption of the real options approach by real world decision makers remains low [@horn2015use; @triantis2005realizing; @driouchi2012real]. ROV critics and proponents alike attribute this tepid reception to the formal complexity of evaluating and explaining ROV as compared to the default NPV approach [@triantis2005realizing]. -->
-<!-- Much of this complexity can be traced back to two sources. Firstly, there is the frequent and puzzling assumption of risk neutral valuation in far-from-market real options contexts, just mentioned above. Secondly, many authors reject the key assumption that project NPV evolution may be modeled as a gBm, preferring instead to evaluate equation \ref{eq:rovRaw} by numerical methods that are considerably less tractable, transparent, and instructive than equation \ref{eq:rov}. Trigeorgis, for example, calls numerical methods a "bitter pill" that every serious ROV practitioner must come to grips with [@trigeorgis1993real]. -->
-<!-- Before deriving the $n$-fold ROV model, it is first necessary to redress these two sources of confusion in detail. It seems safe to say, in hindsight, that energetic ROV proponents like Trigeorgis may have overestimated the appetite for bitterness outside of academic audiences. After this introductory section, I preface the derivation of the $n$-fold ROV model with a defense of the gBm model of project NPV, followed by a repudiation of risk neutral valuation in far-from-market real options contexts. -->
-<!--   present arguments in defense of gBm as a model of far-from-market project NPV. In particular, I note that the a as a much more versatile model than it is given credit for. -->
-<!-- Secondly, there is confusion regarding the interpretation, in real options contexts, of the financial artifact known as "risk-neutral valuation". -->
-<!-- (see, for example, Hayes and Garvin [@hayes1982managing], McGrath and MacMillan [@mcgrath2000assessing], Doctor, Newton, and Pearson [@doctor2001managing], and Newton, Paxson, and Widdicks [@newton2004real]), -->
-<!-- [However, the question of where ... must be assessed on a case by case basis. is a matter of preference. In academic contexts, there is a premium on rigor and realism. Most real options settings, on the other hand, time, resources, patience, and attention-span are in relatively short supply ... there is a premium on transparency, expediency. Pennings and Lint use equation \ref{eq:rov} and find that the numerical method output differs by just x%. That is a lot of extra work for a negligible difference. Whether or not changes occur in every time step is a matter of judicious choice of time step. In most real options settings, changes might not occur every day or every week or even every month, but probably do occur at least once every quarter. Moreover, such meticulous realism quickly lands the practitioner in other problems. In most real options settings, the research, analysis, and reporting protocols by which new information affecting project NPV becomes available occur at predetermined, non-random intervals, whereas the CP model is only valid for events occurring at random intervals. The order of changes in NPV is irrelevant. It is the size distribution of changes that matters, not when they occur. The frequency domain is what matters, not the time evolution.] -->
-<!-- # It's ok to be lognormal -->
-<!-- When taking a real options approach to project evaluation, it becomes necessary to think carefully about the evolution of project NPV over the life of the project. -->
-<!-- Many consider the assumption of lognormally distributed NPV unrealistic. This is to some degree rooted in the original financial context, where the assumption of lognormal security returns is widely viewed as naive... -->
-<!-- Bibby and Sorensen [@bibby1996hyperbolic] -->
-<!-- Pennings and Lint []. .  misconception [Tankov]. -->
 
 ## Risk non-neutrality and the NPV growth rate in far-from-market real options contexts
 
@@ -2088,6 +2050,8 @@ The exercise so far assumes that abandonment value is zero. Now consider a stage
 <!-- gg_rovMap + gg_probMap + plot_layout(ncol = 2) -->
 
 # Discussion and conclusion
+
+<!-- As for the relation between project NPV and the outscaling investment, we refer to the marginally diminishing relationship that typically exists between AR4D project NPV and the size of the investment in the outscaling of the finished technology. That is to say, beyond a certain minimum level of investment required to release and support the diffusion and uptake of the project's research product on a pilot level, further increments in the outscaling investment have the effect of broadening the scope of impact---i.e. the size and number of target populations and environments where the research product is released and has an impact. Existing ROV methods tacitly assume that project NPV and the outscaling investment are independent, or that only one outscaling investment scenario is of interest. The adjustment introduced here facilitates examination of all outscaling investment scenarios, and even makes it possible to solve for the ROV-maximizing outscaling investment. -->
 
 In this article, I have developed an $n$-fold ROV model to evaluate the real option value of multistage AR4D projects. The model effectively prices in the research donor's option to discontinue funding of a project at the end of well defined research stages, thereby facilitating donor commitment to the long time horizons of agricultural research. In other words, the model formalizes the de facto structure of most AR4D project funding arrangements. The model also accounts for the wide uncertainty that usually surrounds AR4D project NPV, thereby reducing the pressure on researchers to put an exact monetary value on impacts that may be decades in the future. I have also extended the model to include abandonment value.
 
