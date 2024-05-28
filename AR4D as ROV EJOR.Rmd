@@ -171,7 +171,7 @@ To preserve the Black-Scholes PDE in cases where the replicating portfolios argu
 More problematically still, the formal derivation of the Black-Scholes PDE from either the replicating portfolios or complete markets assumptions leads to a celebrated corollary known as "risk-neutral valuation", which implies that "investors do not increase the expected return they require from an investment in order to compensate for increased risk" [@hull9thEdition]. Clearly, AR4D donors are not risk neutral. They are willing to bet on a high risk project only if there is a sufficiently high expected return on the investment. If the Black-Scholes PDE is to be consistent with the AR4D context, then, it must be formally derived from a suitable premise (not replicating portfolios or complete markets), and in a way that does not imply risk-neutral valuation as a corollary.
 <!-- , if it is not possible to make risk-free profits above the risk-free rate of return (the "no-arbitrage" rule), then investors are risk-neutral, i.e.-->
 
-In the method section farther below, we show how an AR4D compatible Black-Scholes PDF can be derived from the definition of project NPV, and how this leads to a risk adjusted discounting corollary instead of risk neutral valuation. But first it is necessary to disassociate the present approach from the corporate ROV literature on another front.
+In the method section farther below, we show how an AR4D compatible Black-Scholes PDE can be derived from the definition of project NPV, and how this leads to a risk adjusted discounting corollary instead of risk neutral valuation. But first it is necessary to disassociate the present approach from the corporate ROV literature on another front.
 
 ## In defense of geometric Brownian motion model of project NPV evolution
 
@@ -451,23 +451,174 @@ gg_gbm + gg_cpp + plot_layout(nrow = 1)
 
 
 ```
+There is a tradeoff between realism and methodological expedience when choosing a suitable stochastic model of project NPV evolution. The gBm model is methodologically attractive because it allows for a closed form solution to the Black-Scholes PDE, i.e., the Black-Scholes option value equation. However, in the financial context, the gBm model is eschewed as unrealistic because it does not reflect the abrupt jumps empirically observed in many price series, which are inconsistent with a lognormal size distribution. Instead, a number of "jump" and "jump-diffusion" models are applied, which more accurately characterize the observed price data [merton, tankov]. An example of a jump process, known as the compound Poisson process (cPp), is displayed in the right panel of Figure \ref{fig:NPVevol}. This then comes at the high methodological cost of requiring numerical solutions to the Black-Scholes PDE. The same consensus against gBm, at the same high methodological cost, is adopted in the corporate ROV context. Trigeorgis once characterized numerical methods as the unavoidable "bitter pill" that all serious ROV practitioners must come to grips with [-@trigeorgis1993real].
+<!-- which are exceedingly difficult to explain to anyone who is not a financial expert -->
 
-There is a tradeoff between realism and methodological expedience when choosing a suitable stochastic model of project NPV evolution. The gBm model is methodologically attractive because it allows for a closed form solution to the Black-Scholes PDE results in the relatively simple, closed form expression known as the Black-Scholes option value equation. However, in the financial context, the gBm model is eschewed as unrealistic because it does not reflect the abrupt jumps empirically observed in many price series, which are inconsistent with a lognormal size distribution. Instead, a number of "jump" and "jump-diffusion" models are applied, which more accurately characterize the observed price data [merton, tankov]. An example of a jump process, known as the compound Poisson process (cPp), is displayed in the right panel of Figure \ref{fig:NPVevol}. This then comes at the high methodological cost of requiring numerical solutions to the Black-Scholes PDE, which are exceedingly difficult to explain to non-specialists. The same consensus against gBm, at the same high methodological cost, is adopted in the corporate ROV context. Trigeorgis once characterized numerical methods as the unavoidable "bitter pill" that all serious ROV practitioners must come to grips with [-@trigeorgis1993real].
-
-In hindsight, the appetite for bitterness outside of academic audiences---that is to say, adoption of ROV thinking by real world decision makers---has remained low [@horn2015use; @triantis2005realizing; @driouchi2012real]. Both critics and proponents alike attribute this tepid reception to the formal complexity of ROV, much of which can be traced back to the use of numerical methods [@triantis2005realizing]. From the perspective of research donors and managers, numerical methods are effectively black boxes; and even ROV experts find themselves bamboozled at times. A much cited numerical exercise by Majd and Pindyck [-@majd1987time], for example, contains an elementary error, which was only discovered some twelve years after publication [@milne2000time].
+In hindsight, the appetite for bitterness outside of academic audiences---that is to say, adoption of ROV thinking by real world decision makers---has remained low [@horn2015use; @triantis2005realizing; @driouchi2012real]. Both critics and proponents alike attribute this tepid reception to the formal complexity of ROV, much of which can be traced back to the use of sophisticated stochastic models of project NPV that require numerical solutions to the Black-Scholes PDE [@triantis2005realizing]. From the perspective of research donors and managers, such numerical methods are effectively black boxes; and even ROV experts find themselves bamboozled at times. A much cited numerical exercise by Majd and Pindyck [-@majd1987time], for example, contains an elementary error, which was only discovered some twelve years after publication [@milne2000time].
+<!-- In hindsight, it is safe to say that energetic proponents of ROV like Trigeorgis have overestimated the appetite for bitterness outside of academic audiences. The adoption of ROV methods in real world decision making settings remains low; and the main reason given for the low adoption is the methodological complexity of ROV compared to conventional cost-benefit analysis methods [@ryan2002capital; @block2007real; @horn2015use; @triantis2005realizing; @driouchi2012real]. -->
 <!-- [---enough so, at any rate, to warrant some revisiting of the matter:] -->
 <!-- The case for complex ROV approaches weakens further when considering what is gained in return for sacrificing expedience. Pennings and Lint find only a $2\%$ difference between the the output of their cPp numerical model and that of the gBm closed form model [@pennings1997option]. To what extent is an increase in modeling realism even meaningful in a context where direct measurement of the reality one aspires to approximate---i.e., the evolution of project NPV---is highly problematic? Is the costly increase in realism even relevant to the aims of the modeling exercise? Is there an alternative, less costly way of achieving the same ends? -->
 <!-- 33.1 - 32.3 -->
 
-In the AR4D context, the grounds for swallowing the bitter pill of numerical methods are especially narrow. Firstly, it is not even clear what a realistic time evolution of AR4D project NPV looks like. The time and expense involved in AR4D ex-ante impact assessment make frequent, regular updates of project NPV impractical, which in turn means that direct empirical inspection of the stochastic character of project NPV over a series of small, regularly spaced time steps is generally not possible---certainly not in the way that is possible for a price series.
+In the AR4D context, the grounds for swallowing this bitter pill are especially narrow. To begin with, it is not even clear what a realistic time evolution of AR4D project NPV looks like. The time and expense involved in AR4D ex-ante impact assessment make frequent, regular updates of project NPV impractical, which in turn means that direct empirical inspection of the stochastic character of project NPV over a series of small, regularly spaced time steps is generally not possible---certainly not in the way that is possible for a price series.
 
-In the corporate context, P&L attempt to resolve this issue by assembling from scratch an historical time series of project NPV; and then selecting and parameterizing their stochastic model based on this. Such an approach, arguably, does not so much resolve the issue as it does replace it with another set of problems. First and foremost, the historical project NPV must be carefully selected so as to be representative of the NPV trajectory of the new project under evaluation. Apart from a passing verbal assurance, P&L offer little indication that their assembled time series may be plausibly construed as representative of the stochastic character of the new project under evaluation []. In the AR4D context, projects are so heterogeneous in their scale, scope, aims, target populations and environments, and so forth, that finding a past project NPV trajectory that plausibly maps onto a present project's NPV amounts to a prohibitive challenge.
+In the corporate context, P&L attempt to resolve this issue by assembling from scratch an historical time series of project NPV; and then selecting and parameterizing their stochastic model of future project NPV based on this. Such an approach, arguably, does not so much resolve the issue as it does replace it with another set of problems. First and foremost, the historical project NPV must be carefully selected so as to be representative of the NPV trajectory of the new project under evaluation. Apart from a passing verbal assurance, P&L offer little indication that their assembled time series may be plausibly construed as representative of the stochastic character of the new project under evaluation []. In the AR4D context, especially, projects are so heterogeneous in their scale, scope, aims, target populations and environments, and so forth, that finding a past project NPV trajectory that plausibly maps onto a present project's NPV amounts to a prohibitive challenge.
 
-Secondly, even if this were possible, the practitioner then runs into small sample problems. In both the corporate and AR4D contexts, the number of substantive adjustments to project NPV over the project's lifespan tends to be small. To generate "enough" observations, P&L merge several past project NPV trajectories together into a single time series---which, of course, severely compounds the first problem. Even then, the authors come up with just 17 observations over a 5 year period []. Is this enough to select and parameterize a stochastic model of project NPV?
+Secondly, even if this were possible, the practitioner then runs into small sample problems. In both the corporate and AR4D contexts, the number of substantive adjustments to project NPV over the project's lifespan tends to be small. To generate "enough" data points, P&L merge several past project NPV trajectories together into a single time series. In addition to severely compounding the first problem, the authors come up with just 17 observations over a 5 year period []. Is this enough to select and parameterize a stochastic model of project NPV?
 
-Thirdly, there is the subtle and somewhat philosophical sounding, but deeply consequential, issue of sampling rate. When does a change in project NPV occur? Does it occur when the relevant, causal event or set of events occurs, or only when management learns of its occurrence and announces the corresponding adjustment to NPV through reporting protocols? What about events that effectively change NPV, but that go unnoticed by management? P&L tacitly presume that changes in NPV occur only if and when management learns of their occurrence. This is understandable in the corporate context, where the value of company assets and activities is ultimately defined by the stock market, and hence (in principle) by publicly available information.
+Thirdly, the cPp model selected by P&L is appropriate only insofar as the interval size between changes in NPV is random. This is problematic since substantive changes in project NPV can often occur as the result of non-randomly spaced events, e.g. at scheduled test points in the research cycle, or scheduled shifts in the enabling environment (such as elections). Moreover, such changes are typically documented and announced through periodic, non-random reporting protocols.
 
-In the AR4D context, on the other hand, we are interested in characterizing the stochastic progression of real changes to project NPV, regardless of when or even if management or anyone else discovers and documents these changes. In this setting, then, one may reasonably conceptualize the project NPV trajectory as a series of negligibly small changes interspersed by relatively few large changes. 
+Finally, there is the subtle and somewhat philosophical sounding, but deeply consequential, issue of sampling rate. When does a change in project NPV occur? Does it occur when the relevant causal event or set of events occurs, or only when management learns of its occurrence and announces the corresponding NPV adjustment? What about events that effectively change NPV, but that go unnoticed by management? P&L tacitly presume that changes in NPV occur only if and when management learns of their occurrence. This is perhaps understandable in the corporate context, where the value of company activities is ultimately defined by the stock market, and hence (in principle) by publicly available information. In non-market contexts such as AR4D, on the other hand, we are at liberty to concern ourselves only with the stochastic progression of real changes to project NPV, regardless of when, or even if, management, or anyone else, discovers and documents these changes.
+
+
+
+In this setting, then, one may reasonably characterize the project NPV trajectory as a series of negligibly small changes interspersed by relatively few large changes. For purposes of modeling the stochastic character of project NPV, this is enough.
+
+
+In pursuit of realism, then, one not only sacrifices methodological expedience and transparency, but also faces a number of sampling issues that undermine the supposed gain in realism. And for what? After the cPp dust settles, P&L find that their numerical ROV model differs from the more expedient closed form Black-Scholes option forumla by a mere 2% [].
+
+In the AR4D context, certainly, ROV practitioners must not rush to swallow such bitter pills. At the very least, we must make certain that we indeed achieve greater realism in exchange for any sacrificed expedience and transparency, and do not merely substitute one set of problems for another. In the absence of empirical 
+
+
+```{r, fig.show = "hold", echo=FALSE}
+
+library(numbers)
+library(pracma)
+library(gridExtra)
+coloredNoise <- function(n, a, normalize = T, graph = F)
+{
+# 13 / 02 / 18
+# Description: 1/f^a noise generator with free parameter "a."
+# Outputs a 1/f^a noise R-by-C matrix.
+# By adjusting parameter "a" can generate pink, red,
+# white, blue, violet noise, or any gradation in between.
+# As "a" is less, the signal is more autocorrelated, less random,
+# degenerating ultimately into a sine curve. As "a" is greater,
+# the signal is more random, approaching white noise and beyond
+# (approaching any signal with fractal dimension of 2)
+# NOTE: "a" is closely related to the signal's fractal dimension.
+# "a" and fract. dim. are related by the logistic function.
+# Envisioned Use: Signal generation to immitate 
+# stock charts for example. Or as a "random number
+# generator" where it is possible to adjust the balance
+# between randomness and autocorrelation (by adjusting "a").
+# In other words the user has here a random number generator 
+# where the fractal dimension of the number selection 
+# can be adjusted.
+# Source: This function is adapted from Hristo Zhivomirov's Pink,
+# Red, Violet, and Blue Noise Generation functions (written in Matlab)
+# https://la.mathworks.com/matlabcentral/fileexchange/42919-pink--red--blue-and-violet-noise-generation-with-matlab-implementation?focused=7825006&tab=function
+# All those functions are combined in this single function
+# (as well as the gradations in bewtween).
+#---------------------------
+  # Input:
+  # R - number of rows to be returned
+# C - number of samples to be returned in each row vector
+# a - parameter relating power to frequency.  I.e. the 
+# power spectral density is proportional
+# to the frequency f by a factor f^(-2*a). In other words,
+# the amplitudes are proportional to f^(-a).
+# normalize - Normalizes output y if ==1.  Note normalization
+# changes the standard deviation of the output.
+# Output:
+  # y - row vector of noise samples
+#-----------------------------
+  # Each color of noise is generated by adjusting the 
+# parameter "a" as follows:
+  # a=-2    red or brown(ian) noise (fractal dim.~1.5 - like stock charts)
+  # a=-1  pink noise (fractal dim.~1.85)
+  # a=0     white noise (output equivalent to y=randn(1,N) IF normalize==0)
+  # a=1   blue noise (fractal dim.~2)
+  # a=2     violet noise (fractal dim.~2)
+  
+  
+  # More info on each noise color follows:
+    # (taken from Zhivomirov's notes)
+       #------------------------------------
+       # red noise: Aka brown noise. In terms of power at a 
+       # constant bandwidth, red noise falls off at 6 dB per 
+       # octave. The power spectral density is inversely 
+       # proportional to the frequency by factor 1/(f^2), 
+       # i.e. the amplitudes are inversely proportional to 1/f.
+       
+       # pink noise: Aka "1/f noise." The pink noise setting 
+       # generates a sequence of pink (flicker) noise samples. 
+       # Pink noise has equal energy in all octaves (or similar 
+       # log bundles) of frequency. In terms of power at a 
+       # constant bandwidth, pink noise falls off at 3 dB per 
+       # octave. The power spectral density is inversely 
+       # proportional to the frequency by factor 1/f,
+       # i.e. the amplitudes are inversely proportional to 1/sqrt(f).
+       
+       # blue noise: In terms of power at a constant bandwidth, 
+       # blue noise increase in at 3 dB per octave. The power 
+       # spectral density is proportional to the frequency by 
+       # factor f, i.e. the amplitudes are proportional to sqrt(f).
+       
+       # violet noise: Aka purple noise. In terms of power at a 
+       # constant bandwidth, violet noise increase in at 6 dB per
+       # octave. The power spectral density is proportional to the 
+       # frequency by factor f^2, i.e. the amplitudes are 
+       # proportional to f.
+       #================================================
+       if(rem(n, 2)){n <- n + 1}
+       # generate white noise with sigma = 1, mu = 0
+       x <- rnorm(n)
+       # FFT
+       X <- fft(x)
+       # prepare a vector for 1/f multiplication
+       NumUniquePts <- n / 2 + 1
+       ind_left <- 1:NumUniquePts
+       # multiply the left half of the spectrum so the power spectral density
+       # is inversely proportional to the frequency by factor f^a, i.e. the
+       # amplitudes are inversely proportional to f^(a/2)
+       X[ind_left] <- X[ind_left] * ind_left^(a / 2)
+       # prepare a right half of the spectrum - a copy of the left one,
+       # except the DC component and Nyquist frequency - they are unique
+       ind_right <- seq(n / 2, 2, -1)
+       X[(NumUniquePts + 1):n] <- Re(X[ind_right]) - 1i * Im(X[ind_right]);
+       # IFFT
+       y <- ifft(X)
+       # prepare output vector y
+       y <- Re(y[1:n])
+       # normalise?
+         if(normalize == T){
+           y <- y / max(abs(y))
+         }
+       if(graph == T){
+         xplot <- 1:n
+         dfplot <- data.frame(output = y, sequence = xplot)
+         gg1 <- ggplot(dfplot, aes(x = output)) + geom_density()
+         gg2 <- ggplot(dfplot, aes(x = sequence, y = output)) + geom_line()
+         grid.arrange(gg1, gg2, ncol = 1)
+       }
+       return(y)
+}
+
+thisT <- 250
+randVec <- coloredNoise(n = thisT, a = -2, normalize = F, graph = T)
+
+ts <- cumsum(randVec)
+df_plot <- data.frame(randVec, ts, Time = c(1:thisT)) %>%
+  gather(Type, Val, randVec:ts)
+#colnames(df_plot)[1:2] <- c("Time", "Project NPV")
+gg <- ggplot(df_plot, aes(x = Time, y = Val))
+gg <- gg + geom_line()
+gg <- gg + facet_wrap(~Type, scales = "free_y", ncol = 1)
+gg <- gg + theme_bw()
+# gg <- gg + theme(axis.text = element_blank(),
+#                  axis.title = element_text(size = axisTitle_size))
+gg_gbm <- gg
+gg
+
+
+```
+
+
+
+
+
+...Tankov demonstrates
 
 Finally, for ROV purposes it is not even necessary... only the size distribution, not the specific time or even order in which they occur.
 
@@ -496,7 +647,6 @@ As mentioned above, in the AR4D context (and, we suspect, many corporate context
 
 The grounds for swallowing this bitter pill are arguably quite narrow in the AR4D context, where direct, empirical observation of the time evolution of project NPV is generally impossible, and thus direct inspection of its stochastic character is likewise impossible. cannot be indirectly observed via replicating portfolios.   project NPV cannot be modeled as a function of prices (i.e., where replicating portfolios may not be invoked), and where, consequently, there is no time series data by which to empirically inspect the stochastic character of project NPV. Pennings and Lint painstakingly construct a...jump process (cPp)....Only a 2% difference [].... by adjusting parameters the gBm can approximate a jump process...Tankov notes this []...
 
-In hindsight, it is safe to say that energetic proponents of ROV like Trigeorgis have overestimated the appetite for bitterness outside of academic audiences. The adoption of ROV methods in real world decision making settings remains low; and the main reason given for the low adoption is the methodological complexity of ROV compared to conventional cost-benefit analysis methods [@ryan2002capital; @block2007real; @horn2015use; @triantis2005realizing; @driouchi2012real].
 
 
 In any methodological decision, there is usually a tradeoff between realism and expedience. The job of the modeler is thus not merely to maximize realism, but to strike the optimal balance between realism and expedience under the particular time and resource constraints of the modeling exercise at hand, and in a way that is clearly relevant to the particular objectives of the exercise. This is especially true in real world decision making contexts, where constraints are considerably more severe than in academic contexts. And the patience of project donors and managers for arcane technical explanations must be counted among the resources that are in short supply.
