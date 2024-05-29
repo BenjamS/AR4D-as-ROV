@@ -84,7 +84,7 @@ Where $x(T)$ is project net present value (NPV) at the end of the time period $T
 <!-- -@trigeorgis1993real; and McGrath [-@mcgrath2000assessing] -->
 <!-- The methodological details of real option valuation can vary considerably from one applied context to another. But, generally speaking, -->
 
-A project's real option value (ROV) is often higher than its NPV, especially in the case of high risk, high reward projects, such that a project that would normally be rejected in a conventional cost-benefit analysis might pass muster on an ROV basis. For a detailed introduction to ROV, see Trigeorgis [-@trigeorgis1999real]. For an introduction to ROV in R&D contexts specifically, see [].
+A project's real option value (ROV) can be higher than its NPV, especially in the case of high risk, high reward projects, such that a project that would normally be rejected in a conventional cost-benefit analysis might pass muster on an ROV basis. For a detailed introduction to ROV, see Trigeorgis [-@trigeorgis1999real]. For an introduction to ROV in R&D contexts specifically, see [].
 
 Real options contracts potentially bridge the divide between donor risk aversion and the risk tolerance required to achieve high impact AR4D because they are mutually beneficial for both donors and researchers alike. From the donor's perspective, a real option contract is a way to tentatively lay claim to promising, but distant and uncertain, research results, while at the same time guaranteeing easy extraction from underperforming projects. The resulting fiscal agility then translates into longer term funding commitments, which is music to the ears of the research community.
 
@@ -462,23 +462,49 @@ In hindsight, the appetite for bitterness outside of academic audiences---that i
 
 In the AR4D context, the grounds for swallowing this bitter pill are especially narrow. To begin with, it is not even clear what a realistic time evolution of AR4D project NPV looks like. The time and expense involved in AR4D ex-ante impact assessment make frequent, regular updates of project NPV impractical, which in turn means that direct empirical inspection of the stochastic character of project NPV over a series of small, regularly spaced time steps is generally not possible---certainly not in the way that is possible for a price series.
 
-In the corporate context, P&L attempt to resolve this issue by assembling from scratch an historical time series of project NPV; and then selecting and parameterizing their stochastic model of future project NPV based on this. Such an approach, arguably, does not so much resolve the issue as it does replace it with another set of problems. First and foremost, the historical project NPV must be carefully selected so as to be representative of the NPV trajectory of the new project under evaluation. Apart from a passing verbal assurance, P&L offer little indication that their assembled time series may be plausibly construed as representative of the stochastic character of the new project under evaluation []. In the AR4D context, especially, projects are so heterogeneous in their scale, scope, aims, target populations and environments, and so forth, that finding a past project NPV trajectory that plausibly maps onto a present project's NPV amounts to a prohibitive challenge.
+In the corporate context, Pennings and Lint [-@pennings1997option] attempt to resolve this issue by assembling from scratch an historical time series of project NPV; and then selecting and parameterizing their stochastic model of future project NPV based on this. Such an approach, arguably, does not so much resolve the issue as it does replace it with another set of problems. First and foremost, the historical project NPV must be carefully selected so as to be representative of the NPV trajectory of the new project under evaluation. Apart from a passing verbal assurance, Pennings and Lint offer little indication that their assembled time series may be plausibly construed as representative of the stochastic character of the new project under evaluation [-@pennings1997option]. In the AR4D context, especially, projects are so heterogeneous in their scale, scope, aims, target populations and environments, and so forth, that finding a past project NPV trajectory that plausibly maps onto a present project's NPV amounts to a prohibitive challenge.
 
-Secondly, even if this were possible, the practitioner then runs into small sample problems. In both the corporate and AR4D contexts, the number of substantive adjustments to project NPV over the project's lifespan tends to be small. To generate "enough" data points, P&L merge several past project NPV trajectories together into a single time series. In addition to severely compounding the first problem, the authors come up with just 17 observations over a 5 year period []. Is this enough to select and parameterize a stochastic model of project NPV?
+Secondly, even if this were possible, the practitioner then runs into small sample problems. In both the corporate and AR4D contexts, the number of substantive adjustments to project NPV over the project's lifespan tends to be small. To generate "enough" data points, P&L merge several past project NPV trajectories together into a single time series. In addition to severely compounding the first problem, the authors come up with just 17 observations over a 5 year period [-@pennings1997option]. Is this enough to select and parameterize a stochastic model of project NPV?
 
-Thirdly, the cPp model selected by P&L is appropriate only insofar as the interval size between changes in NPV is random. This is problematic since substantive changes in project NPV can often occur as the result of non-randomly spaced events, e.g. at scheduled test points in the research cycle, or scheduled shifts in the enabling environment (such as elections). Moreover, such changes are typically documented and announced through periodic, non-random reporting protocols.
+Thirdly, the cPp model selected by Pennings and Lint is appropriate only insofar as the interval size between changes in NPV is random. This is problematic since substantive changes in project NPV can often occur as the result of non-randomly spaced events, e.g. at scheduled test points in the research cycle, or scheduled shifts in the enabling environment (such as elections). Moreover, such changes are typically documented and announced through periodic, non-random reporting protocols.
 
-Finally, there is the subtle and somewhat philosophical sounding, but deeply consequential, issue of sampling rate. When does a change in project NPV occur? Does it occur when the relevant causal event or set of events occurs, or only when management learns of its occurrence and announces the corresponding NPV adjustment? What about events that effectively change NPV, but that go unnoticed by management? P&L tacitly presume that changes in NPV occur only if and when management learns of their occurrence. This is perhaps understandable in the corporate context, where the value of company activities is ultimately defined by the stock market, and hence (in principle) by publicly available information. In non-market contexts such as AR4D, on the other hand, we are at liberty to concern ourselves only with the stochastic progression of real changes to project NPV, regardless of when, or even if, management, or anyone else, discovers and documents these changes.
+Finally, there is the subtle and somewhat philosophical sounding, but deeply consequential, issue of sampling rate. When does a change in project NPV occur? Does it occur when the relevant causal event or set of events occurs, or only when management learns of its occurrence and announces the corresponding NPV adjustment? What about events that effectively change NPV, but that go unnoticed by management? Pennings and Lint tacitly presume that changes in NPV occur only if and when management learns of their occurrence. This is perhaps understandable in the corporate context, where the value of company activities is ultimately defined by the stock market, and hence (in principle) by publicly available information. In non-market contexts such as AR4D, on the other hand, we are at liberty to concern ourselves only with the stochastic progression of real changes to project NPV, regardless of when, or even if, management, or anyone else, discovers and documents these changes.
 
+A reasonable starting point in this consideration is the observation that changes in AR4D project value seem to be of two types: research related and non-research related.
 
+Research related changes in project value generally occur at discrete test points, when new information regarding the effectiveness of the new technology becomes available. Non-research related changes in project value occur as a result of changes in the political, socio-economic, and institutional enabling environments where the new technology is to be released. Such changes may include, for example, elections, abrupt changes in government policies, commodity price swings, changes in seed systems and other value chain mechanisms, changes in the security environment, the ebb and flow of public and private sector partnerships to enhance impact, and so forth.
 
 In this setting, then, one may reasonably characterize the project NPV trajectory as a series of negligibly small changes interspersed by relatively few large changes. For purposes of modeling the stochastic character of project NPV, this is enough.
+
+
+changes in project NPV occur as a result of research and non-research related events, and it is reasonable to assume that, generally speaking, the time evolution of project NPV is characterized by relatively few large shifts---occurring, e.g., at the critical test points in the project timeline and/or major events in the enabling environment, such as elections---interspersed with relatively many small shifts in NPV due to non-research related fluctuations in the enabling environment. Based on this rationale, the lognormal distribution is a reasonable choice as model of the size distribution of changes in project NPV.   ...the gBm parameters may be adjusted so as to approach a stochastic jump diffusion process arbitrarily closely.
+
+We note in passing, moreover, Whether the evolution of project NPV (or of any stochastic process) resembles the time series on the left or right of Figure \ref{fig:NPVevol} is, to a certain degree, a mere matter of the choice of time step. That is to say, the time series on the left can be transformed into to something resembling the time series on the right merely by plotting over a smaller time step. Likewise, the model on the right can be transformed into the model on the left by plotting over sufficiently larger time step. The model on the right becomes unavoidable when said sufficiently larger time step results in an unacceptably small number of time steps for parameter estimation purposes. For present purposes, this is not a problem 
+
+In the AR4D context, this is generally not a problem. Projects typically last 9-25 years, such that, given a quarterly time step, the project NPV time series typically contains 36-100 steps.
 
 
 In pursuit of realism, then, one not only sacrifices methodological expedience and transparency, but also faces a number of sampling issues that undermine the supposed gain in realism. And for what? After the cPp dust settles, P&L find that their numerical ROV model differs from the more expedient closed form Black-Scholes option forumla by a mere 2% [].
 
 In the AR4D context, certainly, ROV practitioners must not rush to swallow such bitter pills. At the very least, we must make certain that we indeed achieve greater realism in exchange for any sacrificed expedience and transparency, and do not merely substitute one set of problems for another. In the absence of empirical 
 
+
+This then answers the final question of whether or not a comparable increase in realism, or the objective which the desired increase in realism is supposed to serve, may be achieved at lower cost of expedience. The cPp model might seem like a good choice when trying to approximate a time series in which there are a few big changes interspersed by long periods of no change. However, the periodograms given in Figure \ref{fig:NPVevol2} indicate that the far more expedient gBm model can approximate such a size distribution arbitrarily closely, so long as it is acceptable to substitute "periods of no change" with "periods of negligibly small changes". In their corporate ROV study, Pennings and Lint find only a $2\%$ difference between ROV as calculated by their cPp-based numerical model and ROV as calculated by the gBm-based closed form model [-@pennings1997option].
+
+
+<!-- ## Modeling the evolution of AR4D project NPV -->
+When evaluating AR4D projects as real options, it becomes necessary to think carefully about how project NPV changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. 
+
+Research related changes occur perhaps 1-4 times per year, while non-research related changes occur with greater frequency, perhaps 1-4 times per quarter. Overall, then, it is reasonable to expect changes in AR4D project value to occur every quarter. If the time step is defined as a quarter, then, changes can be expected to occur in every time step, as in the left panel of Figure \ref{fig:NPVevol}.
+
+
+This conclusion implies a subtle but fundamental decision to model changes in R&D project value _when they occur_, as opposed to when project managers learn of their occurrence. In the corporate R&D context, Pennings and Lint [-@pennings1997option] take the opposite approach, registering changes in project NPV only when management becomes aware of the changes through internal analysis and reporting protocols. In other words, they model changes in project value as "information dam-breaks" (our phrase), whereby new information affecting project value accumulates for a time until it is suddenly released in a report to management, at which time the project value is updated. Such a model of project NPV evolution is depicted in the right panel of Figure \ref{fig:NPVevol}. This approach may be appropriate for corporate R&D, where the value of company assets and activities is ultimately defined by the stock market, and hence (in principle) by publicly available information.
+<!-- The information dam-break approach -->
+<!-- (Indeed, information dam-breaks are the premise of frontrunning, and hence the bread and butter of many an investment bank.) In the far-from-market R&D context, however, no such nuance comes into play. -->
+
+
+
+The time series on the left of Figure \ref{fig:NPVevol} is an example of gBm, while the time series on the right is a compound Poisson process (algorithm 6.2 in Cont and Tankov [-@tankov2003financial]). The compound Poisson process (cPp) assumes that changes in value occur at random time intervals. This is fine in the financial context, but may be problematic in real options contexts, where the information affecting project NPV is released through reports to management---events that are usually, at least in the AR4D context, non-random.
 
 ```{r, fig.show = "hold", echo=FALSE}
 
@@ -615,39 +641,7 @@ gg
 ```
 
 
-
-
-
-...Tankov demonstrates
-
-Finally, for ROV purposes it is not even necessary... only the size distribution, not the specific time or even order in which they occur.
-
-after all this trouble, only a 2% difference
-not predicting here, only size distrubution matters for purposes of ROV
-reporting protocols are non-random, problematic for cPp.
-
-
-events affecting the NPV of projects within a general research category.  From a statistical perspective, such an approach arguably creates more problems than it solves. First of all, it requires the existence of an historical NPV time series that . P&L     changes just say events over the past 5 years.           Any attempt to painstakingly assemble from scratch a dataset of project NPV time series would arguably creates more problems than it solves.  Corporate ROV practitioners who do not invoke replicating portfolios face the same problem. P&L go to the extraordinary length of painstakingly building a dataset from scratch by documenting the NPV time series of several past projects; and then specifying and estimating a stochastic model for current project NPV on this basis.    How, then, to justify one stochastic model as more realistic than another?
-
-P&L [] propose the extraordinary alternative of  While it may be possible to introduce an AR4D reporting protocol by which project NPV is periodically revisited and updated based on research progress and changes in relevant external factors (e.g. government policy shifts), and thus to generate an historical record of such time series, it is doubtful whether such an approach offers any insight into the stochastic character of any current AR4D project NPV. Sampling error and controlling for changes over time. Even if achieved, extrapolation to the present is further complicated by small sample size issues.    Series guaranteed to look like a cPp, but this may be merely due to the sampling rate, not to the stochastic character of project NPV. , cPp is valid only if the interval size between changes is random. The non-random, periodic character of internal reporting       Their project NPV time series resemble the cPp series in the right panel of Figure. The problems that arise in its stead are arguably greater than the one that is eluded. sampling error in the selection of past project NPV, not controling for changes in basic circumstances (funding, strategic objecties, instututional change, etc.), even if achieved...low data ..impractical/not scalable in terms of time and cost, and ...Less obviously,  Assuming that a sufficient number of ex-ante impact assessments are conducted, the observed stochastic character is due to the sampling rate, not necessarily of project NPV. Moreover 
-
 Deductive reasoning. For purposes of project appraisal, time explicit analysis not necessary, not trying to predict NPV in the next period. By definition, we always expect NPV to be the same in the next period as it is in the present period. it is the size distribution of changes in NPV that matter, not the exact order in which changes to NPV occur. lots of small changes interspersed by a few large changes
-
-the difference between gBm and the methodoligically much more complex cPp is a matter of sampling rate, i.e. time step size. Tankov shows how cPp can be arbitrarily approximated by parameterization of gBm. ...so long as no change can be substituted by negligibly small change.
-
-
-
-Efforts to do so generate effectively replace one problem with another. Pennings and Lint, for example, did empirically inspect, but this generated selection bias... Instead, the stochastic character of project NPV must be inferred via deductive reasoning.
-
-
- 
-
-As mentioned above, in the AR4D context (and, we suspect, many corporate contexts), project NPV may not be modeled as a function of prices, but rather by ex-ante impact assessment.  changes in project NPV occur as a result of research and non-research related events, and it is reasonable to assume that, generally speaking, the time evolution of project NPV is characterized by relatively few large shifts---occurring, e.g., at the critical test points in the project timeline and/or major events in the enabling environment, such as elections---interspersed with relatively many small shifts in NPV due to non-research related fluctuations in the enabling environment. Based on this rationale, the lognormal distribution is a reasonable choice as model of the size distribution of changes in project NPV.   ...the gBm parameters may be adjusted so as to approach a stochastic jump diffusion process arbitrarily closely.
-
-
-The grounds for swallowing this bitter pill are arguably quite narrow in the AR4D context, where direct, empirical observation of the time evolution of project NPV is generally impossible, and thus direct inspection of its stochastic character is likewise impossible. cannot be indirectly observed via replicating portfolios.   project NPV cannot be modeled as a function of prices (i.e., where replicating portfolios may not be invoked), and where, consequently, there is no time series data by which to empirically inspect the stochastic character of project NPV. Pennings and Lint painstakingly construct a...jump process (cPp)....Only a 2% difference [].... by adjusting parameters the gBm can approximate a jump process...Tankov notes this []...
-
-
 
 In any methodological decision, there is usually a tradeoff between realism and expedience. The job of the modeler is thus not merely to maximize realism, but to strike the optimal balance between realism and expedience under the particular time and resource constraints of the modeling exercise at hand, and in a way that is clearly relevant to the particular objectives of the exercise. This is especially true in real world decision making contexts, where constraints are considerably more severe than in academic contexts. And the patience of project donors and managers for arcane technical explanations must be counted among the resources that are in short supply.
 
@@ -664,26 +658,7 @@ gg_gbmSpec + gg_cppSpec + plot_layout(nrow = 1)
 
 ```
 
-This then answers the final question of whether or not a comparable increase in realism, or the objective which the desired increase in realism is supposed to serve, may be achieved at lower cost of expedience. The cPp model might seem like a good choice when trying to approximate a time series in which there are a few big changes interspersed by long periods of no change. However, the periodograms given in Figure \ref{fig:NPVevol2} indicate that the far more expedient gBm model can approximate such a size distribution arbitrarily closely, so long as it is acceptable to substitute "periods of no change" with "periods of negligibly small changes". In their corporate ROV study, Pennings and Lint find only a $2\%$ difference between ROV as calculated by their cPp-based numerical model and ROV as calculated by the gBm-based closed form model [-@pennings1997option].
-
-<!-- ## Modeling the evolution of AR4D project NPV -->
-When evaluating AR4D projects as real options, it becomes necessary to think carefully about how project NPV changes over time. This, in turn, requires careful consideration of the causes behind changes in project value. A reasonable starting point in this consideration is the observation that changes in AR4D project value seem to be of two types: research related and non-research related.
-
-Research related changes in project value generally occur at discrete test points, when new information regarding the effectiveness of the new technology becomes available. Non-research related changes in project value occur as a result of changes in the political, socio-economic, and institutional enabling environments where the new technology is to be released. Such changes may include, for example, elections, abrupt changes in government policies, commodity price swings, changes in seed systems and other value chain mechanisms, changes in the security environment, the ebb and flow of public and private sector partnerships to enhance impact, and so forth.
-
-Research related changes occur perhaps 1-4 times per year, while non-research related changes occur with greater frequency, perhaps 1-4 times per quarter. Overall, then, it is reasonable to expect changes in AR4D project value to occur every quarter. If the time step is defined as a quarter, then, changes can be expected to occur in every time step, as in the left panel of Figure \ref{fig:NPVevol}.
-
-
-This conclusion implies a subtle but fundamental decision to model changes in R&D project value _when they occur_, as opposed to when project managers learn of their occurrence. In the corporate R&D context, Pennings and Lint [-@pennings1997option] take the opposite approach, registering changes in project NPV only when management becomes aware of the changes through internal analysis and reporting protocols. In other words, they model changes in project value as "information dam-breaks" (our phrase), whereby new information affecting project value accumulates for a time until it is suddenly released in a report to management, at which time the project value is updated. Such a model of project NPV evolution is depicted in the right panel of Figure \ref{fig:NPVevol}. This approach may be appropriate for corporate R&D, where the value of company assets and activities is ultimately defined by the stock market, and hence (in principle) by publicly available information.
-<!-- The information dam-break approach -->
-<!-- (Indeed, information dam-breaks are the premise of frontrunning, and hence the bread and butter of many an investment bank.) In the far-from-market R&D context, however, no such nuance comes into play. -->
-
-Whether the evolution of project NPV (or of any stochastic process) resembles the time series on the left or right of Figure \ref{fig:NPVevol} is, to a certain degree, a mere matter of the choice of time step. That is to say, the time series on the left can be transformed into to something resembling the time series on the right merely by plotting over a smaller time step. Likewise, the model on the right can be transformed into the model on the left by plotting over sufficiently larger time step. The model on the right becomes unavoidable when said sufficiently larger time step results in an unacceptably small number of time steps. In the AR4D context, this is generally not a problem. Projects typically last 9-25 years, such that, given a quarterly time step, the project NPV time series typically contains 36-100 steps.
-
-The time series on the left of Figure \ref{fig:NPVevol} is an example of gBm, while the time series on the right is a compound Poisson process (algorithm 6.2 in Cont and Tankov [-@tankov2003financial]). The compound Poisson process (cPp) assumes that changes in value occur at random time intervals. This is fine in the financial context, but may be problematic in real options contexts, where the information affecting project NPV is released through reports to management---events that are usually, at least in the AR4D context, non-random.
-
-### In defense of the gBm model of project NPV
-
+<!-- ### In defense of the gBm model of project NPV -->
 <!-- [Rejection of the gBm model in ROV contexts is partly inherited from the financial context, where gBm is generally viewed as a naive model of price movements. fat tails--debunked by Tankov, jumps--as discussed above, an artifact of the dam-break model, not a concern in ROV contexts, plus jumps can be closely approximated by gBm. en fin, gBm is much more versatile than it is generally given credit for.] -->
 Like Pennings and Lint, many real options authors reject the gBm model, preferring instead to select a model which they perceive to more accurately approximate the real time evolution of project NPV. But this comes at a substantial loss of expedience, as the closed form expression in equation \ref{eq:rov} must be replaced by considerably less tractable and less intelligible expressions, up to and including numerical methods. Trigeorgis once characterized numerical methods as an unavoidable "bitter pill" that every serious ROV practitioner must come to grips with [-@trigeorgis1993real].
 
@@ -711,7 +686,64 @@ Like Pennings and Lint, many real options authors reject the gBm model, preferri
 
 
 
-# Method (Replacement of financial foundations with AR4D foundations)
+# Formal derivation
+<!-- # Method (Replacement of financial foundations with AR4D foundations) -->
+
+In the present setting, project NPV $x(t)$ is defined as post-R&D project net benefits discounted back to the date of release ($T$) of the research product. The time $t < T$ is the time at which project NPV is evaluated. By definition, then, $E[x(T)]\bigr|_{t} = x(t)$. Or, for any intermediate time $t < \tilde{t} < T$, $E[x(\tilde{t})]\bigr|_{t} = x(t)$.
+
+The present value of project NPV at time $t$ is just $x(t)$ discounted back to $t$. This may be expressed $PV(x)\bigr|_{t} = e^{r \tau} x(t)$, where $r$ is the discount rate and $\tau = T - t$.
+
+Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by
+
+\begin{equation}
+\Delta x = x(t) m \Delta t + x(t) s \epsilon \sqrt{\Delta t} \:\:;\:\:\: \Delta x := x(t + \Delta t) - x(t)
+\label{eq:gbmEq}
+\end{equation}
+
+Where $\epsilon$ is a normally distributed random variable with mean $0$ and variance $1$, such that constants $m$ and $s$ quantify the trend and volatility of the time evolution, respectively.
+
+\begin{equation}
+\begin{split}
+m \Delta t &= E \left[\frac{\Delta x(T)}{x(T)} \right] \\
+s^2 \Delta t &= Var \left[\frac{\Delta x(T)}{x(T)} \right]
+\end{split}
+\end{equation}
+
+The mean and variance of the log change over any finite interval $\tau = \tilde{t} - t$ is given by
+
+\begin{equation}
+\begin{split}
+E \left[ \frac{x(\tilde{t})}{x(t)} \right]  &= \left(m - \frac{s^2}{2} \right) \tau  \\
+Var \left[ \frac{x(\tilde{t})}{x(t)} \right] &= s^2 \tau \right]
+\end{split}
+\end{equation}
+
+
+
+\begin{equation}
+E[x(T)]\bigr|_{t = 0} = e^{m T} x(0)
+\label{eq:ExT}
+\end{equation}
+
+(See Hull [-@hull9thEdition] for details.)
+
+If $x(t)$ is a gBm, then, by Ito's lemma, the evolution of a function $f(x, t)$ is described as follows.
+
+\begin{equation}
+\Delta f = \left( x m \frac{\partial f}{\partial x} + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t + \frac{\partial f}{\partial x} x s \epsilon \sqrt{\Delta t}
+\label{eq:itoLem}
+\end{equation}
+
+(See Hull [-@hull9thEdition] for details.)
+
+Black and Scholes [-@black1973valuation] famously noted that equations \ref{eq:gbmEq} and \ref{eq:itoLem} could be combined so as to eliminate the random term as follows.
+
+\begin{equation}
+\Delta f - \frac{\partial f}{\partial x} \Delta x = \left(\frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t
+\label{eq:bsInsight1}
+\end{equation}
+
+
 
 In the financial context, Black and Scholes [] derived the following closed form expression for equation \ref{eq:basic}.
 
@@ -748,22 +780,6 @@ Where
 \end{equation}
 
 
-
-If $x(t)$ is a gBm, then, by Ito's lemma, the evolution of a function $f(x, t)$ is described as follows.
-
-\begin{equation}
-\Delta f = \left( x m \frac{\partial f}{\partial x} + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t + \frac{\partial f}{\partial x} x s \epsilon \sqrt{\Delta t}
-\label{eq:itoLem}
-\end{equation}
-
-(See Hull [-@hull9thEdition] for details.)
-
-Black and Scholes [-@black1973valuation] famously noted that equations \ref{eq:gbmEq} and \ref{eq:itoLem} could be combined so as to eliminate the random term as follows.
-
-\begin{equation}
-\Delta f - \frac{\partial f}{\partial x} \Delta x = \left(\frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t
-\label{eq:bsInsight1}
-\end{equation}
 
 
 
@@ -933,33 +949,6 @@ These differences are formally demonstrated in the development of the ROV method
 
 <!-- Where $r$ is the discount rate, and $T$ the time at which the subsequent outlay $K$ is required (usually the same as the project time horizon). -->
 
-<!-- If $x(t)$ $(0 < t \leq T)$ follows a geometric Brownian motion (gBm) described by the equation -->
-
-<!-- \begin{equation} -->
-<!-- \begin{split} -->
-<!-- \Delta x &= x(t + \Delta t) - x(t) \\ -->
-<!-- &= x(t) m \Delta t + x(t) s \epsilon \sqrt{\Delta t} -->
-<!-- \end{split} -->
-<!-- \label{eq:gbmEq} -->
-<!-- \end{equation} -->
-
-<!-- Where $\epsilon$ is a normally distributed random variable with mean $0$ and variance $1$, such that -->
-
-<!-- \begin{equation} -->
-<!-- \begin{split} -->
-<!-- m \Delta t &= E \left[\frac{\Delta x(T)}{x(T)} \right] \\ -->
-<!-- s^2 \Delta t &= Var \left[\frac{\Delta x(T)}{x(T)} \right] -->
-<!-- \end{split} -->
-<!-- \end{equation} -->
-
-<!-- Then -->
-
-<!-- \begin{equation} -->
-<!-- E[x(T)]\bigr|_{t = 0} = e^{m T} x(0) -->
-<!-- \label{eq:ExT} -->
-<!-- \end{equation} -->
-
-<!-- (See Hull [-@hull9thEdition] for details.) -->
 
 <!-- And the CBA criterion (inequality \ref{eq:npvIneq1}) simplifies as follows. -->
 
