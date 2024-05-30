@@ -689,43 +689,50 @@ Like Pennings and Lint, many real options authors reject the gBm model, preferri
 # Formal derivation
 <!-- # Method (Replacement of financial foundations with AR4D foundations) -->
 
-In the present setting, project NPV $x(t)$ is defined as post-R&D project net benefits discounted back to the date of release ($T$) of the research product. The time $t < T$ is the time at which project NPV is evaluated. By definition, then, $E[x(T)]\bigr|_{t} = x(t)$. Or, for any intermediate time $t < \tilde{t} < T$, $E[x(\tilde{t})]\bigr|_{t} = x(t)$.
+Project NPV $x(t)$ is defined as post-R&D project net benefits discounted back to the present time $t$. By definition, then, $x(t)$ is expected to appreciate at the discount rate. That is, the expected value of $x(t)$ at some future time $\tilde{t} > t$ is just the presently assessed value of project NPV times the inverse discount factor. This can be expressed
 
-The present value of project NPV at time $t$ is just $x(t)$ discounted back to $t$. This may be expressed $PV(x)\bigr|_{t} = e^{r \tau} x(t)$, where $r$ is the discount rate and $\tau = T - t$.
+\begin{equation}
+$E[x(\tilde{t})]_{t} = e^{r \tau} x(t)$.
+\end{equation}
+<!-- date of release ($T$) of the research product. The time $t < T$ is the time at which project NPV is evaluated. By definition, $E[y(T)]\bigr|_{t} = y(t)$. Or, for any intermediate time $t < \tilde{t} < T$, $E[y(\tilde{t})]\bigr|_{t} = x(t)$. -->
+<!-- Now we introduce another variable $x(t)$ to stand for the present value of project NPV at the time of evaluation. That is to say, $x(t) = e^{-r \tau} y(t)$, where $r$ is the discount rate and $\tau = T - t$. -->
+
+Where $r$ is the instantaneous discount rate and $\tau = \tilde{t} - t$ is the number of time steps between now ($t$) and the future time $\tilde{t}$.
 
 Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by
 
 \begin{equation}
-\Delta x = x(t) m \Delta t + x(t) s \epsilon \sqrt{\Delta t} \:\:;\:\:\: \Delta x := x(t + \Delta t) - x(t)
+\Delta x = x(t) r \Delta t + x(t) s \epsilon \sqrt{\Delta t} \:\:;\:\:\: \Delta x := x(t + \Delta t) - x(t)
 \label{eq:gbmEq}
 \end{equation}
 
-Where $\epsilon$ is a normally distributed random variable with mean $0$ and variance $1$, such that constants $m$ and $s$ quantify the trend and volatility of the time evolution, respectively.
+Where $\epsilon$ is a normally distributed random variable with mean $0$ and variance $1$, such that $r$ and $s$ quantify the trend and volatility of the time evolution, respectively.
 
 \begin{equation}
 \begin{split}
-m \Delta t &= E \left[\frac{\Delta x(T)}{x(T)} \right] \\
+r \Delta t &= E \left[\frac{\Delta x(T)}{x(T)} \right] \\
 s^2 \Delta t &= Var \left[\frac{\Delta x(T)}{x(T)} \right]
 \end{split}
 \end{equation}
 
-The mean and variance of the log change over any finite interval $\tau = \tilde{t} - t$ is given by
+In other words, $r \Delta t$ and $s^2 \Delta t$ are the mean and variance of the instantaneous arithmetic change. The mean and variance of the log change over any finite interval $\tau$ is given by
 
 \begin{equation}
 \begin{split}
-E \left[ \frac{x(\tilde{t})}{x(t)} \right]  &= \left(m - \frac{s^2}{2} \right) \tau  \\
-Var \left[ \frac{x(\tilde{t})}{x(t)} \right] &= s^2 \tau \right]
+E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]  &= \left(r - \frac{s^2}{2} \right) \tau \\
+Var \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right] &= s^2 \tau
 \end{split}
 \end{equation}
 
+(See Hull [-@hull9thEdition] for details.)
 
+By the definition of NPV, one expects the log change in NPV over any time period to be zero. This results 
 
 \begin{equation}
-E[x(T)]\bigr|_{t = 0} = e^{m T} x(0)
-\label{eq:ExT}
+E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]  = 0 \left(r - \frac{s^2}{2} \right) \tau\label{eq:ExT}
 \end{equation}
 
-(See Hull [-@hull9thEdition] for details.)
+
 
 If $x(t)$ is a gBm, then, by Ito's lemma, the evolution of a function $f(x, t)$ is described as follows.
 
