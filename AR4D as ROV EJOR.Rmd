@@ -738,6 +738,11 @@ In other words, any expected changes are already, by definition, included in the
 m = \frac{s^2}{2}
 \end{equation}
 
+The present value of $x(t)$ discounted back to the time of evaluation is $e^{-r \tau} x(t)$
+
+Let $y(t) = e^{-r \tau} x(t)$. Then $E[y(T)]\bigr|_t = e^{-(r - s^2/2) \tau} x(t)$
+
+
 This may be interpreted as risk adjusted discounting.
 
 
