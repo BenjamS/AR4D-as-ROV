@@ -689,7 +689,8 @@ Like Pennings and Lint, many real options authors reject the gBm model, preferri
 # Formal derivation
 <!-- # Method (Replacement of financial foundations with AR4D foundations) -->
 
-Project NPV $x(t)$ is defined as post-R&D project net benefits discounted back to the release of the research product at time $T$. Time $t < T$ is the time of evaluation. Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by
+<!-- Project NPV $x(t)$ is defined as all AR4D project net benefits discounted back to the present time $t$. Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by -->
+Project NPV $x(t)$ is defined as post-R&D project net benefits discounted back to the completion and release of the research product at time $T$, typically determined by ex-ante impact assessment. Time $t < T$ is the time of the assessment. Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by
 
 \begin{equation}
 \Delta x = x(t) m \Delta t + x(t) s \epsilon \sqrt{\Delta t} \:\:;\:\:\: \Delta x := x(t + \Delta t) - x(t)
@@ -705,7 +706,7 @@ s^2 \Delta t &= Var \left[\frac{\Delta x(T)}{x(T)} \right]
 \end{split}
 \end{equation}
 
-In other words, $r \Delta t$ and $s^2 \Delta t$ are the mean and variance of the instantaneous arithmetic change. The expected value of project NPV at some future time $\tilde{t}$ ($t < \tilde{t} < T$) as evaluated at time $t$ is given by
+In other words, $m \Delta t$ and $s^2 \Delta t$ are the mean and variance of the instantaneous arithmetic change. The expected value of project NPV at some future time $\tilde{t}$ ($t < \tilde{t} < T$) as evaluated at time $t$ is given by
 
 \begin{equation}
 E[x(\tilde{t})]\bigr_{t} = e^{m \tau} x(t) \:\:;\:\:\: (\tau = \tilde{t} - t)
@@ -714,23 +715,31 @@ E[x(\tilde{t})]\bigr_{t} = e^{m \tau} x(t) \:\:;\:\:\: (\tau = \tilde{t} - t)
 And the mean and variance of the log change over any finite interval $\tau$ is given by
 
 \begin{equation}
-\begin{split}
-E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]  &= \left(r - \frac{s^2}{2} \right) \tau \\
-Var \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right] &= s^2 \tau
-\end{split}
+E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\biggr|_t  = \left(m - \frac{s^2}{2} \right) \tau
+\label{eq:meanLn}
+\end{equation}
+
+\begin{equation}
+Var \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\bigrr|_t = s^2 \tau
 \end{equation}
 
 (See Hull [-@hull9thEdition] for details.)
 
-Now, by definition, $m = 0$ and $E[x(\tilde{t})]\bigr|_t = x(t)$. That is to say, the project ex-ante impact assessment is not expected to change, as all such expected changes are already, by definition, included in the assessment. This is true even if one knows there is a good possibility that future assessments will differ from the present assessment, especially as more information becomes available. The "good possibility" of future assessments differing from the present assessment is quantified in the volatility parameter $s$.
-
-The present value of $x(t)$
-
-
+Now, by definition, the log change in $x(t)$ over any finite time interval $\tau$ is expected to be zero.
 
 \begin{equation}
-E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]  = 0 \left(r - \frac{s^2}{2} \right) \tau\label{eq:ExT}
+E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\biggr|_t  = 0
 \end{equation}
+
+In other words, any expected changes are already, by definition, included in the ex-ante impact assessment. This is true even if one knows there is a good chance that future assessments will differ from the present assessment as more information becomes available after key test points in the research. (The "good chance" of future assessments differing from the present assessment is captured in the volatility parameter $s$.) By Equation \ref{eq:meanLn}, then, it follows that
+<!-- $m = r$ and $E[x(\tilde{t})]\bigr|_t = e^{r\tau} x(t)$.  Since all expected changes in project NPV are included in the ex-ante assessment of NPV, then the expected instantaneous arithmetic rate of change of project NPV is, by definition, just the discount rate $r$. -->
+
+\begin{equation}
+m = \frac{s^2}{2}
+\end{equation}
+
+This may be interpreted as risk adjusted discounting.
+
 
 
 
