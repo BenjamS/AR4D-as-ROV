@@ -709,7 +709,8 @@ s^2 \Delta t &= Var \left[\frac{\Delta x(T)}{x(T)} \right]
 In other words, $m \Delta t$ and $s^2 \Delta t$ are the mean and variance of the instantaneous arithmetic change. The expected value of project NPV at some future time $\tilde{t}$ ($t < \tilde{t} < T$) as evaluated at time $t$ is given by
 
 \begin{equation}
-E[x(\tilde{t})]\bigr_{t} = e^{m \tau} x(t) \:\:;\:\:\: (\tau = \tilde{t} - t)
+E[x(\tilde{t})]\bigr|_{t} = e^{m \tau} x(t) \:\:;\:\:\: (\tau = \tilde{t} - t)
+\label{eq:ExTt}
 \end{equation}
 
 And the mean and variance of the log change over any finite interval $\tau$ is given by
@@ -736,19 +737,38 @@ In other words, any expected changes are already, by definition, included in the
 
 \begin{equation}
 m = \frac{s^2}{2}
+\label{eq:ar4dRate}
 \end{equation}
 
-The present value of $x(t)$ discounted back to the time of evaluation is $e^{-r \tau} x(t)$
+And so, by Equation \ref{eq:ExTt}, the expected value of project NPV at the future time $\tilde{t}$, as evaluated at the present ($t$), is
 
-Let $y(t) = e^{-r \tau} x(t)$. Then $E[y(T)]\bigr|_t = e^{-(r - s^2/2) \tau} x(t)$
+\begin{equation}
+E[x(\tilde{t})]\bigr|_{t} = e^{\frac{s^2}{2} \tau} x(t)
+\end{equation}
 
+<!-- And the present value of $E[x(T)]\bigr|_{t = 0}$ is just the same multiplied by the discount factor $e^{-r\tau}$. -->
+<!-- The present value of t $x(t)$ discounted back to the time of evaluation is $e^{-r \tau} x(t)$ -->
+<!-- Let $y(t) = e^{-r \tau} x(t)$. Then $E[y(T)]\bigr|_t = e^{-(r - s^2/2) \tau} x(t)$ -->
+<!-- This may be interpreted as risk adjusted discounting. -->
 
-This may be interpreted as risk adjusted discounting.
+The ROV equation follows by evaluating Equation \ref{eq:basic} through straightforward integration.
 
+\begin{equation}
+e^{-r\tau} E[\max(x(\tilde{t}) - K, 0)]\bigr|_{t = \hat{t}} = e^{-\left(r-\frac{s^2}{2}\right) \tau} x(\hat{t}) \Phi(\delta + s \sqrt{\tau}) - e^{-r \tau} K \Phi(\delta)
+\label{eq:rov}
+\end{equation}
 
+Where
 
+\begin{equation}
+\delta = \frac{1}{s \sqrt{\tau}} \ln \left(\frac{x(\hat{t})}{K} \right)
+\end{equation}
 
-If $x(t)$ is a gBm, then, by Ito's lemma, the evolution of a function $f(x, t)$ is described as follows.
+(See Appendix for details.)
+
+## Relation to the Black Scholes derivation
+
+Because $x(t)$ is a gBm, then, By Ito's lemma, the evolution of a function $f(x, t)$ is described as follows.
 
 \begin{equation}
 \Delta f = \left( x m \frac{\partial f}{\partial x} + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t + \frac{\partial f}{\partial x} x s \epsilon \sqrt{\Delta t}
@@ -757,12 +777,96 @@ If $x(t)$ is a gBm, then, by Ito's lemma, the evolution of a function $f(x, t)$ 
 
 (See Hull [-@hull9thEdition] for details.)
 
-Black and Scholes [-@black1973valuation] famously noted that equations \ref{eq:gbmEq} and \ref{eq:itoLem} could be combined so as to eliminate the random term as follows.
+In this article, $f$ is the option value of $x$. Black and Scholes [-@black1973valuation] famously noted that equations \ref{eq:gbmEq} and \ref{eq:itoLem} could be combined so as to eliminate the random term as follows.
 
 \begin{equation}
 \Delta f - \frac{\partial f}{\partial x} \Delta x = \left(\frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t
-\label{eq:bsInsight1}
+\label{eq:bsInsight}
 \end{equation}
+
+In the financial context, the left-hand side of this equation may be thought of as the instantaneous evolution over the increment $\Delta t$ of a portfolio long one share of the financial derivative $f$ and short a quantity $\partial f / \partial x$ of the underlying security $x(t)$. This is where Black and Scholes applied their no-arbitrage argument: Since the random---i.e. risky---term has been eliminated from equation \ref{eq:bsInsight}, then the profit or loss of this portfolio over the increment $\Delta t$ must be riskless. That is, it must change at the risk free rate $r$.
+
+\begin{equation}
+\Delta f - \frac{\partial f}{\partial x} \Delta x = \left( f - \frac{\partial f}{\partial x} x \right) r \Delta t
+\label{eq:BSarb}
+\end{equation}
+
+Equating the right-hand side of this equation with the right-hand side of the previous equation, the $\Delta t$'s cancel, resulting in the Black-Scholes partial differentiation equation (PDE).
+
+\begin{equation}
+\left(f - \frac{\partial f}{\partial x} x \right) r = \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2}
+\end{equation}
+
+Black and Scholes then go on to solve this PDE for $f$ under the boundary condition $f(T) = \max(x(T) - K, 0)$, resulting in their famous expression for financial option value, stated here for convenience.
+
+\begin{equation}
+e^{-r\tau} E[\max(x(\tilde{t}) - K, 0)]\bigr|_{t = \hat{t}} = x(\hat{t}) \Phi(\delta + s \sqrt{\tau}) - e^{-r \tau} K \Phi(\delta)
+\label{eq:BSov}
+\end{equation}
+
+Where
+
+\begin{equation}
+\delta = \frac{1}{s \sqrt{\tau}} \left(\ln \left(\frac{x(\hat{t})}{K} \right) - \left(r - \frac{s^2}{2} \right) \tau \right)
+\end{equation}
+
+Note the similarity between this and the AR4D ROV expression derived in Equation \ref{eq:rov}. The two expressions are equivalent when evaluated at $r = s^2 / 2$, which implies risk adjusted discounting.
+<!-- This bears some emphasis: Risk adjusted discounting equalizes the financial and AR4D option value problems, implying that markets are irrelevant -->
+
+The AR4D ROV expression may be derived **more** Black-Scholes by replacing the logic behind Equation \ref{eq:BSarb}, which does not apply in the AR4D context, with the following logic:
+
+Since the random element has been removed in Equation \ref{eq:bsInsight}, then, by Equations \ref{eq:ar4dRate} and \ref{eq:gbmEq}, the $\Delta x$ appearing in Equation \ref{eq:bsInsight} must reduce to $s^2 / 2 x \Delta t$. Likewise, the $\Delta f$ appearing in Equation \ref{eq:bsInsight} must reduce to $r f \Delta t$. That is to say, by definition, in the absence of random shocks, AR4D ROV appreciates at the discount rate $r$. Hence, instead of Equation \ref{eq:BSarb}, we have, in the AR4D context,
+
+\begin{equation}
+\Delta f - \frac{\partial f}{\partial x} \Delta x = \left( r f - \frac{\partial f}{\partial x} \frac{s^2}{2} x \right) \Delta t
+\label{eq:ar4dInsight}
+\end{equation}
+
+Equating the right-hand side of this equation with the right-hand side of Equation \ref{eq:bsInsight}, the $\Delta t$'s cancel, resulting in the following PDE.
+
+\begin{equation}
+rf - \frac{s^2}{2} \frac{\partial f}{\partial x} x = \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2}
+\end{equation}
+
+Noting that
+
+\begin{equation}
+x^2 \frac{\partial^2 f}{\partial x^2} = \frac{\partial f}{\partial \ln(x)} - \frac{\partial^2 f}{\partial \ln(x)^2}
+\end{equation}
+
+The previous equation reduces to
+
+\begin{equation}
+\end{equation}
+
+
+\begin{equation}
+\left( x m \frac{\partial f}{\partial x} + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t
+\end{equation}
+
+respectively. Moreover, the rate at which real option value $f$ appreciates over a small time increment $\Delta t$ is, by definition, just the discount rate $r$. Therefore, 
+
+
+
+
+$m x \Delta t$. Likewise, $\Delta f$ must reduce to $r f\Delta t$, where   such that Equation ,
+
+
+
+<!-- Note also the disparity in assumptions underpinning the two results. The Black-Scholes derivation requires that $x(t)$ both follow a gBm and be interpretable as a traded security in an efficient market. Equation \ref{eq:rov}, on the other hand, requires only that $x(t)$ follow a gBm. The requirement $m = $ -->
+
+
+
+expression      Equation \ref{eq:BSarb} does not apply. Instead, 
+
+
+
+In the AR4D context, the risk free rate and no-arbitrage rule are replaced by the discount rate (also denoted by $r$), and the definition of NPV, which requires that the value of the riskless portfolio on the left-hand side of equation \ref{eq:bsInsight1} must change at the rate of $r$.
+
+
+
+
+
 
 
 <!-- By definition, then, $x(t)$ is expected to appreciate at the discount rate. That is, the expected value of $x(t)$ at some future time $\tilde{t} > t$ is just the presently assessed value of project NPV times the inverse discount factor. This can be expressed -->
@@ -801,16 +905,6 @@ E\left[ \ln\left(\frac{x(T)}{x(\hat{t})} \right) \right] = 0
 
 Given the assumption that $x(t)$ follows a gBm, this implies that $m = s^2 / 2$; and the ROV expression (Equation \ref{eq:rovRaw}) for AR4D contexts must then reduce to
 
-\begin{equation}
-e^{-r\tau} E[\max(x(T) - K, 0)]\bigr|_{t = \hat{t}} = e^{-\left(r-\frac{s^2}{2}\right) \tau} x(\hat{t}) \Phi(\delta + s \sqrt{\tau}) - e^{-\frac{s^2}{2} \tau} K \Phi(\delta)
-\label{eq:rov}
-\end{equation}
-
-Where
-
-\begin{equation}
-\delta = \frac{\ln \left(\frac{x(\hat{t})}{K} \right)}{s \sqrt{\tau}}
-\end{equation}
 
 
 
