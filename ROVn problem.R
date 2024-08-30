@@ -30,8 +30,9 @@ ROVi <- function(K_im1, f_im1, tau_i, m, s, eta_im10 = 1){
 get_dfidfim1 <- function(K_im1, f_im1, f_i, tau_i, m, s, eta_im10 = 1){
   d_i <- get_di(K_im1, f_im1, tau_i, m, s, eta_im10)
   u <- d_i + eta_im10 * s * sqrt(tau_i)
-  if(eta_im10 == 1){dEtaim10dfim1 <- 0}else{dEtaim10dfim1 <- -eta_im10 / f_i}
+  if(eta_im10 == 1){dEtaim10dfim1 <- 0}else{dEtaim10dfim1 <- -eta_im10 / f_im1}
   dfidfim1 <- pnorm(u) + dEtaim10dfim1 * s * sqrt(tau_i) * f_im1 * dnorm(u)
+  if(abs(dfidfim1) < 10^-10){dfidfim1 <- 0}
   return(dfidfim1)
 }
 ROVn <- function(X0, Kvec, tauVec, m, s){
@@ -48,6 +49,12 @@ ROVn <- function(X0, Kvec, tauVec, m, s){
     f_im1 <- f_i; eta_im10 <- eta_i0
   }
   return(data.frame(f_i = fiOut, eta_i0 = etaOut, probSuc = probSucVec))
+}
+rootROVn <- function(X0, Kvec, tauVec, mm, s, stage1Invest){
+  dfOut <- ROVn(X0, Kvec, tauVec, mm, s)
+  f_n <- dfOut$f_i[nrow(dfOut)]
+  slack <- f_n - stage1Invest
+  return(slack)
 }
 #===============================================================================
 # Define discount rate
@@ -95,19 +102,19 @@ stage1Invest <- 530000
 Kvec <- c(350000, 181000, 312000, 336000) # Last stage first
 #exp(tauVec[1] * r) * X0
 m <- r
-dfROVn <- ROVn(X0, Kvec, tauVec, m, s)
+dfROVn <- ROVn(X0 * 0.2, Kvec, tauVec, m, s)
 f_n <- dfROVn$f_i[nrow(dfROVn)]
 f_n - stage1Invest
 # NPV
 X0 - sum(exp(-r * tauVec) * Kvec) - stage1Invest
 #===============================================================================
 # "Manual" check step by step
-eta_00 <- 1; f0 <- X0
+eta_00 <- 1; f0 <- X0min
 outROVi <- ROVi(Kvec[1], f0, tauVec[1], m, s, eta_00) # Value of option to launch
 f1 <- outROVi[1]; probSuc1 <- outROVi[2]
-df1df0 <- get_dfidfim1(Kvec[1], X0, f1, tauVec[1], m, s, eta_00)
+df1df0 <- get_dfidfim1(Kvec[1], f0, f1, tauVec[1], m, s, eta_00)
 #pnorm(get_di(Kvec[1], X0, tauVec[1], m, s, eta_00) + eta_00 * s * sqrt(tauVec[1]))
-eta_10 <- X0 / f1 * df1df0 * eta_00
+eta_10 <- f0 / f1 * df1df0 * eta_00
 outROVi <- ROVi(Kvec[2], f1, tauVec[2], m, s, eta_10) # Value of option on stage 4 research
 f2 <- outROVi[1]; probSuc2 <- outROVi[2]
 df2df1 <- get_dfidfim1(Kvec[2], f1, f2, tauVec[2], m, s, eta_10)
@@ -120,15 +127,21 @@ outROVi <- ROVi(Kvec[4], f3, tauVec[4], m, s, eta_30) # Value of option on stage
 f4 <- outROVi[1]; probSuc4 <- outROVi[2]
 df4df3 <- get_dfidfim1(Kvec[4], f3, f4, tauVec[4], m, s, eta_30)
 eta_40 <- f3 / f4 * df4df3 * eta_30
-#--------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 dfROVnCheck <- data.frame(f_i = c(f1, f2, f3, f4), eta_i0 = c(eta_10, eta_20, eta_30, eta_40), probSuc = c(probSuc1, probSuc2, probSuc3, probSuc4))
 dfROVn - dfROVnCheck
 #===============================================================================
+# Find breakeven project NPV
+#rootROVn(X0 * 0.2, Kvec, tauVec, mm = r, s, stage1Invest)
+thisInt <- c(10^5, 10^8)
+outUniroot <- uniroot(rootROVn, interval = thisInt,
+                                 #lower = min(thisInt), upper = max(thisInt),
+                                 Kvec = Kvec, tauVec = tauVec,
+                                 mm = r, s = s, stage1Invest)
+X0min <- outUniroot$root
+ROVn(X0min, Kvec, tauVec, m, s)
 
-
-
-
-
+#
 
 
 
