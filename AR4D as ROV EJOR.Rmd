@@ -75,11 +75,11 @@ Agricultural research for development (AR4D) projects tend to be high reward, bu
 The notion of a real option is born of the analogous concept of a type of financial option known as the European call option [...@meyer...]. The holder of a European call option on an underlying security (a stock, for example) has the right, but not the obligation, to purchase the security for a predetermined price---called the "strike" or "exercise" price---at the end of a certain time period. Analogously, donors who "buy" a real option on an underlying project commit to funding the project for a certain time period, at the end of which they have the right, but not the obligation, to continue funding the subsequent stage of the project. In the case of research projects, for example, the subsequent stage at the end of time period $T$ might be the distribution and outscaling of a new crop variety developed during the main research stage. The value of such a real option (ROV) may be expressed mathematically as follows.
 
 \begin{equation}
-ROV = e^{-r T} E[max(x(T) - K, 0)]
+ROV = e^{-r T_0} E[max(x(T_0) - K_0, 0)]
 \label{eq:basic}
 \end{equation}
 
-Where $x(T)$ is project net present value (NPV) at the end of the time period $T$, $K$ is the cost of funding the subsequent project stage, and $r$ is the discount rate.
+Where $x(T_0)$ is project net present value (NPV) at the end of the time period $T_0$, $K_0$ is the cost of funding the subsequent project stage, and $r$ is the discount rate.
 <!-- [@trigeorgis2017real] -->
 <!-- -@trigeorgis1993real; and McGrath [-@mcgrath2000assessing] -->
 <!-- The methodological details of real option valuation can vary considerably from one applied context to another. But, generally speaking, -->
@@ -689,7 +689,7 @@ Like Pennings and Lint, many real options authors reject the gBm model, preferri
 <!-- # Method (Replacement of financial foundations with AR4D foundations) -->
 
 <!-- Project NPV $x(t)$ is defined as all AR4D project net benefits discounted back to the present time $t$. Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by -->
-Project NPV $x(t)$ is defined as post-R&D project net benefits discounted back to the completion and release of the research product at time $T$, typically determined by ex-ante impact assessment. Time $t < T$ is the time of the assessment. Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by
+Project NPV $x(t)$ is defined as post-R&D project net benefits discounted back to the completion and release of the research product at time $T_0$, typically determined by ex-ante impact assessment. Time $t < T$ is the time of the assessment. Assuming $x(t)$ follows a gBm, then its evolution $\Delta x$ over a small time increment $\Delta t$ is described by
 
 \begin{equation}
 \Delta x = x(t) m \Delta t + x(t) s \epsilon \sqrt{\Delta t} \:\:;\:\:\: \Delta x := x(t + \Delta t) - x(t)
@@ -700,27 +700,27 @@ Where $\epsilon$ is a normally distributed random variable with mean $0$ and var
 
 \begin{equation}
 \begin{split}
-m \Delta t &= E \left[\frac{\Delta x(T)}{x(T)} \right] \\
-s^2 \Delta t &= Var \left[\frac{\Delta x(T)}{x(T)} \right]
+m \Delta t &= E \left[\frac{\Delta x}{x} \right] \\
+s^2 \Delta t &= Var \left[\frac{\Delta x}{x} \right]
 \end{split}
 \end{equation}
 
-In other words, $m \Delta t$ and $s^2 \Delta t$ are the mean and variance of the instantaneous arithmetic return or growth rate. The expected value of project NPV at some future time $\tilde{t}$ ($t < \tilde{t} < T$) as evaluated at time $t$ is given by
+In other words, $m \Delta t$ and $s^2 \Delta t$ are the mean and variance of the instantaneous arithmetic return or growth rate. The expected value of project NPV at some future time $\tilde{t}$ ($t < \tilde{t}$) as evaluated at time $t$ is given by
 
 \begin{equation}
-E[x(\tilde{t})]\bigr|_{t} = e^{m \tau} x(t) \:\:;\:\:\: (\tau = \tilde{t} - t)
+E[x(\tilde{t})]\bigr|_{t < \tilde{t}} = e^{m \tau} x(t) \:\:;\:\:\: (\tau = \tilde{t} - t)
 \label{eq:ExTt}
 \end{equation}
 
 And the mean and variance of the log return over any finite interval $\tau$ is given by
 
 \begin{equation}
-E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\biggr|_t  = \left(m - \frac{s^2}{2} \right) \tau
+E \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\biggr|_{t < \tilde{t}}  = \left(m - \frac{s^2}{2} \right) \tau
 \label{eq:meanLn}
 \end{equation}
 
 \begin{equation}
-Var \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\bigrr|_t = s^2 \tau
+Var \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\bigrr|_{t < \tilde{t}} = s^2 \tau
 \end{equation}
 
 (See Hull [-@hull9thEdition] for details.)
@@ -728,6 +728,17 @@ Var \left[ \ln \left(\frac{x(\tilde{t})}{x(t)} \right) \right]\bigrr|_t = s^2 \t
 Since the calculation of project NPV already accounts for all expected changes to NPV that might occur over the time horizon, then, by definition, the expected growth rate of project NPV is just the discount rate ($m = r$). Considering the definition in Equation \ref{eq:basic}, it follows immediately that the expected growth rate of ROV is also $r$.
 
 The 1 stage ROV equation follows by evaluating Equation \ref{eq:basic} through straightforward integration.
+
+In general, for a lognormally distributed random variable $q$ and a constant $C$,
+
+\begin{equation}
+E[\max(q - C, 0)] = E[q] \Phi \left(\frac{\ln \left( \frac{E[q]}{C} \right) + \frac{\omega^2}{2}}{\omega} \right) - C \Phi \left(-\frac{\ln \left( \frac{E[q]}{C} \right) - \frac{\omega^2}{2}}{\omega} \right)
+\label{eq:genEq}
+\end{equation}
+
+(See Appendix for proof.)
+
+In the case where $q = x(T_0)$, $C = K_0$, and multiplying through by the discount factor, this becomes
 
 \begin{equation}
 e^{-r \tau} E[\max(x(\tilde{t}) - K_0, 0)]\bigr|_{t < T} = x(t) \Phi(\delta + s \sqrt{\tau}) - e^{-r \tau} K \Phi(\delta)
@@ -740,9 +751,8 @@ Where
 \delta = \frac{ \ln \left(\frac{x(\hat{t})}{K} \right) - \left(r - \frac{s^2}{2} \right) \tau} {s \sqrt{\tau}}
 \end{equation}
 
-(See Appendix for details.)
 
-## Relation to the Black Scholes derivation
+## Relation to the Black-Scholes derivation
 
 Geometric Brownian motion is a particular case of a broader category of stochastic processes known as Ito processes, defined as follows.
 
@@ -759,7 +769,7 @@ Ito's lemma states that the evolution of a function $f(x, t)$ is also an Ito pro
 \Delta f = \left( x a \frac{\partial f}{\partial x} + \frac{\partial f}{\partial t} + \frac{b^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t + \frac{\partial f}{\partial x} b \epsilon \sqrt{\Delta t}
 \end{equation}
 
-In the present case, where $x(t)$ is project NPV with $a = x r$, $b = x s$, Ito's lemma reduces to
+In the present case, where $x(t)$ is a gBm with $a = x r$, $b = x s$, Ito's lemma reduces to
 
 \begin{equation}
 \Delta f = \left( x r \frac{\partial f}{\partial x} + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} \right) \Delta t + \frac{\partial f}{\partial x} x s \epsilon \sqrt{\Delta t}
@@ -805,7 +815,7 @@ Or, rearranging,
 fr = \frac{\partial f}{\partial x} x r + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2}
 \end{equation}
 
-Black and Scholes then go on to solve this PDE for $f$ under the boundary condition $f(T) = \max(x(T) - K, 0)$, resulting in the same expression obtained above in Equation \ref{eq:rov}.
+Black and Scholes then go on to solve this PDE for $f$ under the boundary condition $f(T) = \max(x(T) - K, 0)$, resulting in the same expression obtained above in Equation \ref{eq:rov}. (See Appendix for details.)
 
 <!-- \begin{equation} -->
 <!-- e^{-r\tau} E[\max(x(\tilde{t}) - K, 0)]\bigr|_{t = \hat{t}} = x(\hat{t}) \Phi(\delta + s \sqrt{\tau}) - e^{-r \tau} K \Phi(\delta) -->
@@ -822,63 +832,67 @@ Black and Scholes then go on to solve this PDE for $f$ under the boundary condit
 <!-- <!-- This bears some emphasis: Risk adjusted discounting equalizes the financial and AR4D option value problems, implying that markets are irrelevant -->
 <!-- The same PDE is obtained if the expected growth rates of $f$ and $x$ are both $r \Delta t$ (as is the case in the AR4D context, where $r$ is the discount rate). This is why the Black-Scholes no arbitrage argument implies risk neutral valuation in financial contexts, where $r$ is the risk-free rate of return. -->
 
-The ROV expression may also be derived from Ito's lemma using logic that is suitable to the AR4D context. Instead of the no-arbitrage logic behind Equation \ref{eq:BSarb}, which does not apply in the AR4D context, one merely observes that the expected growth rate of both project NPV ($x$) and ROV ($f$) is, by definition, $r \Delta t$ (as mentioned in the previous section). Making the relevant substitutions in Equation \ref{eq:Ef1} results in the Black-Scholes PDE.
+The ROV expression may also be derived from Ito's lemma using logic that is suitable to the AR4D context. Instead of 
 
-Note that since the expected growth rate of ROV is $r\Delta t$, the evolution $\Delta f$ defined in Equation \ref{eq:itoLem} may be rewritten
+It is possible to obtain the Black-Scholes PDE by replacing the no-arbitrage logic behind Equation \ref{eq:BSarb} with logic that is suitable to the AR4D context. As mentioned in the previous section, in the AR4D context the expected growth rate of both project NPV ($x$) and ROV ($f$) is, by definition, $r \Delta t$. Making the relevant substitutions in Equation \ref{eq:Ef1} results in the Black-Scholes PDE.
+
+In preparation for the extension to multi-stage projects, note that since the expected growth rate of ROV is $r\Delta t$, the evolution $\Delta f$ defined in Equation \ref{eq:itoLem} may be rewritten
 
 \begin{equation}
-\Delta f = f r \Delta t + f \eta_{10} s \epsilon \sqrt{\Delta t}
+\Delta f = f r \Delta t + f \eta_{1,0} s \epsilon \sqrt{\Delta t}
 \end{equation}
 
-Where the shorthand $\eta_{10} = \frac{x}{f} \frac{\partial f}{\partial x}$ has been introduced.
+Where the shorthand $\eta_{1,0} = \frac{x}{f} \frac{\partial f}{\partial x}$ has been introduced.
 
 While the Ito calculus is not necessary for the derivation of the ROV functional form, it is instructive because it demonstrates that ROV itself follows an Ito process, and is thus lognormally distributed with log return mean and variance
 
 \begin{equation}
-E\left[\frac{\Delta f(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t}} = \left(r - \eta_{10}^2 \frac{s^2}{2} \right) \tau
+E\left[\frac{\Delta f(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t}} = \left(r - \eta_{1,0}^2 \frac{s^2}{2} \right) \tau
 \end{equation}
 
 \begin{equation}
-Var\left[\frac{\Delta f(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t}} = \eta_{10}^2 s^2 \tau
+Var\left[\frac{\Delta f(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t}} = \eta_{1,0}^2 s^2 \tau
 \end{equation}
+
+Which is very useful when extending ROV to multi-stage projects.
 
 ## Extension to multi-stage ROV
 
-Because $f$ is itself lognormally distributed, the same formula used to evaluate the ROV of $x(T)$ (Equation \ref{eq:rov}) can be used to evaluate the ROV of $f(T_1)$, where $T_1 < T$ is the time when the investor must decide whether or not to invest in the last stage of research. That is to say, letting $g(f, t)$ denote the ROV of $f(T_1)$, then 
+Because $f$ is itself lognormally distributed, the same formula used to evaluate the ROV of $x(T_0)$ (Equation \ref{eq:genEq}) can be used to evaluate the ROV of $f(T_1)$, where $T_1 < T_0$ is the time when the investor must decide whether or not to invest in the last stage of research. That is to say, letting $g(f, t)$ denote the ROV of $f(T_1)$, then 
 
 \begin{equation}
-g(f, t) = e^{-r \tau_g} E[\max(f(T_1) - K_1, 0)]\bigr|_{t < T_1} = f(t) \Phi(\delta_g + \eta_{10} s \sqrt{\tau_g}) - e^{-r \tau_g} K_1 \Phi(\delta_g)
+g(f, t) = e^{-r \tau_1} E[\max(f(T_1) - K_1, 0)]\bigr|_{t < T_1} = f(t) \Phi(\delta_1 + \eta_{1,0} s \sqrt{\tau_1}) - e^{-r \tau_1} K_1 \Phi(\delta_1)
 \label{eq:rov2stage}
 \end{equation}
 
-Where $K_1$ is the research investment required at time $T_1$, $\tau_g = T_1 - t$, and
+Where $K_1$ is the research investment required at time $T_1$, $\tau_1 = T_1 - t$, and
 
 \begin{equation}
-\delta_g = \frac{ \ln \left(\frac{f(t)}{K_1} \right) - \left(r - \eta_{10}^2 \frac{s^2}{2} \right) \tau_g} {\eta_{10} s \sqrt{\tau_g}}
+\delta_1 = \frac{ \ln \left(\frac{f(t)}{K_1} \right) - \left(r - \eta_{10}^2 \frac{s^2}{2} \right) \tau_g} {\eta_{1,0} s \sqrt{\tau_g}}
 \end{equation}
 
 Moreover, because $f$ is an Ito process and $g$ is a function of $f$, then by Ito's lemma, $g$ is also an Ito process,
 
 \begin{equation}
-\Delta g = \left( x r \frac{\partial g}{\partial f} + \frac{\partial g}{\partial t} + \frac{s^2 f^2}{2} \frac{\partial^2 g}{\partial f^2} \right) \Delta t + \frac{\partial g}{\partial f} f s \epsilon \sqrt{\Delta t}
+\Delta g = \left( x r \frac{\partial g}{\partial f} + \frac{\partial g}{\partial t} + \frac{s^2 f^2}{2} \frac{\partial^2 g}{\partial f^2} \right) \Delta t + \frac{\partial g}{\partial f} f \eta_{1,0} s \epsilon \sqrt{\Delta t}
 \label{eq:itoLem}
 \end{equation}
 
 With expected growth rate and growth rate variance
 
 \begin{equation}
-E\left[ \frac{\Delta g}{g} \right] = \frac{1}{g} \left( f r \frac{\partial g}{\partial f} + \frac{\partial g}{\partial t} + \eta_{10}^2 \frac{s^2}{2} x^2 \frac{\partial^2 g}{\partial f^2} \right) \Delta t
+E\left[ \frac{\Delta g}{g} \right] = \frac{1}{g} \left( f r \frac{\partial g}{\partial f} + \frac{\partial g}{\partial t} + \eta_{1,0}^2 \frac{s^2}{2} x^2 \frac{\partial^2 g}{\partial f^2} \right) \Delta t
 \label{eq:Ef2}
 \end{equation}
 
 \begin{equation}
-Var\left[ \frac{\Delta g}{g} \right] = \eta_{20}^2 s^2 \Delta t \:\:;\:\:\: \eta_{20} = \frac{\partial g}{\partial f} \frac{\partial f}{\partial x} f x
+Var\left[ \frac{\Delta g}{g} \right] = \eta_{2,0}^2 s^2 \Delta t \:\:;\:\:\: \eta_{2,0} = \frac{f}{g} \frac{\partial g}{\partial f} \eta_{1, 0}
 \end{equation}
 
 Because the expected growth rate of $f$ is $r \Delta t$, then so must be the expected growth rate of $g$, such that Equation \ref{eq:Ef2} may be set equal to $r \Delta t$, resulting in a Black-Scholes PDE for $g$.
 
 \begin{equation}
-rg = f r \frac{\partial g}{\partial f} + \frac{\partial g}{\partial t} + \eta_{10}^2 \frac{s^2}{2} x^2 \frac{\partial^2 g}{\partial f^2}
+rg = f r \frac{\partial g}{\partial f} + \frac{\partial g}{\partial t} + \eta_{1,0}^2 \frac{s^2}{2} x^2 \frac{\partial^2 g}{\partial f^2}
 \end{equation}
 
 Which may then be solved for $g$ under the boundary condition $g(T_1) = \max(f(T_1) - K_1, 0)$ as another way of obtaining Equation \ref{eq:rov2stage}.
@@ -886,11 +900,11 @@ Which may then be solved for $g$ under the boundary condition $g(T_1) = \max(f(T
 It follows, moreover, that $g$ is lognormally distributed with log return mean and variance
 
 \begin{equation}
-E\left[\frac{\Delta g(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t} \leq T_1} = \left(r - \eta_{20}^2 \frac{s^2}{2} \right) \tau_2
+E\left[\frac{\Delta g(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t} \leq T_1} = \left(r - \eta_{2,0}^2 \frac{s^2}{2} \right) \tau_2
 \end{equation}
 
 \begin{equation}
-Var\left[\frac{\Delta f(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t} \leq T_1} = \eta_{20}^2 s^2 \tau_2
+Var\left[\frac{\Delta f(\tilde{t})}{f(t)} \right]\bigr|_{t < \tilde{t} \leq T_1} = \eta_{2,0}^2 s^2 \tau_2
 \end{equation}
 
 Such that the same process can be repeated for a function $h(g, t)$ to obtain the ROV of $g(T_2)$, where $T_2$ is the time when the investor must decide whether or not to invest in the penultimate stage of research.
@@ -984,6 +998,245 @@ Where $K_{i - 1}$ is the investment required at time $T_{i - 1}$, $\tau_i = T_{i
 <!-- \end{equation} -->
 
 <!-- Given the assumption that $x(t)$ follows a gBm, this implies that $m = s^2 / 2$; and the ROV expression (Equation \ref{eq:rovRaw}) for AR4D contexts must then reduce to -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\appendix
+\renewcommand{\thesection}{A}
+
+# Appendix {-}
+
+## Proof of equation \ref{eq:genEq} through straightforward integration {-}
+
+<!-- Lemma: -->
+
+<!-- If $v(t)$ follows a geometric Brownian motion; that is to say, if the instantaneous evolution of $v(t)$ over time can be expressed -->
+
+<!-- \begin{equation} -->
+<!-- \Delta v = \alpha v \Delta t + \beta v \epsilon \sqrt{\Delta t} \:\:;\:\:\: \Delta v = v(t + \Delta t) - v(t) -->
+<!-- \label{eq:deltaV} -->
+<!-- \end{equation} -->
+
+<!-- Where $\epsilon$ is a normally distributed random variable with mean $0$ and variance $1$, and $\alpha$ and $\beta$ are constant with respect to the instantaneous time increment $\Delta t$, such that -->
+
+<!-- \begin{equation} -->
+<!-- \frac{\Delta v}{v} ~ \phi(\alpha \Delta t, \beta^2 \Delta t) -->
+<!-- \end{equation} -->
+
+<!-- Where $\phi()$ is the standard normal probability density function; and hence -->
+
+<!-- \begin{equation} -->
+<!-- v(T) = v(\hat{t}) e^{(\alpha - \beta^2 / 2) \tau + \beta \epsilon \sqrt{\tau}} -->
+<!-- \label{eq:defVt} -->
+<!-- \end{equation} -->
+
+<!-- Where $T$ is some future time step, $\hat{t} < T$ is the time step at which $v(T)$ is evaluated, and $\tau = T - \hat{t}$. (See Hull [@hull9thEdition] for details.) Then, for a constant C, -->
+<!-- <!-- , such that --> 
+<!-- <!-- \begin{equation} --> 
+<!-- <!-- \ln \left(\frac{v(T)}{v(\hat{t})} \right) ~ \phi \left(\left(\alpha - \frac{\beta^2}{2} \right) \tau, \beta^2 \tau \right) -->
+<!-- <!-- \end{equation} -->
+
+<!-- \begin{equation} -->
+<!-- E[max(v(T) - C, 0)]\bigr|_{t = \hat{t}} = e^{\alpha \tau} v(\hat{t}) \Phi(\delta + \beta \sqrt{\tau}) - C \Phi(\delta) -->
+<!-- \end{equation} -->
+
+<!-- Where $\Phi()$ is the standard normal cumulative distribution function, and -->
+
+<!-- \begin{equation} -->
+<!-- \delta = \frac{\ln(v(\hat{t}) / C) + (\alpha - \beta^2 / 2) \tau}{\beta \sqrt{\tau}} -->
+<!-- \end{equation} -->
+
+<!-- Proof: -->
+
+(The proof below closely follows that of Hull in the appendix to chapter 13 of his book [-@hull9thEdition]. It is presented here solely for the reader's convenience, with no claim to originality.)
+<!-- _Part 1_ -->
+
+By definition, for a random variable $q$ and a constant $C$,
+
+\begin{equation}
+E[\max(q - C, 0)] = \int_{C}^{\infty} (q - C) p(q) \: dq
+\label{eq:def}
+\end{equation}
+
+Where $p(q)$ is the probability density function of the random variable $q$. If $\ln(q)$ is normally distributed with mean $\nu$ and variance $\omega^2$, then
+
+\begin{equation}
+E[q] = e^{\nu + \frac{\omega^2}{2}}
+\label{eq:muXT}
+\end{equation}
+
+and
+
+\begin{equation}
+p(q) = \frac{1}{q \omega} \phi \left(\frac{\ln(q) - \nu}{\omega} \right)
+\end{equation}
+
+Where $\phi()$ is the standard normal probability density function.
+
+Now, introducing a change of variables,
+
+\begin{equation}
+u = \frac{\ln(q) - \nu}{\omega}
+\label{eq:subThis1}
+\end{equation}
+
+Such that
+
+\begin{equation}
+\frac{du}{d q} = \frac{1}{q \omega}\: \rightarrow \: d q = q \omega du
+\label{eq:subThis2}
+\end{equation}
+
+The definition in equation \ref{eq:def} can be rewritten as follows.
+
+\begin{equation}
+\begin{split}
+E[\max(q - C, 0)] &= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} (e^{u \omega + \nu} - C) \phi(u) \: du \\
+&= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du - C \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u) \: du \\
+&= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du - C \Phi \left(-\frac{\ln(C) - \nu}{\omega} \right)
+\end{split}
+\end{equation}
+
+The remaining integral on the right-hand side of the definition resolves as follows.
+
+\begin{equation}
+\begin{split}
+\int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du &= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu -\frac{u^2}{2}} \: du \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-1 / 2 (u^2 - 2 u \omega - 2 \nu)} \: du \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2} + \nu + \frac{\omega^2}{2}} \: du \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} e^{\nu + \frac{\omega^2}{2}} \: du \\
+&= e^{\nu + \frac{\omega^2}{2}} \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
+&= \frac{E[q]}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
+&= \frac{E[q]} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u - \omega) \: du \\
+&= \frac{E[q]} \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right)
+\end{split}
+\end{equation}
+
+The definition may now be rewritten as follows.
+
+\begin{equation}
+E[\max(q - C, 0)] = E[q] \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right) - C \Phi \left(-\frac{\ln(C) - \nu}{\omega} \right)
+\end{equation}
+
+Note that \ref{eq:muXT} can be rearranged into an expression for $\nu$.
+
+\begin{equation}
+\nu = \ln(E[q]) - \omega^2 / 2
+\end{equation}
+
+Substituting this for $\nu$ in the definition gives
+
+\begin{equation}
+E[\max(q - C, 0)] = E[q] \Phi \left(\frac{\ln \left( \frac{E[q]}{C} \right) + \frac{\omega^2}{2}}{\omega} \right) - C \Phi \left(-\frac{\ln \left( \frac{E[q]}{C} \right) - \frac{\omega^2}{2}}{\omega} \right)
+\end{equation}
+
+$\blacksquare$
+
+## Derivation of Equation \ref{eq:rov} from the Black-Scholes PDE {-}
+
+Starting from the Black-Scholes PDE,
+
+\begin{equation}
+fr = \frac{\partial f}{\partial x} x r + \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2}
+\end{equation}
+
+Note that
+
+\begin{equation}
+x^2 \frac{\partial^2 f}{\partial x^2} = \frac{\partial^2f}{\partial \ln(x)^2} - \frac{\partial f}{\partial \ln(x)}
+\end{equation}
+
+Such that the PDE may be rewritten
+
+\begin{equation}
+fr = \frac{\partial f}{\partial \ln(x)} \left(r - \frac{s^2}{2} \right) + \frac{\partial f}{\partial t} + \frac{s^2}{2} \frac{\partial^2f}{\partial \ln(x)^2}
+\end{equation}
+
+Defining $f = e^{-r \tau} y$ and substituting this in for $f$,
+
+\begin{equation}
+0 = \frac{\partial y}{\partial \ln(x)} \left(r - \frac{s^2}{2} \right) + \frac{\partial y}{\partial t} + \frac{s^2}{2} \frac{\partial^2 y}{\partial \ln(x)^2}
+\end{equation}
+
+Substituting $T - \tau$ for $t$ and expressing the equation in terms of a new function $v(u, \tau)$, where $u = \ln(x) + (r - s^2 / 2) \tau$,
+
+\begin{equation}
+0 = \frac{s^2}{2} \frac{\partial^2 v}{\partial u^2} - \frac{\partial v}{\partial t}
+\end{equation}
+
+This is the one dimensional heat equation, with fundamental solution
+
+\begin{equation}
+v(u, \tau) = \frac{1}{\sqrt{2 \pi s^2 \tau}} \int_{-\infty}^{\infty} v(\ell, 0) e^{-\frac{(u - \ell)^2}{2 s^2}} \:d \ell
+\end{equation}
+
+The boundary condition in this case is $f(x, T) = \max(X(T) - K, 0)$, which in terms of $v(u, \tau)$ is $v(u, 0) = \max(e^u - K, 0)$.
+
+\begin{equation}
+\begin{split}
+v(u, \tau) &= \frac{1}{s \sqrt{2 \pi \tau}} \int_{\ln(K)}^{\infty} (e^{\ell} - K) e^{-\frac{(u - \ell)^2}{2 s^2}} \: d \ell \\
+&= \frac{1}{s \sqrt{2 \pi \tau}} \int_{\ln(K)}^{\infty} e^{\ell - \frac{(u - \ell)^2}{2 s^2}} \:d \ell - \frac{K}{s \sqrt{2 \pi \tau}} \int_{\ln(K)}^{\infty} e^{-\frac{(u - \ell)^2}{2 s^2 \tau}} \:d \ell
+\end{split}
+\end{equation}
+
+Introducing the substitution
+
+\begin{equation}
+\begin{split}
+z &= \frac{\ell - u}{s\sqrt{\tau}} \\
+&\rightarrow \: s\sqrt{\tau} dz = d \ell
+\end{equation}
+
+The integral simplifies to
+
+\begin{equation}
+\begin{split}
+v(u, \tau) &= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(K) - u}{s \sqrt{\tau}}}^{\infty} e^{z s \sqrt{\tau} + u - \frac{z^2}{2}} \:dz - \frac{K}{\sqrt{2 \pi}} \int_{\frac{\ln(K) - u}{s \sqrt{\tau}}}^{\infty} e^{-\frac{z^2}{2}} \:d z \\
+&= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(K) - u}{s \sqrt{\tau}}}^{\infty} e^{- \frac{-(z - s \sqrt{\tau})^2}{2} + u + \frac{s^2 \tau}{2}} \:d z - \Phi \left(- \frac{\ln(K) - u}{s \sqrt{\tau}} \right) \\
+&= e^{u + \frac{s^2 \tau}{2}} \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(K) - u}{s \sqrt{\tau}}}^{\infty}  e^{- \frac{-(z - s \sqrt{\tau})^2}{2}} \: dz - \Phi \left(- \frac{\ln(K) - u}{s \sqrt{\tau}} \right) \\
+&= e^{u + \frac{s^2 \tau}{2}} \Phi \left( \frac{-\ln(K) - u}{s \sqrt{\tau}} + s \sqrt{\tau} \right)
+\end{split}
+\end{equation}
+
+Expressing everything once more in terms of $y(x, \tau)$, this reduces to
+
+\begin{equation}
+y(x, \tau) = x(t) e^{r \tau} \Phi(\delta + s \sqrt{\tau}) - K \Phi(\delta)
+\end{equation}
+
+Where
+
+\begin{equation}
+\delta = \frac{\ln \left( \frac{X(t)}{K} \right) + \left(r - \frac{s^2}{2} \right) \tau}{s \sqrt{\tau}}
+\end{equation}
+
+And multiplying through by the discount factor gives the expression for $f(x, \tau)$.
+
+\begin{equation}
+f(x, \tau) = x(t) \Phi(\delta + s \sqrt{\tau}) -  e^{-r \tau} K \Phi(\delta)
+\end{equation}
+
+$\blacksquare$
+
+
+
+
+
+
+
 
 
 
@@ -2484,136 +2737,6 @@ For purposes of exposition, I have focused here on the valuation of transgenic p
 <!-- \usepackage{etoolbox} -->
 <!-- \appto\appendix{\counterwithin{equation}{section}} -->
 
-\appendix
-\renewcommand{\thesection}{A}
-
-# Appendix {-}
-
-## Proof of equation \ref{eq:part1} through straightforward integration {-}
-
-<!-- Lemma: -->
-
-<!-- If $v(t)$ follows a geometric Brownian motion; that is to say, if the instantaneous evolution of $v(t)$ over time can be expressed -->
-
-<!-- \begin{equation} -->
-<!-- \Delta v = \alpha v \Delta t + \beta v \epsilon \sqrt{\Delta t} \:\:;\:\:\: \Delta v = v(t + \Delta t) - v(t) -->
-<!-- \label{eq:deltaV} -->
-<!-- \end{equation} -->
-
-<!-- Where $\epsilon$ is a normally distributed random variable with mean $0$ and variance $1$, and $\alpha$ and $\beta$ are constant with respect to the instantaneous time increment $\Delta t$, such that -->
-
-<!-- \begin{equation} -->
-<!-- \frac{\Delta v}{v} ~ \phi(\alpha \Delta t, \beta^2 \Delta t) -->
-<!-- \end{equation} -->
-
-<!-- Where $\phi()$ is the standard normal probability density function; and hence -->
-
-<!-- \begin{equation} -->
-<!-- v(T) = v(\hat{t}) e^{(\alpha - \beta^2 / 2) \tau + \beta \epsilon \sqrt{\tau}} -->
-<!-- \label{eq:defVt} -->
-<!-- \end{equation} -->
-
-<!-- Where $T$ is some future time step, $\hat{t} < T$ is the time step at which $v(T)$ is evaluated, and $\tau = T - \hat{t}$. (See Hull [@hull9thEdition] for details.) Then, for a constant C, -->
-<!-- <!-- , such that --> 
-<!-- <!-- \begin{equation} --> 
-<!-- <!-- \ln \left(\frac{v(T)}{v(\hat{t})} \right) ~ \phi \left(\left(\alpha - \frac{\beta^2}{2} \right) \tau, \beta^2 \tau \right) -->
-<!-- <!-- \end{equation} -->
-
-<!-- \begin{equation} -->
-<!-- E[max(v(T) - C, 0)]\bigr|_{t = \hat{t}} = e^{\alpha \tau} v(\hat{t}) \Phi(\delta + \beta \sqrt{\tau}) - C \Phi(\delta) -->
-<!-- \end{equation} -->
-
-<!-- Where $\Phi()$ is the standard normal cumulative distribution function, and -->
-
-<!-- \begin{equation} -->
-<!-- \delta = \frac{\ln(v(\hat{t}) / C) + (\alpha - \beta^2 / 2) \tau}{\beta \sqrt{\tau}} -->
-<!-- \end{equation} -->
-
-<!-- Proof: -->
-
-(The proof below closely follows that of Hull in the appendix to chapter 13 of his book [-@hull9thEdition]. It is presented here solely for the reader's convenience, with no claim to originality.)
-<!-- _Part 1_ -->
-
-By definition, for a random variable $q$ and a constant $C$,
-
-\begin{equation}
-E[\max(q - C, 0)] = \int_{C}^{\infty} (q - C) p(q) \: dq
-\label{eq:def}
-\end{equation}
-
-Where $p(q)$ is the probability density function of the random variable $q$. If $\ln(q)$ is normally distributed with mean $\nu$ and variance $\omega^2$, then
-
-\begin{equation}
-E[q] = e^{\nu + \frac{\omega^2}{2}}
-\label{eq:muXT}
-\end{equation}
-
-and
-
-\begin{equation}
-p(q) = \frac{1}{q \omega} \phi \left(\frac{\ln(q) - \nu}{\omega} \right)
-\end{equation}
-
-Where $\phi()$ is the standard normal probability density function.
-
-Now, introducing a change of variables,
-
-\begin{equation}
-u = \frac{\ln(q) - \nu}{\omega}
-\label{eq:subThis1}
-\end{equation}
-
-Such that
-
-\begin{equation}
-\frac{du}{d q} = \frac{1}{q \omega}\: \rightarrow \: d q = q \omega du
-\label{eq:subThis2}
-\end{equation}
-
-The definition in equation \ref{eq:def} can be rewritten as follows.
-
-\begin{equation}
-\begin{split}
-E[\max(q - C, 0)] &= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} (e^{u \omega + \nu} - C) \phi(u) \: du \\
-&= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du - C \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u) \: du \\
-&= \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du - C \Phi \left(-\frac{\ln(C) - \nu}{\omega} \right)
-\end{split}
-\end{equation}
-
-The remaining integral on the right-hand side of the definition resolves as follows.
-
-\begin{equation}
-\begin{split}
-\int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu} \phi(u) \: du &= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{u \omega + \nu -\frac{u^2}{2}} \: du \\
-&= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-1 / 2 (u^2 - 2 u \omega - 2 \nu)} \: du \\
-&= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2} + \nu + \frac{\omega^2}{2}} \: du \\
-&= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} e^{\nu + \frac{\omega^2}{2}} \: du \\
-&= e^{\nu + \frac{\omega^2}{2}} \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
-&= \frac{E[q]}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
-&= \frac{E[q]} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u - \omega) \: du \\
-&= \frac{E[q]} \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right)
-\end{split}
-\end{equation}
-
-The definition may now be rewritten as follows.
-
-\begin{equation}
-E[\max(q - C, 0)] = E[q] \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right) - C \Phi \left(-\frac{\ln(C) - \nu}{\omega} \right)
-\end{equation}
-
-Note that \ref{eq:muXT} can be rearranged into an expression for $\nu$.
-
-\begin{equation}
-\nu = \ln(E[q]) - \omega^2 / 2
-\end{equation}
-
-Substituting this for $\nu$ in the definition gives
-
-\begin{equation}
-E[\max(q - C, 0)] = E[q] \Phi \left(\frac{\ln \left( \frac{E[q]}{C} \right) + \frac{\omega^2}{2}}{\omega} \right) - C \Phi \left(-\frac{\ln \left( \frac{E[q]}{C} \right) - \frac{\omega^2}{2}}{\omega} \right)
-\end{equation}
-
-$\blacksquare$
 
 <!-- \label{eq:part1} -->
 
