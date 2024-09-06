@@ -972,14 +972,6 @@ The LBr potato project is structured in four consecutive stages. These stages an
 <!-- structure described in section \ref{sec:resStages}. The costs and time duration associated with each stage are summarized in Table 1,  -->
 <!-- Costs are assessed as the sum of staff costs, direct operating costs (including lab bench costs), indirect operating costs (overhead), external contract costs, and stewardship costs. -->
 
-The donor, USAID, originally awarded the LBr potato research contract to Cornell University in 2010, with planned release in India. However, stage 1 research and development at Cornell was unsuccessful. In 2015, USAID transferred the contract to Michigan State University (MSU), which proposed a different stage 1 research strategy, with planned release in Bangladesh and Indonesia instead of India. India was dropped as a target country partly because of the vigorous anti-GM lobby there, which made stage 4 success unlikely. MSU completed stage 1 successfully in 2019, and USAID has recently awarded them a new contract for stage 2 research and development.
-<!-- USAID-ABSP II program -->
-<!-- The project occurred in 4 distinct stages: 1) Late Blight resistant (LBr) event production and selection, 2) Wide area testing, 3) Compilation of the regulatory dossier, and 4) Registration and regulatory affairs. -->
-<!-- In stage 1, the lead gene construct was developed in a target potato variety, and a small number of transgenic events exhibiting high resistance to Late Blight, as well as a number of other qualities (absence of backbone vector sequences, minimum number copy number of R genes, etc.) were screened from a large number of explants. -->
-<!-- In stage 2, the transgenic events selected in stage 1 were cultivated in three distinct locations and three distinct seasons to assess environmental effects on the LBr trait, and vice versa. Any impacts of LBr on other key traits such as yield, maturation time, taste, and so forth, were also assessed. --><!-- In stage 3, the regulatory dossier was compiled for submission to the National Competent Authority in the country where the LBr potato was to be released. The dossier included compositional and safety assessments, as well as the environmental assessments of the previous stage. -->
-<!-- In stage 4, the regulatory dossier was defended and amended before the National Competent Authorty in the target country. This stage may involve a variety of activities, including public advocacy, lobbying, and submission of additional information. -->
-<!-- For details see Schiek et al. [@]. -->
-
 ```{r, echo = FALSE}
 # Define functions
 #----------------------------------------------------------------------------
@@ -1082,60 +1074,319 @@ df_table %>%
 
 ```
 
-In real options language, USAID bought an option on stage 2 LBr potato research when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then effectively bought a second option on stage 2 research when it transferred the contract to MSU. This has expired in the money, triggering investment in stage 2 research. The investment in stage 2 research is effectively an option on stage 3. 
+The donor, USAID, originally awarded the LBr potato research contract to Cornell University in 2010, with planned release in India. However, stage 1 research and development at Cornell was unsuccessful. In 2015, USAID transferred the contract to Michigan State University (MSU), which proposed a different stage 1 research strategy, with planned release in Bangladesh and Indonesia instead of India. India was dropped as a target country partly because of the vigorous anti-GM lobby there, which made stage 4 success unlikely. MSU completed stage 1 successfully in 2019, and a couple years later USAID awarded them a new contract for stage 2 research and development.
+<!-- and extended the list of countries targeted for release of LBr potato to include Kenya and Nigeria. The evolution of LBr project NPV may thus be characterized as a handful of substantive changes, due to unexpected shifts in research and non-research related factors, interspersed by a much larger number of negligibly small changes. At the time of writing, stage 2 research is successfully nearing completion [pers correspondence]. -->
 
-In the present exercise, we calculate the ROV of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 once stage 1 is complete. The exercise is conducted from the donor's perspective in the months prior to the "go/no-go" investment decision.
+In real options language, USAID bought an option on stage 2 LBr potato research when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then again bought an option on stage 2 research when it transferred the contract to MSU. This time, the option expired in the money, triggering investment in stage 2 research. The investment in stage 2 research is an option on stage 3.
+<!-- , and is now approaching expiry in the money. -->
 
-In order to make the calculation, we require the research stage and final launch costs $K_0, K_1, \dots, K_4$ and time horizons $T_0, T_1, \dots, T_4$ listed in Table x, as well as the project NPV, $x(0)$, the project NPV volatility $s$, and the quarterly discount rate $r$. USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. A high discount rate is reasonable considering the long time horizon and high uncertainty surrounding project NPV, and considering that any alternative use of USAID funds would entail similar levels of elevated risk. We adopt USAID's annual discount rate for the present exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation.
-<!-- Others argue for a much lower rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing]. Low discounting based on the opportunity cost of capital   In the present exercise, we err on the side of high discounting, reflecting the donor's mandate -->
+In the present exercise, we calculate the ROV of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 once stage 1 is complete. The exercise is conducted from the donor's perspective in the months prior to the "go/no-go" stage 1 investment decision.
 
-No ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet been published. For the pedagogical purposes of this exercise, we assume a net benefit projection such as that in Figure...
-
-
-
-say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating net benefits on the order of tens of millions of dollars per year, but that the long time horizon and high discounting results in an LBr project NPV of $x(0)=\$`r x0 * 10^-6`$ million. Moreover, the study reports a high degree of uncertainty ranging from `r 100 * yMinA` $\%$ to `r 100 * yMaxA`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ is deduced as `r s` following the method explained in section \ref{sec:volEst}.
-
-
-```{r, echo = FALSE}
-
+```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:netBens}", echo = FALSE}
+# Define functions
+get_di <- function(K_im1, f_im1, tau_i, m, s, eta_im10 = 1){
+  d_i <- (log(f_im1 / K_im1) + (m - eta_im10^2 * s^2 / 2) * tau_i) / (s * eta_im10 * sqrt(tau_i))
+  return(d_i)
+}
+ROVi <- function(K_im1, f_im1, tau_i, m, s, eta_im10 = 1){
+  d_i <- get_di(K_im1, f_im1, tau_i, m, s, eta_im10)
+  u <- d_i + eta_im10 * s * sqrt(tau_i)
+  rov <- f_im1 * pnorm(u) - exp(-r * tau_i) * K_im1 * pnorm(d_i)
+  probSuc <- pnorm(d_i)
+  return(c(rov, probSuc))
+}
+get_dfidfim1 <- function(K_im1, f_im1, f_i, tau_i, m, s, eta_im10 = 1){
+  d_i <- get_di(K_im1, f_im1, tau_i, m, s, eta_im10)
+  u <- d_i + eta_im10 * s * sqrt(tau_i)
+  if(eta_im10 == 1){dEtaim10dfim1 <- 0}else{dEtaim10dfim1 <- -eta_im10 / f_im1}
+  dfidfim1 <- pnorm(u) + dEtaim10dfim1 * s * sqrt(tau_i) * f_im1 * dnorm(u)
+  if(abs(dfidfim1) < 10^-10){dfidfim1 <- 0}
+  return(dfidfim1)
+}
+ROVn <- function(X0, Kvec, tauVec, m, s){
+  f_im1 <- X0; eta_im10 <- 1
+  n <- length(Kvec)
+  fiOut <- c(); etaOut <- c(); probSucVec <- c()
+  for(i in 1:n){
+    tau_i <- tauVec[i]; K_im1 <- Kvec[i]
+    outROVi <- ROVi(K_im1, f_im1, tau_i, m, s, eta_im10)
+    f_i  <- outROVi[1]; probSuc <- outROVi[2]
+    dfidfim1 <- get_dfidfim1(K_im1, f_im1, f_i, tau_i, m, s, eta_im10)
+    eta_i0 <- f_im1 / f_i * dfidfim1 * eta_im10
+    fiOut[i] <- f_i; etaOut[i] <- eta_i0; probSucVec[i] <- probSuc
+    f_im1 <- f_i; eta_im10 <- eta_i0
+  }
+  return(data.frame(f_i = fiOut, eta_i0 = etaOut, probSuc = probSucVec))
+}
+rootROVn <- function(X0, Kvec, tauVec, mm, s, stage1Invest){
+  dfOut <- ROVn(X0, Kvec, tauVec, mm, s)
+  f_n <- dfOut$f_i[nrow(dfOut)]
+  slack <- f_n - stage1Invest
+  return(slack)
+}
+#===============================================================================
+#2013 potato VoP 2014-2016 constant USD
+VoPIndonesia <- 0.8 #Indonesia: 0.8 billion
+VoPBangladesh <- 1.6 #Bangladesh 1.6 billion
+VoPKenya <- 0.8 #Kenya: 0.8 billion
+VoPNigeria <- 0.5 #Nigeria: 0.5 billion
+VoPvec <- c(VoPIndonesia, VoPBangladesh, VoPKenya, VoPNigeria)
+# VoPtot <- sum(VoPvec)
+# VoPpot <- VoPtot / 0.9
+# yrlyLoss <- VoPpot - VoPtot
+thisVoP <- VoPNigeria
+VoPpot <- thisVoP / 0.9
+yrlyLoss <- VoPpot - thisVoP
+yrlyLoss
+# yrlyLoss <- VoPpot * 0.15 #billion
+#yrlyLoss <- VoPIndonesia / 0.9 *  #billion
 #===============================================================================
 # Define discount rate
 rYrly_discrete <- 0.12 #0.035
-rQtly_discrete <- (1 + rYrly_discrete)^(1 / 4) - 1
+rQrly_discrete <- (1 + rYrly_discrete)^(1 / 4) - 1
 rYrly <- round(log(1 + rYrly_discrete), 3)
-r <- round(log(1 + rQtly_discrete), 3)
+r <- round(log(1 + rQrly_discrete), 3)
 #===============================================================================
-# Stage cost and time duration params
+# Stage time duration params
 # Stage durations - last stage first
 # periodDurations <- c(3, 4, 2, 3) * 4
 # tauVec <- rev(cumsum(periodDurations))
-Tvec <- c(3, 0.85, 1.7, 3.4) * 4
-tauVec <- rev(cumsum(Tvec))
+TvecYrs <- c(4, 2, 4, 4); TvecQtrs <- TvecYrs * 4 # last first
+#TvecYrs <- c(3, 1, 2, 4); TvecQtrs <- TvecYrs * 4 # last first
+tauVecYrs <- rev(cumsum(TvecYrs)); tauVecQrs <- rev(cumsum(TvecQtrs))
+stage1Invest <- 530000
+Kvec <- c(500000, 181000, 312000, 336000) # Last stage first
+#Kvec <- 1 * c(500000, 200000, 400000, 400000) # Last stage first
 #===============================================================================
 # Calculate project NPV(Tn) i.e. X0
-t <- seq(0, 50, length.out = 50)
-alpha <- 0.7; A <- 1.5
-dNVT0 <- A * t^alpha
-dNPVT0_discrete <- dNVT0 / (1 + rYrly_discrete)^(t + tauVec[1])
-dNPVT0_contin <- exp(-rYrly * t) * dNVT0
-NPVTn <- exp(-rYrly * tauVec[1]) * A * (-expint::gammainc(1 + alpha, rYrly * t) / rYrly^(1 + alpha) + expint::gammainc(1 + alpha, 0) / rYrly^(1 + alpha))
+yrHoriz <- 15; qtrHoriz <- yrHoriz * 4
+t <- seq(0, qtrHoriz, length.out = qtrHoriz + 1)
+alphaYrly_discrete <- 0.65
+alphaQrly_discrete <- (1 + alphaYrly_discrete)^(1 / 4) - 1
+alphaQrly <- round(log(1 + alphaQrly_discrete), 3)
+dNVT0ref <- 0.15; tRef <- 8
+dNVT0 <- dNVT0ref * (t / tRef)^alphaQrly
+dNPVT0_discrete <- dNVT0 / (1 + rQrly_discrete)^t
+#dNPVT0_discrete <- dNVT0 / (1 + rYrly_discrete)^t
+dNPVT0_contin <- exp(-r * t) * dNVT0
+#dNPVT0_contin <- exp(-rYrly * t) * dNVT0
+library(expint)
+A <- dNVT0ref * tRef^(-alphaQrly)
+NPVT0 <- A / r^(1 + alphaQrly) * exp(r * tauVecQrs[1]) * (-gammainc(1 + alphaQrly, r * (tauVecQrs[1] + t)) + gammainc(1 + alphaQrly, tauVecQrs[1]))
+NPVT0_discrete <- cumsum(dNPVT0_discrete)
+NPV0_discrete <- exp(-r * tauVecQrs[1]) * NPVT0_discrete
+NPV0 <- exp(-r * tauVecQrs[1]) * NPVT0
+#NPV0 <- exp(-rYrly * tauVecYrs[1]) * NPVT0
 # plot(t, dNVT0)
 # plot(t, dNPVT0)
 # plot(t, NPVTn)
-X0 <- NPVTn[25] * 10^6 # Choose 25 year cutoff
+#-------------------------------------------------------------------------------
+nbCutoffYr <- 15 # Net benefit cutoff year
+nbCutoffQtr <- nbCutoffYr * 4
+X0 <- NPV0[nbCutoffQtr] * 10^6
+#-------------------------------------------------------------------------------
 # Plot dNV, dNPV, NPV
-dfPlot <- data.frame(`Net benefits` = dNVT0,
-                     `Discounted net benefits` = dNPVT0_discrete,
-                     NPV = NPVT0)
+library(patchwork)
+# Set graphic parameters
+axisTitleSize <- 8
+axisTextSize <- 7
+legendKeySize <- 0.3
+legendTextSize <- axisTextSize
+facetTitleSize <- axisTextSize
+plotTitleSize = axisTextSize
+labelSize <- 2
+# Organize plot data into data frames
+dfdNVT0 <- data.frame(Quarter = t, `Undiscounted net benefits` = dNVT0)
+dfdNPVT0 <- data.frame(Quarter = t,
+                      `Annually discounted net benefits` = dNPVT0_discrete,
+                      `Continuously discounted net benefits` = dNPVT0_contin)
+dfNPVT0 <- data.frame(Quarter = t, NPV = NPVT0)
+# Plot undiscounted net benefits
+colnames(dfdNVT0)[2] <- "Undiscounted net benefits\n(million USD)"
+gg <- ggplot(dfdNVT0, aes(x = Quarter, y = `Undiscounted net benefits\n(million USD)`))
+gg <- gg + geom_bar(stat = "identity")
+gg <- gg + scale_x_continuous(breaks = seq(0, qtrHoriz, 4),
+                              labels = seq(0, yrHoriz, 1))
+gg <- gg + labs(x = "Years from release", title = "(a)")
+gg <- gg + theme_bw()
+gg <- gg + theme(axis.text = element_text(size = axisTextSize),
+                 axis.title = element_text(size = axisTitleSize),
+                 plot.title = element_text(size = axisTitleSize))
+gg1 <- gg
+# Plot discounted net benefits
+colnames(dfdNPVT0)[-1] <- c("Annually discounted net benefits\n(million USD)",
+                           "Continuously discounted net benefits\n(million USD)")
+gatherCols <- colnames(dfdNPVT0)[-1]
+#dfdNPVT0 <- dfdNPVT0 %>% gather_("type", "val", gatherCols)
+gg <- ggplot(dfdNPVT0, aes(x = Quarter, y = `Continuously discounted net benefits\n(million USD)`))
+gg <- gg + geom_bar(stat = "identity")
+gg <- gg + scale_x_continuous(breaks = seq(0, qtrHoriz, 4),
+                              labels = seq(0, yrHoriz, 1))
+gg <- gg + labs(x = "Years from release", title = "(b)")#, y = "Discounted net benefits\n(million USD)")
+gg <- gg + theme_bw()
+gg <- gg + theme(axis.text = element_text(size = axisTextSize),
+                 axis.title = element_text(size = axisTitleSize),
+                 plot.title = element_text(size = axisTitleSize))
+gg2 <- gg
+# Plot NPV
+gg <- ggplot(dfNPVT0, aes(x = Quarter, y = NPV))
+gg <- gg + geom_bar(stat = "identity")
+gg <- gg + scale_x_continuous(breaks = seq(0, qtrHoriz, 4),
+                              labels = seq(0, yrHoriz, 1))
+gg <- gg + labs(x = "Years from release", y = "NPV\n(million USD)", title = "(c)")
+gg <- gg + theme(axis.text = element_text(size = axisTextSize),
+                 axis.title = element_text(size = axisTitleSize),
+                 plot.title = element_text(size = axisTitleSize))
+gg <- gg + theme_bw()
+gg3 <- gg
+
+(gg1 + gg2) / gg3
 #===============================================================================
+# Define project NPV volatility:
+cv <- 1.5
+s <- cv * r * sqrt(tauVecQrs[1])
+# Calculate ROV of stage 1 research
+m <- r
+dfROVn <- ROVn(X0, Kvec, tauVecQrs, m, s)
+f_n <- dfROVn$f_i[nrow(dfROVn)]
+f_n - stage1Invest
+# NPV
+X0 - sum(exp(-r * tauVecQrs) * Kvec) - stage1Invest
+#===============================================================================
+# "Manual" check step by step
+eta_00 <- 1; f0 <- X0
+outROVi <- ROVi(Kvec[1], f0, tauVec[1], m, s, eta_00) # Value of option to launch
+f1 <- outROVi[1]; probSuc1 <- outROVi[2]
+df1df0 <- get_dfidfim1(Kvec[1], f0, f1, tauVec[1], m, s, eta_00)
+#pnorm(get_di(Kvec[1], X0, tauVec[1], m, s, eta_00) + eta_00 * s * sqrt(tauVec[1]))
+eta_10 <- f0 / f1 * df1df0 * eta_00
+outROVi <- ROVi(Kvec[2], f1, tauVec[2], m, s, eta_10) # Value of option on stage 4 research
+f2 <- outROVi[1]; probSuc2 <- outROVi[2]
+df2df1 <- get_dfidfim1(Kvec[2], f1, f2, tauVec[2], m, s, eta_10)
+eta_20 <- f1 / f2 * df2df1 * eta_10
+outROVi <- ROVi(Kvec[3], f2, tauVec[3], m, s, eta_20) # Value of option on stage 3 research
+f3 <- outROVi[1]; probSuc3 <- outROVi[2]
+df3df2 <- get_dfidfim1(Kvec[3], f2, f3, tauVec[3], m, s, eta_20)
+eta_30 <- f2 / f3 * df3df2 * eta_20
+outROVi <- ROVi(Kvec[4], f3, tauVec[4], m, s, eta_30) # Value of option on stage 2 research
+f4 <- outROVi[1]; probSuc4 <- outROVi[2]
+df4df3 <- get_dfidfim1(Kvec[4], f3, f4, tauVec[4], m, s, eta_30)
+eta_40 <- f3 / f4 * df4df3 * eta_30
+#-------------------------------------------------------------------------------
+dfROVnCheck <- data.frame(f_i = c(f1, f2, f3, f4), eta_i0 = c(eta_10, eta_20, eta_30, eta_40), probSuc = c(probSuc1, probSuc2, probSuc3, probSuc4))
+dfROVn - dfROVnCheck
+#===============================================================================
+# Find breakeven project NPV
+#rootROVn(X0 * 0.2, Kvec, tauVec, mm = r, s, stage1Invest)
+thisInt <- c(10^5, 10^8)
+outUniroot <- uniroot(rootROVn, interval = thisInt,
+                                 #lower = min(thisInt), upper = max(thisInt),
+                                 Kvec = Kvec, tauVec = tauVec,
+                                 mm = r, s = s, stage1Invest)
+X0min <- outUniroot$root
+ROVn(X0min, Kvec, tauVec, m, s)
 
 
 
 ```
+In order to make the calculation, we require the research stage and final launch costs $K_0, K_1, \dots, K_4$ and time horizons $T_0, T_1, \dots, T_4$ listed in Table x, as well as the project NPV, $x(0)$, the project NPV volatility $s$, and the quarterly discount rate $r$. USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. A high discount rate is reasonable considering the long time horizon and high uncertainty surrounding project NPV, and considering that any alternative use of USAID funds would entail a similar level of elevated risk. We thus adopt USAID's annual (discrete) discount rate for the present exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation.
+
+<!-- Ex-ante impact assessments of LBr potato in the target countries are underway, but have not yet been published at the time of writing [pers correspondence]. -->
+For the pedagogical purposes of this exercise, we assume the net benefit projection in Figure \ref{fig:netBens} panel a. More specifically, we assume that annual net benefits ($y(t)$) increase by `alphaYrly_discrete * 100`$\%$ year on year due to increasing adoption in the target countries; and reach $\$$ `dNVT0ref * 10^6` in year `tRef / 4` after release. This may be expressed
+
+\begin{equation}
+y(t)\bigr|_{T_0 \geq t} = y(\hat{t}) \left( \frac{t}{\hat{t}} \right)^{\alpha}
+\end{equation}
+
+Where, for the quarterly time step in Figure \ref{fig:netBens}, $\hat{t} = 8$, $y(\hat{t}) =$ `dNVT0ref * 10^6`, and $\alpha = $ `alphaQrly`.
+
+Net benefits continuously discounted back to $T_0$ ($e^{-r(t - T_0)} y(t)$) are presented in panel b of Figure \ref{fig:netBens}. Integration of the discounted net benefits with respect to $t$ over $[T_0, T_{-1}]$ gives project NPV at time of release ($x(T_0)$), presented in panel c of Figure \ref{fig:netBens}.
+
+\begin{equation}
+\begin{split}
+x(T_0) &= \int_{T_0}^{T_{-1}} e^{-rt} y(t) \: dt \\
+&= \frac{y(\hat{t})}{\hat{t}^{\alpha} r^{\alpha + 1}} ( -\Gamma(\alpha + 1, rT_{-1}) + \Gamma(\alpha + 1, rT_0) )
+\end{split}
+\end{equation}
+
+The upper bound $T_{-1}$ is a net benefit cutoff set by the donor. Net benefits continue beyond $T_{-1}$, but the donor is only interested in net benefits up to $T_{-1}$. In this exercise, the donor sets $T_{-1}$ to `4 * nbCutoffYr` quarters (`nbCutoffYr` years) after release.
+
+
+
+
+
+
+
+
+
+<!-- say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating net benefits on the order of tens of millions of dollars per year, but that the long time horizon and high discounting results in an LBr project NPV of $x(0)=\$`r x0 * 10^-6`$ million. Moreover, the study reports a high degree of uncertainty ranging from `r 100 * yMinA` $\%$ to `r 100 * yMaxA`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ is deduced as `r s` following the method explained in section \ref{sec:volEst}. -->
+<!-- USAID-ABSP II program -->
+<!-- The project occurred in 4 distinct stages: 1) Late Blight resistant (LBr) event production and selection, 2) Wide area testing, 3) Compilation of the regulatory dossier, and 4) Registration and regulatory affairs. -->
+<!-- In stage 1, the lead gene construct was developed in a target potato variety, and a small number of transgenic events exhibiting high resistance to Late Blight, as well as a number of other qualities (absence of backbone vector sequences, minimum number copy number of R genes, etc.) were screened from a large number of explants. -->
+<!-- In stage 2, the transgenic events selected in stage 1 were cultivated in three distinct locations and three distinct seasons to assess environmental effects on the LBr trait, and vice versa. Any impacts of LBr on other key traits such as yield, maturation time, taste, and so forth, were also assessed. --><!-- In stage 3, the regulatory dossier was compiled for submission to the National Competent Authority in the country where the LBr potato was to be released. The dossier included compositional and safety assessments, as well as the environmental assessments of the previous stage. -->
+<!-- In stage 4, the regulatory dossier was defended and amended before the National Competent Authorty in the target country. This stage may involve a variety of activities, including public advocacy, lobbying, and submission of additional information. -->
+<!-- For details see Schiek et al. [@]. -->
+<!-- Others argue for a much lower rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing]. Low discounting based on the opportunity cost of capital   In the present exercise, we err on the side of high discounting, reflecting the donor's mandate -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. However, there are good reasons for using a much lower rate when appraising these kinds of projects [@moore2004just; @caplin2004social; @harrison2010valuing]. As a compromise between the two extremes, an annual (discrete) discount rate of `r rYrly_discrete` is assumed in this exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation. Abandonment values are assumed to be zero for the time being.
 
-No ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet been published. For the pedagogical purposes of this exercise, say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating net benefits on the order of tens of millions of dollars per year, but that the long time horizon and high discounting results in an LBr project NPV of $x(0)=\$`r x0 * 10^-6`$ million. Moreover, the study reports a high degree of uncertainty ranging from `r 100 * yMinA` $\%$ to `r 100 * yMaxA`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ is deduced as `r s` following the method explained in section \ref{sec:volEst}.
+At the time of writing, ex-ante impact assessments of LBr potato in Bangladesh and Indonesia have yet been published. For the pedagogical purposes of this exercise, say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating net benefits on the order of tens of millions of dollars per year, but that the long time horizon and high discounting results in an LBr project NPV of $x(0)=\$`r x0 * 10^-6`$ million. Moreover, the study reports a high degree of uncertainty ranging from `r 100 * yMinA` $\%$ to `r 100 * yMaxA`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ is deduced as `r s` following the method explained in section \ref{sec:volEst}.
 <!-- $m = `r m`$ (or `r round(((1 + m)^4 - 1), 2)` annually) and -->
 
 As a plausibility check, the project NPV growth rate coefficient of variation and log return are calculated based on the deduced value for $s$. The coefficient of variation works out to `r cv`. This might be considered high, but well within reason given the ambitious scope of the project, and given the wide range of research and non-research factors affecting its progress and eventual diffusion in the target populations and environments. The expected log return, meanwhile, works out to `r mu`, which works out to an expected arithmetic return of `r round(exp(mu) - 1, 2)`. This may or may not be plausible depending upon the details of the hypothetical NPV calculation. A high expected percentage change in NPV by the end of the project (i.e., a high arithmetic return) may make sense if there is reason to expect major improvements in potato value chain infrastructure within the target countries.
@@ -1389,6 +1640,7 @@ x0bEven <- round(out[[1]] * 10^-6, 3) # millions
 
 <!-- As for the relation between project NPV and the outscaling investment, we refer to the marginally diminishing relationship that typically exists between AR4D project NPV and the size of the investment in the outscaling of the finished technology. That is to say, beyond a certain minimum level of investment required to release and support the diffusion and uptake of the project's research product on a pilot level, further increments in the outscaling investment have the effect of broadening the scope of impact---i.e. the size and number of target populations and environments where the research product is released and has an impact. Existing ROV methods tacitly assume that project NPV and the outscaling investment are independent, or that only one outscaling investment scenario is of interest. The adjustment introduced here facilitates examination of all outscaling investment scenarios, and even makes it possible to solve for the ROV-maximizing outscaling investment. -->
 
+abstract from the messiness... in particular deadline extensions, staggered finishing (Kenya) and release
 Assessment of $s$...
 potential use as insurance...
 
@@ -1825,11 +2077,11 @@ These differences are formally demonstrated in the development of the ROV method
 <!-- #------------------------------------------------------------------------ -->
 <!-- # Crude project NPV estimate loosely based on expected adoption rates, time horizons, etc. -->
 <!-- # rYrly_discrete <- 0.08 #0.035 -->
-<!-- # rQtly_discrete <- (1 + rYrly_discrete)^(1 / 4) - 1 -->
+<!-- # rQrly_discrete <- (1 + rYrly_discrete)^(1 / 4) - 1 -->
 <!-- # Tadopt <- 20 * 4 -->
 <!-- # Timpact <- 10 * 4 -->
 <!-- # yrlyBen <- 1 * 10^6 # (Assuming very low adoption) -->
-<!-- # x0 <- sum(yrlyBen / (1 + rQtly_discrete)^(Tn + Tadopt + 1:Timpact)) -->
+<!-- # x0 <- sum(yrlyBen / (1 + rQrly_discrete)^(Tn + Tadopt + 1:Timpact)) -->
 <!-- # # (Override) -->
 <!-- # x0 <- 1.23 * 10^6 -->
 <!-- #------------------------------------------------------------------------ -->
@@ -3082,16 +3334,16 @@ Funding: The Foresight and Metrics Initiative
 <!-- #--------------------------------------------------------------------------- -->
 <!-- # Crude project NPV estimate loosely based on expected adoption rates, time horizons, etc. -->
 <!-- rYrly_discrete <- 0.08 #0.035 -->
-<!-- rQtly_discrete <- (1 + rYrly_discrete)^(1 / 4) - 1 -->
+<!-- rQrly_discrete <- (1 + rYrly_discrete)^(1 / 4) - 1 -->
 <!-- Tadopt <- 20 * 4 -->
 <!-- Timpact <- 10 * 4 -->
 <!-- yrlyBen <- 1 * 10^6 # (Assuming very low adoption) -->
-<!-- x0 <- sum(yrlyBen / (1 + rQtly_discrete)^(Tn + Tadopt + 1:Timpact)) -->
+<!-- x0 <- sum(yrlyBen / (1 + rQrly_discrete)^(Tn + Tadopt + 1:Timpact)) -->
 <!-- # (Override) -->
 <!-- x0 <- 1.23 * 10^6 -->
 <!-- #--------------------------------------------------------------------------- -->
 <!-- # Convert discrete discount rate to continuous discount rate -->
-<!-- r <- round(log(1 + rQtly_discrete), 3) -->
+<!-- r <- round(log(1 + rQrly_discrete), 3) -->
 <!-- #---------------------------------------------------------------------------- -->
 <!-- # Derive s and m -->
 <!-- # Define confidence interval of interest, usually 95% (z = 1.96) -->
