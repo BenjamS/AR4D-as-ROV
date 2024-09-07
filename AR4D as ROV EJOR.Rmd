@@ -863,7 +863,7 @@ Var\left[\left( \frac{f(\tilde{t})}{f(t)} \right) \right]\bigr|_{t < \tilde{t}} 
 
 Which is very useful when extending ROV to multi-stage projects.
 
-## Extension to multi-stage ROV
+## Extension to multi-stage ROV \label{sec:method}
 
 Because $f$ is itself lognormally distributed, the same formula used to evaluate the ROV of $x(T_0)$ (Equation \ref{eq:genEq}) can be used to evaluate the ROV of $f(T_1)$, where $T_1 < T_0$ is the time when the investor must decide whether or not to invest in the last stage of research. That is to say, letting $g(f, t)$ denote the ROV of $f(T_1)$, then 
 
@@ -968,7 +968,7 @@ The stage 1 ROV of an $n > 1$ stage project is recursively calculated, starting 
 
 As an illustrative example, below we apply the formula developed above to calculate the ROV of a real multi-stage AR4D project currently in implementation. The aim of the project in question is to develop a transgenic potato variety with resistance to Late Blight disease (henceforth LBr potato), for release as a public good in two developing countries. Late Blight is the disease behind the infamous Irish Potato Famine of 1845-1849; and continues to pose a major threat to food security, especially in the developing world [@haverkort2008societal; @fry2008phytophthora]. Successful research and development of LBr potato varieties adapted to local environments is thus a potentially very high reward, disruptive proposition. It is also a high risk proposition, facing numerous research and non-research related challenges, not least of which is a strong "anti-GM" lobby in many of the target populations.
 
-The LBr potato project is structured in four consecutive stages. These stages and their associated costs and time durations are summarized in Table x, based on figures documented by Schiek et al. [-@schiek2016demys]. All values are given in terms of current US dollars. This is a purely pedagogical exercise designed to illustrate the use of the multi-stage ROV model derived in the previous sections. While the exercise is based on real project stage costs and time horizons, the other parameter values are hypothetical. The resulting calculations should therefore not be interpreted as an authoritative valuation of LBr potato research.
+The LBr potato project is structured in four consecutive stages. These stages and their associated costs and time durations are summarized in Table x, based on figures documented by Schiek et al. [-@schiek2016demys]. This is a purely pedagogical exercise designed to illustrate the use of the multi-stage ROV model derived in the previous sections. While the exercise is based on real project stage costs and time horizons, the other parameter values are hypothetical. The resulting calculations should therefore not be interpreted as an authoritative valuation of LBr potato research.
 <!-- structure described in section \ref{sec:resStages}. The costs and time duration associated with each stage are summarized in Table 1,  -->
 <!-- Costs are assessed as the sum of staff costs, direct operating costs (including lab bench costs), indirect operating costs (overhead), external contract costs, and stewardship costs. -->
 
@@ -1080,9 +1080,15 @@ The donor, USAID, originally awarded the LBr potato research contract to Cornell
 In real options language, USAID bought an option on stage 2 LBr potato research when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then again bought an option on stage 2 research when it transferred the contract to MSU. This time, the option expired in the money, triggering investment in stage 2 research. The investment in stage 2 research is an option on stage 3.
 <!-- , and is now approaching expiry in the money. -->
 
-In the present exercise, we calculate the ROV of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 once stage 1 is complete. The exercise is conducted from the donor's perspective in the months prior to the "go/no-go" stage 1 investment decision.
+In the present exercise, we calculate the ROV of the USAID LBr potato contract awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 once stage 1 is complete. The exercise is conducted from the donor's perspective in the months prior to the "go/no-go" stage 1 investment decision. All values are given in terms of 2015 US dollars.
 
-```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:netBens}", echo = FALSE}
+In order to make the calculation, we require the research stage and final launch costs $K_0, K_1, \dots, K_4$ and time horizons $T_0, T_1, \dots, T_4$ listed in Table x, as well as the quarterly discount rate $r$, the project NPV volatility $s$, and the project NPV at the time of the go/no-go decision to invest in stage 1 LBr research, $x(0)$.
+
+USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. A high discount rate is reasonable considering the long time horizon and high uncertainty surrounding project NPV, and considering that any alternative use of USAID funds would entail a similar level of elevated risk. We thus adopt USAID's annual (discrete) discount rate for the present exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation.
+
+Project volatility $s$ is set to `r round(s, 3)`, which corresponds to a coefficient of variation of `r cv`, reflecting the high uncertainty that typically surrounds the expected impact of a disruptive new technology a decade or more in the future.
+
+```{r, fig.show = "hold", fig.width = 4, fig.height=3, fig.align="left", fig.cap="\\label{fig:netBens}(Top) A hypothetical 12 year projection of discounted and undiscounted net benefits due to release of LBr potato in the target countries. (Bottom) The integral of discounted net benefits up to each year.", echo = FALSE}
 # Define functions
 get_di <- function(K_im1, f_im1, tau_i, m, s, eta_im10 = 1){
   d_i <- (log(f_im1 / K_im1) + (m - eta_im10^2 * s^2 / 2) * tau_i) / (s * eta_im10 * sqrt(tau_i))
@@ -1151,20 +1157,20 @@ r <- round(log(1 + rQrly_discrete), 3)
 # Stage durations - last stage first
 # periodDurations <- c(3, 4, 2, 3) * 4
 # tauVec <- rev(cumsum(periodDurations))
-TvecYrs <- c(4, 2, 4, 4); TvecQtrs <- TvecYrs * 4 # last first
-#TvecYrs <- c(3, 1, 2, 4); TvecQtrs <- TvecYrs * 4 # last first
+#TvecYrs <- c(4, 2, 4, 4); TvecQtrs <- TvecYrs * 4 # last first
+TvecYrs <- c(3, 1, 2, 4); TvecQtrs <- TvecYrs * 4 # last first
 tauVecYrs <- rev(cumsum(TvecYrs)); tauVecQrs <- rev(cumsum(TvecQtrs))
 stage1Invest <- 530000
 Kvec <- c(500000, 181000, 312000, 336000) # Last stage first
 #Kvec <- 1 * c(500000, 200000, 400000, 400000) # Last stage first
 #===============================================================================
 # Calculate project NPV(Tn) i.e. X0
-yrHoriz <- 15; qtrHoriz <- yrHoriz * 4
+yrHoriz <- 12; qtrHoriz <- yrHoriz * 4
 t <- seq(0, qtrHoriz, length.out = qtrHoriz + 1)
 alphaYrly_discrete <- 0.65
 alphaQrly_discrete <- (1 + alphaYrly_discrete)^(1 / 4) - 1
 alphaQrly <- round(log(1 + alphaQrly_discrete), 3)
-dNVT0ref <- 0.15; tRef <- 8
+dNVT0ref <- 0.14; tRef <- 12
 dNVT0 <- dNVT0ref * (t / tRef)^alphaQrly
 dNPVT0_discrete <- dNVT0 / (1 + rQrly_discrete)^t
 #dNPVT0_discrete <- dNVT0 / (1 + rYrly_discrete)^t
@@ -1172,7 +1178,7 @@ dNPVT0_contin <- exp(-r * t) * dNVT0
 #dNPVT0_contin <- exp(-rYrly * t) * dNVT0
 library(expint)
 A <- dNVT0ref * tRef^(-alphaQrly)
-NPVT0 <- A / r^(1 + alphaQrly) * exp(r * tauVecQrs[1]) * (-gammainc(1 + alphaQrly, r * (tauVecQrs[1] + t)) + gammainc(1 + alphaQrly, tauVecQrs[1]))
+NPVT0 <- A / r^(1 + alphaQrly) * (-gammainc(1 + alphaQrly, r * t) + gammainc(1 + alphaQrly, 0))
 NPVT0_discrete <- cumsum(dNPVT0_discrete)
 NPV0_discrete <- exp(-r * tauVecQrs[1]) * NPVT0_discrete
 NPV0 <- exp(-r * tauVecQrs[1]) * NPVT0
@@ -1181,66 +1187,54 @@ NPV0 <- exp(-r * tauVecQrs[1]) * NPVT0
 # plot(t, dNPVT0)
 # plot(t, NPVTn)
 #-------------------------------------------------------------------------------
-nbCutoffYr <- 15 # Net benefit cutoff year
+nbCutoffYr <- 12 # Net benefit cutoff year
 nbCutoffQtr <- nbCutoffYr * 4
 X0 <- NPV0[nbCutoffQtr] * 10^6
 #-------------------------------------------------------------------------------
 # Plot dNV, dNPV, NPV
 library(patchwork)
 # Set graphic parameters
-axisTitleSize <- 8
-axisTextSize <- 7
+axisTitleSize <- 7
+axisTextSize <- 6
 legendKeySize <- 0.3
 legendTextSize <- axisTextSize
-facetTitleSize <- axisTextSize
-plotTitleSize = axisTextSize
-labelSize <- 2
+#facetTitleSize <- axisTextSize
+#plotTitleSize = axisTextSize
+#labelSize <- 2
 # Organize plot data into data frames
-dfdNVT0 <- data.frame(Quarter = t, `Undiscounted net benefits` = dNVT0)
-dfdNPVT0 <- data.frame(Quarter = t,
-                      `Annually discounted net benefits` = dNPVT0_discrete,
-                      `Continuously discounted net benefits` = dNPVT0_contin)
+dfdNVT0 <- data.frame(Quarter = t, val = dNVT0, type = "Undiscounted\nnet benefits")
+dfdNPVT0 <- data.frame(Quarter = t, val = dNPVT0_contin, type = "Continuously discounted\nnet benefits")
 dfNPVT0 <- data.frame(Quarter = t, NPV = NPVT0)
-# Plot undiscounted net benefits
-colnames(dfdNVT0)[2] <- "Undiscounted net benefits\n(million USD)"
-gg <- ggplot(dfdNVT0, aes(x = Quarter, y = `Undiscounted net benefits\n(million USD)`))
-gg <- gg + geom_bar(stat = "identity")
+df1 <- data.frame(rbind(dfdNVT0, dfdNPVT0))
+df2 <- dfNPVT0
+theseColors <- randomcoloR::distinctColorPalette(2)
+# Plot undiscounted and discounted net benefits overlaid
+gg <- ggplot(df1, aes(x = Quarter, y = val, fill = type))
+gg <- gg + geom_bar(stat = "identity", position = position_dodge(width = 0.25), color = "black")
+gg <- gg + scale_fill_manual(values = theseColors)
 gg <- gg + scale_x_continuous(breaks = seq(0, qtrHoriz, 4),
                               labels = seq(0, yrHoriz, 1))
-gg <- gg + labs(x = "Years from release", title = "(a)")
+gg <- gg + labs(x = "Years from release", y = "Million USD")
 gg <- gg + theme_bw()
 gg <- gg + theme(axis.text = element_text(size = axisTextSize),
                  axis.title = element_text(size = axisTitleSize),
-                 plot.title = element_text(size = axisTitleSize))
+                 legend.title = element_blank(),
+                 legend.position = "top",
+                 legend.text = element_text(size = legendTextSize),
+                 legend.key.size = unit(legendKeySize, "cm"))
 gg1 <- gg
-# Plot discounted net benefits
-colnames(dfdNPVT0)[-1] <- c("Annually discounted net benefits\n(million USD)",
-                           "Continuously discounted net benefits\n(million USD)")
-gatherCols <- colnames(dfdNPVT0)[-1]
-#dfdNPVT0 <- dfdNPVT0 %>% gather_("type", "val", gatherCols)
-gg <- ggplot(dfdNPVT0, aes(x = Quarter, y = `Continuously discounted net benefits\n(million USD)`))
-gg <- gg + geom_bar(stat = "identity")
-gg <- gg + scale_x_continuous(breaks = seq(0, qtrHoriz, 4),
-                              labels = seq(0, yrHoriz, 1))
-gg <- gg + labs(x = "Years from release", title = "(b)")#, y = "Discounted net benefits\n(million USD)")
-gg <- gg + theme_bw()
-gg <- gg + theme(axis.text = element_text(size = axisTextSize),
-                 axis.title = element_text(size = axisTitleSize),
-                 plot.title = element_text(size = axisTitleSize))
-gg2 <- gg
 # Plot NPV
 gg <- ggplot(dfNPVT0, aes(x = Quarter, y = NPV))
-gg <- gg + geom_bar(stat = "identity")
+gg <- gg + geom_bar(stat = "identity", color = "black")
 gg <- gg + scale_x_continuous(breaks = seq(0, qtrHoriz, 4),
                               labels = seq(0, yrHoriz, 1))
-gg <- gg + labs(x = "Years from release", y = "NPV\n(million USD)", title = "(c)")
-gg <- gg + theme(axis.text = element_text(size = axisTextSize),
-                 axis.title = element_text(size = axisTitleSize),
-                 plot.title = element_text(size = axisTitleSize))
+gg <- gg + labs(x = "Years from release", y = "NPV\n(million USD)")#, title = "(c)")
 gg <- gg + theme_bw()
-gg3 <- gg
-
-(gg1 + gg2) / gg3
+gg <- gg + theme(axis.text = element_text(size = axisTextSize),
+                 axis.title = element_text(size = axisTitleSize))#,
+#                 plot.title = element_text(size = axisTitleSize))
+gg2 <- gg
+gg1 / gg2 #+ plot_annotation(tag_levels = "a")
 #===============================================================================
 # Define project NPV volatility:
 cv <- 1.5
@@ -1249,75 +1243,89 @@ s <- cv * r * sqrt(tauVecQrs[1])
 m <- r
 dfROVn <- ROVn(X0, Kvec, tauVecQrs, m, s)
 f_n <- dfROVn$f_i[nrow(dfROVn)]
-f_n - stage1Invest
+#f_n - stage1Invest
 # NPV
-X0 - sum(exp(-r * tauVecQrs) * Kvec) - stage1Invest
+CBA <- X0 - sum(exp(-r * tauVecQrs) * Kvec) - stage1Invest
+#CBA
 #===============================================================================
 # "Manual" check step by step
 eta_00 <- 1; f0 <- X0
-outROVi <- ROVi(Kvec[1], f0, tauVec[1], m, s, eta_00) # Value of option to launch
+outROVi <- ROVi(Kvec[1], f0, tauVecQrs[1], m, s, eta_00) # Value of option to launch
 f1 <- outROVi[1]; probSuc1 <- outROVi[2]
-df1df0 <- get_dfidfim1(Kvec[1], f0, f1, tauVec[1], m, s, eta_00)
-#pnorm(get_di(Kvec[1], X0, tauVec[1], m, s, eta_00) + eta_00 * s * sqrt(tauVec[1]))
+df1df0 <- get_dfidfim1(Kvec[1], f0, f1, tauVecQrs[1], m, s, eta_00)
+#pnorm(get_di(Kvec[1], X0, tauVecQrs[1], m, s, eta_00) + eta_00 * s * sqrt(tauVecQrs[1]))
 eta_10 <- f0 / f1 * df1df0 * eta_00
-outROVi <- ROVi(Kvec[2], f1, tauVec[2], m, s, eta_10) # Value of option on stage 4 research
+outROVi <- ROVi(Kvec[2], f1, tauVecQrs[2], m, s, eta_10) # Value of option on stage 4 research
 f2 <- outROVi[1]; probSuc2 <- outROVi[2]
-df2df1 <- get_dfidfim1(Kvec[2], f1, f2, tauVec[2], m, s, eta_10)
+df2df1 <- get_dfidfim1(Kvec[2], f1, f2, tauVecQrs[2], m, s, eta_10)
 eta_20 <- f1 / f2 * df2df1 * eta_10
-outROVi <- ROVi(Kvec[3], f2, tauVec[3], m, s, eta_20) # Value of option on stage 3 research
+outROVi <- ROVi(Kvec[3], f2, tauVecQrs[3], m, s, eta_20) # Value of option on stage 3 research
 f3 <- outROVi[1]; probSuc3 <- outROVi[2]
-df3df2 <- get_dfidfim1(Kvec[3], f2, f3, tauVec[3], m, s, eta_20)
+df3df2 <- get_dfidfim1(Kvec[3], f2, f3, tauVecQrs[3], m, s, eta_20)
 eta_30 <- f2 / f3 * df3df2 * eta_20
-outROVi <- ROVi(Kvec[4], f3, tauVec[4], m, s, eta_30) # Value of option on stage 2 research
+outROVi <- ROVi(Kvec[4], f3, tauVecQrs[4], m, s, eta_30) # Value of option on stage 2 research
 f4 <- outROVi[1]; probSuc4 <- outROVi[2]
-df4df3 <- get_dfidfim1(Kvec[4], f3, f4, tauVec[4], m, s, eta_30)
+df4df3 <- get_dfidfim1(Kvec[4], f3, f4, tauVecQrs[4], m, s, eta_30)
 eta_40 <- f3 / f4 * df4df3 * eta_30
 #-------------------------------------------------------------------------------
 dfROVnCheck <- data.frame(f_i = c(f1, f2, f3, f4), eta_i0 = c(eta_10, eta_20, eta_30, eta_40), probSuc = c(probSuc1, probSuc2, probSuc3, probSuc4))
-dfROVn - dfROVnCheck
-#===============================================================================
-# Find breakeven project NPV
-#rootROVn(X0 * 0.2, Kvec, tauVec, mm = r, s, stage1Invest)
-thisInt <- c(10^5, 10^8)
-outUniroot <- uniroot(rootROVn, interval = thisInt,
-                                 #lower = min(thisInt), upper = max(thisInt),
-                                 Kvec = Kvec, tauVec = tauVec,
-                                 mm = r, s = s, stage1Invest)
-X0min <- outUniroot$root
-ROVn(X0min, Kvec, tauVec, m, s)
-
+#dfROVn - dfROVnCheck
 
 
 ```
-In order to make the calculation, we require the research stage and final launch costs $K_0, K_1, \dots, K_4$ and time horizons $T_0, T_1, \dots, T_4$ listed in Table x, as well as the project NPV, $x(0)$, the project NPV volatility $s$, and the quarterly discount rate $r$. USAID generally uses a high annual discount rate of $0.12$ in its cost-benefit analyses of agricultural development projects [@usaid2015cba]. A high discount rate is reasonable considering the long time horizon and high uncertainty surrounding project NPV, and considering that any alternative use of USAID funds would entail a similar level of elevated risk. We thus adopt USAID's annual (discrete) discount rate for the present exercise, which works out to a (continuous) quarterly discount rate of `r r` used in the calculation.
-
 <!-- Ex-ante impact assessments of LBr potato in the target countries are underway, but have not yet been published at the time of writing [pers correspondence]. -->
-For the pedagogical purposes of this exercise, we assume the net benefit projection in Figure \ref{fig:netBens} panel a. More specifically, we assume that annual net benefits ($y(t)$) increase by `alphaYrly_discrete * 100`$\%$ year on year due to increasing adoption in the target countries; and reach $\$$ `dNVT0ref * 10^6` in year `tRef / 4` after release. This may be expressed
+
+At the 2015 go/no-go decision point, no published ex-ante impact assessments of LBr potato in the target countries exist. For the pedagogical purposes of this exercise, to calculate $x(0)$ we assume the net benefit projection in Figure \ref{fig:netBens}, top panel. More specifically, we assume that annual net benefits ($y(t)$) increase by `alphaYrly_discrete * 100`$\%$ year on year due to increasing adoption in the target countries; and reach $\$$ `dNVT0ref * 10^6` in year `tRef / 4` after release. This may be expressed
+[when Marc's paper comes out add sentence: "in hindsight, this will prove an overly conservative estimate"]
 
 \begin{equation}
-y(t)\bigr|_{T_0 \geq t} = y(\hat{t}) \left( \frac{t}{\hat{t}} \right)^{\alpha}
+y(t) = y(\hat{t}) \left( \frac{t}{\hat{t}} \right)^{\alpha}
 \end{equation}
 
-Where, for the quarterly time step in Figure \ref{fig:netBens}, $\hat{t} = 8$, $y(\hat{t}) =$ `dNVT0ref * 10^6`, and $\alpha = $ `alphaQrly`.
+Where, for the quarterly time step in Figure \ref{fig:netBens}, $\hat{t} =$ `r tRef`, $y(\hat{t}) =$ `dNVT0ref * 10^6`, and $\alpha = $ `alphaQrly`.
 
-Net benefits continuously discounted back to $T_0$ ($e^{-r(t - T_0)} y(t)$) are presented in panel b of Figure \ref{fig:netBens}. Integration of the discounted net benefits with respect to $t$ over $[T_0, T_{-1}]$ gives project NPV at time of release ($x(T_0)$), presented in panel c of Figure \ref{fig:netBens}.
+Continuously discounted net benefits ($e^{-rt} y(t)$) are overlaid onto the undiscounted net benefit projection in the top panel of Figure \ref{fig:netBens}. Integration of the discounted net benefits with respect to $t$ over $[T_0, T_{-1}]$ gives project NPV at time of release ($x(T_0)$), presented in the bottom panel of Figure \ref{fig:netBens}.
 
 \begin{equation}
 \begin{split}
-x(T_0) &= \int_{T_0}^{T_{-1}} e^{-rt} y(t) \: dt \\
-&= \frac{y(\hat{t})}{\hat{t}^{\alpha} r^{\alpha + 1}} ( -\Gamma(\alpha + 1, rT_{-1}) + \Gamma(\alpha + 1, rT_0) )
+x(T_0)|_t &= \int_{T_0}^{T_{-1}} e^{-rt} y(t) \: dt \\
+&= \frac{y(\hat{t})}{\hat{t}^{\alpha} r^{\alpha + 1}} ( -\Gamma(\alpha + 1, rt) + \Gamma(\alpha + 1, 0) )
 \end{split}
 \end{equation}
 
-The upper bound $T_{-1}$ is a net benefit cutoff set by the donor. Net benefits continue beyond $T_{-1}$, but the donor is only interested in net benefits up to $T_{-1}$. In this exercise, the donor sets $T_{-1}$ to `4 * nbCutoffYr` quarters (`nbCutoffYr` years) after release.
+The upper bound $T_{-1}$ is a net benefit cutoff set by the donor. Net benefits continue beyond $T_{-1}$, but the donor is only interested in net benefits up to $T_{-1}$. In this exercise, the donor sets $T_{-1}$ to `r 4 * nbCutoffYr` quarters (`r nbCutoffYr` years) after release. This gives a project NPV of $\$$ `r NPVT0[nbCutoffQtr]` million at time of release $T_0$, i.e. at the end of stage 4 research. The project NPV discounted back to the time of the donor's go/no-go decision to fund stage 1 research is then $x(0) = e^{-rT_{4}} x(T_0) = \$$`r round(X0 * 10^-6, 3)` million.
+
+The upscaling cost is unknown. For present purposes we set it to $\$$`r Kvec[1] * 10^-5` hundred thousand.
+
+We now have everything we need. Stage 1 research ROV is calculated by first calculating the ROV of stage 4, the last stage, and then calculating the ROV of stage 3, and so forth, recursively, as explained in section section \ref{sec:method}. In the present exercise, this results in a stage 1 ROV of $\$$`r f_n`, which exceeds the stage 1 cost of $\$$ `r stage1Invest` by $\$$`r f_n - stage1Invest`. On the ROV basis, then, the stage 1 investment is justified. Conventional CBA, meanwhile, gives a present value of $-\$$`r abs(CBA)`, whereby the stage 1 investment would be rejected (Equation \ref{eq:convCBA}).
+
+\begin{equation}
+NPV = x(0) - \sum_{i = 1}^4 e^{-r Ti} K_i - 530000 = -16779
+\label{eq:convCBA}
+\end{equation}
+
+The recursively calculated ROVs for each stage of research are presented in Table .... Also included in this table are each stage's ROV elasticity with respect to project NPV and probability of success, which are calculated in the process of calculating ROV. This provides additional information may figure in the donor's decision making process. For example, the donor may be encouraged to see
+
+```{r}
+#===============================================================================
+dfROVn
+#===============================================================================
+# Find breakeven project NPV
+#rootROVn(X0 * 0.2, Kvec, tauVecQrs, mm = r, s, stage1Invest)
+thisInt <- c(10^5, 10^8)
+outUniroot <- uniroot(rootROVn, interval = thisInt,
+                                 #lower = min(thisInt), upper = max(thisInt),
+                                 Kvec = Kvec, tauVec = tauVecQrs,
+                                 mm = r, s = s, stage1Invest)
+X0min <- outUniroot$root
+ROVn(X0min, Kvec, tauVecQrs, m, s)
+
+```
 
 
+X0min
 
-
-
-
-
-
+uncertain input values can be varied (upscaling cost)
 
 <!-- say that MSU and/or USAID internally conducted an ex-ante impact assessment indicating net benefits on the order of tens of millions of dollars per year, but that the long time horizon and high discounting results in an LBr project NPV of $x(0)=\$`r x0 * 10^-6`$ million. Moreover, the study reports a high degree of uncertainty ranging from `r 100 * yMinA` $\%$ to `r 100 * yMaxA`$\%$ of NPV. Based on these uncertainty bounds (and assuming project NPV follows a gBm), the project NPV volatility parameter $s$ is deduced as `r s` following the method explained in section \ref{sec:volEst}. -->
 <!-- USAID-ABSP II program -->
@@ -1640,6 +1648,7 @@ x0bEven <- round(out[[1]] * 10^-6, 3) # millions
 
 <!-- As for the relation between project NPV and the outscaling investment, we refer to the marginally diminishing relationship that typically exists between AR4D project NPV and the size of the investment in the outscaling of the finished technology. That is to say, beyond a certain minimum level of investment required to release and support the diffusion and uptake of the project's research product on a pilot level, further increments in the outscaling investment have the effect of broadening the scope of impact---i.e. the size and number of target populations and environments where the research product is released and has an impact. Existing ROV methods tacitly assume that project NPV and the outscaling investment are independent, or that only one outscaling investment scenario is of interest. The adjustment introduced here facilitates examination of all outscaling investment scenarios, and even makes it possible to solve for the ROV-maximizing outscaling investment. -->
 
+tradeoff--increasing volatility increases ROV but decreases probability of success
 abstract from the messiness... in particular deadline extensions, staggered finishing (Kenya) and release
 Assessment of $s$...
 potential use as insurance...
