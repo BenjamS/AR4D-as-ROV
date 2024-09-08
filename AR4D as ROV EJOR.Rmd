@@ -1167,10 +1167,11 @@ Kvec <- c(500000, 181000, 312000, 336000) # Last stage first
 # Calculate project NPV(Tn) i.e. X0
 yrHoriz <- 12; qtrHoriz <- yrHoriz * 4
 t <- seq(0, qtrHoriz, length.out = qtrHoriz + 1)
-alphaYrly_discrete <- 0.65
-alphaQrly_discrete <- (1 + alphaYrly_discrete)^(1 / 4) - 1
-alphaQrly <- round(log(1 + alphaQrly_discrete), 3)
-dNVT0ref <- 0.14; tRef <- 12
+# alphaYrly_discrete <- 0.65
+# alphaQrly_discrete <- (1 + alphaYrly_discrete)^(1 / 4) - 1
+# alphaQrly <- round(log(1 + alphaQrly_discrete), 3)
+alphaQrly <- 0.6
+dNVT0ref <- 0.115; tRef <- 12
 dNVT0 <- dNVT0ref * (t / tRef)^alphaQrly
 dNPVT0_discrete <- dNVT0 / (1 + rQrly_discrete)^t
 #dNPVT0_discrete <- dNVT0 / (1 + rYrly_discrete)^t
@@ -1243,10 +1244,10 @@ s <- cv * r * sqrt(tauVecQrs[1])
 m <- r
 dfROVn <- ROVn(X0, Kvec, tauVecQrs, m, s)
 f_n <- dfROVn$f_i[nrow(dfROVn)]
-#f_n - stage1Invest
+f_n - stage1Invest
 # NPV
 CBA <- X0 - sum(exp(-r * tauVecQrs) * Kvec) - stage1Invest
-#CBA
+CBA
 #===============================================================================
 # "Manual" check step by step
 eta_00 <- 1; f0 <- X0
@@ -1275,16 +1276,16 @@ dfROVnCheck <- data.frame(f_i = c(f1, f2, f3, f4), eta_i0 = c(eta_10, eta_20, et
 ```
 <!-- Ex-ante impact assessments of LBr potato in the target countries are underway, but have not yet been published at the time of writing [pers correspondence]. -->
 
-At the 2015 go/no-go decision point, no published ex-ante impact assessments of LBr potato in the target countries exist. For the pedagogical purposes of this exercise, to calculate $x(0)$ we assume the net benefit projection in Figure \ref{fig:netBens}, top panel. More specifically, we assume that annual net benefits ($y(t)$) increase by `alphaYrly_discrete * 100`$\%$ year on year due to increasing adoption in the target countries; and reach $\$$ `dNVT0ref * 10^6` in year `tRef / 4` after release. This may be expressed
+At the 2015 go/no-go decision point, no published ex-ante impact assessments of LBr potato in the target countries exist. For the pedagogical purposes of this exercise, we suppose that the donor conducts its own ex-ante impact assessment internally, finding that annual net benefits are likely to scale sublinearly with time by `r alphaQrly`$\%$ for every $1\%$ increase in time, reaching $\$$`r dNVT0ref * 10^3` thousand in year `tRef / 4` after release. This hypothetical assessment corresponds to the undiscounted net benefit projection in the top panel of Figure \ref{fig:netBens}; and may be expressed mathematically as follows.
 [when Marc's paper comes out add sentence: "in hindsight, this will prove an overly conservative estimate"]
 
 \begin{equation}
 y(t) = y(\hat{t}) \left( \frac{t}{\hat{t}} \right)^{\alpha}
 \end{equation}
 
-Where, for the quarterly time step in Figure \ref{fig:netBens}, $\hat{t} =$ `r tRef`, $y(\hat{t}) =$ `dNVT0ref * 10^6`, and $\alpha = $ `alphaQrly`.
+Where $y(t)$ stands for LBr potato net benefit at time $t$ after release, $\hat{t} =$ `r tRef`, $y(\hat{t}) =$ `r dNVT0ref * 10^6`, and $\alpha = $`r alphaQrly`.
 
-Continuously discounted net benefits ($e^{-rt} y(t)$) are overlaid onto the undiscounted net benefit projection in the top panel of Figure \ref{fig:netBens}. Integration of the discounted net benefits with respect to $t$ over $[T_0, T_{-1}]$ gives project NPV at time of release ($x(T_0)$), presented in the bottom panel of Figure \ref{fig:netBens}.
+The corresponding continuously discounted net benefit projection ($e^{-rt} y(t)$) is overlaid onto the undiscounted projection in the same top panel of Figure \ref{fig:netBens}. Integration of the discounted net benefits with respect to $t$ over $[T_0, T_{-1}]$ gives project NPV at time of release ($x(T_0)$), presented in the bottom panel of Figure \ref{fig:netBens}.
 
 \begin{equation}
 \begin{split}
@@ -1295,7 +1296,7 @@ x(T_0)|_t &= \int_{T_0}^{T_{-1}} e^{-rt} y(t) \: dt \\
 
 The upper bound $T_{-1}$ is a net benefit cutoff set by the donor. Net benefits continue beyond $T_{-1}$, but the donor is only interested in net benefits up to $T_{-1}$. In this exercise, the donor sets $T_{-1}$ to `r 4 * nbCutoffYr` quarters (`r nbCutoffYr` years) after release. This gives a project NPV of $\$$ `r NPVT0[nbCutoffQtr]` million at time of release $T_0$, i.e. at the end of stage 4 research. The project NPV discounted back to the time of the donor's go/no-go decision to fund stage 1 research is then $x(0) = e^{-rT_{4}} x(T_0) = \$$`r round(X0 * 10^-6, 3)` million.
 
-The upscaling cost is unknown. For present purposes we set it to $\$$`r Kvec[1] * 10^-5` hundred thousand.
+The only remaining information required to calculate ROV is the LBr potato launch and up/outscaling cost due at $t = T_0$ upon successful completion of stage 4. For this pedagocgical exercise, we set it to a hypothetical value of $\$$`r Kvec[1] * 10^-3` thousand.
 
 We now have everything we need. Stage 1 research ROV is calculated by first calculating the ROV of stage 4, the last stage, and then calculating the ROV of stage 3, and so forth, recursively, as explained in section section \ref{sec:method}. In the present exercise, this results in a stage 1 ROV of $\$$`r f_n`, which exceeds the stage 1 cost of $\$$ `r stage1Invest` by $\$$`r f_n - stage1Invest`. On the ROV basis, then, the stage 1 investment is justified. Conventional CBA, meanwhile, gives a present value of $-\$$`r abs(CBA)`, whereby the stage 1 investment would be rejected (Equation \ref{eq:convCBA}).
 
@@ -1304,7 +1305,7 @@ NPV = x(0) - \sum_{i = 1}^4 e^{-r Ti} K_i - 530000 = -16779
 \label{eq:convCBA}
 \end{equation}
 
-The recursively calculated ROVs for each stage of research are presented in Table .... Also included in this table are each stage's ROV elasticity with respect to project NPV and probability of success, which are calculated in the process of calculating ROV. This provides additional information may figure in the donor's decision making process. For example, the donor may be encouraged to see
+The recursively calculated ROVs for each stage of research are presented in Table 2. Also included in this table are each stage's ROV elasticity with respect to project NPV and probability of success, which are calculated in the process of calculating ROV. This provides additional information may figure in the donor's decision making process. For example, the donor may be encouraged to see
 
 ```{r}
 #===============================================================================
