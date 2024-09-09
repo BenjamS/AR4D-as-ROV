@@ -33,7 +33,8 @@ header-includes:
   - \usepackage{float}
   #- \usepackage[nomarkers,tablesonly]{endfloat}
   #- \usepackage[printfigures]{figcaps}
-  - \floatplacement{figure}{H}
+  - \floatplacement{figure}{h}
+#  - \usepackage[section]{placeins}
 #  - \usepackage[nolists]{endfloat}
   - \usepackage{caption}
 ---
@@ -378,7 +379,7 @@ gg <- gg + theme_bw()
 gg <- gg + theme(axis.text = element_blank(),
                  axis.title = element_text(size = axisTitle_size))
 gg_gbmSpec <- gg
-gg
+#gg
 #----------------------------------------------------------------------------
 # Generate and plot compound Poisson process example
 #cPp_seed <- 10^4 * round(runif(1), 4)
