@@ -78,7 +78,7 @@ e^{-r T_0} (E[x(T_0)]|_{t = 0} - K_0)
 \label{eq:conv}
 \end{equation}
 
-To characterize this as the conventional "NPV approach", as is sometimes done in the ROV literature [e.g., @koppl2013real], can be confusing since $x(t)$ is already defined as project NPV at any time $t$ (net of $K_0$), and is used in the calculation of ROV. To be clear, then, in the present article, the conventional manner of project appraisal in Equation \ref{eq:conv} is referred to as the "CBA approach" or "CBA basis"; and "project NPV", denoted $x(t)$, refers to the expected value at time $t$ of the net benefit stream resulting from release and outscaling of the research product after time $T_0$, net of any costs incurred at or prior to time $T_0$.
+To characterize this as the conventional "NPV approach", as is sometimes done in the ROV literature [e.g., @koppl2013real], can be confusing since $x(t)$ is already defined as project NPV at any time $t$ (net of $K_0$), and appears in the calculation of ROV. To be clear, then, in the present article, the conventional manner of project appraisal in Equation \ref{eq:conv} is referred to as the "CBA approach" or "CBA basis"; whereas "project NPV", denoted $x(t)$, refers to the expected value at time $t$ of the net benefit stream resulting from release and outscaling of the research product after time $T_0$, net of any costs incurred at or prior to time $T_0$.
 
 On an ROV basis, the investment $K_1$ required to implement the research is justified if
 
@@ -118,13 +118,13 @@ The ROV of stage 1 of a three stage project, $ROV_3(0)$, may be expressed as fol
 ROV_3(0) = e^{-r T_2} E[\max(ROV_2(T_2) - K_2, 0)]|_{t = 0}
 \end{equation}
 
-Where $ROV_2(T_2)$ is the ROV of stage 2 evaluated at $T_2$, the end of stage 1, $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) - K_2 > 0$. $ROV_2(T_2)$, in turn, is defined
+Where $ROV_2(T_2)$ is the ROV of stage 2 evaluated at $T_2$, the end of stage 1, $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) > K_2$. $ROV_2(T_2)$, in turn, is defined
 
 \begin{equation}
 ROV_2(T_2) = e^{-r T_1} E[\max(ROV_1(T_1) - K_1, 0)]|_{t = T_2}
 \end{equation}
 
-Where $ROV_1(T_1)$ is the ROV of stage 3 evaluated at $T_1$, the end of stage 2, $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and Stage 2 is considered successfully completed if $ROV_1(T_1) - K_1 > 0$. $ROV_1(T_1)$, finally, is just the one stage ROV of the project NPV evaluated at $T_1$.
+Where $ROV_1(T_1)$ is the ROV of stage 3 evaluated at $T_1$, the end of stage 2, $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and Stage 2 is considered successfully completed if $ROV_1(T_1) > K_1$. $ROV_1(T_1)$, finally, is just the one stage ROV of the project NPV evaluated at $T_1$.
 
 \begin{equation}
 ROV_1(T_1) = e^{-r T_0} E[\max(x(T_0) - K_0, 0)]|_{t = T_1}
@@ -133,7 +133,7 @@ ROV_1(T_1) = e^{-r T_0} E[\max(x(T_0) - K_0, 0)]|_{t = T_1}
 If $ROV_3(0)$ is greater than the investment $K_3$ required to implement stage 1, then investment in stage 1 is justified. The conventional CBA criterion would be
 
 \begin{equation}
-x(0) - \sum_{i = 0}^{2} e^{-r T_i} K_i > K_3 \:\: \rightarrow \:\: \text{invest in project}
+e^{-rT_0} E[x(T_0)]|_{t = 0} - \sum_{i = 0}^{2} e^{-r T_i} K_i > K_3 \:\: \rightarrow \:\: \text{invest in project}
 \end{equation}
 <!-- Generally, -->
 <!-- \begin{equation} -->
