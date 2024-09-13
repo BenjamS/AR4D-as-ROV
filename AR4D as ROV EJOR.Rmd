@@ -149,7 +149,6 @@ It is important to distinguish the work presented here from a "real options appr
 <!-- This is the ROV, from the donor's perspective, of a research project with a fixed time horizon. -->
 <!-- [The work presented here, by contrast, is concerned with the valuation, from the donor's standpoint, of agricultural research projects, transgenic or otherwise, as real options with fixed exercise dates (i.e., planned release dates).] -->
 
-
 # The incompatible underpinnings of existing ROV approaches
 
 ## Near market vs. far from market
@@ -1089,7 +1088,7 @@ dfROVnCheck <- data.frame(f_i = c(f1, f2, f3, f4), eta_i0 = c(eta_10, eta_20, et
 ```
 <!-- Ex-ante impact assessments of LBr potato in the target countries are underway, but have not yet been published at the time of writing [pers correspondence]. -->
 
-At the 2015 go/no-go decision point, no published ex-ante impact assessments of LBr potato in the target countries exist. For the pedagogical purposes of this exercise, we suppose that the donor conducts its own ex-ante impact assessment internally, finding that annual net benefits are likely to scale sublinearly with time by `r alphaQrly`% for every $1$% increase in time, reaching \$`r dNVT0ref * 10^3` thousand in year `r tRef / 4` after release. This hypothetical assessment corresponds to the undiscounted net benefit projection in the top panel of Figure \ref{fig:netBens}; and may be expressed mathematically as follows.
+At the 2015 go/no-go decision point, no published ex-ante impact assessments of LBr potato in the target countries exist. For the pedagogical purposes of this exercise, we suppose that the donor conducts its own ex-ante impact assessment internally, finding that annual net benefits are likely to scale sublinearly with time by `r alphaQrly`% for every $1$% increase in time, reaching \$`r dNVT0ref * 10^3` thousand in year `r tRef / 4` after release. This hypothetical assessment corresponds to the undiscounted net benefit projection in the top panel of Figure \ref{fig:netBens}, which may be expressed mathematically as follows.
 [when Marc's paper comes out add sentence: "in hindsight, this will prove an overly conservative estimate"]
 
 \begin{equation}
@@ -1114,7 +1113,7 @@ The only remaining information required to calculate ROV is the LBr potato up/ou
 With all of the necessary information in hand, stage 1 research ROV is calculated by first calculating the ROV of stage 4, the last stage, and then calculating the ROV of stage 3, and so forth, recursively, as explained in section \ref{sec:method}. In the present exercise, this results in a stage 1 ROV of \$`r format(round(f_n), scientific = F)`, which exceeds the stage 1 cost of \$ `r format(stage1Invest, scientific = F)` by \$`r format(round(f_n - stage1Invest), scientific = F)`. On the ROV basis, then, the stage 1 investment is justified. Conventional CBA (Equation \ref{eq:convCBA}), meanwhile, gives a present value of -\$`r format(abs(round(CBA)), scientific = F)`, whereby the stage 1 investment would be rejected.
 
 \begin{equation}
-x(0) - \sum_{i = 0}^3 e^{-r T_i} K_i < 530000 \:\: \rightarrow \:\: \text{reject project}
+1180000 - \sum_{i = 0}^3 e^{-r T_i} K_i < 530000 \:\: \rightarrow \:\: \text{reject project}
 \label{eq:convCBA}
 \end{equation}
 
@@ -1165,7 +1164,7 @@ X0min <- outUniroot$root
 
 ```
 
-In cases where no ex-ante impact assessment of project NPV is available, it may be instructive to solve stage 1 ROV for the break even project NPV, i.e. the value of $x(0)$ required to yield a stage 1 ROV equal to the stage 1 cost. In this example, the stage 1 break even project NPV is \$`r round(X0min * 10^-6, 3)` million.
+In cases where no ex-ante impact assessment of project NPV is available, it may be instructive to solve stage 1 ROV for the break even project NPV, i.e. the value of $x(0)$ required to yield a stage 1 ROV equal to the stage 1 cost. In this example, the stage 1 break even project NPV is \$`r round(X0min * 10^-6, 3)` million. Any project NPV above this value results in a stage 1 ROV greater than the investment required to implement stage 1.
 
 <!-- USAID-ABSP II program -->
 <!-- The project occurred in 4 distinct stages: 1) Late Blight resistant (LBr) event production and selection, 2) Wide area testing, 3) Compilation of the regulatory dossier, and 4) Registration and regulatory affairs. -->
