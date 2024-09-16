@@ -67,11 +67,11 @@ Agricultural research for development (AR4D) projects tend to be high reward, bu
 The notion of a real option, first introduced by Myers [-@myers1977determinants], is born of the analogous concept of a type of financial option known as the European call option. The holder of a European call option on an underlying security (a stock, for example) has the right, but not the obligation, to purchase the security for a predetermined price---called the "strike" or "exercise" price---at the end of a certain time period. Analogously, donors who "buy" a real option on an underlying project commit to funding the project for a certain time period, at the end of which they have the right, but not the obligation, to continue funding the subsequent stage of the project. In the case of research projects, for example, the subsequent stage at the end of time period $T_0$ might be the release and outscaling of a new crop variety developed during the main research stage. The value of such a real option (ROV), as evaluated at the time of the investment decision ($t = 0$), may be expressed mathematically as follows.
 
 \begin{equation}
-ROV(0) = e^{-r T_0} E[\max(x(T_0) - K_0, 0)]|_{t = 0}
+ROV_1(t)|_{t = 0} = e^{-r T_0} E[\max(x(T_0) - K_0, 0)]|_{t = 0}
 \label{eq:basic}
 \end{equation}
 
-Where $x(T_0)$ is project net present value (NPV) at the end of the research period $T_0$, $K_0$ is the cost of funding the subsequent project stage, and $r$ is the discount rate. By contrast, the comparable conventional appraisal of the project is calculated as
+Where $x(T_0)$ is project net present value (NPV) at the end of the research period $T_0$, $K_0$ is the cost of funding the subsequent project stage (e.g., release and outscaling of the finished research product), and $r$ is the discount rate. By contrast, the comparable conventional appraisal of the project is calculated as
 
 \begin{equation}
 e^{-r T_0} (E[x(T_0)]|_{t = 0} - K_0)
@@ -112,30 +112,29 @@ Extension of existing ROV methods to the AR4D context is also complicated by the
 
 Donors invest in each of these stages one at a time, consecutively, with investment in the subsequent stage contingent upon successful completion of the current stage. The donor's investment in stage one of a three stage project, then, is analogous to purchasing an option on stage two---i.e., the right but not the obligation to invest in stage two---which is in turn an option on stage three.
 
-The ROV of stage 1 of a three stage project, $ROV_3(0)$, may be expressed as follows.
+The ROV of stage 2 of a 3-stage project, $ROV_3(t)$, may be expressed as follows.
 
 \begin{equation}
-ROV_3(0) = e^{-r T_2} E[\max(ROV_2(T_2) - K_2, 0)]|_{t = 0}
+ROV_3(t)|_{t = 0} = e^{-r T_2} E[\max(ROV_2(T_2) - K_2, 0)]|_{t = 0}
 \label{eq:eg3stage}
 \end{equation}
 
-Where $ROV_2(T_2)$ is the ROV of stage 2 evaluated at $T_2$, the end of stage 1, $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) > K_2$. $ROV_2(T_2)$, in turn, is defined
+Where $ROV_2(T_2)$ is the ROV of stage 3 evaluated at $T_2$, the end of stage 1/beginning of stage 2, $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) > K_2$. $ROV_2(T_2)$, in turn, is defined
 
 \begin{equation}
 ROV_2(T_2) = e^{-r T_1} E[\max(ROV_1(T_1) - K_1, 0)]|_{t = T_2}
 \end{equation}
 
-Where $ROV_1(T_1)$ is the ROV of stage 3 evaluated at $T_1$, the end of stage 2, $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and Stage 2 is considered successfully completed if $ROV_1(T_1) > K_1$. $ROV_1(T_1)$, finally, is just the one stage ROV of the project NPV evaluated at $T_1$.
-
-\begin{equation}
-ROV_1(T_1) = e^{-r T_0} E[\max(x(T_0) - K_0, 0)]|_{t = T_1}
-\end{equation}
+Where $ROV_1(T_1)$ is the ROV of project NPV ($x(T_0)$) evaluated at $T_1$, the end of stage 2/beginning of stage 3, $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and stage 2 is considered successfully completed if $ROV_1(T_1) > K_1$. $ROV_1(T_1)$, finally, is just the single stage ROV already defined in Equation \ref{eq:basic}.
 
 If $ROV_3(0)$ is greater than the investment $K_3$ required to implement stage 1, then investment in stage 1 is justified. The conventional CBA criterion would be
 
 \begin{equation}
-e^{-rT_0} E[x(T_0)]|_{t = 0} - \sum_{i = 0}^{2} e^{-r T_i} K_i > K_3 \:\: \rightarrow \:\: \text{invest in project}
+e^{-rT_0} E[x(T_0)]|_{t = 0} - \sum_{i = 0}^{n - 1} e^{-r T_i} K_i > K_n \:\: \rightarrow \:\: \text{invest in project}
+\label{eq:cbaCrit}
 \end{equation}
+
+Where $n = 3$ in this example.
 <!-- Generally, -->
 <!-- \begin{equation} -->
 <!-- ROV_n(0) = e^{-r T_{n - 1}} E[\max(ROV_{n - 1}(T_{n - 1}) - K_{n - 1}, 0)]|_{t = 0} -->
@@ -558,7 +557,7 @@ Where
 \delta_0 = \frac{ \ln \left(\frac{x(0)}{K_0} \right) + \left(r - \frac{s^2}{2} \right) T_0} {s \sqrt{T_0}}
 \end{equation}
 
-The value of $\Phi(\delta_0)$ is instructive. It is the probability that $x(T_0)$ will exceed the exercise cost $K_0$. In real options parlance, it is the probability that the option finishes "in the money". To see this, note that $\delta_0$ may be rewritten as the negative standard score of $\ln(K_0/x(0))$.
+Note that the value of $\Phi(\delta_0)$ is instructive. It is the probability that $x(T_0)$ will exceed the exercise cost $K_0$---or, in real options parlance, the probability that the option finishes "in the money". To see this, note that $\delta_0$ may be rewritten as the negative standard score of $\ln(K_0/x(0))$.
 
 \begin{equation}
 \begin{split}
@@ -687,13 +686,13 @@ For the derivation of a multi-stage ROV formula, it is henceforth necessary to i
 Because $f_1$ is itself lognormally distributed, the same formula used to evaluate the ROV of $x(T_0)$ (Equation \ref{eq:genEq}) can be used to evaluate the ROV of $f_1(T_1)$. That is to say, the ROV of stage 2 of a 2-stage project may be expressed 
 \begin{equation}
 \begin{split}
-f_2(f_1, t; T_1, K_1, s, r)|_{t = 0} &= e^{-r T_2} E[\max(f(T_1) - K_1, 0)]\bigr|_{t = 0} \\
-&= f_1(0) \Phi(\delta_1 + \eta_{1,0} s \sqrt{T_1}) - e^{-r T_2} K_1 \Phi(\delta_1)
+f_2(f_1, t; T_1, K_1, s, r)|_{t = 0} &= e^{-r T_1} E[\max(f(T_1) - K_1, 0)]\bigr|_{t = 0} \\
+&= f_1(0) \Phi(\delta_1 + \eta_{1,0} s \sqrt{T_1}) - e^{-r T_1} K_1 \Phi(\delta_1)
 \end{split}
 \label{eq:rov2stage}
 \end{equation}
 
-Where $T_2$ is the time until completion of stage 1, $K_1$ is the research investment required upon successful completion of stage 1 at time $T_1$---where stage 1 is considered successfully completed if $f_1(T_1) > K_1$---and where
+Where $T_1$ is the time until completion of stage 1, $K_1$ is the research investment required upon successful completion of stage 1---where stage 1 is considered successfully completed if $f_1(T_1) > K_1$---and where
 
 \begin{equation}
 \delta_1 = \frac{ \ln \left(\frac{f_1(0)}{K_1} \right) - \left(r - \eta_{1,0}^2 \frac{s^2}{2} \right) T_1} {\eta_{1,0} s \sqrt{T_1}}
@@ -737,13 +736,14 @@ Such that the same process can be repeated for a function $f_3(f_2, t)$ to obtai
 
 \begin{equation}
 \begin{split}
-f_n(f_{n - 1}, t; T_{n - 1}, K_{n - 1}, s, r)|_{t = 0} &= e^{-r T_n} E[\max(f(T_{n - 1}) - K_{n - 1}, 0)]\bigr|_{t = 0} \\
+f_n(f_{n - 1}, t; T_{n - 1}, K_{n - 1}, s, r)|_{t = 0} &= e^{-r T_{n - 1}} E[\max(f(T_{n - 1}) - K_{n - 1}, 0)]\bigr|_{t = 0} \\
 &= f_{n - 1}(0) \Phi(\delta_{n - 1} + \eta_{n - 1, 0} s \sqrt{T_{n - 1}}) - e^{-r T_{n - 1}} K_{n - 1} \Phi(\delta_{n - 1}) \:\:;\:\:\: n \in \mathbb{N}_0
 \end{split}
 \label{eq:ROVn}
 \end{equation}
 
-Where $T_n < T_{n - 1} <...< T_0$ is the time until completion of stage 1 of the $n$-stage research project, $K_{n - 1}$ is the research investment required upon successful completion of stage 1 at time $T_{n - 1}$---where stage 1 is considered successfully completed if $f_{n - 1}(T_{n - 1}) > K_{n - 1}$---and where
+Where $T_{n - 1}$ is the time until completion of stage 1 of the $n$-stage research project, $K_{n - 1}$ is the research investment required upon successful completion of stage 1 at time $T_{n - 1}$---where stage 1 is considered successfully completed if $f_{n - 1}(T_{n - 1}) > K_{n - 1}$---and where
+<!-- ($T_{n - 1} < T_{n - 2} <...< T_0$) -->
 
 \begin{equation}
 \delta_{n - 1} = \frac{ \ln \left(\frac{f_{n - 1}(0)}{K_{n - 1}} \right) - \left(r - \eta_{n - 1, 0}^2 \frac{s^2}{2} \right) T_{n - 1}} {\eta_{n - 1, 0} s \sqrt{T_{n - 1}}}
@@ -1073,9 +1073,9 @@ m <- r
 dfROVn <- ROVn(X0, Kvec, tauVecQrs, m, s)
 f_n <- dfROVn$f_i[nrow(dfROVn)]
 #f_n - stage1Invest
-# NPV
-CBA <- X0 - sum(exp(-r * tauVecQrs) * Kvec) - stage1Invest
-#CBA
+# Conventional CBA
+CBAlhs <- X0 - sum(exp(-r * tauVecQrs) * Kvec)
+CBA <- CBAlhs - stage1Invest
 #===============================================================================
 # "Manual" check step by step
 eta_00 <- 1; f0 <- X0
@@ -1126,12 +1126,11 @@ Where $\Gamma(u,v)$ is the incomplete gamma function. The upper bound $T_{-1}$ i
 
 The only remaining information required to calculate ROV is the LBr potato up/outscaling cost due at $t = T_0$ upon successful completion of stage 4, and the project NPV volatility parameter $s$. For this pedagogical exercise, we hypothesize that the donor estimates the up/outscaling cost to be \$`r Kvec[1] * 10^-3` thousand. As mentioned in section \ref{sec:gBmDefens}, no project NPV time series exists whereby project volatility $s$ might be directly estimated. In practice, an implicit value for $s$ can be calculated by eliciting from experts upper and lower bounds on $x(T_0)$. That is to say, interpreting these bounds as the 95% confidence interval, a value for $s$ can be "backed out" from the assumption that project NPV follows a gBm (which implies lognormally distributed $x(T_0)$). In the present exercise, we hypothesize that such a process results in a value of $s=$ `r round(s, 3)`. This corresponds to a coefficient of variation ($s / (r \sqrt{T_3})$) of `r cv`, reflecting the high uncertainty that typically surrounds the expected impact of disruptive new technology a decade in advance of its completion and release.
 
-With all of the necessary information in hand, stage 1 research ROV is calculated by first calculating the ROV of stage 4, the last stage, and then calculating the ROV of stage 3, and so forth, recursively, as explained in section \ref{sec:method}. In the present exercise, this results in a stage 1 ROV of \$`r format(round(f_n), scientific = F)`, which exceeds the stage 1 cost of \$ `r format(stage1Invest, scientific = F)` by \$`r format(round(f_n - stage1Invest), scientific = F)`. On the ROV basis, then, the stage 1 investment is justified. Conventional CBA (Equation \ref{eq:convCBA}), meanwhile, gives a present value of -\$`r format(abs(round(CBA)), scientific = F)`, whereby the stage 1 investment would be rejected.
-
-\begin{equation}
-1180000 - \sum_{i = 0}^3 e^{-r T_i} K_i < 530000 \:\: \rightarrow \:\: \text{reject project}
-\label{eq:convCBA}
-\end{equation}
+With all of the necessary information in hand, stage 1 research ROV is calculated by first calculating the ROV of stage 4, the last stage, and then calculating the ROV of stage 3, and so forth, recursively, as explained in section \ref{sec:method}. In the present exercise, this results in an ROV of stage 2 research of \$`r format(round(f_n), scientific = F)`, which exceeds the stage 1 cost of \$`r format(stage1Invest, scientific = F)` by \$`r format(round(f_n - stage1Invest), scientific = F)`. On the ROV basis, then, the stage 1 investment is justified. By the conventional CBA criterion, meanwhile, the project would be rejected, as the left hand side of inequality \ref{eq:cbaCrit} works out to \$`r format(round(CBAlhs), scientific = F)`, which falls below the stage 1 cost by \$`r format(abs(round(CBA)), scientific = F)`.
+<!-- \begin{equation} -->
+<!-- 1180000 - \sum_{i = 0}^3 e^{-r T_i} K_i < 530000 \:\: \rightarrow \:\: \text{reject project} -->
+<!-- \label{eq:convCBA} -->
+<!-- \end{equation} -->
 
 The recursively calculated ROVs for each stage of research are presented in Table 2. Also included in this table are each stage's ROV elasticity with respect to project NPV and probability of finishing in the money, which are calculated in the process of calculating ROV. This provides additional information, not provided in conventional CBA, that the donor may find useful in their decision making process. [For each stage, the ROV elasticity with respect to project NPV gauges ROV sensitivity to changes in the underlying project NPV, while probability of expiring in the money gauges probability of successful completion of the stage.]
 
