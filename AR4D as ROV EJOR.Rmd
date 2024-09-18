@@ -112,22 +112,20 @@ ROV methods have so far developed primarily in the context of corporate projects
 
 Extension of existing ROV methods to the AR4D context is also complicated by the multistage nature of most AR4D projects. For example, many AR4D plant breeding projects involve a preliminary greenhouse and/or minimal field trial stage, followed by larger multi-location, multi-season field trials [@covarrubias2022breeding]. In transgenic projects, additional toxicological testing is required, followed by the compilation of a regulatory dossier and application for deregulation before the national competent authority in the target countries where the new technology is to be released [@schiek2016demys]. Finally, there is the release, distribution, and outscaling stage, which involves careful orchestration of complex networks of stakeholders and public-private partnerships.
 
-Donors invest in each of these stages one at a time, consecutively, with investment in the subsequent stage contingent upon successful completion of the current stage. The donor's investment in stage one of a three stage project, then, is analogous to purchasing an option on stage two---i.e., the right but not the obligation to invest in stage two---which is in turn an option on stage three.
-
-The ROV of stage 2 of a 3-stage project, $ROV_3(t)$, may be expressed as follows.
+Donors invest in each of these stages one at a time, consecutively, with investment in the subsequent stage contingent upon successful completion of the current stage. The donor's investment in stage 1 of a 3-stage project, then, is analogous to purchasing an option on stage two---i.e., the right but not the obligation to invest in stage 2---which is in turn an option on stage 3. This may be expressed as follows.
 
 \begin{equation}
 ROV_3(t)|_{t = 0} = e^{-r T_2} E[\max(ROV_2(T_2) - K_2, 0)]|_{t = 0}
 \label{eq:eg3stage}
 \end{equation}
 
-Where $ROV_2(T_2)$ is the ROV of stage 3 evaluated at $T_2$, the end of stage 1/beginning of stage 2, $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) > K_2$. $ROV_2(T_2)$, in turn, is defined
+Where $ROV_2(T_2)$ is the ROV of stage 3 evaluated at $T_2$, the end of stage 1, $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) > K_2$. And $ROV_2(T_2)$, in turn, is defined
 
 \begin{equation}
 ROV_2(T_2) = e^{-r T_1} E[\max(ROV_1(T_1) - K_1, 0)]|_{t = T_2}
 \end{equation}
 
-Where $ROV_1(T_1)$ is the ROV of project NPV ($x(T_0)$) evaluated at $T_1$, the end of stage 2/beginning of stage 3, $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and stage 2 is considered successfully completed if $ROV_1(T_1) > K_1$. $ROV_1(T_1)$, finally, is just the single stage ROV already defined in Equation \ref{eq:basic}.
+Where $ROV_1(T_1)$ is the ROV of project NPV ($x(T_0)$) evaluated at $T_1$, the end of stage 2, $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and stage 2 is considered successfully completed if $ROV_1(T_1) > K_1$. $ROV_1(T_1)$, finally, is just the single stage ROV already defined in Equation \ref{eq:basic}.
 
 If $ROV_3(0)$ is greater than the investment $K_3$ required to implement stage 1, then investment in stage 1 is justified. The comparable CBA criterion for any $n$-stage research project would be
 
@@ -144,10 +142,11 @@ Where $n = 3$ in this particular example.
 
 Existing ROV methods, meanwhile, focus primarily on single stage projects. The one exception is a multistage model proposed by Cassimon et al. [-@cassimon2004valuation] for the valuation of pharmaceutical trials, building upon the two stage or "compound option" model originally developed by Geske [-@geske1979valuation] in the financial context. Again, such work is not readily extensible to AR4D due to its corporate and financial theoretical underpinnings.
 
-In this article, we derive a method for evaluating the ROV of multistage AR4D projects (e.g., Equation \ref{eq:eg3stage}). Rather than build upon the existing ROV groundwork developed in the financial and corporate contexts, we demonstrate why that groundwork is incompatible with the AR4D context, and replace it with suitable assumptions. More specifically, in place of strained arguments to construe project NPV as a traded good in an efficient market, we show how an ROV model for AR4D research products follows from the definition of NPV itself, and from the choice of stochastic model to represent the time evolution of project NPV. Following the derivation, we describe a hypothetical use case wherein the derived model is applied to evaluate the ROV of stage 2 research of a real 4-stage AR4D project to develop a potato variety with resistance to Late Blight disease for release as a public good in two developing countries.
+In this article, we derive a method for evaluating the ROV of multistage AR4D projects (e.g., Equation \ref{eq:eg3stage}). Rather than build upon the existing ROV groundwork developed in the financial and corporate contexts, we demonstrate why that groundwork is incompatible with the AR4D context, and replace it with suitable foundations. More specifically, in place of strained arguments to construe project NPV as a traded good in an efficient market, we show how an ROV model for AR4D research products follows from the definition of NPV itself, and from the choice of stochastic model to represent the time evolution of project NPV. Following the derivation, we describe a hypothetical use case wherein the derived model is applied to evaluate the ROV of stage 2 research of a real 4-stage AR4D project to develop a potato variety with resistance to Late Blight disease for release as a public good in two developing countries.
 <!-- [The derivation begins with a defense of the geometric Brownian motion stochastic model of project NPV as striking the right balance between realism and methodological tractability in the AR4D context.] -->
 
-It is important to distinguish the work presented here from a "real options approach" developed by numerous authors to determine the optimal delay, from a social planner's perspective, of the release of a finished transgenic agricultural R&D product with uncertain environmental impact [@scatasta2006irreversibility; @demont2004biodiversity; @wesseler2007maximum; @demont2005irreversible]. That work is an adaptation of a method developed by Dixit and Pindyck [-@dixit1994investment] for determining the optimal time at which a corporate real option should be exercised. As such, it is concerned with the agricultural research analogue of another type of financial option, the American call option, which may be exercised at any moment up to a given time limit [@hull9thEdition]. By contrast, here the focus is on ROV of the European call option type expressed in Equation \ref{eq:basic}.
+It is important to distinguish the work presented here from a "real options approach" developed by numerous authors to determine the optimal delay, from a social planner's perspective, of the release of a finished transgenic agricultural R&D product with uncertain environmental impact [@scatasta2006irreversibility; @demont2004biodiversity; @wesseler2007maximum; @demont2005irreversible]. That work is an adaptation of a method developed by Dixit and Pindyck [-@dixit1994investment] for determining the optimal time at which a corporate real option should be exercised, conflated with the notion of "quasi-option value" developed in the environmental economics literature [@fisher2000investment]. As such, it is concerned with the agricultural research analogue of another type of financial option, the American call option, which may be exercised at any moment up to a given time limit [@hull9thEdition]. Here the focus is limited to ROV of the European call option type, expressed in Equation \ref{eq:basic}.
+<!-- +The ROV approach developed here is squarely founded upon the notion of the European call option defined in Equation \ref{eq:basic}. The optimal delay approach, on the other hand, is conceptually more akin to a different kind of financial option known as the American call option---which allows for exercise at any time before the end of the (potentially infinite) period $T$ [Hull]---and is, moreover, conflated with notions of "quasi-option value" developed in the environmental economics literature []. -->
 <!-- This is the ROV, from the donor's perspective, of a research project with a fixed time horizon. -->
 <!-- [The work presented here, by contrast, is concerned with the valuation, from the donor's standpoint, of agricultural research projects, transgenic or otherwise, as real options with fixed exercise dates (i.e., planned release dates).] -->
 
@@ -1435,7 +1434,7 @@ This is the one dimensional heat equation, with fundamental solution
 v(u, \tau) = \frac{1}{\sqrt{2 \pi s^2 \tau}} \int_{-\infty}^{\infty} v(\ell, 0) e^{-\frac{(u - \ell)^2}{2 s^2}} \:d \ell
 \end{equation}
 
-The boundary condition in this case is $f(x, T) = \max(X(T) - K, 0)$, which in terms of $v(u, \tau)$ is $v(u, 0) = \max(e^u - K, 0)$.
+The boundary condition in this case is $f(x, T) = \max(x(T) - K, 0)$, which in terms of $v(u, \tau)$ is $v(u, 0) = \max(e^u - K, 0)$.
 
 \begin{equation}
 \begin{split}
