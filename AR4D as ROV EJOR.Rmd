@@ -455,7 +455,7 @@ gg_gbm + gg_cpp + plot_layout(nrow = 1)
 
 In the financial context, the gBm model is eschewed as unrealistic because it does not reflect the abrupt jumps empirically observed in price series, which are inconsistent with a lognormal size distribution. Instead, "jump" or "jump-diffusion" models are recommended, which more accurately capture these abrupt swings in value [@merton1976option, @tankov2003financial]. An example of a jump process, known as the compound Poisson process (cPp), is displayed in the right panel of Figure \ref{fig:NPVevol} (algorithm 6.2 in Cont and Tankov [-@tankov2003financial]).
 
-The gBm model is methodologically attractive because it allows for a closed form solution to the Black-Scholes PDE. Jump and jump diffusion models, on the other hand, come at the high methodological cost of requiring numerical solutions to the Black-Scholes PDE. The development of corporate ROV methods has adopted the financial context's consensus against gBm in favor of jump and jump diffusion models, thus inheriting the same high degree of methodological complexity. Trigeorgis once characterized this complexity as the unavoidable "bitter pill" that all serious ROV practitioners must come to grips with [-@trigeorgis1993real].
+The gBm model is methodologically attractive because it allows for a closed form solution to the Black-Scholes PDE. Jump and jump diffusion models, on the other hand, come at the high methodological cost of requiring numerical solutions to the Black-Scholes PDE. Corporate ROV methods have adopted the financial context's consensus against gBm in favor of jump and jump diffusion models, thus inheriting the same high degree of methodological complexity. Trigeorgis once characterized this complexity as the unavoidable "bitter pill" that all serious ROV practitioners must come to grips with [-@trigeorgis1993real].
 <!-- which are exceedingly difficult to explain to anyone who is not a financial expert -->
 <!-- # ```{r Fig2, fig.show = "hold", fig.width = 5, fig.height=2, fig.align="center", fig.cap="\\label{fig:NPVevol}(Left) An example of NPV changing randomly in every time step. (Right) An example of NPV changing randomly at random time steps, and otherwise remaining constant.", echo = FALSE} -->
 <!-- gg_gbm + gg_cpp + plot_layout(nrow = 1) -->
@@ -574,7 +574,7 @@ Hence,
 \end{split}
 \end{equation}
 
-## Relation to the Black-Scholes derivation
+## Derivation via the stochastic calculus and Relation to the Black-Scholes derivation
 
 Geometric Brownian motion is a particular case of a broader category of stochastic processes known as Ito processes, defined as follows.
 
@@ -618,6 +618,8 @@ fr = \frac{\partial f}{\partial x} x r + \frac{\partial f}{\partial t} + \frac{s
 \label{eq:bsPDEar4d}
 \end{equation}
 
+This may then be solved for $f$ under the boundary condition $f(T_0) = \max(x(T_0) - K_0, 0)$, resulting in the same expression obtained through straightforward integration in Equation \ref{eq:rov}. (See Appendix for details.)
+
 To reach the same result in the financial context, Black and Scholes [-@black1973valuation] famously noted that equations \ref{eq:gbmEq} and \ref{eq:itoLem} could be combined so as to eliminate the random term as follows.
 
 \begin{equation}
@@ -632,13 +634,13 @@ In the financial context, the left-hand side of this equation may be thought of 
 \label{eq:BSarb}
 \end{equation}
 
-Equating the right-hand side of this equation with the right-hand side of the previous equation, the $\Delta t$'s cancel, resulting in Equation \ref{eq:bsPDEar4d}. The PDE may then be solved for $f$ under the boundary condition $f(T_0) = \max(x(T_0) - K_0, 0)$, resulting in the same expression obtained through straightforward integration in Equation \ref{eq:rov}. (See Appendix for details.)
+Equating the right-hand side of this equation with the right-hand side of the previous equation, the $\Delta t$'s cancel, resulting in Equation \ref{eq:bsPDEar4d}.
 <!-- the Black-Scholes PDE. -->
 <!-- \begin{equation} -->
 <!-- \left(f - \frac{\partial f}{\partial x} x \right) r = \frac{\partial f}{\partial t} + \frac{s^2 x^2}{2} \frac{\partial^2 f}{\partial x^2} -->
 <!-- \end{equation} -->
 
-Note that the Black-Scholes derivation hinges critically upon the assumption that $x(t)$ follows a gBm. As discussed above in section \ref{sec:gBmDefens}, this assumption is largely rejected in the literature subsequent to Black and Scholes' seminal paper, thus rendering Equation \ref{eq:bsInsight}, and the resulting closed form in Equation \ref{eq:rov}, of mere academic interest in the financial and corporate ROV contexts.
+Note that the Black-Scholes derivation hinges critically upon the assumption that $x(t)$ follows a gBm. As discussed above in section \ref{sec:gBmDefens}, this assumption is largely rejected in the literature subsequent to Black and Scholes' seminal paper, thus rendering Equation \ref{eq:bsInsight} and the resulting closed form in Equation \ref{eq:rov} of mere academic interest in the financial and corporate ROV contexts.
 <!-- Also as discussed above, in the AR4D context the assumption that $x(t)$ follows a gBm may be considered valid, such that Equation \ref{eq:bsInsight} is valid in the AR4D context. The AR4D compatible Black-Scholes PDE may then be derived by replacing the no-arbitrage argument, which is invalid in the AR4D context, with the following logic: Since the random element has been eliminated from Equation \ref{eq:bsInsight}, then $x$ and $f$ must change at their expected rates. That is to say, $\Delta x$ and $\Delta f$ in Equation \ref{eq:bsInsight} may be replaced by $E[\Delta x]$ and $E[\Delta f]$. As mentioned above, the expected growth rate of $x$, $E[\Delta x / x]$, is by definition $r \Delta t$; and hence $E[\Delta x] = rx \Delta t$. Likewise, ROV ($f$) is defined as an expected future value discounted back to the present, and thus also, by definition, has an expected growth rate of $E[\Delta f/f] = r \Delta t$, such that $E[\Delta f] = rf \Delta t$. Making the relevant substitutions in Equation \ref{eq:bsInsight} results in the Black-Scholes PDE. Alternatively, the Black-Scholes PDE is also obtained by substituting $r f \Delta t$ for $E[\Delta f]$ in Equation \ref{eq:Ef1}. -->
 <!-- \begin{equation} -->
 <!-- \begin{split} -->
@@ -656,12 +658,12 @@ To tidy up, note that, since the expected growth rate of ROV is defined as $r\De
 A further consequence of Ito's lemma is that log changes in $f$ are normally distributed with mean and variance
 
 \begin{equation}
-E\left[\left( \frac{f(\tilde{T_0})}{f(0)} \right) \right]\biggr|_{t = 0} = \left(r - \eta_{1,0}^2 \frac{s^2}{2} \right) T_0
+E\left[\left( \frac{f(T_1)}{f(0)} \right) \right]\biggr|_{t = 0} = \left(r - \eta_{1,0}^2 \frac{s^2}{2} \right) T_1
 \label{eq:muLf1_b}
 \end{equation}
 
 \begin{equation}
-Var\left[\left( \frac{f(T_0)}{f(0)} \right) \right]\biggr|_{t = 0} = \eta_{1,0}^2 s^2 T_0
+Var\left[\left( \frac{f(T_1)}{f(0)} \right) \right]\biggr|_{t = 0} = \eta_{1,0}^2 s^2 T_1
 \label{eq:sigLf1}
 \end{equation}
 
@@ -669,7 +671,7 @@ While the Ito calculus is not necessary for deriving the single stage ROV formul
 
 ## Extension to multi-stage ROV \label{sec:method}
 
-For the derivation of a multi-stage ROV formula, it is henceforth necessary to index $f$ as $f_1$, $f_2$,..., on up to $f_n$. (The $f_i$ correspond to the $ROV_i$ appearing in the Introduction). Following this schema, $f_0$ corresponds to project NPV $x$.
+For the derivation of a multi-stage ROV formula, it is henceforth necessary to index $f$ as $f_1$, $f_2$,..., on up to $f_n$. (The $f_i$ correspond to the $ROV_i$ appearing in the Introduction). Following this schema, $f_1$ corresponds to $f$ above, and $f_0$ corresponds to project NPV $x$.
 
 Because $f_1$ is itself lognormally distributed, the same formula used to evaluate the ROV of $x(T_0)$ (Equation \ref{eq:genEq}) can be used to evaluate the ROV of $f_1(T_1)$. That is to say, the ROV of stage 2 of a 2-stage project may be expressed 
 \begin{equation}
@@ -713,11 +715,11 @@ rf_2 = f_1 r \frac{\partial f_2}{\partial f_1} + \frac{\partial f_2}{\partial t}
 Which may then be solved for $f_2$ under the boundary condition $f_2(0) = \max(f_1(T_1) - K_1, 0)$ as another way of obtaining Equation \ref{eq:rov2stage}. And it follows, moreover, that $f_2$ is lognormally distributed with log return mean and variance
 
 \begin{equation}
-E\left[\left(\frac{f_2(T_1)}{f_2(0)} \right) \right]\biggr|_{t = 0} = \left(r - \eta_{2, 0}^2 \frac{s^2}{2} \right) T_1
+E\left[\left(\frac{f_2(T_2)}{f_2(0)} \right) \right]\biggr|_{t = 0} = \left(r - \eta_{2, 0}^2 \frac{s^2}{2} \right) T_2
 \end{equation}
 
 \begin{equation}
-Var\left[ \left( \frac{f_2(T_1)}{f_2(0)} \right) \right]\biggr|_{t = 0} = \eta_{2,0}^2 s^2 T_1
+Var\left[ \left( \frac{f_2(T_2)}{f_2(0)} \right) \right]\biggr|_{t = 0} = \eta_{2,0}^2 s^2 T_2
 \end{equation}
 
 Such that the same process can be repeated for a function $f_3(f_2, t; T_2, K_2, s, r)$, i.e., the ROV of stage 2 of a 3-stage research project, and so on for the ROV of stage 2 of any $n$-stage project, $f_n(f_{n - 1}, t; T_{n - 1}, K_{n - 1}, s, r)$,
@@ -1312,7 +1314,7 @@ For purposes of exposition, I have focused here on the valuation of transgenic p
 
 <!-- Proof: -->
 
-(The proof below closely follows that of Hull in the appendix to chapter 13 of his book [-@hull9thEdition]. It is presented here solely for the reader's convenience, with no claim to originality.)
+(The proof below closely follows that of Hull in the appendix to chapter 13 of his book [-@hull9thEdition].)
 <!-- _Part 1_ -->
 
 By definition, for a random variable $q$ and a constant $C$,
@@ -1371,8 +1373,8 @@ The remaining integral on the right-hand side of the definition resolves as foll
 &= \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} e^{\nu + \frac{\omega^2}{2}} \: du \\
 &= e^{\nu + \frac{\omega^2}{2}} \frac{1}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
 &= \frac{E[q]}{\sqrt{2 \pi}} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} e^{-\frac{(u - \omega)^2}{2}} \: du \\
-&= \frac{E[q]} \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u - \omega) \: du \\
-&= \frac{E[q]} \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right)
+&= E[q] \int_{\frac{\ln(C) - \nu}{\omega}}^{\infty} \phi(u - \omega) \: du \\
+&= E[q] \Phi \left(- \frac{\ln(C) - \nu}{\omega} + \omega \right)
 \end{split}
 \end{equation}
 
