@@ -116,20 +116,20 @@ ROV methods have so far developed primarily in the context of corporate projects
 
 Extension of existing ROV methods to the AR4D context is also complicated by the multistage nature of most AR4D projects. For example, many AR4D plant breeding projects involve a preliminary greenhouse and/or minimal field trial stage, followed by larger multi-location, multi-season field trials [@covarrubias2022breeding]. In transgenic projects, additional toxicological testing is required, followed by the compilation of a regulatory dossier and application for deregulation before the national competent authority in the target countries where the new technology is to be released [@schiek2016demys]. Finally, there is the release, distribution, and outscaling stage, which involves careful orchestration of complex networks of stakeholders and public-private partnerships.
 
-Donors invest in each of these stages one at a time, consecutively, with investment in the subsequent stage contingent upon successful completion of the current stage. The donor's investment in stage 1 of a 3-stage project, then, is analogous to purchasing an option on stage two---i.e., the right but not the obligation to invest in stage 2---which is in turn an option on stage 3. This may be expressed as follows.
+Donors invest in each of these stages one at a time, consecutively, with investment in the subsequent stage contingent upon successful completion of the current stage. The donor's investment in stage 1 of a 3-stage project, then, is analogous to purchasing an option on stage two---i.e., the right but not the obligation to invest in stage 2---which is in turn an option on stage 3. The ROV of stage 1 of such a project is the value of the option to invest in stage two. This may be expressed as follows.
 
 \begin{equation}
 ROV_3(t)|_{t = 0} = e^{-r T_2} E[\max(ROV_2(T_2) - K_2, 0)]|_{t = 0}
 \label{eq:eg3stage}
 \end{equation}
 
-Where $ROV_2(T_2)$ is the ROV of stage 3 evaluated at $T_2$ (the end of stage 1), $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) > K_2$. And $ROV_2(T_2)$, in turn, is defined
+Where $ROV_2(T_2)$ is the ROV of stage 2 evaluated at $T_2$ (the end of stage 1), $K_2$ is the cost of investing in stage 2 upon successful completion of stage 1; and stage 1 is considered successfully completed if $ROV_2(T_2) > K_2$. And $ROV_2(T_2)$, in turn, is defined
 
 \begin{equation}
 ROV_2(T_2) = e^{-r T_1} E[\max(ROV_1(T_1) - K_1, 0)]|_{t = T_2}
 \end{equation}
 
-Where $ROV_1(T_1)$, finally, is the ROV of project NPV ($x(T_0)$) evaluated at $T_1$ (the end of stage 2), defined in Equation \ref{eq:basic}. $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and stage 2 is considered successfully completed if $ROV_1(T_1) > K_1$.
+Where $ROV_1(T_1)$ is the ROV of the third and last stage of research evaluated at $T_1$ (the end of stage 2), $K_1$ is the cost of investing in stage 3 upon successful completion of stage 2; and stage 2 is considered successfully completed if $ROV_1(T_1) > K_1$. And $ROV_1(T_1)$, in turn, is the ROV of the last stage---the value of the option to invest in release/outscaling/marketing of the finished research product with NPV $x(T_0)$---as defined in Equation \ref{eq:basic}.
 
 If $ROV_3(0)$ is greater than the investment $K_3$ required to implement stage 1, then investment in stage 1 is justified. The comparable CBA criterion for any $n$-stage research project would be
 
@@ -679,7 +679,7 @@ While the Ito calculus is not necessary for deriving the single stage ROV formul
 
 For the derivation of a multistage ROV formula, it is henceforth necessary to index $f$ as $f_1$, $f_2$,..., on up to $f_n$. (The $f_i$ correspond to the $ROV_i$ appearing in the Introduction). Following this schema, $f_1$ corresponds to $f$ above, and $f_0$ corresponds to project NPV $x$.
 
-Because $f_1$ is itself lognormally distributed, the same formula used to evaluate the ROV of $x(T_0)$ can be used to evaluate the ROV of $f_1(T_1)$. That is to say, Equation \ref{eq:genEq} may be evaluated at $q = f_1(T_1)$ and $C = K_1$ to calculate $f_2$, the ROV of stage 2 of a 2-stage project.
+Because $f_1$ is itself lognormally distributed, the same formula used to evaluate the ROV of $x(T_0)$ can be used to evaluate the ROV of $f_1(T_1)$. That is to say, Equation \ref{eq:genEq} may be evaluated at $q = f_1(T_1)$ and $C = K_1$ to calculate $f_2$, the value of the option to invest in the last stage of research.
 
 \begin{equation}
 \begin{split}
@@ -723,7 +723,7 @@ Var\left[ \left( \frac{f_2(T)}{f_2(t)} \right) \right]\biggr|_{t = 0} &= \eta_{2
 \end{split}
 \end{equation}
 
-Whereby it follows that the same formula used to evaluate the ROV of $x(T_0)$ and $f_1(T_1)$ can be used to evaluate the ROV of $f_2(T_2)$. That is to say, Equation \ref{eq:genEq} may be evaluated at $q = f_2(T_2)$ and $C = K_2$ to calculate $f_3$, the ROV of stage 2 of a 3-stage project.
+Whereby it follows that the same formula used to evaluate the ROV of $x(T_0)$ and $f_1(T_1)$ can be used to evaluate the ROV of $f_2(T_2)$. That is to say, Equation \ref{eq:genEq} may be evaluated at $q = f_2(T_2)$ and $C = K_2$ to calculate $f_3$, the value of the option to invest in the second to last stage of research. 
 
 \begin{equation}
 \begin{split}
@@ -739,7 +739,7 @@ Where $T_2$ is the time until completion of stage 1, $K_2$ is the research inves
 \delta_2 = \frac{ \ln \left(\frac{f_2(0)}{K_2} \right) - \left(r - \eta_{2,0}^2 \frac{s^2}{2} \right) T_2} {\eta_{2,0} s \sqrt{T_2}}
 \end{equation}
 
-And so on and so forth, it follows generally that the ROV of stage 2 of any $n$-stage project, $f_n$, is an Ito process,
+And so on and so forth, it follows generally that the ROV of stage 1 of any $n$-stage project, $f_n$, is an Ito process,
 
 \begin{equation}
 \Delta f_n = \left( \frac{\partial f_n}{\partial f_{n - 1}} r f_{n - 1} + \frac{\partial f_n}{\partial t} + \eta_{n - 1, 0}^2 \frac{s^2 f_{n - 1}^2}{2} \frac{\partial^2 f_n}{\partial f_{n - 1}^2} \right) \Delta t + f_n \eta_{n, 0} s \epsilon \sqrt{\Delta t}
@@ -757,7 +757,7 @@ Var\left[ \left( \frac{f_n(T)}{f_n(t)} \right) \right]\biggr|_{t = 0} &= \eta_{n
 \label{eq:EnVarlFn}
 \end{equation}
 
-Such that a general formula for the ROV of stage 2 of any $n$-stage project may be resolved by evaluating Equation \ref{eq:genEq} at $q = f_{n - 1}(T_{n - 1})$, $C = K_{n - 1}$, giving
+Such that a general formula for the ROV of stage 1 of any $n$-stage project may be resolved by evaluating Equation \ref{eq:genEq} at $q = f_{n - 1}(T_{n - 1})$, $C = K_{n - 1}$, giving
 
 \begin{equation}
 \begin{split}
@@ -774,9 +774,9 @@ Where $T_{n - 1}$ is the time until completion of stage 1 of the $n$-stage resea
 \delta_{n - 1} = \frac{ \ln \left(\frac{f_{n - 1}(0)}{K_{n - 1}} \right) - \left(r - \eta_{n - 1, 0}^2 \frac{s^2}{2} \right) T_{n - 1}} {\eta_{n - 1, 0} s \sqrt{T_{n - 1}}}
 \end{equation}
 
-The ROV of stage 2 of any $n$-stage project is thus calculated recursively, starting with the calculation of the last stage $f_1(x, t; T_0, K_0, s, r)|_{t = 0}$, which then feeds into the calculation of the second to last stage, $f_2(f_1, t; T_1, K_1, s, r)|_{t = 0}$, and so forth until the calculation of first stage $f_n(f_{n - 1}, t; T_{n - 1}, K_{n - 1}, s, r)|_{t = 0}$. The value $f_i$ calculated at each stage is the ROV of the subsequent stage $f_{i-1}$.
+The ROV of stage 1 of any $n$-stage project is thus calculated recursively, starting with the calculation of the ROV of the last stage $f_1(x, t; T_0, K_0, s, r)|_{t = 0}$, which then feeds into the calculation of the ROV of the second to last stage, $f_2(f_1, t; T_1, K_1, s, r)|_{t = 0}$, and so forth until the calculation of first stage ROV $f_n(f_{n - 1}, t; T_{n - 1}, K_{n - 1}, s, r)|_{t = 0}$. The ROV $f_i$ calculated at each stage is the value of the option to invest in the subsequent stage.
 
-In this process, the respective probabilities of finishing in the money, $\Phi(\delta_i)$, and sensitivity to changes in project NPV, $\eta_{i, 0}$, are calculated for each stage. To be clear, the quantity $\eta_{i, 0}$ is the elasticity of $f_i$ with respect to project NPV for each project stage $i \in [0, n]$, defined
+In this process, the respective probabilities of finishing in the money (project stage success), $\Phi(\delta_i)$, and sensitivity to changes in project NPV, $\eta_{i, 0}$, are calculated for each stage. To be clear, the quantity $\eta_{i, 0}$ is the elasticity of $f_i$ with respect to project NPV for each project stage $i \in [0, n]$, defined
 
 \begin{equation}
 \eta_{i, 0} = \frac{f_{i - 1}}{f_{i}} \frac{\partial f_{i}}{\partial f_{i - 1}} \eta_{i - 1, 0} \:\:;\:\:\: 0 \geq i \leq n \:\:\: \eta_{0,0} = 1
@@ -947,7 +947,7 @@ The donor, USAID, originally awarded the LBr potato research contract to Cornell
 In the multistage real options language developed above, USAID bought an option on stage 2 of a 4 stage LBr potato research project when it awarded the original contract to Cornell; but this option expired out of the money at the end of stage 1. USAID then again bought an option on stage 2 research when it transferred the contract to MSU. This time, the option expired in the money, triggering investment in stage 2 research. The investment in stage 2 research is an option on stage 3.
 <!-- , and is now approaching expiry in the money. -->
 
-The aim of the present exercise is to calculate the ROV of stage 2 of the 4-stage LBr potato research project that USAID awarded to MSU in 2015. This is the value of USAID's option, but not obligation, to fund stage 2 once stage 1 is complete. The exercise is conducted from the donor's perspective in the months prior to the "go/no-go" stage 1 investment decision. All values are given in terms of 2015 US dollars.
+The aim of the present exercise is to calculate the ROV of stage 1 of the 4-stage LBr potato research project that USAID awarded to MSU in 2015. This is the value of USAID's option to fund stage 2 once stage 1 is complete. The exercise is conducted from the donor's perspective in the months prior to the "go/no-go" stage 1 investment decision. All values are given in terms of 2015 US dollars.
 
 In order to make the calculation, the research stage and final launch costs $K_0, K_1, \dots, K_4$ and time horizons $T_0, T_1, \dots, T_3$ listed in Table 1 are required, as well as the quarterly discount rate $r$, the project NPV volatility $s$, and the project NPV at the time of the go/no-go decision to invest in stage 1 LBr research, $x(0)$.
 
@@ -1148,7 +1148,7 @@ Where $\Gamma(u,v)$ is the incomplete gamma function. The upper bound $T_{-1}$ i
 
 The only remaining information required to calculate ROV is the LBr potato release and outscaling cost due at $t = T_0$ upon successful completion of stage 4, and the project NPV volatility parameter $s$. For this pedagogical exercise, it is hypothesized that the donor estimates the release and outscaling cost to be \$`r Kvec[1] * 10^-3` thousand. As mentioned in section \ref{sec:gBmDefens}, no project NPV time series exists whereby project volatility $s$ might be directly estimated. In practice, an implicit value for $s$ can be calculated by eliciting from experts upper and lower bounds on $x(T_0)$. That is to say, interpreting these bounds as the 95% confidence interval, a value for $s$ can be "backed out" from the assumption that project NPV follows a gBm (which implies lognormally distributed $x(T_0)$). In the present exercise, we hypothesize that such a process results in a value of $s=$ `r round(s, 3)`. This corresponds to a coefficient of variation ($s / (r \sqrt{T_0})$) of `r cv`, reflecting the high uncertainty that typically surrounds the expected impact of disruptive new technology a decade in advance of its completion and release.
 
-With all of the necessary information in hand, the ROV of stage 2 LBr research is calculated by first calculating the ROV of stage 4, the last stage, and then calculating the ROV of stage 3, and so forth, recursively, as explained in section \ref{sec:method}. In the present exercise, this results in an ROV of stage 2 LBr research of \$`r format(round(f_n), scientific = F)`, which exceeds the stage 1 cost of \$`r format(stage1Invest, scientific = F)` by \$`r format(round(f_n - stage1Invest), scientific = F)`. On the ROV basis, then, the stage 1 investment is justified. By the conventional CBA criterion, meanwhile, the project would be rejected, as the left-hand side of inequality \ref{eq:cbaCrit} works out to \$`r format(round(CBAlhs), scientific = F)`, which falls below the stage 1 cost by \$`r format(abs(round(CBA)), scientific = F)`.
+With all of the necessary information in hand, the ROV of stage 1 LBr research is calculated by first calculating the ROV of stage 4, the last stage, and then calculating the ROV of stage 3, and so forth, recursively, as explained in section \ref{sec:method}. In the present exercise, this results in a stage 1 LBr research ROV of \$`r format(round(f_n), scientific = F)`, which exceeds the stage 1 cost of \$`r format(stage1Invest, scientific = F)` by \$`r format(round(f_n - stage1Invest), scientific = F)`. On the ROV basis, then, the stage 1 investment is justified. By the conventional CBA criterion, meanwhile, the project would be rejected, as the left-hand side of inequality \ref{eq:cbaCrit} works out to \$`r format(round(CBAlhs), scientific = F)`, which falls below the stage 1 cost by \$`r format(abs(round(CBA)), scientific = F)`.
 <!-- \begin{equation} -->
 <!-- 1180000 - \sum_{i = 0}^3 e^{-r T_i} K_i < 530000 \:\: \rightarrow \:\: \text{reject project} -->
 <!-- \label{eq:convCBA} -->
@@ -1166,7 +1166,7 @@ dfROVn$eta_i0 <- round(dfROVn$eta_i0, 3)
 dfROVn$probSuc <- round(dfROVn$probSuc, 3)
 dfROVn <- dfROVn[order(dfROVn$Stage, decreasing = F), ]
 table_title <- "LBr potato project stage 1-4 ROV"
-colnames(dfROVn) <- c("Stage i", "ROV of stage i+1", "ROV elasticity w.r.t. project NPV", "Probability of success")
+colnames(dfROVn) <- c("Stage", "ROV", "ROV elasticity w.r.t. project NPV", "Probability of success")
 dfROVn %>%
   knitr::kable(
     format = "latex",
@@ -1294,7 +1294,7 @@ In cases where no ex-ante impact assessment of project NPV is available, it may 
 
 The ROV method presented in this article is novel in two regards. First of all, whereas most ROV methods build off of the foundations of financial options---often resulting in strained arguments that attempt to construe projects as traded goods in efficient markets---here the method is built upon suitable non-market foundations. These non-market foundations are quite simple when compared to the financial assumptions. Instead of the replicating portfolios/complete markets and no-arbitrage rule assumptions required in financial and corporate contexts---assumptions which in turn rest upon a host of other assumptions regarding the existence of competitive market equilibrium---the method presented here is based on the assumption that future values of project NPV are lognormally distributed (i.e., follow a gBm). The other main foundation, that project NPV and ROV are expected to grow at the discount rate, follows trivially from the definition of discounted future values and does not have to be assumed.
 
-Secondly, the proposed method accommodates the multistage structure of most AR4D projects. The key step in the derivation permitting this development is the demonstration via Ito's lemma that ROV is itself lognormally distributed with computable parameters given in Equations \ref{eq:EnVarlFn}. Since the single stage ROV formula applies to any lognormally distributed variable, ROV itself may then be fed back into this formula to evaluate the ROV of ROV; and this may be repeated to evaluate the ROV of stage two of a project of any number of stages. In the process of computing the ROV of stage 2 of a multistage project, the ROV of all subsequent project stages, together with their respective probability of success and sensitivity to changes in the underlying project NPV, are also computed, providing the donor with potentially useful complementary information on which to base the strategic go/no-go funding decision for stage 1.
+Secondly, the proposed method accommodates the multistage structure of most AR4D projects. The key step in the derivation permitting this development is the demonstration via Ito's lemma that ROV is itself lognormally distributed with computable parameters given in Equations \ref{eq:EnVarlFn}. Since the single stage ROV formula applies to any lognormally distributed variable, ROV itself may then be fed back into this formula to evaluate the ROV of ROV; and this may be repeated to evaluate the stage 1 ROV of a project of any number of stages. In the process of computing the stage 1 ROV of a multistage project, the ROV of all subsequent project stages, together with their respective probability of success and sensitivity to changes in the underlying project NPV, are also computed, providing the donor with potentially useful complementary information on which to base the strategic go/no-go funding decision for stage 1.
 
 The multistage ROV model derived in this article is of course not limited to transgenic projects of the type explored in the illustrative example above, but rather applies just as well to the valuation of conventional crop and livestock breeding projects, as well as to multistage AR4D projects not necessarily built around the objective of genetic gain. This includes, for example, projects involving digital agriculture, value chain integration, social capital formation, agricultural biodiversity, environmental services, climate smart agriculture, agroecology, etc., and combinations thereof. While AR4D is the motivating context of the present work, the model presented here is generally applicable to the valuation of any far-from-market, multistage venture.
 <!-- derivation at no point implies all the problematic assumptions of financial/corporate option value... -->
